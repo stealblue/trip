@@ -94,8 +94,8 @@
 
 import React from "react";
 
-const Chat = () => {
+const ChatPage = () => {
   return <div>chat</div>;
 };
 
-export default Chat;
+export default ChatPage;
