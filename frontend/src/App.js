@@ -7,6 +7,9 @@ import WritePage from "./pages/board/WritePage";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
+// import Accommo from "./pages/Accommo/AccommoListPage";
+// import Trans from "./pages/Trans/TransListPage";
 
 const boardData = [
   {
@@ -94,6 +97,9 @@ function App() {
           path="/board"
           element={<BoardListPage boardData={boardData} />}
         />
+        <Route path="/regionTheme" element={<RegionTheme />} />
+        {/* <Route path="/accommo" element={<Accommo />} />
+        <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />
       </Routes>
     </>
