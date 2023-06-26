@@ -6,6 +6,9 @@ import Chat from "./pages/chat/Chat";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
+import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
+import Accommo from "./pages/Accommo/AccommoListPage";
+import Trans from "./pages/Trans/TransListPage";
 
 const boardData = [
   { id: 1, nick: "gclutram0", title: "Honorable", content: "odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis" },
@@ -26,6 +29,9 @@ function App() {
       <Layout />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/regionTheme" element={<RegionTheme />} />
+        <Route path="/accommo" element={<Accommo />} />
+        <Route path="/trans" element={<Trans />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/board" element={<BoardListPage boardData={boardData} />} />
         <Route path="/board/write" element={<WritePage />} />
