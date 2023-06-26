@@ -7,7 +7,8 @@ import WritePage from "./pages/board/WritePage";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
+import ChatRoom from "./pages/chat/ChatRoom";
+// import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
 // import Accommo from "./pages/Accommo/AccommoListPage";
 // import Trans from "./pages/Trans/TransListPage";
 
@@ -87,17 +88,18 @@ const boardData = [
 function App() {
   return (
     <>
-      <Layout />
+      {/* <Layout /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chat/room" element={<ChatRoom />} />
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route
           path="/board"
           element={<BoardListPage boardData={boardData} />}
         />
-        <Route path="/regionTheme" element={<RegionTheme />} />
+        {/* <Route path="/regionTheme" element={<RegionTheme />} /> */}
         {/* <Route path="/accommo" element={<Accommo />} />
         <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />

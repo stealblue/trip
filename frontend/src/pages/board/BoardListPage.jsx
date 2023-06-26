@@ -70,11 +70,11 @@ const BoardListPage = (props) => {
           {props.boardData.map((m) => (
             <div className="board-list" key={m.id}>
               <BoardListImg src="/assets/mainslide.jpeg" />
-              <div class="board-list-text">
+              <div className="board-list-text">
                 <div className="title">{m.title}</div>
-                <p class="des">{m.content}</p>
-                <p class="nick">{m.nick}</p>
-                <p class="date">2023.06.02</p>
+                <p className="des">{m.content}</p>
+                <p className="nick">{m.nick}</p>
+                <p className="date">2023.06.02</p>
               </div>
             </div>
           ))}
