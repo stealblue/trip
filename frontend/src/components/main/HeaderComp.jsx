@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const HeaderComp = () => {
   const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-around;
@@ -70,8 +70,12 @@ const Header = () => {
           </NavList>
         </Nav>
         <div>
-          <LoginCategory>로그인</LoginCategory>
-          <LoginCategory>회원가입</LoginCategory>
+          <LoginCategory>
+            <Link to="/auth/login">로그인</Link>
+          </LoginCategory>
+          <LoginCategory>
+            <Link to="/auth/register">회원가입</Link>
+          </LoginCategory>
         </div>
       </HeaderContainer>
       <Spacer />
@@ -79,4 +83,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderComp;

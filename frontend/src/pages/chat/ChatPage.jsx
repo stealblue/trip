@@ -1,4 +1,4 @@
-import Button from "../../components/common/Button";
+import ButtonComp from "../../components/common/ButtonComp";
 import { useNavigate } from "react-router-dom";
 
 const ChatPage = ({ testUser }) => {
@@ -11,7 +11,7 @@ const ChatPage = ({ testUser }) => {
   return (
     <div>
       <p>chatPage</p>
-      <Button onClick={createRoom}>방만들기</Button>
+      <ButtonComp onClick={createRoom}>방만들기</ButtonComp>
     </div>
   );
 };

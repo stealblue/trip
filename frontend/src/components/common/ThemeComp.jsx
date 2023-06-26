@@ -1,4 +1,4 @@
-const Theme = {
+const ThemeComp = {
   bgcolor: "#c4dfaa",
   subcolor: "#C4D7B2",
   lightcolor: "#E1ECC8",
@@ -7,4 +7,4 @@ const Theme = {
   dark: "##809C7D",
 };
 
-export default Theme;
+export default ThemeComp;

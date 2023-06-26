@@ -17,7 +17,7 @@ const initialState = {
   tags: [],
 };
 
-const write = handleActions(
+const WriteMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState, // 초기 상태로 바뀜
     [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
@@ -28,4 +28,4 @@ const write = handleActions(
   initialState
 );
 
-export default write;
+export default WriteMod;

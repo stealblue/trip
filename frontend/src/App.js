@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import Layout from "./components/Layout";
+import LayoutComp from "./components/LayoutComp";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
@@ -84,11 +84,12 @@ const boardData = [
       "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent",
   },
 ];
-
 function App() {
+  const pathname = window.location.pathname;
+
   return (
     <>
-      {/* <Layout /> */}
+      <LayoutComp />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />

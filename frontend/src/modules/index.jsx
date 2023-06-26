@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import RegisterModule from "./RegisterModule";
-import LoginModule from "./LoginModule";
-import write from "./write";
+import RegisterMod from "./RegisterMod";
+import LoginMod from "./LoginMod";
+import WriteMod from "./WriteMod";
 
 const rootReducer = combineReducers({
-  RegisterModule,
-  LoginModule,
-  write,
+  RegisterMod,
+  LoginMod,
+  WriteMod,
 });
 
 export default rootReducer;

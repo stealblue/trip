@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Button from "../common/Button";
+import ButtonComp from "../common/ButtonComp";
 
 const ButtonsBlock = styled.div`
   text-align: right;
 `;
 
-const Buttons = styled(Button)`
+const Buttons = styled(ButtonComp)`
   /* background: #333; */
   /* color: #fff; */
   & + & {
@@ -13,7 +13,7 @@ const Buttons = styled(Button)`
   }
 `;
 
-const WriteActionbutton = ({ onCancel, onPublish }) => {
+const WriteActionbuttonComp = ({ onCancel, onPublish }) => {
   return (
     <ButtonsBlock>
       <Buttons onClick={onPublish}>등록</Buttons>
@@ -22,4 +22,4 @@ const WriteActionbutton = ({ onCancel, onPublish }) => {
   );
 };
 
-export default WriteActionbutton;
+export default WriteActionbuttonComp;

@@ -12,7 +12,7 @@ const SubTitleText = styled.p`
   margin-top: 20px;
 `;
 
-const Title = (props) => {
+const TitleComp = (props) => {
   return (
     <>
       <TitleText {...props} />
@@ -20,7 +20,7 @@ const Title = (props) => {
   );
 };
 
-const SubTitle = (props) => {
+const SubTitleComp = (props) => {
   return (
     <>
       <SubTitleText {...props} />
@@ -28,4 +28,4 @@ const SubTitle = (props) => {
   );
 };
 
-export { Title, SubTitle };
+export { TitleComp, SubTitleComp };
