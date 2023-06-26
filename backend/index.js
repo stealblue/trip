@@ -5,6 +5,7 @@ const router = require("./routes");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const { sequelize } = require("./models/mysql");
 dotenv.config();
 const webSocket = require("./socket");
 
@@ -16,6 +17,16 @@ mongoose
   .connect(MONGO_URI) // mongoDB 6버전 이상부터
   .then(() => {
     console.log("Connected to MongoDB");
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+
+// MySQL 연결
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Connected to MySQL");
   })
   .catch((e) => {
     console.error(e);
