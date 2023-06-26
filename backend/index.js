@@ -1,0 +1,45 @@
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const router = require("./routes");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+dotenv.config();
+const webSocket = require("./socket");
+
+const app = express();
+const { PORT, MONGO_URI } = process.env;
+
+// mongoDB 연결
+mongoose
+  .connect(MONGO_URI) // mongoDB 6버전 이상부터
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const sessionMiddleware = session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+});
+
+app.use("/", router);
+
+const server = app.listen(PORT || 4001, () => {
+  console.log(`Listening to port ${PORT}`);
+});
+
+webSocket(server, app, sessionMiddleware);
+// webSocket();
