@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 const Main = () => {
   const SlideImg = styled.img`
     width: 100%;
-    height: 800px;
+    height: 700px;
     background-image: url("/assets/mainslide.jpeg");
     background-position: center;
     background-size: 100%;
