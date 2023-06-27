@@ -5,10 +5,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import { legacy_createStore as createStore } from "redux";
-import rootReducer from "./modules";
+import rootReducer, { rootSaga } from "./modules";
 import { composeWithDevTools } from "redux-devtools-extension";
+// import createSagaMiddleware from "@redux-saga/core";
 
+// const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools());
+// sagaMiddleware.run(rootSaga);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

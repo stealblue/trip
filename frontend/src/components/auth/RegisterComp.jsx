@@ -7,8 +7,8 @@ const RegisterFormBlock = styled.div`
   background: ${ThemeComp.bgcolor};
 `;
 
-const RegisterComponent = ({ children }) => {
+const RegisterComp = ({ children }) => {
   return <RegisterFormBlock>{children}</RegisterFormBlock>;
 };
 
-export default RegisterComponent;
+export default RegisterComp;

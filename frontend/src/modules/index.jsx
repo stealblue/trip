@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import RegisterMod from "./RegisterMod";
 import LoginMod from "./LoginMod";
-import WriteMod from "./WriteMod";
+import WriteMod from "./board/WriteMod";
 
 const rootReducer = combineReducers({
   RegisterMod,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([WriteMod()]);
+  yield all([]);
 }
 
 export default rootReducer;
