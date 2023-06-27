@@ -84,11 +84,9 @@ const boardData = [
   },
 ];
 function App() {
-  const pathname = window.location.pathname;
-
   return (
     <>
-      <LayoutComp />
+      {/* <LayoutComp /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
