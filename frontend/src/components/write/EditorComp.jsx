@@ -29,7 +29,7 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const Editor = ({ title, body, onChangeField }) => {
+const EditorComp = ({ title, body, onChangeField }) => {
   const quillElment = useRef(null); //Quill을 적용할 DivElement설정
   const quillInstance = useRef(null); //Quill 인스턴스 설정
 
@@ -80,4 +80,4 @@ const Editor = ({ title, body, onChangeField }) => {
   );
 };
 
-export default Editor;
+export default EditorComp;

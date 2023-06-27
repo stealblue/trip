@@ -8,7 +8,7 @@ const client = mqtt.connect("192.168.10.104:1883");
 exports.renderMain = async (req, res, next) => {
   try {
     const rooms = await Room.find({});
-    res.render("main", { rooms, title: "GIF 채팅방" });
+    res.json({ rooms, title: "GIF 채팅방" });
   } catch (error) {
     console.error(error);
     next(error);

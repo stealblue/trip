@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import Theme from "./Theme";
+import ThemeComp from "./ThemeComp";
 import { Link } from "react-router-dom";
 
 const ButtonStyle = css`
@@ -7,8 +7,8 @@ const ButtonStyle = css`
   margin: 0 auto;
   padding: 2px 30px;
   line-height: 40px;
-  border: 1px ${Theme.subcolor} solid;
-  background-color: ${Theme.subcolor};
+  border: 1px ${ThemeComp.subcolor} solid;
+  background-color: ${ThemeComp.subcolor};
   text-align: center;
   cursor: pointer;
   border-radius: 10px;
@@ -18,8 +18,9 @@ const ButtonStyle = css`
 
   &:hover {
     color: #333;
-    background: ${Theme.bgcolor};
-    box-shadow: 200px 0 0 0 ${Theme.bgcolor} inset, -200px 0 0 0 rgba(0, 0, 0, 0.25) inset;
+    background: ${ThemeComp.bgcolor};
+    box-shadow: 200px 0 0 0 ${ThemeComp.bgcolor} inset,
+      -200px 0 0 0 rgba(0, 0, 0, 0.25) inset;
   }
 `;
 

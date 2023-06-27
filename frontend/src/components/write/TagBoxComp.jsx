@@ -39,7 +39,7 @@ const TagList = React.memo(({ tags, onRemove }) => (
   </TagListBlock>
 ));
 
-const TagBox = ({ tags, onChangeTags }) => {
+const TagBoxComp = ({ tags, onChangeTags }) => {
   const [input, setInput] = useState("");
   const [localTags, setLocalTags] = useState([]);
 
@@ -92,4 +92,4 @@ const TagBox = ({ tags, onChangeTags }) => {
   );
 };
 
-export default TagBox;
+export default TagBoxComp;

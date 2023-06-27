@@ -13,8 +13,8 @@ const WrapperBlock = styled.div`
   }
 `;
 
-const Wrapper = ({ children, ...rest }) => {
+const WrapperComp = ({ children, ...rest }) => {
   return <WrapperBlock {...rest}>{children}</WrapperBlock>;
 };
 
-export default Wrapper;
+export default WrapperComp;

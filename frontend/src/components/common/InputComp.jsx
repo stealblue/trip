@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Theme from "./Theme";
+import ThemeComp from "./ThemeComp";
 
 const InputBoxCon = styled.input`
   padding: 10px 20px;
@@ -9,8 +9,8 @@ const InputBoxCon = styled.input`
   margin-top: 40px;
 `;
 
-const InputBox = () => {
+const InputBoxComp = () => {
   return <InputBoxCon />;
 };
 
-export default InputBox;
+export default InputBoxComp;

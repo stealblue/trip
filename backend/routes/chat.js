@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const mqtt = require("mqtt");
 const {
+  renderMain,
   renderRoom,
   createRoom,
   enterRoom,
@@ -21,9 +22,7 @@ const app = express();
 const chat = express.Router();
 // const client = mqtt.connect("mqtt://test.mosquitto.org");
 
-chat.get("/", (req, res) => {
-  return res.send("chat Router");
-});
+chat.get("/", renderMain);
 chat.get("/room", renderRoom);
 chat.post("/room", createRoom);
 chat.get("/room/:id", enterRoom);

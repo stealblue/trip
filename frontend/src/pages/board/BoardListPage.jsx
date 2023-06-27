@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 
-import { Title, SubTitle } from "../../components/common/Title";
-import Wrapper from "../../components/common/Wrapper";
-import Button from "../../components/common/Button";
+import { TitleComp, SubTitleComp } from "../../components/common/TitleComp";
+import WrapperComp from "../../components/common/WrapperComp";
+import ButtonComp from "../../components/common/ButtonComp";
 
 const BoardListPage = (props) => {
   console.log(props);
@@ -48,8 +48,8 @@ const BoardListPage = (props) => {
       font-size: 12px;
     }
   `;
-
-  const WriteButton = styled(Button)`
+  const WriteButton = styled(ButtonComp)`
+    margin-top: 20px;
     text-align: center;
     position: relative;
     left: 50%;
@@ -63,9 +63,9 @@ const BoardListPage = (props) => {
 
   return (
     <>
-      <Wrapper>
-        <Title>여행 후기</Title>
-        <SubTitle>전국 여행후기를 남겨주세요!</SubTitle>
+      <WrapperComp>
+        <TitleComp>여행 후기</TitleComp>
+        <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
         <ListContainer>
           {props.boardData.map((m) => (
             <div className="board-list" key={m.id}>
@@ -82,7 +82,7 @@ const BoardListPage = (props) => {
 
         {/* {props.boardData} */}
         <WriteButton to={"/board/write"}>글쓰기</WriteButton>
-      </Wrapper>
+      </WrapperComp>
     </>
   );
 };

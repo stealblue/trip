@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import Theme from "../common/Theme";
+import ThemeComp from "../common/ThemeComp";
 
 const FooterContainer = styled.div`
   width: 100%;
   height: 200px;
-  background-color: ${Theme.dark};
+  background-color: ${ThemeComp.dark};
   margin-top: 100px;
 `;
 
