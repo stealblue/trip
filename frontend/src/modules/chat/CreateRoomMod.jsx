@@ -17,13 +17,13 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(
+export const createRoom = createAction(
   CREATE_ROOM,
-  ({ title, host, password, max }) => ({
+  ({ title, max, password, owner }) => ({
     title,
-    host,
     max,
     password,
+    owner,
   })
 );
 export const setOriginalPost = createAction(SET_ORIGINAL_ROOM, (room) => room);
@@ -31,6 +31,7 @@ export const setOriginalPost = createAction(SET_ORIGINAL_ROOM, (room) => room);
 const createRoomSaga = createRequestSaga(CREATE_ROOM, chatAPI.createRoom);
 
 export function* createRoomSaga2() {
+  yield console.log("createRoomSaga2!!!!!!!!!!!!!!!!!!!!!!!!!!");
   yield takeLatest(CREATE_ROOM, createRoomSaga);
 }
 
@@ -38,7 +39,7 @@ const initialState = {
   title: "",
   max: 2,
   password: "",
-  host: "",
+  owner: "testAdmin1",
   createError: null,
   originalRoomId: null,
 };
@@ -46,13 +47,13 @@ const initialState = {
 const CreateRoomMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
+    // [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
+    //   ...state,
+    //   [key]: value,
+    // }),
+    [CREATE_ROOM]: (state, { payload: { key, value } }) => ({
       ...state,
       [key]: value,
-    }),
-    [CREATE_ROOM]: (state) => ({
-      ...state,
-      createError: null,
     }),
     [CREATE_ROOM_SUCCESS]: (state, { payload: room }) => ({
       ...state,
@@ -65,7 +66,7 @@ const CreateRoomMod = handleActions(
     [SET_ORIGINAL_ROOM]: (state, { payload: room }) => ({
       ...state,
       title: room.title,
-      host: room.host,
+      owner: room.owner,
       max: room.max,
       originalPostId: room._id,
     }),

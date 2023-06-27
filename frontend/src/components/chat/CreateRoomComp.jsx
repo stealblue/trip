@@ -33,10 +33,10 @@ const CreateRoomComp = ({ onClick, onSubmit, onChange }) => {
           />
         </div>
         <div>
-          <input type="hidden" name="host" value={users[0]} />
+          <input type="hidden" name="owner" value={users[0]} />
         </div>
         <div>
-          <ButtonComp onClick={onClick}>생성</ButtonComp>
+          <ButtonComp>생성</ButtonComp>
         </div>
       </form>
     </CreateRoomBlock>

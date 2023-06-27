@@ -14,9 +14,9 @@ export const listRooms = () => {
   return client.get(`/routes/chat`, {});
 };
 
-export const createRoom = ({ title, host, max, password }) => {
+export const createRoom = async ({ title, host, max, password }) => {
   console.log("tttttttttttttttttttttttttt");
-  client.post("/routes/chat/room", { title, host, max, password });
+  await client.post("/chat/room", { title, host, max, password });
 };
 
 // export const updatePost = ({ id, title, body, tags }) =>

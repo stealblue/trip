@@ -2,16 +2,27 @@ const Room = require("../models/mongoDB/room");
 // const { removeRoom: removeRoomService } = require("../services");
 const Chat = require("../models/mongoDB/chat");
 const mqtt = require("mqtt");
-
+const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
 
 exports.renderMain = async (req, res, next) => {
+  // try {
+  //   const rooms = await Room.find({});
+  //   res.json({ rooms, title: "GIF 채팅방" });
+  // } catch (error) {
+  //   console.error(error);
+  //   next(error);
+  // }
+
   try {
-    const rooms = await Room.find({});
-    res.json({ rooms, title: "GIF 채팅방" });
-  } catch (error) {
-    console.error(error);
-    next(error);
+    const Users = await user.findAll();
+    for (const User of Users) {
+      console.log(User._previousDataValues);
+    }
+    res.json(Users);
+  } catch (e) {
+    console.log("에러 이유 : ", e);
+    res.json(e);
   }
 };
 
