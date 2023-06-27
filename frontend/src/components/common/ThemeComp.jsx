@@ -4,7 +4,7 @@ const ThemeComp = {
   lightcolor: "#E1ECC8",
   smoke: "#F5F5F5",
   softblue: "#D6E4F2",
-  dark: "##809C7D",
+  dark: "#809C7D",
 };
 
 export default ThemeComp;

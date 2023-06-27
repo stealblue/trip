@@ -48,12 +48,12 @@ const BoardListPage = (props) => {
       font-size: 12px;
     }
   `;
-
   const WriteButton = styled(ButtonComp)`
     margin-top: 20px;
     text-align: center;
     position: relative;
     left: 50%;
+    top: 30px;
     transform: translate(-50%, 0);
   `;
 

@@ -4,6 +4,7 @@ import LayoutComp from "./components/LayoutComp";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
+import Footer from "./components/main/Footer";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -111,6 +112,7 @@ function App() {
         <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />
       </Routes>
+      <Footer />
     </>
   );
 }

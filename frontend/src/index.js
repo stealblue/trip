@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+
 import { legacy_createStore as createStore } from "redux";
 import rootReducer from "./modules";
 import { composeWithDevTools } from "redux-devtools-extension";

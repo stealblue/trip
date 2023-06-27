@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 const TagBoxBlock = styled.div`
@@ -29,9 +29,7 @@ const TagListBlock = styled.div`
 `;
 
 // React.memo로 tag값이 바뀔때만 리렌더링 됨
-const TagItem = React.memo(({ tag, onRemove }) => (
-  <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>
-));
+const TagItem = React.memo(({ tag, onRemove }) => <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>);
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListBlock>
@@ -41,7 +39,7 @@ const TagList = React.memo(({ tags, onRemove }) => (
   </TagListBlock>
 ));
 
-const TagBoxComp = () => {
+const TagBoxComp = ({ tags, onChangeTags }) => {
   const [input, setInput] = useState("");
   const [localTags, setLocalTags] = useState([]);
 
@@ -49,16 +47,20 @@ const TagBoxComp = () => {
     (tag) => {
       if (!tag) return; // 공백이면 추가안함
       if (localTags.includes(tag)) return; // 이미 존재하면 추가안함
+      const nextTags = [...localTags, tag];
       setLocalTags([...localTags, tag]);
+      onChangeTags(nextTags);
     },
-    [localTags]
+    [localTags, onChangeTags]
   );
 
   const onRemove = useCallback(
     (tag) => {
-      setLocalTags(localTags.filter((t) => t !== tag));
+      const nextTags = localTags.filter((t) => t !== tag);
+      setLocalTags(nextTags);
+      onChangeTags(nextTags);
     },
-    [localTags]
+    [localTags, onChangeTags]
   );
 
   const onChange = useCallback((e) => {
@@ -73,6 +75,10 @@ const TagBoxComp = () => {
     },
     [input, insertTag]
   );
+
+  useEffect(() => {
+    setLocalTags(tags);
+  }, [tags]);
 
   return (
     <TagBoxBlock>
