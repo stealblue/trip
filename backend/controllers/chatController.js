@@ -20,21 +20,23 @@ exports.renderRoom = (req, res) => {
 };
 
 exports.createRoom = async (req, res, next) => {
+  console.log("createRoom에 들어왔나");
   try {
     const newRoom = await Room.create({
       title: req.body.title,
       max: req.body.max,
-      owner: req.session.color,
+      owner: req.body.host,
       password: req.body.password,
     });
     const io = req.app.get("io");
     io.of("/room").emit("newRoom", newRoom);
-    if (req.body.password) {
-      // 비밀번호가 있는 방이면
-      res.redirect(`/room/${newRoom._id}?password=${req.body.password}`);
-    } else {
-      res.redirect(`/room/${newRoom._id}`);
-    }
+    // if (req.body.password) {
+    //   // 비밀번호가 있는 방이면
+    //   res.redirect(`/room/${newRoom._id}?password=${req.body.password}`);
+    // } else {
+    //   res.redirect(`/room/${newRoom._id}`);
+    // }
+    res.json(newRoom);
   } catch (error) {
     console.error(error);
     next(error);

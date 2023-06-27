@@ -4,13 +4,15 @@ import { all } from "redux-saga/effects";
 import RegisterMod from "./RegisterMod";
 import LoginMod from "./LoginMod";
 import WriteMod from "./WriteMod";
-import ChatMod from "./ChatMod";
-
+// import ChatMod from "./ChatMod";
+// import  from
+import CreateRoomMod from "./chat/CreateRoomMod";
 const rootReducer = combineReducers({
   RegisterMod,
   LoginMod,
   WriteMod,
-  ChatMod,
+  CreateRoomMod,
+  // ChatMod,
 });
 
 export function* rootSaga() {

@@ -86,7 +86,7 @@ const boardData = [
 function App() {
   return (
     <>
-      {/* <LayoutComp /> */}
+      <LayoutComp />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
