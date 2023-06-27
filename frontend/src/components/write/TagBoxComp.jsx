@@ -29,7 +29,9 @@ const TagListBlock = styled.div`
 `;
 
 // React.memo로 tag값이 바뀔때만 리렌더링 됨
-const TagItem = React.memo(({ tag, onRemove }) => <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>);
+const TagItem = React.memo(({ tag, onRemove }) => (
+  <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>
+));
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListBlock>
@@ -39,7 +41,7 @@ const TagList = React.memo(({ tags, onRemove }) => (
   </TagListBlock>
 ));
 
-const TagBox = () => {
+const TagBoxComp = () => {
   const [input, setInput] = useState("");
   const [localTags, setLocalTags] = useState([]);
 
@@ -84,4 +86,4 @@ const TagBox = () => {
   );
 };
 
-export default TagBox;
+export default TagBoxComp;

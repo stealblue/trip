@@ -1,9 +1,9 @@
 
 
-const LoginContainer = () => {
+const LoginCntr = () => {
     return (
         <div>로그인 함수</div>
     );
 }
 
-export default LoginContainer;
+export default LoginCntr;

@@ -1,7 +1,7 @@
 // import { createAction, handleActions } from "redux-actions";
 
-const Chat = () => {
+const ChatMod = () => {
   return <div></div>;
 };
 
-export default Chat;
+export default ChatMod;

@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 
-import { Title, SubTitle } from "../../components/common/Title";
-import Wrapper from "../../components/common/Wrapper";
-import Button from "../../components/common/Button";
+import { TitleComp, SubTitleComp } from "../../components/common/TitleComp";
+import WrapperComp from "../../components/common/WrapperComp";
+import ButtonComp from "../../components/common/ButtonComp";
 
 const BoardListPage = (props) => {
   console.log(props);
@@ -49,7 +49,7 @@ const BoardListPage = (props) => {
     }
   `;
 
-  const WriteButton = styled(Button)`
+  const WriteButton = styled(ButtonComp)`
     margin-top: 20px;
     text-align: center;
     position: relative;
@@ -63,18 +63,18 @@ const BoardListPage = (props) => {
 
   return (
     <>
-      <Wrapper>
-        <Title>여행 후기</Title>
-        <SubTitle>전국 여행후기를 남겨주세요!</SubTitle>
+      <WrapperComp>
+        <TitleComp>여행 후기</TitleComp>
+        <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
         <ListContainer>
           {props.boardData.map((m) => (
             <div className="board-list" key={m.id}>
               <BoardListImg src="/assets/mainslide.jpeg" />
-              <div class="board-list-text">
+              <div className="board-list-text">
                 <div className="title">{m.title}</div>
-                <p class="des">{m.content}</p>
-                <p class="nick">{m.nick}</p>
-                <p class="date">2023.06.02</p>
+                <p className="des">{m.content}</p>
+                <p className="nick">{m.nick}</p>
+                <p className="date">2023.06.02</p>
               </div>
             </div>
           ))}
@@ -82,7 +82,7 @@ const BoardListPage = (props) => {
 
         {/* {props.boardData} */}
         <WriteButton to={"/board/write"}>글쓰기</WriteButton>
-      </Wrapper>
+      </WrapperComp>
     </>
   );
 };

@@ -1,15 +1,22 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import Layout from "./components/Layout";
+import LayoutComp from "./components/LayoutComp";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+<<<<<<< HEAD
 import Area from "./pages/area/AreaListPage";
 // import Room from "./pages/Accommo/RoomListPage";
 // import Traffic from "./pages/Trans/TrafficListPage";
+=======
+import ChatRoom from "./pages/chat/ChatRoom";
+// import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
+// import Accommo from "./pages/Accommo/AccommoListPage";
+// import Trans from "./pages/Trans/TransListPage";
+>>>>>>> 2e060b7989eee7da13774c54f40f1df8d5260834
 
 const boardData = [
   {
@@ -83,23 +90,25 @@ const boardData = [
       "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent",
   },
 ];
-
 function App() {
+  const pathname = window.location.pathname;
+
   return (
     <>
-      <Layout />
+      <LayoutComp />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chat/room" element={<ChatRoom />} />
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
-        <Route
-          path="/board"
-          element={<BoardListPage boardData={boardData} />}
-        />
+        <Route path="/board" element={<BoardListPage boardData={boardData} />}/>
         <Route path="/area" element={<Area />} />
         {/* <Route path="/room" element={<Room />} />
         <Route path="/traffic" element={<Traffic />} /> */}
+        {/* <Route path="/regionTheme" element={<RegionTheme />} /> */}
+        {/* <Route path="/accommo" element={<Accommo />} />
+        <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />
       </Routes>
     </>

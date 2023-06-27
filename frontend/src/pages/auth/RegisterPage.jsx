@@ -1,8 +1,11 @@
-
+  import RegisterComp from "../../components/auth/RegisterComp";
+import RegisterFormComp from "../../components/auth/RegisterFormComp";
 
 const RegisterPage = () => {
     return (
-        <div>RegisterPage</div>
+        <RegisterComp>
+            <RegisterFormComp />
+        </RegisterComp>
     );
 }
 
