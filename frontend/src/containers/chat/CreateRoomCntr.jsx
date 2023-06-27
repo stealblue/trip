@@ -9,11 +9,24 @@ const CreateRoomCntr = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("22222");
+    console.log("form : ", e.target);
+    const { title, host, password, max } = e.target;
+    console.log(
+      `title: ${title.value} host : ${host.value}  password : ${password.value} max : ${max.value}`
+    );
+    // e.target.map((v))
+  };
+  const onChange = (e) => {
+    console.log("e : ", e.target.value);
   };
 
   return (
     <>
-      <CreateRoomComp onClick={onClick} onSubmit={onSubmit} />
+      <CreateRoomComp
+        onClick={onClick}
+        onSubmit={onSubmit}
+        onChange={onChange}
+      />
     </>
   );
 };

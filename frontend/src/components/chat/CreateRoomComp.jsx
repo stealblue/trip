@@ -1,38 +1,35 @@
-// import { styled } from "styled-components";
+import { styled } from "styled-components";
 import ButtonComp from "../common/ButtonComp";
-// import React, { useState, useCallback,useRef, useEffect } from "react";
-// import {useDispatch} from 'react-redux';
-// import RegisterFormComp from "../auth/RegisterFormComp";
+
+const CreateRoomBlock = styled.div`
+  padding-top: 100px;
+`;
 
 const users = ["testAdmin1", "testAdmin2", "testAdmin3"];
 
-const CreateRoomComp = ({ onClick, onSubmit }) => {
-  // const hostInstance = useRef('testAdmin1');
-  // const titleInstance = useRef(null);
-  // const passwordInstance =useRef(null);
-  // const maxInstance =useRef(2);
-  // const hostElement = useRef(null);
-  // const titleElement = useRef(null);
-  // const passwordElement =useRef(null);
-  // const maxElement =useRef(null);
-
-  // useEffect(()=>{
-
-  // })
+const CreateRoomComp = ({ onClick, onSubmit, onChange }) => {
   return (
-    <>
+    <CreateRoomBlock>
       <form onSubmit={onSubmit}>
         <div>
-          <input name="title" />
+          <input name="title" onChange={onChange} placeholder="방 제목" />
         </div>
         <div>
-          <input type="number" name="max" min="2" value="10" />
+          <input
+            type="number"
+            name="max"
+            min="2"
+            max="10"
+            placeholder="2명이상 10명이하"
+            onChange={onChange}
+          />
         </div>
         <div>
           <input
             type="password"
             name="password"
             placeholder="비밀번호가 없으면 공개방"
+            onChange={onChange}
           />
         </div>
         <div>
@@ -42,7 +39,7 @@ const CreateRoomComp = ({ onClick, onSubmit }) => {
           <ButtonComp onClick={onClick}>생성</ButtonComp>
         </div>
       </form>
-    </>
+    </CreateRoomBlock>
   );
 };
 
