@@ -1,7 +1,8 @@
 import React from "react";
+import CreateRoomCntr from "../../containers/chat/CreateRoomCntr";
 
 const ChatRoom = () => {
-  return <div>room list</div>;
+  return <CreateRoomCntr></CreateRoomCntr>;
 };
 
 export default ChatRoom;
