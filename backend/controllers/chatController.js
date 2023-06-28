@@ -30,36 +30,27 @@ exports.renderMain = async (req, res, next) => {
 exports.renderRoom = (req, res) => {
   res.render("room", { title: "GIF 채팅방 생성" });
 };
-exports.createRoom = async (req, res, next) => {
+exports.createRoom = async (req, res) => {
   console.log("createRoom에 들어왔는지 확인");
   try {
-    const schema = Joi.object().keys({
+    const roomSchema = Joi.object().keys({
       title: Joi.string().trim().allow("").required(),
       max: Joi.number().required(),
       owner: Joi.string().trim().allow("").required(),
       password: Joi.string().trim().allow(""),
     });
-    const result = schema.validate(req.body);
+    const result = roomSchema.validate(req.body);
     const { title, max, owner, password } = req.body;
-    console.log("password :", password, "====");
     if (result.error) return res.status(400).json(result.error);
-
     let newRoom;
     if (password === "") {
       newRoom = await Room.create({ title, max, owner });
-      console.log("password : ", password);
-      res.json(newRoom);
     } else {
       newRoom = await Room.create({ title, max, owner, password });
-      console.log("password : ", password);
-      res.json(newRoom);
     }
-    console.log("ddddddddddddddddddd", newRoom);
-
-    return;
+    return res.json(newRoom);
   } catch (error) {
     console.error(error);
-    next(error);
   }
 };
 

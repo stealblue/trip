@@ -5,8 +5,6 @@ const CreateRoomBlock = styled.div`
   padding-top: 100px;
 `;
 
-// const users = ["testAdmin1", "testAdmin2", "testAdmin3"];
-
 const CreateRoomComp = ({
   onSubmit,
   onChange,
@@ -50,7 +48,7 @@ const CreateRoomComp = ({
           <input type="hidden" name="owner" value={owner} />
         </div>
         <div>
-          <CreateRoomButtonCntr>생성</CreateRoomButtonCntr>
+          <CreateRoomButtonCntr />
         </div>
       </form>
     </CreateRoomBlock>

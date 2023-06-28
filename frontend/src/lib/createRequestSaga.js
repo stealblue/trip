@@ -8,12 +8,11 @@ export const createRequestActionTypes = (type) => {
 };
 
 export default function createRequestSaga(type, request) {
-  console.log(type, request);
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
-    console.log("제너레이터 함수 실행");
+    console.log("제너레이터 함수 실행", type);
     yield put(startLoading(type));
     try {
       const response = yield call(request, action.payload);

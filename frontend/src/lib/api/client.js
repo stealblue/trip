@@ -4,5 +4,5 @@ const client = axios.create({
   baseURL: "http://localhost:4000",
   withCredentials: true,
 });
-// const client = "http://localhost:4000";
+
 export default client;
