@@ -10,6 +10,13 @@ dotenv.config();
 const webSocket = require("./socket");
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+  })
+);
 const { PORT, MONGO_URI } = process.env;
 
 const authRouter = require("./routes/auth");
@@ -35,13 +42,7 @@ sequelize
   });
 
 // app.use(cors());
-app.use(
-  cors({
-    origin: "http://localhost:3000/",
-    methods: ["GET", "POST", "OPTIONS"],
-    credentials: true,
-  })
-);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

@@ -7,6 +7,7 @@ import {
   createRoom,
 } from "../../modules/chat/CreateRoomMod";
 import { useDispatch, useSelector } from "react-redux";
+// import * as chatAPI from "../../lib/api/chat";
 
 const CreateRoomCntr = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,21 @@ const CreateRoomCntr = () => {
   //   const { value, name } = e.target;
   //   console.log(`value : ${value}, name : ${name}, e : ${e}`);
   // };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     // console.log("ddddddddddddddddddddddddddddddddddd", title);
     console.log(
       `title: ${title} host : ${owner}  password : ${password} max : ${max}`
     );
+    // chatAPI
+    //   .createRoom({ title, owner, max, password })
+    //   .then((response) => {
+    //     const room = response.data;
+    //     console.log("room 입니다==============", room);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
     dispatch(createRoom({ title, max, password, owner }));
   };
   const onChange = (e) => {
