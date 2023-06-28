@@ -34,7 +34,14 @@ sequelize
     console.error(e);
   });
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000/",
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -53,7 +60,7 @@ app.use("/auth", authRouter);
 
 app.get("/", (req, res) => {
   res.send("메인페이지");
-})
+});
 
 const server = app.listen(PORT || 4001, () => {
   console.log(`Listening to port ${PORT}`);

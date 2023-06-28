@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
-import ButtonComp from "../common/ButtonComp";
+import CreateRoomButtonCntr from "../../containers/chat/CreateRoomButtonCntr";
 
 const CreateRoomBlock = styled.div`
   padding-top: 100px;
 `;
 
-const users = ["testAdmin1", "testAdmin2", "testAdmin3"];
+// const users = ["testAdmin1", "testAdmin2", "testAdmin3"];
 
 const CreateRoomComp = ({
   onSubmit,
@@ -50,7 +50,7 @@ const CreateRoomComp = ({
           <input type="hidden" name="owner" value={owner} />
         </div>
         <div>
-          <ButtonComp>생성</ButtonComp>
+          <CreateRoomButtonCntr>생성</CreateRoomButtonCntr>
         </div>
       </form>
     </CreateRoomBlock>

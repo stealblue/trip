@@ -4,7 +4,8 @@ const Chat = require("../models/mongoDB/chat");
 const mqtt = require("mqtt");
 const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
-
+const Joi = require("joi");
+const { isNull } = require("lodash");
 exports.renderMain = async (req, res, next) => {
   // try {
   //   const rooms = await Room.find({});
@@ -31,22 +32,23 @@ exports.renderRoom = (req, res) => {
 };
 
 exports.createRoom = async (req, res, next) => {
-  console.log("createRoom에 들어왔나");
+  console.log("createRoom에 들어왔는지 확인");
   try {
-    const newRoom = await Room.create({
-      title: req.body.title,
-      max: req.body.max,
-      owner: req.body.host,
-      password: req.body.password,
+    const schema = Joi.object().keys({
+      title: Joi.string().trim().allow("").required(),
+      max: Joi.number().required(),
+      owner: Joi.string().trim().allow("").required(),
+      password: Joi.string(),
     });
-    const io = req.app.get("io");
-    io.of("/room").emit("newRoom", newRoom);
-    // if (req.body.password) {
-    //   // 비밀번호가 있는 방이면
-    //   res.redirect(`/room/${newRoom._id}?password=${req.body.password}`);
-    // } else {
-    //   res.redirect(`/room/${newRoom._id}`);
-    // }
+    const result = schema.validate(req.body);
+    if (result.error) return res.status(400).json(result.error);
+    const { title, max, owner, password } = req.body;
+    let newRoom;
+    if (isNull(password)) {
+      newRoom = await Room.create({ title, max, owner });
+    } else {
+      newRoom = await Room.create({ title, max, owner, password });
+    }
     res.json(newRoom);
   } catch (error) {
     console.error(error);
@@ -55,31 +57,31 @@ exports.createRoom = async (req, res, next) => {
 };
 
 exports.enterRoom = async (req, res, next) => {
-  try {
-    const room = await Room.findOne({ _id: req.params.id });
-    if (!room) {
-      return res.redirect("/?error=존재하지 않는 방입니다.");
-    }
-    if (room.password && room.password !== req.query.password) {
-      return res.redirect("/?error=비밀번호가 틀렸습니다.");
-    }
-    const io = req.app.get("io");
-    const { rooms } = io.of("/chat").adapter;
-    console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
-    if (room.max <= rooms.get(req.params.id)?.size) {
-      return res.redirect("/?error=허용 인원이 초과하였습니다.");
-    }
-    const chats = await Chat.find({ room: room._id }).sort("createAt");
-    return res.render("chat", {
-      room,
-      title: room.title,
-      chats,
-      user: req.session.color,
-    });
-  } catch (error) {
-    console.error(error);
-    return next(error);
-  }
+  // try {
+  //   const room = await Room.findOne({ _id: req.params.id });
+  //   if (!room) {
+  //     return res.redirect("/?error=존재하지 않는 방입니다.");
+  //   }
+  //   if (room.password && room.password !== req.query.password) {
+  //     return res.redirect("/?error=비밀번호가 틀렸습니다.");
+  //   }
+  //   const io = req.app.get("io");
+  //   const { rooms } = io.of("/chat").adapter;
+  //   console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
+  //   if (room.max <= rooms.get(req.params.id)?.size) {
+  //     return res.redirect("/?error=허용 인원이 초과하였습니다.");
+  //   }
+  //   const chats = await Chat.find({ room: room._id }).sort("createAt");
+  //   return res.render("chat", {
+  //     room,
+  //     title: room.title,
+  //     chats,
+  //     user: req.session.color,
+  //   });
+  // } catch (error) {
+  //   console.error(error);
+  //   return next(error);
+  // }
 };
 
 exports.removeRoom = async (req, res, next) => {
