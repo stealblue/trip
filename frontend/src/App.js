@@ -10,6 +10,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import Area from "./pages/area/AreaListPage";
 import ChatRoom from "./pages/chat/ChatRoom";
+import ReadPage from "./pages/board/ReadPage";
 
 const boardData = [
   {
@@ -99,6 +100,7 @@ function App() {
         />
         <Route path="/area" element={<Area />} />
         <Route path="/board/write" element={<WritePage />} />
+        <Route path="/board/:postId" element={<ReadPage />} />
       </Routes>
       <Footer />
     </>
