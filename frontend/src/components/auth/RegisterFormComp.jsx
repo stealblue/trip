@@ -34,7 +34,8 @@ const items = [
     "주소", "상세주소", "우편번호", "성별"
 ];
 
-const RegisterFormComp = ({onChange, onSubmit}) => {
+const RegisterFormComp = ({form, onChange, onSubmit}) => {
+    const {id, nick, phone } = form;
     return (
         <>
             <RegisterFormBlock>
@@ -59,7 +60,7 @@ const RegisterFormComp = ({onChange, onSubmit}) => {
                         </select>
                         <button>중복확인</button>
                         <ConfirmMessage>
-                            이미 가입된 이메일 입니다.
+                            {`${id}는 이미 가입된 이메일 입니다.`}
                         </ConfirmMessage>
                     </div>
                     <RegisterInput 
@@ -84,7 +85,7 @@ const RegisterFormComp = ({onChange, onSubmit}) => {
                     />
                     <button>중복확인</button>
                     <ConfirmMessage>
-                            이미 존재하는 닉네임입니다.
+                            {`${nick}은 이미 존재하는 닉네임 입니다.`}
                     </ConfirmMessage>
                     <RegisterInput 
                         placeholder="010-0000-0000"
@@ -111,8 +112,11 @@ const RegisterFormComp = ({onChange, onSubmit}) => {
                         onChange={onChange}
                     />
                     <input placeholder="우편번호" name="zipcode" onChange={onChange} />
-                    <input type="radio" name="gender" value="0" />남자
-                    <input type="radio" name="gender" value="1" />여자
+                    <input type="radio" name="gender" value="0" onChange={onChange} />남자
+                    <input type="radio" name="gender" value="1" onChange={onChange} />여자
+                    <div>
+                        <button>가입하기</button>
+                    </div>
                 </form>
             </RegisterFormBlock>
         </>

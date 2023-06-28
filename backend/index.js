@@ -12,6 +12,8 @@ const webSocket = require("./socket");
 const app = express();
 const { PORT, MONGO_URI } = process.env;
 
+const authRouter = require("./routes/auth");
+
 // mongoDB 연결
 mongoose
   .connect(MONGO_URI) // mongoDB 6버전 이상부터
@@ -47,6 +49,11 @@ const sessionMiddleware = session({
 });
 
 app.use("/", router);
+app.use("/auth", authRouter);
+
+app.get("/", (req, res) => {
+  res.send("메인페이지");
+})
 
 const server = app.listen(PORT || 4001, () => {
   console.log(`Listening to port ${PORT}`);

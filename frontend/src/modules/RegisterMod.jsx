@@ -5,7 +5,7 @@ const REGISTER = "register/REGISTER";
 const REGISTER_SUCCESS = "register/REGISTER_SUCCESS";
 const REGISTER_FAILUER = "register/REGISTER_FAILUER";
 
-export const initializeForm = createAction(INITIALIZE_FORM, form => initialState);
+export const initializeRegisterForm = createAction(INITIALIZE_FORM);
 export const register = createAction(REGISTER,({value, key}) => ({value, key}));
 export const registerSuccess = createAction(REGISTER_SUCCESS, (form) => form);
 export const registerFailure = createAction(REGISTER_FAILUER, (error) => error);
@@ -23,9 +23,7 @@ const initialState = {
 
 const RegisterMod = handleActions(
   {
-    [INITIALIZE_FORM]: (state, action) => ({
-      ...state,
-    }),
+    [INITIALIZE_FORM]: (state) => initialState,
     [REGISTER]: (state, {payload: {value, key}}) => ({
       ...state,
       [key]: value,
