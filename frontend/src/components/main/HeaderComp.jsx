@@ -5,10 +5,10 @@ const HeaderComp = () => {
   const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-around;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     left: 50%;
-    transform: translate(-50%);
+    /* transform: translate(-50%); */
     z-index: 10000;
     padding: 30px;
     align-items: center;

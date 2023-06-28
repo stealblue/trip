@@ -24,12 +24,12 @@ const Tag = styled.div`
 `;
 const TagListBlock = styled.div`
   display: flex;
-  width: 100px;
+  width: 200px;
   margin-top: 10px;
 `;
 
-// React.memo로 tag값이 바뀔때만 리렌더링 됨
 const TagItem = React.memo(({ tag, onRemove }) => <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>);
+// react.memo로 tag 값이 바뀔때만 리렌더링
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListBlock>
@@ -45,10 +45,10 @@ const TagBoxComp = ({ tags, onChangeTags }) => {
 
   const insertTag = useCallback(
     (tag) => {
-      if (!tag) return; // 공백이면 추가안함
-      if (localTags.includes(tag)) return; // 이미 존재하면 추가안함
+      if (!tag) return; // 공백이면 추가 X
+      if (localTags.includes(tag)) return; // 이미 존재하는 태그는 추가 X
       const nextTags = [...localTags, tag];
-      setLocalTags([...localTags, tag]);
+      setLocalTags(nextTags);
       onChangeTags(nextTags);
     },
     [localTags, onChangeTags]
@@ -65,20 +65,24 @@ const TagBoxComp = ({ tags, onChangeTags }) => {
 
   const onChange = useCallback((e) => {
     setInput(e.target.value);
+    console.log(e.target.value);
   }, []);
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      insertTag(input.trim()); //앞뒤공백없애고 등록
-      setInput(""); // input 초기화
+      insertTag(input.trim()); //공백제거
+      setInput(""); // 초기화
     },
     [input, insertTag]
   );
 
+  //tag값 바뀔시
   useEffect(() => {
-    setLocalTags(tags);
-  }, [tags]);
+    console.log("3333333->", localTags);
+
+    setLocalTags(localTags);
+  }, [localTags]);
 
   return (
     <TagBoxBlock>

@@ -1,20 +1,16 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import LayoutComp from "./components/LayoutComp";
+// import LayoutComp from "./components/LayoutComp";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
-import Footer from "./components/main/Footer";
+import Footer from "./components/main/FooterComp";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import Area from "./pages/area/AreaListPage";
-// import Room from "./pages/Accommo/RoomListPage";
-// import Traffic from "./pages/Trans/TrafficListPage";
 import ChatRoom from "./pages/chat/ChatRoom";
-// import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
-// import Accommo from "./pages/Accommo/AccommoListPage";
-// import Trans from "./pages/Trans/TransListPage";
+import ReadPage from "./pages/board/ReadPage";
 
 const boardData = [
   {
@@ -89,11 +85,9 @@ const boardData = [
   },
 ];
 function App() {
-  const pathname = window.location.pathname;
-
   return (
     <>
-      <LayoutComp />
+      {/* <LayoutComp /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
@@ -105,12 +99,8 @@ function App() {
           element={<BoardListPage boardData={boardData} />}
         />
         <Route path="/area" element={<Area />} />
-        {/* <Route path="/room" element={<Room />} />
-        <Route path="/traffic" element={<Traffic />} /> */}
-        {/* <Route path="/regionTheme" element={<RegionTheme />} /> */}
-        {/* <Route path="/accommo" element={<Accommo />} />
-        <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />
+        <Route path="/board/:postId" element={<ReadPage />} />
       </Routes>
       <Footer />
     </>

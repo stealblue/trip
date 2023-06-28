@@ -10,7 +10,17 @@ dotenv.config();
 const webSocket = require("./socket");
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+  })
+);
 const { PORT, MONGO_URI } = process.env;
+
+console.log("port", PORT);
+const authRouter = require("./routes/auth");
 
 // mongoDB 연결
 mongoose
@@ -32,7 +42,8 @@ sequelize
     console.error(e);
   });
 
-app.use(cors());
+// app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -47,9 +58,25 @@ const sessionMiddleware = session({
 });
 
 app.use("/", router);
+app.use("/auth", authRouter);
 
-const server = app.listen(PORT || 4001, () => {
+app.get("/", (req, res) => {
+  res.send("메인페이지");
+});
+
+const server = app.listen(PORT || 4000, () => {
   console.log(`Listening to port ${PORT}`);
+});
+
+app.use((req, res, next) => {
+  const err = new Error("NOT FOUND");
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res) => {
+  res.status(err.status || 500);
+  res.render("error");
 });
 
 webSocket(server, app, sessionMiddleware);

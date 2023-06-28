@@ -1,19 +1,15 @@
-import EditorComp from "../../components/write/EditorComp";
-import TagBoxComp from "../../components/write/TagBoxComp";
+import EditorContainer from "../../containers/board/write/EditorContainer";
 import WrapperComp from "../../components/common/WrapperComp";
-import { TitleComp } from "../../components/common/TitleComp";
-import WriteActionbuttonComp from "../../components/write/WriteActionButtonComp";
+import TagBoxContainer from "../../containers/board/write/TagBoxContainer";
+import WriteActionButtonsContainer from "../../containers/board/write/WriteActionButtonsContainer";
 
 const WritePage = () => {
   return (
-    <>
-      <WrapperComp>
-        <TitleComp>여행후기 글쓰기</TitleComp>
-        <EditorComp />
-        <TagBoxComp />
-        <WriteActionbuttonComp />
-      </WrapperComp>
-    </>
+    <WrapperComp>
+      <EditorContainer />
+      <TagBoxContainer />
+      <WriteActionButtonsContainer />
+    </WrapperComp>
   );
 };
 
