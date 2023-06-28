@@ -11,12 +11,13 @@ exports.login = async (req, res, next) => {
             }
         });
         if (!exUser) {
-        res.json("가입된 회원이 아닙니다.")
+          res.json("가입된 회원이 아닙니다.");
         } else {
-        res.json(exUser);  
+          res.json(exUser);
         }
         
     } catch (e) {
-        return res.send('로그인 실패');
+      console.error(e);
+      return res.send('로그인 실패');
     }
 }
