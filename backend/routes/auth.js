@@ -1,10 +1,8 @@
 const express = require("express");
-
+const { login } = require("../controllers/loginController");
 const app = express();
 const auth = express.Router();
 
-auth.get("/login", (req, res) => {
-  res.send("로그인창 입니다!");
-});
+auth.post("/login", login);
 
 module.exports = auth;

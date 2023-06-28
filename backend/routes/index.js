@@ -5,7 +5,7 @@ const auth = require("./auth");
 const router = express.Router();
 
 router.use("/board", board);
-router.use("/login", auth);
+router.use("/auth", auth);
 router.use("/register", auth);
 router.use("/chat", chat);
 

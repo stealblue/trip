@@ -16,12 +16,12 @@ const RegisterCntr = () => {
     };
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("saga 넣기");
+        
     };
-
     useEffect(() => {
         dispatch(initializeRegisterForm())
     }, []);
+
     return (
         <>
             <RegisterFormComp form={form} onChange={onChange} onSubmit={onSubmit} />

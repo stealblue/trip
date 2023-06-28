@@ -23,7 +23,7 @@ const LoginCntr = () => {
 
     useEffect(() => {
         dispatch(initializeLoginForm());
-    }, []);
+    }, [dispatch]);
     return (
         <LoginComp form={form} onChange={onChange} onSubmit={onSubmit} />
     );

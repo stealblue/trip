@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import LayoutComp from "./components/LayoutComp";
+// import LayoutComp from "./components/LayoutComp";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
@@ -86,7 +86,7 @@ const boardData = [
 function App() {
   return (
     <>
-      <LayoutComp />
+      {/* <LayoutComp /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/chat" element={<ChatPage />} />
