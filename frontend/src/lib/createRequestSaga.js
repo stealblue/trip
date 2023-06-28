@@ -12,6 +12,7 @@ export default function createRequestSaga(type, request) {
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
+    console.log("제너레이터 함수 실행", type);
     yield put(startLoading(type));
     try {
       const response = yield call(request, action.payload);

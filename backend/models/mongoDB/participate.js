@@ -1,24 +1,25 @@
 const mongoose = require("mongoose");
-const roomSchema = new mongoose.Schema({
-  title: {
+const participateSchema = new mongoose.Schema({
+  roomId: {
     type: String,
     required: true,
   },
   max: {
     type: Number,
     required: true,
-    default: 10,
-    min: 2,
   },
-  owner: {
-    type: String,
+  current: {
+    type: Number,
     required: true,
   },
-  password: String,
+  users: {
+    type: [String],
+    required: true,
+  },
   createAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.model("Rooms", roomSchema);
+module.exports = mongoose.model("Participates", participateSchema);
