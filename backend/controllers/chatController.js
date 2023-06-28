@@ -1,20 +1,12 @@
 const Room = require("../models/mongoDB/room");
-// const { removeRoom: removeRoomService } = require("../services");
 const Chat = require("../models/mongoDB/chat");
+const Participate = require("../models/mongoDB/participate");
 const mqtt = require("mqtt");
 const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
 const Joi = require("joi");
 const { isNull } = require("lodash");
 exports.renderMain = async (req, res, next) => {
-  // try {
-  //   const rooms = await Room.find({});
-  //   res.json({ rooms, title: "GIF 채팅방" });
-  // } catch (error) {
-  //   console.error(error);
-  //   next(error);
-  // }
-
   try {
     const Users = await user.findAll();
     for (const User of Users) {
@@ -30,7 +22,7 @@ exports.renderMain = async (req, res, next) => {
 exports.renderRoom = (req, res) => {
   res.render("room", { title: "GIF 채팅방 생성" });
 };
-exports.createRoom = async (req, res) => {
+exports.createRoom = async (req, res, next) => {
   console.log("createRoom에 들어왔는지 확인");
   try {
     const roomSchema = Joi.object().keys({
@@ -48,9 +40,11 @@ exports.createRoom = async (req, res) => {
     } else {
       newRoom = await Room.create({ title, max, owner, password });
     }
-    return res.json(newRoom);
+    console.log("end>>>");
+    next();
   } catch (error) {
     console.error(error);
+    next(error);
   }
 };
 
