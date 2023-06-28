@@ -68,5 +68,16 @@ const server = app.listen(PORT || 4000, () => {
   console.log(`Listening to port ${PORT}`);
 });
 
+app.use((req, res, next) => {
+  const err = new Error("NOT FOUND");
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res) => {
+  res.status(err.status || 500);
+  res.render("error");
+});
+
 webSocket(server, app, sessionMiddleware);
 // webSocket();
