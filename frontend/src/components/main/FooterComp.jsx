@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import ThemeComp from "../common/ThemeComp";
 
-const FooterContainer = styled.div`
+const FooterComp = styled.div`
   width: 100%;
   height: 200px;
   background-color: ${ThemeComp.dark};
@@ -9,7 +9,7 @@ const FooterContainer = styled.div`
 `;
 
 const Footer = () => {
-  return <FooterContainer>footer</FooterContainer>;
+  return <FooterComp>footer</FooterComp>;
 };
 
 export default Footer;

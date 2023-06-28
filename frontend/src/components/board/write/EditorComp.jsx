@@ -1,5 +1,4 @@
 import { useRef, useEffect } from "react";
-
 import styled from "styled-components";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
@@ -30,32 +29,20 @@ const QuillWrapper = styled.div`
 `;
 
 const EditorComp = ({ title, body, onChangeField }) => {
-  const quillElment = useRef(null); //Quill을 적용할 DivElement설정
-  const quillInstance = useRef(null); //Quill 인스턴스 설정
-
-  var toolbarOptions = [
-    ["bold", "italic", "underline", "strike"], // toggled buttons
-    ["blockquote", "code-block"],
-
-    [{ header: 1 }, { header: 2 }], // custom button values
-    [{ list: "ordered" }, { list: "bullet" }],
-
-    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
-
-    ["clean"], // remove formatting button
-  ];
-
+  console.log("111111110>", title, body);
+  const quillElement = useRef(null); //Quill적용할 divelement 설정
+  const quillInstance = useRef(null); // Quill 인스턴스 설정
   useEffect(() => {
-    quillInstance.current = new Quill(quillElment.current, {
+    quillInstance.current = new Quill(quillElement.current, {
       theme: "snow",
-      placeholder: "내용을 작성해주세요",
+      placeholder: "내용 입력",
       modules: {
-        toolbar: toolbarOptions,
+        toolbar: [
+          [{ header: "1" }, { header: "2" }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "oredered" }, { list: "bullet" }],
+          ["blockquote", "code-block", "link", "image"],
+        ],
       },
     });
     const quill = quillInstance.current;
@@ -72,9 +59,9 @@ const EditorComp = ({ title, body, onChangeField }) => {
 
   return (
     <EditorBlock>
-      <TitleInput placeholder="제목을 입력해주세요" onChange={onChangeTitle} value={title} />
+      <TitleInput placeholder="제목입력" onChange={onChangeTitle} />
       <QuillWrapper>
-        <div ref={quillElment} />
+        <div ref={quillElement} />
       </QuillWrapper>
     </EditorBlock>
   );
