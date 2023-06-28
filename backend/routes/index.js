@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.use("/board", board);
 router.use("/auth", auth);
-router.use("/register", auth);
 router.use("/chat", chat);
 
 module.exports = router;
