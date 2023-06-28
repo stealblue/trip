@@ -10,8 +10,13 @@ import client from "./client";
 //     params: { page, username, tag },
 //   });
 // };
-export const listPosts = () => {
+export const listRooms = () => {
   return client.get(`/routes/chat`, {});
+};
+
+export const createRoom = async ({ title, host, max, password }) => {
+  console.log("tttttttttttttttttttttttttt");
+  await client.post("/chat/room", { title, host, max, password });
 };
 
 // export const updatePost = ({ id, title, body, tags }) =>

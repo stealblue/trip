@@ -2,16 +2,27 @@ const Room = require("../models/mongoDB/room");
 // const { removeRoom: removeRoomService } = require("../services");
 const Chat = require("../models/mongoDB/chat");
 const mqtt = require("mqtt");
-
+const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
 
 exports.renderMain = async (req, res, next) => {
+  // try {
+  //   const rooms = await Room.find({});
+  //   res.json({ rooms, title: "GIF 채팅방" });
+  // } catch (error) {
+  //   console.error(error);
+  //   next(error);
+  // }
+
   try {
-    const rooms = await Room.find({});
-    res.json({ rooms, title: "GIF 채팅방" });
-  } catch (error) {
-    console.error(error);
-    next(error);
+    const Users = await user.findAll();
+    for (const User of Users) {
+      console.log(User._previousDataValues);
+    }
+    res.json(Users);
+  } catch (e) {
+    console.log("에러 이유 : ", e);
+    res.json(e);
   }
 };
 
@@ -20,21 +31,23 @@ exports.renderRoom = (req, res) => {
 };
 
 exports.createRoom = async (req, res, next) => {
+  console.log("createRoom에 들어왔나");
   try {
     const newRoom = await Room.create({
       title: req.body.title,
       max: req.body.max,
-      owner: req.session.color,
+      owner: req.body.host,
       password: req.body.password,
     });
     const io = req.app.get("io");
     io.of("/room").emit("newRoom", newRoom);
-    if (req.body.password) {
-      // 비밀번호가 있는 방이면
-      res.redirect(`/room/${newRoom._id}?password=${req.body.password}`);
-    } else {
-      res.redirect(`/room/${newRoom._id}`);
-    }
+    // if (req.body.password) {
+    //   // 비밀번호가 있는 방이면
+    //   res.redirect(`/room/${newRoom._id}?password=${req.body.password}`);
+    // } else {
+    //   res.redirect(`/room/${newRoom._id}`);
+    // }
+    res.json(newRoom);
   } catch (error) {
     console.error(error);
     next(error);
