@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import {useDispatch, useSelector} from "react-redux";
-import { initializeForm, register } from "../../modules/RegisterMod";
+import { initializeRegisterForm, register } from "../../modules/RegisterMod";
 
 const RegisterCntr = () => {
     const dispatch = useDispatch();
@@ -10,21 +10,21 @@ const RegisterCntr = () => {
     }));
     const onChange = (e) => {
         const {value, name} = e.target;
-        console.dir(e.target);
         dispatch(
             register({value, key: name})
         );
     };
     const onSubmit = (e) => {
         e.preventDefault();
+        console.log("saga 넣기");
     };
 
     useEffect(() => {
-        dispatch(initializeForm());
+        dispatch(initializeRegisterForm())
     }, []);
     return (
         <>
-            <RegisterFormComp onChange={onChange} onSubmit={onSubmit} />
+            <RegisterFormComp form={form} onChange={onChange} onSubmit={onSubmit} />
         </>
     );
 }

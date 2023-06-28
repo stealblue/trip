@@ -1,10 +1,14 @@
 import { createAction, handleActions } from "redux-actions";
 
-const LOGIN_REQUEST = "auth/LOGIN_REQUEST";
-const LOGIN_SUCCESS = "auth/LOGIN_SUCCESS";
-const LOGIN_FAILURE = "auth/LOGIN_FAILURE";
+const INITIALIZE_FORM = "login/INITIALIZE_FORM";
+const LOGIN = "login/LOGIN";
+const LOGIN_SUCCESS = "login/LOGIN_SUCCESS";
+const LOGIN_FAILURE = "login/LOGIN_FAILURE";
 
-export const loginRequest = createAction(LOGIN_REQUEST, (request) => request);
+export const initializeLoginForm = createAction(INITIALIZE_FORM);
+export const login = createAction(LOGIN, ({value, key}) => ({
+  value, key
+}));
 export const loginSuccess = createAction(LOGIN_SUCCESS, (form) => form);
 export const loginFailure = createAction(LOGIN_FAILURE, (error) => error);
 
@@ -15,9 +19,17 @@ const initialState = {
 
 const LoginMod = handleActions(
   {
-    [LOGIN_REQUEST]: (state, action) => ({}),
-    [LOGIN_SUCCESS]: (state, action) => ({}),
-    [LOGIN_FAILURE]: (state, action) => ({}),
+    [INITIALIZE_FORM]: (state) => initialState,
+    [LOGIN]: (state, {payload: {value, key}}) => ({
+      ...state,
+      [key]: value,
+    }),
+    [LOGIN_SUCCESS]: (state, action) => ({
+      ...state,
+    }),
+    [LOGIN_FAILURE]: (state, action) => ({
+      ...state,
+    }),
   },
   initialState
 );
