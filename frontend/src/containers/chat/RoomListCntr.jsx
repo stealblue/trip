@@ -37,3 +37,45 @@
 
 // import React, { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
+// import CreateRoomComp from "../../components/chat/CreateRoomComp";
+
+// const RoomList = () => {
+//     const onChange = (e) => {
+//         console.log("1111");
+//         const {value, name} = e.target;
+//         console.log(value, name, e);
+//     };
+//     const onSubmit = (e) => {
+//         e.preventDefault();
+//         console.log("22222");
+//     };
+
+//     return (
+//         <>
+//             <RegisterFormComp onChange={onChange} onSubmit={onSubmit} />
+//         </>
+//     );
+// }
+
+// export default RegisterCntr;
+
+import React from "react";
+
+// const RoomListCntr = () => {
+//   return (
+//     <div>
+//       <h1>채팅방목록</h1>
+//       <table>
+//         <thead>
+//           <tr>
+//             <th>방 제목</th>
+//             <th>허용인원</th>
+//             <th>방장</th>
+//           </tr>
+//         </thead>
+//       </table>
+//     </div>
+//   );
+// };
+
+// export default RoomListCntr;

@@ -8,6 +8,7 @@ import Footer from "./components/main/FooterComp";
 import ChatPage from "./pages/chat/ChatPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import Area from "./pages/area/AreaListPage";
 import ChatRoom from "./pages/chat/ChatRoom";
 // import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
 // import Accommo from "./pages/Accommo/AccommoListPage";
@@ -87,9 +88,7 @@ function App() {
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/board" element={<BoardListPage boardData={boardData} />} />
-        {/* <Route path="/regionTheme" element={<RegionTheme />} /> */}
-        {/* <Route path="/accommo" element={<Accommo />} />
-        <Route path="/trans" element={<Trans />} /> */}
+        <Route path="/area" element={<Area />} />
         <Route path="/board/write" element={<WritePage />} />
         <Route path="/board/:postId" element={<ReadPage />} />
       </Routes>

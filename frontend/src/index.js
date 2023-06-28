@@ -1,8 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import App from "./App";
 
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import rootReducer, { rootSaga } from "./modules";
@@ -13,11 +13,11 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
+  </Provider>,
+  document.getElementById("root")
 );

@@ -1,8 +1,9 @@
 import HeaderComp from "./main/HeaderComp";
 
 const LayoutComp = () => {
+
   return (
-    <>
+    <> 
       <HeaderComp />
     </>
   );
