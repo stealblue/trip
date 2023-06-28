@@ -12,6 +12,7 @@ import ChatRoom from "./pages/chat/ChatRoom";
 // import RegionTheme from "./pages/regionTheme/RegionThemeListPage";
 // import Accommo from "./pages/Accommo/AccommoListPage";
 // import Trans from "./pages/Trans/TransListPage";
+import ReadPage from "./pages/board/ReadPage";
 
 const boardData = [
   {
@@ -90,6 +91,7 @@ function App() {
         {/* <Route path="/accommo" element={<Accommo />} />
         <Route path="/trans" element={<Trans />} /> */}
         <Route path="/board/write" element={<WritePage />} />
+        <Route path="/board/:postId" element={<ReadPage />} />
       </Routes>
       <Footer />
     </>
