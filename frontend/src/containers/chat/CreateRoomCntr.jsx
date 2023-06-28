@@ -1,6 +1,11 @@
 import CreateRoomComp from "../../components/chat/CreateRoomComp";
-import React from "react";
-import CreateRoomMod, { createRoom } from "../../modules/chat/CreateRoomMod";
+import React, { useEffect } from "react";
+// import {CreateRoomMod, createRoom} from "../../modules/chat/CreateRoomMod";
+import {
+  changeField,
+  initialize,
+  createRoom,
+} from "../../modules/chat/CreateRoomMod";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateRoomCntr = () => {
@@ -27,9 +32,13 @@ const CreateRoomCntr = () => {
   const onChange = (e) => {
     const { value, name } = e.target;
     console.log(value, name);
-    dispatch(createRoom({ value, key: name }));
+    dispatch(changeField({ value, key: name }));
     // console.log("e : ", e.target.value);
   };
+
+  useEffect(() => {
+    dispatch(initialize());
+  }, [dispatch]);
 
   return (
     <>
@@ -37,6 +46,10 @@ const CreateRoomCntr = () => {
         // onClick={onClick}
         onSubmit={onSubmit}
         onChange={onChange}
+        title={title}
+        owner={owner}
+        max={max}
+        password={password}
       />
     </>
   );
