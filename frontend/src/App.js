@@ -9,7 +9,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import Area from "./pages/area/AreaListPage";
 import ChatRoom from "./pages/chat/ChatRoom";
-// import ChatRoom2 from "./pages/chat/ChatRoom2";
+import ChatRoom2 from "./pages/chat/ChatRoom2";
 import ReadPage from "./pages/board/ReadPage";
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/room" element={<ChatRoom />} />
+          <Route path="/room/:roomId" element={<ChatRoom2 />} />
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/area" element={<Area />} />
           <Route path="/board/write" element={<WritePage />} />

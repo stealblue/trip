@@ -36,8 +36,9 @@ const CreateRoomButtonCntr = () => {
   useEffect(() => {
     if (room) {
       console.log("조건에 부합하나!!!");
+      console.log("room : ", room);
       // navigate(`/room/${room.roomId}`);
-      navigate(`/`);
+      navigate(`/room/${room.data._id}`);
     }
     if (roomError) {
       console.log(roomError);
