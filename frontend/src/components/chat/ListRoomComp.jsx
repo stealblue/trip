@@ -1,10 +1,26 @@
-import React from "react";
-// import room from "../../../../backend/models/mongoDB/room";
+import { Link } from "react-router-dom";
 
-const ListRoomComp = ({ rooms }) => {
+const RoomItem = ({ room }) => {
+  const { title, createAt, owner, _id } = room;
   return (
     <div>
-      <h1>채팅방 목록</h1>
+      <Link to={`room/${_id}`}>
+        <div>
+          <span>{title}</span>
+          <br />
+          <span>{createAt}</span>
+          <br />
+          <span>{owner}</span>
+        </div>
+      </Link>
+    </div>
+  );
+};
+
+const ListRoomComp = ({ rooms, loading, error }) => {
+  return (
+    <div>
+      {/* <h1>채팅방 목록</h1>
       <table>
         <thead>
           <tr>
@@ -14,32 +30,29 @@ const ListRoomComp = ({ rooms }) => {
             <th>방장</th>
           </tr>
         </thead>
-        <tbody>
-          {/* {rooms.map((room) => (
-            <tr>
-              <td>{room.title}</td>
-              {room.password ? <td>'비밀방'</td> : <td>'공부방'</td>}
-              <td>{room.max}</td>
-              <td>{room.owner}</td>
-            </tr>
-          ))} */}
-
-          {/* <tr data-id="{{room._id}}">
-            <td>{{room.title}}</td>
-            <td>{{'비밀방' if room.password else '공개방'}}</td>
-            <td>{{room.max}}</td>
-            <td>{{room.owner}}</td>
-            <td>
-                <button
-                        data-password="{{'true' if room.password else 'false'}}"
-                        data-id="{{room._id}}"
-                        class="join-btn"
-                >입장
-                </button>
-            </td>
-        </tr> */}
-        </tbody>
-      </table>
+        <tbody> */}
+      {!loading &&
+        rooms &&
+        rooms.map((room) => (
+          // <tr data-id="{{room._id}}">
+          //   <td>{room.title}</td>
+          //   {room.password ? <td>'비밀방'</td> : <td>'공부방'</td>}
+          //   <td>{room.max}</td>
+          //   <td>{room.owner}</td>
+          //   <td>
+          //     <button
+          //       data-password="{{'true' if room.password else 'false'}}"
+          //       data-id="{{room._id}}"
+          //       class="join-btn"
+          //     >
+          //       입장
+          //     </button>
+          //   </td>
+          // </tr>
+          <RoomItem key={room.id} room={room} />
+        ))}
+      {/* </tbody>
+      </table> */}
     </div>
   );
 };

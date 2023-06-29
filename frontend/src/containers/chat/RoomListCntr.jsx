@@ -1,48 +1,28 @@
 import React, { useEffect } from "react";
-import WriteActionbuttonsComp from "../../components/board/write/WriteActionButtonsComp";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import { createRoom } from "../../modules/chat/CreateRoomMod";
+import { useDispatch, useSelector } from "react-redux";
+import ListRoomComp from "../../components/chat/ListRoomComp";
+import { listRooms } from "../../modules/chat/ListRoomsMod";
+import { useSearchParams } from "react-router-dom";
 
-const CreateRoomButtonCntr = () => {
-  const navigate = useNavigate();
+const RoomListCntr = () => {
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { title, owner, max, password, roomError, room } = useSelector(
-    ({ CreateRoomMod }) => ({
-      title: CreateRoomMod.title,
-      owner: CreateRoomMod.owner,
-      max: CreateRoomMod.max,
-      password: CreateRoomMod.password,
-      room: CreateRoomMod.room,
-      roomError: CreateRoomMod.roomError,
+  const { rooms, error, loading } = useSelector(
+    ({ ListRoomsMod, loading }) => ({
+      rooms: ListRoomsMod.rooms?.data,
+      error: ListRoomsMod.error,
+      // loading: loading["chat/LIST_ROOMS"],
     })
   );
 
-  const onPublish = () => {
-    dispatch(
-      createRoom({
-        title,
-        owner,
-        password,
-        max,
-      })
-    );
-  };
-
-  const onCalcel = () => {
-    navigate(-1);
-  };
-
   useEffect(() => {
-    if (room) {
-      navigate(`/room/${room._id}`);
-    }
-    if (roomError) {
-      console.log(roomError);
-    }
-  }, [navigate, room, roomError]);
-
-  return <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCalcel} />;
+    const page = parseInt(searchParams.get("page"), 10) || 1;
+    dispatch(listRooms({ page }));
+  }, [dispatch, searchParams]);
+  return (
+    <ListRoomComp error={error} rooms={rooms} loading={loading} />
+    // <ListRoomComp loading={loading} error={error} ListRoomsMod={ListRoomsMod} />
+  );
 };
 
-export default CreateRoomButtonCntr;
+export default RoomListCntr;

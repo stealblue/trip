@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
 import ButtonComp from "../../components/common/ButtonComp";
+import { MqttClient } from "mqtt";
+import { useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
 
 const ChattingAreaBlock = styled.div`
   background-color: steelblue;
@@ -8,6 +11,13 @@ const ChattingAreaBlock = styled.div`
 `;
 
 const ChatRoom2 = () => {
+  const navigate = useNavigate();
+  const client = useRef();
+  const [contacts, setContacts] = useState([]);
+  const [currentChat, setCurrentChat] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(async () => {});
   return (
     <>
       <ChattingAreaBlock>
@@ -112,10 +122,13 @@ const ChatRoom2 = () => {
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒░░░░░░░▒░░░▒░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░▒▒▒▓▒▒▒▒▒▒▒
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░▒░░░░░░▒░▒▒░▒▒▒▒░░░░░░░▒░░░░▒▒▒▒▒▒▒▒░▒▒▒▒░░░░░░▒░░░░░░░▒▒▓▓▒▒▒▒▒▒▒
       </ChattingAreaBlock>
-      <p>
-        <input />
-        <ButtonComp>전송</ButtonComp>
-      </p>
+
+      <form>
+        <p>
+          <input />
+          <ButtonComp>전송</ButtonComp>
+        </p>
+      </form>
     </>
   );
 };

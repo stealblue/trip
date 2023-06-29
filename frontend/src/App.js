@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/room" element={<ChatRoom />} />
-          <Route path="/room/:roomId" element={<ChatRoom2 />} />
+          <Route path="/chat/room/:roomId" element={<ChatRoom2 />} />
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/area" element={<Area />} />
           <Route path="/board/write" element={<WritePage />} />
