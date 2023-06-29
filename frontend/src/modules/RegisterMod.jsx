@@ -13,7 +13,13 @@ export const register = createAction(REGISTER, ({ value, key }) => ({
   value,
   key,
 }));
-export const registerSuccess = createAction(REGISTER_SUCCESS, (form) => form);
+export const registerSuccess = createAction(
+  REGISTER_SUCCESS,
+  ({ value, key }) => ({
+    value,
+    key,
+  })
+);
 export const registerFailure = createAction(REGISTER_FAILUER, (error) => error);
 
 export const registerProcess = createRequestSaga(
@@ -35,6 +41,7 @@ const initialState = {
   zipcode: null,
   gender: null,
 };
+wer;
 
 const RegisterMod = handleActions(
   {
@@ -43,8 +50,9 @@ const RegisterMod = handleActions(
       ...state,
       [key]: value,
     }),
-    [REGISTER_SUCCESS]: (state, action) => ({
+    [REGISTER_SUCCESS]: (state, { payload: { value, key } }) => ({
       ...state,
+      [key]: value,
     }),
     [REGISTER_FAILUER]: (state, action) => ({
       ...state,

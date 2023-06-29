@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import { useDispatch, useSelector } from "react-redux";
-import { initializeRegisterForm, register } from "../../modules/RegisterMod";
+import {
+  initializeRegisterForm,
+  register,
+  registerSuccess,
+} from "../../modules/RegisterMod";
 
 const RegisterCntr = () => {
   const dispatch = useDispatch();
@@ -14,6 +18,7 @@ const RegisterCntr = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(registerSuccess({ value, key: name }));
   };
   useEffect(() => {
     dispatch(initializeRegisterForm());
