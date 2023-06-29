@@ -13,10 +13,9 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ title, body, tags }) => ({
+export const writePost = createAction(WRITE_POST, ({ title, content }) => ({
   title,
-  body,
-  tags,
+  content,
 }));
 
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
@@ -26,8 +25,8 @@ export function* writeSaga() {
 // state 초깃값 설정
 const initialState = {
   title: "",
-  body: "",
-  tags: [],
+  content: "",
+  // tags: [],
   post: null,
   postError: null,
 };

@@ -1,26 +1,26 @@
-import { styled } from "styled-components";
-import ButtonComp from "../../components/common/ButtonComp";
-import { MqttClient } from "mqtt";
-import { useNavigate } from "react-router";
-import { useEffect, useRef, useState } from "react";
+// import { styled } from "styled-components";
+// import ButtonComp from "../../components/common/ButtonComp";
+// import { MqttClient } from "mqtt";
+// import { useNavigate } from "react-router";
+// import { useEffect, useRef, useState } from "react";
 
-const ChattingAreaBlock = styled.div`
-  background-color: steelblue;
-  color: whitesmoke;
-  overflow: scroll;
-`;
+// const ChattingAreaBlock = styled.div`
+//   background-color: steelblue;
+//   color: whitesmoke;
+//   overflow: scroll;
+// `;
 
 const ChatRoom2 = () => {
-  const navigate = useNavigate();
-  const client = useRef();
-  const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  // const navigate = useNavigate();
+  // const client = useRef();
+  // const [contacts, setContacts] = useState([]);
+  // const [currentChat, setCurrentChat] = useState(undefined);
+  // const [currentUser, setCurrentUser] = useState(undefined);
 
-  useEffect(async () => {});
+  // useEffect(async () => {});
   return (
     <>
-      <ChattingAreaBlock>
+      {/* <ChattingAreaBlock>
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒▒▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▒▓▓▓▓▓▒▒▒▓▓▒▒▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▒▓▓▓▓▓▓▓▓▓▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▓▓▓▓▓▓▓▓
@@ -122,13 +122,12 @@ const ChatRoom2 = () => {
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒░░░░░░░▒░░░▒░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░▒▒▒▓▒▒▒▒▒▒▒
         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░▒░░░░░░▒░▒▒░▒▒▒▒░░░░░░░▒░░░░▒▒▒▒▒▒▒▒░▒▒▒▒░░░░░░▒░░░░░░░▒▒▓▓▒▒▒▒▒▒▒
       </ChattingAreaBlock>
-
       <form>
         <p>
           <input />
           <ButtonComp>전송</ButtonComp>
         </p>
-      </form>
+      </form> */}
     </>
   );
 };

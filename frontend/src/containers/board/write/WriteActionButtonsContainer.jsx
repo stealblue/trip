@@ -2,18 +2,16 @@ import React, { useEffect } from "react";
 import WriteActionbuttonsComp from "../../../components/board/write/WriteActionButtonsComp";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import client from "../../../lib/api/client";
 import { writePost } from "../../../modules/board/WriteMod";
-import Axios from "axios";
 
 const WriteActionButtonsContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { title, body, tags, post, postError } = useSelector(({ WriteMod }) => ({
+  const { title, content, post, postError } = useSelector(({ WriteMod }) => ({
     title: WriteMod.title,
-    body: WriteMod.body,
-    tags: WriteMod.tags,
+    content: WriteMod.content,
+    // tags: WriteMod.tags,
     post: WriteMod.post,
     postError: WriteMod.postError,
   }));
@@ -23,28 +21,30 @@ const WriteActionButtonsContainer = () => {
     dispatch(
       writePost({
         title,
-        body,
-        tags,
+        content,
       })
     );
   };
 
-  console.log("WriteActionButtonsContainer ===>", title, body, tags);
+  console.log("WriteActionButtonsContainer ===>", title, content);
   //취소
   const onCancel = () => {
     navigate(-1);
   };
 
-  const submitTest = () => {
-    Axios.get("http://localhost:4000/", {}).then(() => {
-      alert("등록 완료!");
-    });
-  };
+  // const submitTest = () => {
+  //   Axios.get("http://localhost:4000/", {}).then(() => {
+  //     alert("등록 완료!");
+  //   });
+  // };
 
   // 성공 실패시 작업
   useEffect(() => {
     if (post) {
-      navigate(`/board/read`);
+      const { id } = post;
+      console.log("WriteActionButtonsCon=>", post);
+      navigate(`/board/${id}`);
+      // navigate(`/board`);
     }
     if (postError) {
       console.log(postError);
@@ -53,8 +53,7 @@ const WriteActionButtonsContainer = () => {
 
   return (
     <>
-      <WriteActionbuttonsComp onClick={submitTest} onCancel={onCancel} />
-      <button onClick={submitTest}>글쓰기</button>
+      <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCancel} />
     </>
   );
 };

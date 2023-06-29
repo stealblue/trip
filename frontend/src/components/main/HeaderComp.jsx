@@ -19,6 +19,7 @@ const Logo = styled.div`
   font-size: 36px;
   font-weight: 600;
   font-family: "TTWanjudaedunsancheB";
+  text-align: center;
 `;
 
 const Nav = styled.ul`
@@ -50,7 +51,11 @@ const HeaderComp = () => {
     <>
       <HeaderContainer>
         <Logo>
-          <Link to="/">여기저기</Link>
+          <Link to="/">
+            TRIPPER
+            <br />
+            MAKER
+          </Link>
         </Logo>
         <Nav>
           <NavList>
