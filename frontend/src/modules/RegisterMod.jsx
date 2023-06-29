@@ -41,7 +41,6 @@ const initialState = {
   zipcode: null,
   gender: null,
 };
-wer;
 
 const RegisterMod = handleActions(
   {

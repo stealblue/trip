@@ -18,11 +18,10 @@ const RegisterCntr = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerSuccess({ value, key: name }));
   };
   useEffect(() => {
     dispatch(initializeRegisterForm());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

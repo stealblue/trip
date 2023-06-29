@@ -2,6 +2,7 @@ const { user } = require("../models/mysql");
 
 exports.register = async (req, res, next) => {
     const { value, key } = req.body;
+
     try {
         await user.create({
             id: "123",
