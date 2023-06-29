@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  initializeRegisterForm,
-  register,
-  registerSuccess,
-} from "../../modules/RegisterMod";
+import { initializeRegisterForm, register } from "../../modules/RegisterMod";
 
 const RegisterCntr = () => {
   const dispatch = useDispatch();
@@ -14,14 +10,15 @@ const RegisterCntr = () => {
   }));
   const onChange = (e) => {
     const { value, name } = e.target;
-    dispatch(register({ value, key: name }));
+    dispatch(register({ value, key: name, form }));
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(register({ value, key: name, form }));
   };
   useEffect(() => {
     dispatch(initializeRegisterForm());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
