@@ -3,6 +3,7 @@ import ButtonComp from "../../common/ButtonComp";
 
 const ButtonsBlock = styled.div`
   text-align: right;
+  margin-top: 50px;
 `;
 
 const Buttons = styled(ButtonComp)`

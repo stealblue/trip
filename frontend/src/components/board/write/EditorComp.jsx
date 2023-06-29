@@ -28,8 +28,8 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const EditorComp = ({ title, body, onChangeField }) => {
-  console.log("111111110>", title, body);
+const EditorComp = ({ title, content, onChangeField }) => {
+  console.log("111111110>", title, content);
   const quillElement = useRef(null); //Quill적용할 divelement 설정
   const quillInstance = useRef(null); // Quill 인스턴스 설정
   useEffect(() => {
@@ -48,7 +48,7 @@ const EditorComp = ({ title, body, onChangeField }) => {
     const quill = quillInstance.current;
     quill.on("text-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        onChangeField({ key: "body", value: quill.root.innerHTML });
+        onChangeField({ key: "content", value: quill.root.innerHTML });
       }
     });
   }, [onChangeField]);
