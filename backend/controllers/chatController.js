@@ -49,12 +49,11 @@ exports.createRoom = async (req, res, next) => {
     } else {
       newRoom = await Room.create({ title, max, owner, password });
     }
-    console.log("end>>>");
+    console.log("next전");
+    // next({ room: newRoom });
     next();
-    // return res.json({ room: newRoom });
   } catch (error) {
-    console.error(error);
-    next(error);
+    return res.json(error);
   }
 };
 

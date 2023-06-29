@@ -5,5 +5,5 @@ export const listRooms = () => {
 };
 
 export const createRoom = async ({ title, owner, max, password }) => {
-  await client.post("/chat/room", { title, owner, max, password });
+  return await client.post("/chat/room", { title, owner, max, password });
 };
