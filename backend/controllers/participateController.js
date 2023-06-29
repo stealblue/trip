@@ -2,6 +2,8 @@ const Joi = require("joi");
 const Room = require("../models/mongoDB/room");
 const Participate = require("../models/mongoDB/participate");
 
+// Joi.objectId = require("joi-objectid");
+
 exports.createParticipates = async (req, res) => {
   console.log("createPaticipates===================");
   console.log("req.body : ", req.body);
@@ -9,14 +11,15 @@ exports.createParticipates = async (req, res) => {
     const { title, owner, max, password } = req.body;
     const roomInfo = await Room.find({ title, owner });
     console.log("roomIfno : ", roomInfo);
+    const roomId = roomInfo[0]._id.toString();
     const validateRoom = {
-      roomId: roomInfo[0]._id,
+      roomId: roomId,
       max: roomInfo[0].max,
       current: 1,
-      users: roomInfo[0].owner,
+      users: [roomInfo[0].owner],
     };
     const participateSchema = Joi.object().keys({
-      roomId: Joi.string().trim().allow("").required(),
+      roomId: Joi.string().required(),
       max: Joi.number().required(),
       current: Joi.number().required(),
       users: Joi.array().required(),
@@ -24,9 +27,10 @@ exports.createParticipates = async (req, res) => {
     console.log("check11111111111111111111111111111111111111111111");
     const result = participateSchema.validate(validateRoom);
     console.log("check22222222222222222222222222222222222222222222");
+    console.log("validate : ", validateRoom);
     console.log("result : ", result);
     if (result.error) return res.status(400).json(result.error);
-    const newParticipate = await Participate.create({ validate });
+    const newParticipate = await Participate.create({ validateRoom });
     return res.json(newParticipate);
   } catch (error) {
     console.error(error);

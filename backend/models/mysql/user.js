@@ -16,6 +16,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
+    nick: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      unique: "nick"
+    },
     phone: {
       type: DataTypes.STRING(14),
       allowNull: false,
@@ -67,6 +72,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "nick",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nick" },
         ]
       },
       {
