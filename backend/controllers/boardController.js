@@ -28,7 +28,8 @@ exports.boardAdd = async (req, res) => {
   console.log("boardAdd에 들어왔나");
   try {
     const { no, img, id, title, content, like, cnt } = req.body;
-    console.log(req.body);
+    console.log(req.body, "boardadd try....");
+
     const Addboard = await board.create({
       no,
       id,
@@ -38,7 +39,8 @@ exports.boardAdd = async (req, res) => {
       like,
       cnt,
     });
-    res.json(Addboard);
+
+    return res.json(Addboard);
   } catch (error) {
     res.json(error);
   }

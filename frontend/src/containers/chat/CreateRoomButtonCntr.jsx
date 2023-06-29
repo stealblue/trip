@@ -34,9 +34,8 @@ const CreateRoomButtonCntr = () => {
   };
 
   useEffect(() => {
-    if (roomError) {
-      console.log(roomError);
-    }
+    if (room) navigate(`/chat/room/${room.data._id}`);
+    if (roomError) console.error(roomError);
   }, [navigate, room, roomError]);
 
   return <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCalcel} />;

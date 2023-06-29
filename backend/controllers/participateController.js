@@ -39,8 +39,13 @@ exports.createParticipates = async (req, res) => {
       users,
     });
     console.log("newParticipate : ", newParticipate);
-    return res.json(newParticipate);
+    // const room = newParticipate;
+    // return res.json(newParticipate);
+    // return res.send(room);
+    const room = await Room.findById(newParticipate.roomId);
+    console.log("room : ", room);
+    return res.json(room);
   } catch (error) {
-    console.error(error);
+    return res.json(error);
   }
 };

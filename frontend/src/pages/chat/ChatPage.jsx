@@ -1,4 +1,5 @@
 import ButtonComp from "../../components/common/ButtonComp";
+import RoomListCntr from "../../containers/chat/RoomListCntr";
 import { useNavigate } from "react-router-dom";
 
 const ChatPage = ({ testUser }) => {
@@ -10,7 +11,7 @@ const ChatPage = ({ testUser }) => {
 
   return (
     <div>
-      <p>chatPage</p>
+      <RoomListCntr />
       <ButtonComp onClick={createRoom}>방만들기</ButtonComp>
     </div>
   );
