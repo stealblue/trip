@@ -9,18 +9,11 @@ const REGISTER_SUCCESS = "register/REGISTER_SUCCESS";
 const REGISTER_FAILUER = "register/REGISTER_FAILUER";
 
 export const initializeRegisterForm = createAction(INITIALIZE_FORM);
-export const register = createAction(REGISTER, ({ value, key }) => ({
+export const register = createAction(REGISTER, ({ value, key, form }) => ({
   value,
   key,
+  form,
 }));
-export const registerSuccess = createAction(
-  REGISTER_SUCCESS,
-  ({ value, key }) => ({
-    value,
-    key,
-  })
-);
-export const registerFailure = createAction(REGISTER_FAILUER, (error) => error);
 
 export const registerProcess = createRequestSaga(
   REGISTER,

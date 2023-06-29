@@ -34,7 +34,7 @@ const EditorComp = ({ title, content, onChangeField }) => {
   const quillInstance = useRef(null); // Quill 인스턴스 설정
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
-      theme: "snow",
+      // theme: "snow",
       placeholder: "내용 입력",
       modules: {
         toolbar: [
