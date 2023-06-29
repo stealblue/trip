@@ -34,6 +34,11 @@ const CreateRoomButtonCntr = () => {
   };
 
   useEffect(() => {
+    if (room) {
+      console.log("조건에 부합하나!!!");
+      // navigate(`/room/${room.roomId}`);
+      navigate(`/`);
+    }
     if (roomError) {
       console.log(roomError);
     }

@@ -39,7 +39,9 @@ exports.createParticipates = async (req, res) => {
       users,
     });
     console.log("newParticipate : ", newParticipate);
-    return res.json(newParticipate);
+    const room = newParticipate;
+    // return res.json(newParticipate);
+    return res.send(room);
   } catch (error) {
     console.error(error);
   }

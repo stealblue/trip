@@ -11,21 +11,26 @@ const Joi = require("joi");
 // const {ObjectId} = mongoose.Types;
 
 exports.renderMain = async (req, res, next) => {
+  // try {
+  //   const Users = await user.findAll();
+  //   for (const User of Users) {
+  //     console.log(User._previousDataValues);
+  //   }
+  //   res.json(Users);
+  // } catch (e) {
+  //   console.log("에러 이유 : ", e);
+  //   res.json(e);
+  // }
   try {
-    const Users = await user.findAll();
-    for (const User of Users) {
-      console.log(User._previousDataValues);
-    }
-    res.json(Users);
-  } catch (e) {
-    console.log("에러 이유 : ", e);
-    res.json(e);
-  }
+    const roomList = await Room.find();
+    return res.json(roomList);
+  } catch (e) {}
 };
 
 exports.renderRoom = (req, res) => {
-  res.render("room", { title: "GIF 채팅방 생성" });
+  // res.render("room", { title: "GIF 채팅방 생성" });
 };
+
 exports.createRoom = async (req, res, next) => {
   console.log("createRoom에 들어왔는지 확인");
   try {
@@ -46,6 +51,7 @@ exports.createRoom = async (req, res, next) => {
     }
     console.log("end>>>");
     next();
+    // return res.json({ room: newRoom });
   } catch (error) {
     console.error(error);
     next(error);

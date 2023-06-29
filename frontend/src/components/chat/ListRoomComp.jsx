@@ -1,5 +1,5 @@
 import React from "react";
-import room from "../../../../backend/models/mongoDB/room";
+// import room from "../../../../backend/models/mongoDB/room";
 
 const ListRoomComp = ({ rooms }) => {
   return (
@@ -15,14 +15,14 @@ const ListRoomComp = ({ rooms }) => {
           </tr>
         </thead>
         <tbody>
-          {rooms.map((room) => (
+          {/* {rooms.map((room) => (
             <tr>
               <td>{room.title}</td>
               {room.password ? <td>'비밀방'</td> : <td>'공부방'</td>}
               <td>{room.max}</td>
               <td>{room.owner}</td>
             </tr>
-          ))}
+          ))} */}
 
           {/* <tr data-id="{{room._id}}">
             <td>{{room.title}}</td>
