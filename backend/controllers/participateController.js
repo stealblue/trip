@@ -12,9 +12,11 @@ exports.createParticipates = async (req, res) => {
     const roomInfo = await Room.find({ title, owner });
     console.log("roomIfno : ", roomInfo);
     const roomId = roomInfo[0]._id.toString();
+    const current = 1;
+    const users = [roomInfo[0].owner];
     const validateRoom = {
       roomId: roomId,
-      max: roomInfo[0].max,
+      max,
       current: 1,
       users: [roomInfo[0].owner],
     };
@@ -30,7 +32,13 @@ exports.createParticipates = async (req, res) => {
     console.log("validate : ", validateRoom);
     console.log("result : ", result);
     if (result.error) return res.status(400).json(result.error);
-    const newParticipate = await Participate.create({ validateRoom });
+    const newParticipate = await Participate.create({
+      roomId,
+      max,
+      current,
+      users,
+    });
+    console.log("newParticipate : ", newParticipate);
     return res.json(newParticipate);
   } catch (error) {
     console.error(error);

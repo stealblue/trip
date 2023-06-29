@@ -5,7 +5,11 @@ const mqtt = require("mqtt");
 const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
 const Joi = require("joi");
-const { isNull } = require("lodash");
+// const { isNull } = require("lodash");
+// const mongoose = require('mongoose');
+
+// const {ObjectId} = mongoose.Types;
+
 exports.renderMain = async (req, res, next) => {
   try {
     const Users = await user.findAll();
@@ -130,3 +134,7 @@ exports.sendGif = async (req, res, next) => {
 // client.on("close", () => {
 //   client.end();
 // });
+
+// exports.checkObjectId = async(req,res,next)=>{
+//   const{id}=req.
+// }
