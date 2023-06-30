@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
-const socket = require("socket.io");
+// const socket = require("socket.io");
 dotenv.config();
 const webSocket = require("./socket");
 
@@ -75,12 +75,12 @@ app.get("/", (req, res) => {
 const server = app.listen(PORT || 4000, () => {
   console.log(`Listening to port ${PORT}`);
 });
-const io = socket(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    credentials: true,
-  },
-});
+// const io = socket(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   },
+// });
 
 // global.onlineUsers = new Map();
 // io.on("connection", (socket) => {

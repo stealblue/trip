@@ -9,6 +9,10 @@ const Joi = require("joi");
 exports.renderMain = async (req, res, next) => {
   try {
     const roomList = await Room.find();
+    console.log("roomList : ", roomList);
+    roomList.map((room) => {
+      console.log("room : ", room);
+    });
     return res.json(roomList);
   } catch (e) {
     return res.json(e);

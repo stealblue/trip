@@ -25,6 +25,7 @@ export default function createRequestSaga(type, request) {
         payload: response,
         meta: response,
       });
+      console.log("try 끝");
     } catch (e) {
       yield put({
         type: FAILURE,
