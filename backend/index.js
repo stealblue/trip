@@ -10,6 +10,9 @@ const socket = require("socket.io");
 dotenv.config();
 const webSocket = require("./socket");
 
+const { jwtMiddleware } = require("./middleware/authMiddleware");
+const bodyParser = require("body-parser");
+
 const app = express();
 app.use(
   cors({
@@ -18,6 +21,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(cookieParser());
+app.use(jwtMiddleware);
 
 const { PORT, MONGO_URI } = process.env;
 
