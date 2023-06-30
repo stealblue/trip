@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
 dotenv.config();
-
+const mqtt = require("./mqtt");
 const { jwtMiddleware } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
 

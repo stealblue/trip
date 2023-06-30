@@ -22,7 +22,7 @@ exports.renderMain = async (req, res, next) => {
 
 exports.renderRoom = (req, res) => {};
 
-exports.createRoom = async (req, res, next) => {
+exports.createRoom = async (req, res) => {
   console.log("createRoom에 들어왔는지 확인");
   try {
     const roomSchema = Joi.object().keys({
@@ -40,7 +40,7 @@ exports.createRoom = async (req, res, next) => {
     } else {
       newRoom = await Room.create({ title, max, owner, password });
     }
-    next();
+    return res.json(newRoom);
   } catch (error) {
     return res.json(error);
   }
