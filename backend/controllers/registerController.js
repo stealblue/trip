@@ -1,7 +1,8 @@
 const { user } = require("../models/mysql");
 const bcrypt = require("bcrypt");
+const {generateToken} = require("./authController");
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
   const {id, pwd, nick, phone, addr1, addr2, zipcode, gender} = req.body;
   const hashedPwd = await bcrypt.hash(pwd, 10); //해쉬 비밀번호
 
@@ -20,6 +21,12 @@ exports.register = async (req, res, next) => {
       where: {
         id,
       }
+    });
+
+    const token = generateToken(id, pwd);
+    res.cookie("access_token", token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
     });
 
     //아이디 중복확인
@@ -57,8 +64,9 @@ exports.register = async (req, res, next) => {
       zipcode: zipcode,
       gender: gender,
     });
-    res.status(200).json(newUser);
+    return res.status(200).json(newUser);
   } catch (e) {
     console.error(e);
+    return res.status(500).json("회원가입 실패");
   }
 }
