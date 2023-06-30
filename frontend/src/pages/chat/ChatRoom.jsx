@@ -1,11 +1,11 @@
 import React from "react";
 import CreateRoomCntr from "../../containers/chat/CreateRoomCntr";
-import { Outlet } from "react-router";
+// import { Outlet } from "react-router";
 
 const ChatRoom = () => {
   return (
     <>
-      <Outlet />
+      {/* <Outlet /> */}
       <CreateRoomCntr />
     </>
   );

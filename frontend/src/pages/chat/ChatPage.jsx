@@ -12,6 +12,7 @@ const ChatPage = ({ testUser }) => {
 
   return (
     <div>
+      
       <RoomListCntr />
       {/* <Outlet /> */}
       <ButtonComp onClick={createRoom}>방만들기</ButtonComp>

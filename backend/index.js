@@ -6,8 +6,9 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
+const socket = require("socket.io");
 dotenv.config();
-const webSocket = require("./socket");
+// const webSocket = require("./socket");
 
 const app = express();
 app.use(
@@ -17,6 +18,7 @@ app.use(
     credentials: true,
   })
 );
+
 const { PORT, MONGO_URI } = process.env;
 
 console.log("port", PORT);
@@ -67,6 +69,27 @@ app.get("/", (req, res) => {
 const server = app.listen(PORT || 4000, () => {
   console.log(`Listening to port ${PORT}`);
 });
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
+});
 
 app.use((req, res, next) => {
   const err = new Error("NOT FOUND");
@@ -79,5 +102,5 @@ app.use((err, req, res) => {
   res.render("error");
 });
 
-webSocket(server, app, sessionMiddleware);
+// webSocket(server, app, sessionMiddleware);
 // webSocket();
