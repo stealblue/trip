@@ -6,9 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
-// const socket = require("socket.io");
 dotenv.config();
-const webSocket = require("./socket");
 
 const { jwtMiddleware } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
@@ -23,7 +21,7 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(jwtMiddleware);
+// app.use(jwtMiddleware);
 
 const { PORT, MONGO_URI } = process.env;
 
@@ -50,8 +48,6 @@ sequelize
     console.error(e);
   });
 
-// app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -66,36 +62,10 @@ const sessionMiddleware = session({
 });
 
 app.use("/", router);
-app.use("/auth", authRouter);
-
-app.get("/", (req, res) => {
-  res.send("메인페이지");
-});
 
 const server = app.listen(PORT || 4000, () => {
   console.log(`Listening to port ${PORT}`);
 });
-// const io = socket(server, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   },
-// });
-
-// global.onlineUsers = new Map();
-// io.on("connection", (socket) => {
-//   global.chatSocket = socket;
-//   socket.on("add-user", (userId) => {
-//     onlineUsers.set(userId, socket.id);
-//   });
-
-//   socket.on("send-msg", (data) => {
-//     const sendUserSocket = onlineUsers.get(data.to);
-//     if (sendUserSocket) {
-//       socket.to(sendUserSocket).emit("msg-recieve", data.msg);
-//     }
-//   });
-// });
 
 app.use((req, res, next) => {
   const err = new Error("NOT FOUND");
@@ -107,6 +77,3 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render("error");
 });
-
-webSocket(server, app, sessionMiddleware);
-// webSocket();

@@ -7,6 +7,7 @@ const client = mqtt.connect("192.168.10.104:1883");
 const Joi = require("joi");
 
 exports.renderMain = async (req, res, next) => {
+  console.log("check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
   try {
     const roomList = await Room.find();
     console.log("roomList : ", roomList);

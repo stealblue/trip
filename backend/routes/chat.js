@@ -13,14 +13,7 @@ const { error } = require("console");
 const app = express();
 const chat = express.Router();
 
-chat.get(
-  "/",
-  function (req, res, next) {
-    console.log("확잉!!!!!!!!!!!");
-    next();
-  },
-  renderMain
-);
+chat.get("/", renderMain);
 chat.get("/room", renderRoom);
 chat.post("/room", createRoom, createParticipates);
 chat.get("/room/:id", enterRoom);
