@@ -10,20 +10,18 @@ const RegisterCntr = () => {
   }));
   const onChange = (e) => {
     const { value, name } = e.target;
-    dispatch(register({ value, key: name, form }));
+    dispatch(register({ value, key: name }));
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ value, key: name, form }));
+    dispatch(register({ form }));
   };
   useEffect(() => {
     dispatch(initializeRegisterForm());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <>
-      <RegisterFormComp form={form} onChange={onChange} onSubmit={onSubmit} />
-    </>
+    <RegisterFormComp onChange={onChange} onSubmit={onSubmit} form={form} />
   );
 };
 

@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
 
 const RegisterFormBlock = styled.div`
   display: flex;
@@ -48,7 +47,7 @@ const items = [
   "성별",
 ];
 
-const RegisterFormComp = ({ form, onChange, onSubmit }) => {
+const RegisterFormComp = ({ onChange, onSubmit, form }) => {
   // const { id, nick, phone } = form;
   return (
     <>
