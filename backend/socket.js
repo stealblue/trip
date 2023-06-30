@@ -41,10 +41,10 @@ module.exports = (server, app, sessionMiddleware) => {
       //   room.emit("removeRoom", roomId);
       //   console.log("방 제거 요청 성공");
       // } else {
-      //   socket.to(roomId).emit("exit", {
-      //     user: "system",
-      //     chat: `${socket.request.session.color}님이 퇴장하셨습니다.`,
-      //   });
+      socket.to(roomId).emit("exit", {
+        user: "system",
+        chat: `${socket.request.session.color}님이 퇴장하셨습니다.`,
+      });
       // }
     });
   });
