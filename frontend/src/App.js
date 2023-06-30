@@ -15,7 +15,6 @@ import ReadPage from "./pages/board/ReadPage";
 function App() {
   return (
     <>
-      <LayoutComp />
       <Routes>
         <Route element={<LayoutComp />}>
           <Route path="/" element={<Main />} />
