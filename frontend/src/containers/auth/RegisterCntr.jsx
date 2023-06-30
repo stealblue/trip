@@ -11,10 +11,11 @@ const RegisterCntr = () => {
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(register({ value, key: name }));
+    console.log(form);
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ form }));
+    // dispatch(register({ form }));
   };
   useEffect(() => {
     dispatch(initializeRegisterForm());
