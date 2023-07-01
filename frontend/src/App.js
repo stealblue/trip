@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import LayoutComp from "./components/LayoutComp";
+import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route element={<LayoutComp />}>
+        <Route element={<LayoutCntr />}>
           <Route path="/" element={<Main />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/room" element={<ChatRoom />} />

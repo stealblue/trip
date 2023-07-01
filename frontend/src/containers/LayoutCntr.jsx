@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./main/FooterComp";
-import HeaderComp from "./main/HeaderComp";
+import Footer from "../components/main/FooterComp";
+import HeaderComp from "../components/main/HeaderComp";
 import { useSelector } from "react-redux";
 
-const LayoutComp = () => {
+const LayoutCntr = () => {
   const { nick } = useSelector(({ LoginMod }) => ({
     nick: LoginMod?.nick,
   }));
@@ -16,4 +16,4 @@ const LayoutComp = () => {
   );
 };
 
-export default LayoutComp;
+export default LayoutCntr;
