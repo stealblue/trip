@@ -46,7 +46,7 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-const HeaderComp = () => {
+const HeaderComp = ({ nick }) => {
   return (
     <>
       <HeaderContainer>
@@ -74,14 +74,23 @@ const HeaderComp = () => {
             <Link to="/board">여행후기</Link>
           </NavList>
         </Nav>
-        <div>
-          <LoginCategory>
-            <Link to="/auth/login">로그인</Link>
-          </LoginCategory>
-          <LoginCategory>
-            <Link to="/auth/register">회원가입</Link>
-          </LoginCategory>
-        </div>
+        {nick ? (
+          <div>
+            <h2>{nick}님 환영합니다!</h2>
+            <LoginCategory>
+              <Link to="/auth/logout">로그아웃</Link>
+            </LoginCategory>
+          </div>
+        ) : (
+          <div>
+            <LoginCategory>
+              <Link to="/auth/login">로그인</Link>
+            </LoginCategory>
+            <LoginCategory>
+              <Link to="/auth/register">회원가입</Link>
+            </LoginCategory>
+          </div>
+        )}
       </HeaderContainer>
       <Spacer />
     </>

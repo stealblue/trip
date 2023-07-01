@@ -1,6 +1,7 @@
 const express = require("express");
 const {login, check, logout} = require("../controllers/loginController");
 const {register} = require("../controllers/registerController");
+// const { isNotLoggedIn, isLoggedIn } = require("../middleware/authMiddleware");
 const app = express();
 const auth = express.Router();
 
