@@ -33,11 +33,22 @@ exports.login = async (req, res) => {
       return res.status(401).json("비밀번호를 확인해주세요"); //비밀번호 빈칸 및 확인
     }
 
-    
-
-    return res.json(exUser); //유저정보 및 페이지이동 해야함     
+    return res.json(exUser); //유저정보 및 페이지이동 해야함
   } catch (e) {
     console.error(e);
     return res.status(500).json("로그인 실패");
   }
+}
+
+exports.check = async (req, res) => {
+  const exUser = req.data;
+  if (!exUser) {
+    return res.status(401).json("로그인중 아님");
+  }
+  return res.json(exUser);
+}
+
+exports.logout = async (req, res) => {
+  console.log("asdad");
+  // return (req.cookies["access_token"], res.status(204).json("로그아웃 했습니다."));
 }
