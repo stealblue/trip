@@ -46,11 +46,11 @@ const CreateRoomMod = handleActions(
       ...state,
       [key]: value,
     }),
-    [CREATE_ROOM]: (state) => ({
-      ...state,
-      room: null,
-      roomError: null,
-    }),
+    // [CREATE_ROOM]: (state) => ({
+    //   ...state,
+    //   room: null,
+    //   roomError: null,
+    // }),
     [CREATE_ROOM_SUCCESS]: (state, { payload: room }) => ({
       ...state,
       room,

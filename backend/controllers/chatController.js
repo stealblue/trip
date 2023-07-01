@@ -7,15 +7,11 @@ const client = mqtt.connect("192.168.10.104:1883");
 const Joi = require("joi");
 
 exports.renderMain = async (req, res, next) => {
-  console.log("check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
   try {
     const roomList = await Room.find();
-    console.log("roomList : ", roomList);
-    roomList.map((room) => {
-      console.log("room : ", room);
-    });
     return res.json(roomList);
   } catch (e) {
+    console.log("rooms.find({},{}) 이거 너니>?");
     return res.json(e);
   }
 };
@@ -47,17 +43,48 @@ exports.createRoom = async (req, res) => {
 };
 
 exports.enterRoom = async (req, res) => {
-try{
+  const { _id } = req.params;
+  const { password } = req.query;
+  console.log("id : ", _id, " password : ", password);
+  try {
+    const room = await Room.findOne({ _id });
+    if (!room) return res.redirect("/?error=존재하지 않는 방입니다.");
+    if (room.password && room.password !== req.query.password)
+      return res.redirect("/?error=비밀번호가 틀렸습니다.");
 
-}catch(e){
-  
-}
+    const io = req.app.get("io");
+    const { rooms } = io.of("/chat").adapter;
+    console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
+    if (room.max <= rooms.get(req.params.id)?.size) {
+      return res.redirect("/?error=허용 인원이 초과하였습니다.");
+    }
+    const chats = await Chat.find({ room: room._id }).sort("createAt");
+    return res.render("chat", {
+      room,
+      title: room.title,
+      chats,
+      user: req.session.color || "testAdmin2" || req.user.user,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 exports.removeRoom = async (req, res, next) => {};
 
-exports.sendChat = async (req, res, next) => {
-
+exports.sendChat = async (req, res) => {
+  try {
+    const chat = await Chat.create({
+      room: req.params.id,
+      user: req.session.color || "testAdmin2" || req.user.user,
+      chat: req.body.chat,
+    });
+    req.app.get("io").of("/chat").to(req.params.id).emit("chat", chat);
+    res.send("ok");
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
 };
 
 exports.sendGif = async (req, res, next) => {};

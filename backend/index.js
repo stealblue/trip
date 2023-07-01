@@ -7,9 +7,11 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
 dotenv.config();
-const mqtt = require("./mqtt");
+// const mqtt = require("./mqtt");
 const { jwtMiddleware } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
+const WebSocket = require("./socket");
+const connect = require("./models/mongoDB");
 
 const app = express();
 app.use(
@@ -35,7 +37,7 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((e) => {
-    console.error(e);
+    console.error("error : ", e);
   });
 
 // MySQL 연결
@@ -50,6 +52,7 @@ sequelize
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+connect();
 
 const sessionMiddleware = session({
   resave: false,
@@ -77,3 +80,5 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render("error");
 });
+
+WebSocket(server, app, sessionMiddleware);

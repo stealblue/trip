@@ -36,16 +36,16 @@ module.exports = (server, app, sessionMiddleware) => {
       const roomId = new URL(referer).pathname.split("/").at(-1);
       const currentRoom = chat.adapter.rooms.get(roomId);
       const userCount = currentRoom?.size || 0;
-      // if (userCount === 0) {
-      //   await removeRoom(roomId);
-      //   room.emit("removeRoom", roomId);
-      //   console.log("방 제거 요청 성공");
-      // } else {
-      socket.to(roomId).emit("exit", {
-        user: "system",
-        chat: `${socket.request.session.color}님이 퇴장하셨습니다.`,
-      });
-      // }
+      if (userCount === 0) {
+        await removeRoom(roomId);
+        room.emit("removeRoom", roomId);
+        console.log("방 제거 요청 성공");
+      } else {
+        socket.to(roomId).emit("exit", {
+          user: "system",
+          chat: `${socket.request.session.color}님이 퇴장하셨습니다.`,
+        });
+      }
     });
   });
 };
