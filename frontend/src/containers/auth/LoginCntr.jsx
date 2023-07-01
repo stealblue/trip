@@ -1,27 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoginComp from "../../components/auth/LoginComp";
-import { initializeLoginForm, login } from "../../modules/LoginMod";
+import {
+  changeValue,
+  initializeLoginForm,
+  login,
+} from "../../modules/LoginMod";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginCntr = () => {
   const dispatch = useDispatch();
-  const { form } = useSelector(({ loginMod }) => ({
-    form: loginMod,
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const { id, pwd, auth, authError } = useSelector(({ LoginMod }) => ({
+    id: LoginMod.id,
+    pwd: LoginMod.pwd,
+    auth: LoginMod.auth,
+    authError: LoginMod.authError,
   }));
+
   const onChange = (e) => {
     const { value, name } = e.target;
-    dispatch(login({ value, key: name }));
+    dispatch(changeValue({ value, key: name }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("saga넣기");
+    dispatch(login({ id, pwd }));
   };
 
   useEffect(() => {
     dispatch(initializeLoginForm());
   }, [dispatch]);
-  return <LoginComp form={form} onChange={onChange} onSubmit={onSubmit} />;
+
+  useEffect(() => {
+    if (authError) {
+      setError(authError);
+      return;
+    }
+    if (auth) {
+      navigate("/");
+      return;
+    }
+  }, [auth, authError, dispatch]);
+  return <LoginComp error={error} onChange={onChange} onSubmit={onSubmit} />;
 };
 
 export default LoginCntr;

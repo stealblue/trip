@@ -6,12 +6,12 @@ import { takeLatest } from "redux-saga/effects";
 import * as chatAPI from "../../lib/api/chat";
 
 // 액션 타입
-const TEXT_INITIALIZE = "chat/TEXT_INITIALIZE";
+// const INITIALIZE = "chat/INITIALIZE";
 const INSERT_TEXT = "chat/INSERT_TEXT";
 const [SEND_CHATTING, SEND_CHATTING_SUCCESS, SEND_CHATTING_FAILURE] =
   createRequestActionTypes("chat/SEND_CHATTING");
 
-export const textInitialize = createAction(TEXT_INITIALIZE);
+// export const initialize = createAction(INITIALIZE);
 export const insertText = createAction(INSERT_TEXT, ({ key, value }) => ({
   key,
   value,
@@ -30,7 +30,7 @@ export function* createChatSaga() {
 const initialState = { chats: null, chatError: null };
 
 const ChattingMod = handleActions({
-  [TEXT_INITIALIZE]: (state) => initialState,
+  // [INITIALIZE]: (state) => initialState,
   [INSERT_TEXT]: (state, { payload: { key, value } }) => ({
     ...state,
     [key]: value,
