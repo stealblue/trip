@@ -46,10 +46,18 @@ exports.createRoom = async (req, res) => {
   }
 };
 
-exports.enterRoom = async (req, res, next) => {};
+exports.enterRoom = async (req, res) => {
+try{
+
+}catch(e){
+  
+}
+};
 
 exports.removeRoom = async (req, res, next) => {};
 
-exports.sendChat = async (req, res, next) => {};
+exports.sendChat = async (req, res, next) => {
+
+};
 
 exports.sendGif = async (req, res, next) => {};
