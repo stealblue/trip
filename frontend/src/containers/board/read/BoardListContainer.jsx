@@ -7,16 +7,16 @@ import { listPosts } from "../../../modules/board/BoardListMod";
 const BoardListContainer = () => {
   const dispatch = useDispatch();
 
-  const { posts } = useSelector(({ BoardListMod, error, loading }) => ({
+  const { posts, error } = useSelector(({ BoardListMod, loading }) => ({
     posts: BoardListMod.posts,
     error: BoardListMod.error,
-    loading: loading["board/LIST_POSTS"],
   }));
-  // const username = "abc"; //임시 유저
+
   useEffect(() => {
     dispatch(listPosts());
   }, [dispatch]);
 
-  return <BoardListComp posts={posts} />;
+  return <BoardListComp posts={posts} error={error} />;
 };
+
 export default BoardListContainer;

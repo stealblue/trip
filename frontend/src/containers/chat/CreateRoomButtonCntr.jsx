@@ -8,16 +8,14 @@ import { createRoom } from "../../modules/chat/RoomMod";
 const CreateRoomButtonCntr = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { title, owner, max, password, roomError, room } = useSelector(
-    ({ RoomMod }) => ({
-      title: RoomMod.title,
-      owner: RoomMod.owner,
-      max: RoomMod.max,
-      password: RoomMod.password,
-      room: RoomMod.room,
-      roomError: RoomMod.roomError,
-    })
-  );
+  const { title, owner, max, password, roomError, room } = useSelector(({ RoomMod }) => ({
+    title: RoomMod.title,
+    owner: RoomMod.owner,
+    max: RoomMod.max,
+    password: RoomMod.password,
+    room: RoomMod.room,
+    roomError: RoomMod.roomError,
+  }));
 
   const onPublish = () => {
     dispatch(

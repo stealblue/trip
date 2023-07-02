@@ -8,6 +8,6 @@ export const readPost = (no) => {
   return client.get(`/board/read/${no}`);
 };
 
-export const listPosts = () => {
-  return client.get(`/board`);
+export const listPosts = ({ title, content, id }) => {
+  return client.get(`/board`, { title, content, id });
 };
