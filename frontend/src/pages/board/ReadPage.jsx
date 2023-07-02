@@ -1,10 +1,9 @@
-import ReadComp from "../../components/board/read/ReadComp";
+import ReadContainer from "../../containers/board/read/ReadContainer";
 
 const ReadPage = () => {
   return (
     <div>
-      <p>읽기페이지</p>
-      <ReadComp />
+      <ReadContainer />
     </div>
   );
 };

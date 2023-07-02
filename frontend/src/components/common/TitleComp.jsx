@@ -1,9 +1,8 @@
 import { styled } from "styled-components";
 
-const TitleText = styled.h4`
+const TitleText = styled.h1`
   font-size: 30px;
-  text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
 `;
 
 const SubTitleText = styled.p`

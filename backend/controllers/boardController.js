@@ -13,10 +13,12 @@ exports.boardListPage = async (req, res) => {
 };
 
 exports.boardDetailPage = async (req, res) => {
+  console.log("req.params=======>", req.params);
   try {
-    const boardNo = req.params.no;
+    const no = req.params.boardNo;
+    console.log(no);
     const detailPage = await board.findOne({
-      no,
+      where: { no },
     });
     res.json(detailPage);
   } catch (error) {
