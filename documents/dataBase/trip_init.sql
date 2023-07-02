@@ -60,4 +60,4 @@ id varchar(35) not null,
 
 ALTER TABLE trip.board ADD createAt TIMESTAMP DEFAULT now() NOT NULL;
 ALTER TABLE trip.board ADD updateAt TIMESTAMP DEFAULT now() NULL;
-
+ALTER TABLE trip.board MODIFY COLUMN updateAt timestamp NULL;
