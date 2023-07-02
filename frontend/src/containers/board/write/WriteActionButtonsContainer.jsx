@@ -41,10 +41,10 @@ const WriteActionButtonsContainer = () => {
   // 성공 실패시 작업
   useEffect(() => {
     if (post) {
-      const { id } = post;
+      // const { id } = post;
       console.log("WriteActionButtonsCon=>", post);
-      navigate(`/board/${id}`);
-      // navigate(`/board`);
+      // navigate(`/board/${id}`);
+      navigate(`/board`);
     }
     if (postError) {
       console.log(postError);

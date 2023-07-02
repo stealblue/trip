@@ -24,7 +24,7 @@ function App() {
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/area" element={<Area />} />
           <Route path="/board/write" element={<WritePage />} />
-          <Route path="/board/:nick/:postId" element={<ReadPage />} />
+          <Route path="/board/read/:readNo" element={<ReadPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
         </Route>
