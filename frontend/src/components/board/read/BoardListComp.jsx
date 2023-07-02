@@ -58,39 +58,32 @@ const BoardListImg = styled.img`
   width: 300px;
 `;
 
-const ListItemcomp = ({ post }) => {
+const BoardListItem = ({ post }) => {
+  // if (!post) {
+  //   return <div></div>;
+  // }
+
   const { title, content, like, cnt } = post;
-  console.log(title);
   return (
-    <>
-      <ListContainer>
-        <div className="board-list">
-          <BoardListImg src="/assets/mainslide.jpeg" />
-          <div className="board-list-text">
-            <div className="title">{title}</div>
-            <p className="des">{content}</p>
-            <p className="nick">{like}</p>
-            <p className="date">2023.06.02</p>
-          </div>
-        </div>
-      </ListContainer>
-    </>
+    <div>
+      <h3>{post.title}</h3>
+      <p>{content}</p>
+    </div>
   );
 };
 
 const BoardListComp = ({ posts, showWriteButton }) => {
+  console.log("posts : ", posts);
   return (
     <>
       <WrapperComp>
         <TitleComp>여행 후기</TitleComp>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
+        {posts.map((post) => (
+          <BoardListItem key={post.id} post={post} />
+        ))}
         {!showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
       </WrapperComp>
-      <div>
-        {posts?.map((post) => (
-          <ListItemcomp key={post.id} post={post} />
-        ))}
-      </div>
     </>
   );
 };
