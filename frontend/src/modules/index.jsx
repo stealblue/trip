@@ -2,31 +2,34 @@ import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import RegisterMod, { registerSaga } from "./RegisterMod";
 import LoginMod, { loginSaga } from "./LoginMod";
-import CreateRoomMod, { createRoomSaga2 } from "./chat/CreateRoomMod";
-import ListRoomsMod, { listRoomsSaga2 } from "./chat/ListRoomsMod";
+// import CreateRoomMod, { createRoomSaga2 } from "./chat/CreateRoomMod";
+// import ListRoomsMod, { listRoomsSaga2 } from "./chat/ListRoomsMod";
 import WriteMod, { writeSaga } from "./board/WriteMod";
 import BoardListMod, { listSaga } from "./board/BoardListMod";
-import ReadRoomMod, { readRoomSaga2 } from "./chat/ReadRoomMod";
+// import ReadRoomMod, { readRoomSaga2 } from "./chat/ReadRoomMod";
+import RoomMod, { roomSaga } from "./chat/RoomMod";
 
 const rootReducer = combineReducers({
   RegisterMod,
   LoginMod,
   WriteMod,
-  CreateRoomMod,
-  ListRoomsMod,
+  // CreateRoomMod,
+  // ListRoomsMod,
   BoardListMod,
-  ReadRoomMod,
+  // ReadRoomMod,
+  RoomMod,
 });
 
 export function* rootSaga() {
   yield all([
     writeSaga(),
-    createRoomSaga2(),
+    // createRoomSaga2(),
     loginSaga(),
     registerSaga(),
-    listRoomsSaga2(),
+    // listRoomsSaga2(),
     listSaga(),
-    readRoomSaga2(),
+    // readRoomSaga2(),
+    roomSaga(),
   ]);
 }
 

@@ -37,7 +37,7 @@ const listRoomsSaga = createRequestSaga(LIST_ROOMS, chatAPI.listRooms);
 const readRoomSaga = createRequestSaga(READ_ROOM, chatAPI.readRoom);
 const deleteRoomSaga = createRequestSaga(DELETE_ROOM, chatAPI.deleteRoom);
 
-export function* chatSaga() {
+export function* roomSaga() {
   yield takeLatest(LIST_ROOMS, listRoomsSaga);
   yield takeLatest(CREATE_ROOM, createRoomSaga);
   yield takeLatest(READ_ROOM, readRoomSaga);

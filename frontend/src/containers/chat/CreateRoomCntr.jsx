@@ -1,15 +1,16 @@
 import CreateRoomComp from "../../components/chat/CreateRoomComp";
 import React, { useEffect } from "react";
-import { changeField, initialize } from "../../modules/chat/CreateRoomMod";
+// import { changeField, initialize } from "../../modules/chat/CreateRoomMod";
+import { changeField, initialize } from "../../modules/chat/RoomMod";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateRoomCntr = () => {
   const dispatch = useDispatch();
-  const { title, max, password, owner } = useSelector(({ CreateRoomMod }) => ({
-    title: CreateRoomMod.title,
-    max: CreateRoomMod.max,
-    password: CreateRoomMod.password,
-    owner: CreateRoomMod.owner,
+  const { title, max, password, owner } = useSelector(({ RoomMod }) => ({
+    title: RoomMod.title,
+    max: RoomMod.max,
+    password: RoomMod.password,
+    owner: RoomMod.owner,
   }));
 
   const onSubmit = async (e) => {

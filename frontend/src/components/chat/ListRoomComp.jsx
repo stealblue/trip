@@ -1,22 +1,32 @@
-const RoomItem = ({ room }) => {
-  const { title, createAt, owner, _id } = room;
+const RoomItem = ({ room, onClick }) => {
+  const { title, createAt, owner, max, _id } = room;
   return (
     <div key={_id}>
-      <div>
-        <span>{title}</span>
-        <br />
-        <span>{createAt}</span>
-        <br />
-        <span>{owner}</span>
-      </div>
+      <span>방제 : {title}</span>
+      <br />
+      <span>생성 날짜 : {createAt}</span>
+      <br />
+      <span>방장 : {owner}</span>
+      <br />
+      <span>{max}명</span>
+      <br />
+      <button onClick={onClick} value={_id}>
+        입장
+      </button>
+      <hr />
     </div>
   );
 };
 
-const ListRoomComp = ({ rooms, loading, error }) => {
+const ListRoomComp = ({ rooms, loading, onClick }) => {
+  console.log("rooms : ", rooms);
   return (
     <div>
-      {!loading && rooms && rooms.map((room) => <RoomItem room={room} />)}
+      {!loading &&
+        rooms &&
+        rooms.data.map((room) => (
+          <RoomItem room={room} onClick={onClick} key={room._id} />
+        ))}
     </div>
   );
 };

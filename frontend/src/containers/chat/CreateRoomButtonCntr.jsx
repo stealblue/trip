@@ -2,19 +2,20 @@ import React, { useEffect } from "react";
 import WriteActionbuttonsComp from "../../components/board/write/WriteActionButtonsComp";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { createRoom } from "../../modules/chat/CreateRoomMod";
+// import { createRoom } from "../../modules/chat/CreateRoomMod";
+import { createRoom } from "../../modules/chat/RoomMod";
 
 const CreateRoomButtonCntr = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { title, owner, max, password, roomError, room } = useSelector(
-    ({ CreateRoomMod }) => ({
-      title: CreateRoomMod.title,
-      owner: CreateRoomMod.owner,
-      max: CreateRoomMod.max,
-      password: CreateRoomMod.password,
-      room: CreateRoomMod.room,
-      roomError: CreateRoomMod.roomError,
+    ({ RoomMod }) => ({
+      title: RoomMod.title,
+      owner: RoomMod.owner,
+      max: RoomMod.max,
+      password: RoomMod.password,
+      room: RoomMod.room,
+      roomError: RoomMod.roomError,
     })
   );
 
