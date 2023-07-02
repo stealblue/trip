@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+
 const RoomItem = ({ room, onClick }) => {
   const { title, createAt, owner, max, _id } = room;
   return (
     <div key={_id}>
-      <span>방제 : {title}</span>
+      <span>
+        방제 : <Link to={`/chat/${_id}`}>{title}</Link>
+      </span>
       <br />
       <span>생성 날짜 : {createAt}</span>
       <br />
@@ -10,7 +14,7 @@ const RoomItem = ({ room, onClick }) => {
       <br />
       <span>{max}명</span>
       <br />
-      <button onClick={onClick} value={_id}>
+      <button onClick={onClick} value={room}>
         입장
       </button>
       <hr />
@@ -19,7 +23,6 @@ const RoomItem = ({ room, onClick }) => {
 };
 
 const ListRoomComp = ({ rooms, loading, onClick }) => {
-  console.log("rooms : ", rooms);
   return (
     <div>
       {!loading &&

@@ -14,10 +14,8 @@ const app = express();
 const chat = express.Router();
 
 chat.get("/", renderMain);
-chat.get("/room", renderRoom);
-// chat.post("/room", createRoom, createParticipates);
-chat.post("/room", createRoom);
-chat.get("/room/:id", enterRoom);
-chat.post("/room/:id/chat", sendChat);
+chat.post("/", createRoom);
+chat.get("/:id", enterRoom);
+chat.post("/:id/chat", sendChat);
 
 module.exports = chat;

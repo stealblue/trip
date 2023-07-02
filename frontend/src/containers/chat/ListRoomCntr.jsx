@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListRoomComp from "../../components/chat/ListRoomComp";
-// import { listRooms } from "../../modules/chat/ListRoomsMod";
 import { listRooms } from "../../modules/chat/RoomMod";
 import { useSearchParams } from "react-router-dom";
 
