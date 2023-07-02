@@ -1,14 +1,12 @@
 import React from "react";
 import CreateRoomCntr from "../../containers/chat/CreateRoomCntr";
-// import { Outlet } from "react-router";
 
-const ChatRoom = () => {
+const RoomCreatePage = () => {
   return (
     <>
-      {/* <Outlet /> */}
       <CreateRoomCntr />
     </>
   );
 };
 
-export default ChatRoom;
+export default RoomCreatePage;

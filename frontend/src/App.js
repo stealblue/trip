@@ -4,12 +4,12 @@ import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
-import ChatPage from "./pages/chat/ChatPage";
+import RoomListPage from "./pages/chat/RoomListPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import Area from "./pages/area/AreaListPage";
-import ChatRoom from "./pages/chat/ChatRoom";
-import ChatRoom2 from "./pages/chat/ChatRoom2";
+import RoomCreatePage from "./pages/chat/RoomCreatePage";
+import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
 
 function App() {
@@ -18,9 +18,9 @@ function App() {
       <Routes>
         <Route element={<LayoutCntr />}>
           <Route path="/" element={<Main />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/chat/room" element={<ChatRoom />} />
-          <Route path="/chat/room/:roomId" element={<ChatRoom2 />} />
+          <Route path="/chat" element={<RoomListPage />} />
+          <Route path="/chat/room" element={<RoomCreatePage />} />
+          <Route path="/chat/room/:roomId" element={<RoomReadPage />} />
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/area" element={<Area />} />
           <Route path="/board/write" element={<WritePage />} />

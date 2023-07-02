@@ -6,6 +6,7 @@ import CreateRoomMod, { createRoomSaga2 } from "./chat/CreateRoomMod";
 import ListRoomsMod, { listRoomsSaga2 } from "./chat/ListRoomsMod";
 import WriteMod, { writeSaga } from "./board/WriteMod";
 import BoardListMod, { listSaga } from "./board/BoardListMod";
+import ReadRoomMod, { readRoomSaga2 } from "./chat/ReadRoomMod";
 
 const rootReducer = combineReducers({
   RegisterMod,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   CreateRoomMod,
   ListRoomsMod,
   BoardListMod,
+  ReadRoomMod,
 });
 
 export function* rootSaga() {
@@ -24,6 +26,7 @@ export function* rootSaga() {
     registerSaga(),
     listRoomsSaga2(),
     listSaga(),
+    readRoomSaga2(),
   ]);
 }
 

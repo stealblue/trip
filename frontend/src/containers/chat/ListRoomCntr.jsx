@@ -4,7 +4,7 @@ import ListRoomComp from "../../components/chat/ListRoomComp";
 import { listRooms } from "../../modules/chat/ListRoomsMod";
 import { useSearchParams } from "react-router-dom";
 
-const RoomListCntr = () => {
+const ListRoomCntr = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { rooms, error, loading } = useSelector(({ ListRoomsMod }) => ({
@@ -19,4 +19,4 @@ const RoomListCntr = () => {
   return <ListRoomComp error={error} rooms={rooms} loading={loading} />;
 };
 
-export default RoomListCntr;
+export default ListRoomCntr;

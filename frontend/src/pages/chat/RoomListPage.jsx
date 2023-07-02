@@ -1,23 +1,19 @@
 import ButtonComp from "../../components/common/ButtonComp";
-import RoomListCntr from "../../containers/chat/RoomListCntr";
+import ListRoomCntr from "../../containers/chat/ListRoomCntr";
 import { useNavigate } from "react-router-dom";
-// import { Outlet } from "react-router-dom";
 
-const ChatPage = ({ testUser }) => {
+const RoomList = ({ testUser }) => {
   const navigate = useNavigate();
-
   const createRoom = () => {
     navigate("/chat/room");
   };
 
   return (
     <div>
-      
-      <RoomListCntr />
-      {/* <Outlet /> */}
+      <ListRoomCntr />
       <ButtonComp onClick={createRoom}>방만들기</ButtonComp>
     </div>
   );
 };
 
-export default ChatPage;
+export default RoomList;

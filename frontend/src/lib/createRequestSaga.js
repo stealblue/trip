@@ -22,7 +22,7 @@ export default function createRequestSaga(type, request) {
       console.log("response : ", response);
       yield put({
         type: SUCCESS,
-        payload: response.data,
+        payload: response,
         meta: response,
       });
       console.log("try 끝");
