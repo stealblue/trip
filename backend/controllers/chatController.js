@@ -44,28 +44,10 @@ exports.createRoom = async (req, res) => {
 
 // 특정 채팅방 출력
 exports.enterRoom = async (req, res) => {
-  const { _id } = req.params;
-  const { password } = req.query;
-  console.log("id : ", _id, " password : ", password);
+  const { roomId } = req.params;
   try {
-    const room = await Room.findOne({ _id });
-    if (!room) return res.redirect("/?error=존재하지 않는 방입니다.");
-    if (room.password && room.password !== req.query.password)
-      return res.redirect("/?error=비밀번호가 틀렸습니다.");
-
-    const io = req.app.get("io");
-    const { rooms } = io.of("/chat").adapter;
-    console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
-    if (room.max <= rooms.get(req.params.id)?.size) {
-      return res.redirect("/?error=허용 인원이 초과하였습니다.");
-    }
-    const chats = await Chat.find({ room: room._id }).sort("createAt");
-    return res.render("chat", {
-      room,
-      title: room.title,
-      chats,
-      user: req.session.color || "testAdmin2" || req.user.user,
-    });
+    const room = await Room.findById({ _id: roomId });
+    return res.json(room);
   } catch (error) {
     console.error(error);
   }

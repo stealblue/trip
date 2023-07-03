@@ -1,4 +1,11 @@
 import React from "react";
+import styled from "styled-components";
+
+const ChatBlock = styled.div`
+  height: 600px;
+  overflow: auto;
+  background-color: steelblue;
+`;
 
 const ReadRoomComp = ({ room, error, loading }) => {
   if (error) {
@@ -10,12 +17,22 @@ const ReadRoomComp = ({ room, error, loading }) => {
   if (!room) {
     return null;
   }
-  const { title, owner, max } = room;
+  const { title, owner, max } = room.data;
+  console.log("room : ", room);
   return (
     <div>
-      <p>{title}</p>
-      <p>{owner}</p>
-      <p>{max}</p>
+      <div>
+        <p>채팅 방 제목 : {title}</p>
+        <p>{owner}</p>
+        <p>{max}</p>
+      </div>
+      <ChatBlock />
+      <div>
+        <p>
+          <input />
+          <button>전송</button>
+        </p>
+      </div>
     </div>
   );
 };

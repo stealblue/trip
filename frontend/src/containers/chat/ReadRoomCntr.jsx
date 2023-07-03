@@ -6,6 +6,7 @@ import ReadRoomComp from "../../components/chat/ReadRoomComp";
 
 const ReadRoomCntr = () => {
   const { roomId } = useParams();
+  console.log("ReadRoomCntr ===> roomId : ", roomId);
   const dispatch = useDispatch();
   const { room, error, loading } = useSelector(({ RoomMod }) => ({
     room: RoomMod.room,
@@ -13,7 +14,9 @@ const ReadRoomCntr = () => {
   }));
 
   useEffect(() => {
-    dispatch(readRoom(roomId));
+    const _id = roomId;
+    console.log("ReadRoomCntr useEffect ===> _id : ", _id);
+    dispatch(readRoom({ _id }));
   }, [dispatch, roomId]);
   return <ReadRoomComp room={room} error={error} loading={loading} />;
 };
