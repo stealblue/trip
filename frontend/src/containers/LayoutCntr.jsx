@@ -1,15 +1,23 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/main/FooterComp";
 import HeaderComp from "../components/main/HeaderComp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../modules/UserMod";
+import { useEffect } from "react";
 
 const LayoutCntr = () => {
-  const { nick } = useSelector(({ LoginMod }) => ({
-    nick: LoginMod?.nick,
+  const dispatch = useDispatch();
+  const { nick } = useSelector(({ UserMod }) => ({
+    nick: UserMod.user?.nick,
   }));
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
-      <HeaderComp nick={nick} />
+      <HeaderComp nick={nick} onLogout={onLogout} />
       <Outlet />
       <Footer />
     </>

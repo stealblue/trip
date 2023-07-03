@@ -19,7 +19,7 @@ exports.renderMain = async (req, res, next) => {
 
 // 채팅방 생성
 exports.createRoom = async (req, res) => {
-  console.log("createRoom에 들어왔는지 확인");
+  // console.log("createRoom에 들어왔는지 확인");
   try {
     const roomSchema = Joi.object().keys({
       title: Joi.string().trim().allow("").required(),
@@ -57,18 +57,6 @@ exports.enterRoom = async (req, res) => {
 exports.removeRoom = async (req, res, next) => {};
 
 exports.insertChat = async (req, res) => {
-  // try {
-  //   const chat = await Chat.create({
-  //     room: req.params.id,
-  //     user: req.session.color || "testAdmin2" || req.user.user,
-  //     chat: req.body.chat,
-  //   });
-  //   req.app.get("io").of("/chat").to(req.params.id).emit("chat", chat);
-  //   res.send("ok");
-  // } catch (e) {
-  //   console.error(e);
-  //   next(e);
-  // }
   const { room, user, content } = req.body;
 };
 

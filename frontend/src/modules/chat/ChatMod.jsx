@@ -1,4 +1,3 @@
-// chat(채팅에 관한 module들을 한 곳에 모아두기로 생각해서 생성)
 import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,

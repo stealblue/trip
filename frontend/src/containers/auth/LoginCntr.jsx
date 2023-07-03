@@ -7,17 +7,22 @@ import {
 } from "../../modules/LoginMod";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { check } from "../../modules/UserMod";
 
 const LoginCntr = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const { id, pwd, auth, authError } = useSelector(({ LoginMod }) => ({
-    id: LoginMod.id,
-    pwd: LoginMod.pwd,
-    auth: LoginMod.auth,
-    authError: LoginMod.authError,
-  }));
+  const { id, pwd, auth, authError, user } = useSelector(
+    ({ LoginMod, UserMod }) => ({
+      id: LoginMod.id,
+      pwd: LoginMod.pwd,
+      auth: LoginMod.auth,
+      authError: LoginMod.authError,
+      user: UserMod.user,
+    })
+  );
+  const USER_KEY = "USER";
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -39,10 +44,23 @@ const LoginCntr = () => {
       return;
     }
     if (auth) {
-      navigate("/");
+      console.log("로그인 성공");
+      dispatch(check());
       return;
     }
   }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+      try {
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
+      } catch (e) {
+        console.log("localStorage is not working");
+      }
+    }
+  }, [navigate, user]);
+
   return <LoginComp error={error} onChange={onChange} onSubmit={onSubmit} />;
 };
 
