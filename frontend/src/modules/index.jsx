@@ -3,7 +3,7 @@ import { all } from "redux-saga/effects";
 import RegisterMod, { registerSaga } from "./RegisterMod";
 import LoginMod, { loginSaga } from "./LoginMod";
 import WriteMod, { writeSaga } from "./board/WriteMod";
-import BoardListMod, { listSaga } from "./board/BoardListMod";
+import BoardListMod, { postsSaga } from "./board/BoardListMod";
 import RoomMod, { roomSaga } from "./chat/RoomMod";
 import ReadMod, { postSaga } from "./board/ReadMod";
 import ChatMod, { chatSaga } from "./chat/ChatMod";
@@ -23,7 +23,7 @@ export function* rootSaga() {
     writeSaga(),
     loginSaga(),
     registerSaga(),
-    listSaga(),
+    postsSaga(),
     roomSaga(),
     postSaga(),
     chatSaga(),

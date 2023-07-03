@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
+import ListActionButtonsComp from "../write/ListActionButtonsComp";
 
 const ReadContainer = styled.div`
   text-align: left;
@@ -29,7 +30,7 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const ReadComp = ({ post, error, loading }) => {
+const ReadComp = ({ post, error, loading, actionButtons }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <div>존재하지않는포스트입니다</div>;
@@ -41,21 +42,22 @@ const ReadComp = ({ post, error, loading }) => {
     return null;
   }
 
-  const { title, content, id, like, cnt } = post;
+  console.log("BoardRead====>", post.data.title);
   return (
     <>
       <Responsive>
         <ReadContainer>
-          <TitleComp>{title}</TitleComp>
-          <p className="id">{id}</p>
+          <TitleComp>{post.data.title}</TitleComp>
+          <p className="id">{post.data.id}</p>
           <div className="likeandcnt">
-            <p>{like}</p>
-            <p>{cnt}</p>
+            <p>{post.data.like}</p>
+            <p>{post.data.cnt}</p>
           </div>
         </ReadContainer>
         <Content>
-          <p>{content}</p>
+          <p>{post.data.content}</p>
         </Content>
+        {actionButtons}
       </Responsive>
     </>
   );

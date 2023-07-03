@@ -6,13 +6,11 @@ import ButtonComp from "../../../components/common/ButtonComp";
 
 const ListContainer = styled.div`
   margin-top: 50px;
-
   .board-list {
     display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+    padding: 10px 0px;
     border-bottom: 1px solid #999;
-    padding: 20px 0;
+    padding: 50px 10px;
     transition: 0.3s;
     cursor: pointer;
   }
@@ -22,7 +20,7 @@ const ListContainer = styled.div`
   }
 
   .title {
-    margin-top: 30px;
+    margin-top: 0px;
     font-size: 24px;
     font-weight: 600;
   }
@@ -54,33 +52,52 @@ const WriteButton = styled(ButtonComp)`
   transform: translate(-50%, 0);
 `;
 
+const BoardListTitle = styled(TitleComp)`
+  text-align: center;
+`;
+
 const BoardListImg = styled.img`
   width: 300px;
 `;
 
 const BoardListItem = ({ post }) => {
-  // if (!post) {
-  //   return <div></div>;
-  // }
+  if (!post) {
+    return <div>오류</div>;
+  }
 
-  const { title, content, like, cnt } = post;
+  const { no, title, content, like, cnt } = post;
   return (
-    <div>
-      <h3>{post.title}</h3>
-      <p>{content}</p>
-    </div>
+    <ListContainer>
+      <Link to={`/board/read/${no}`}>
+        <div className="board-list">
+          <BoardListImg src="/assets/mainslide.jpeg" />
+          <div className="board-list-text">
+            <h3 className="title">{title}</h3>
+            <p>{content}</p>
+          </div>
+        </div>
+      </Link>
+    </ListContainer>
   );
 };
 
-const BoardListComp = ({ posts, showWriteButton }) => {
+const BoardListComp = ({ posts, showWriteButton, error }) => {
   console.log("posts : ", posts);
+
+  if (error) {
+    return <div>에러발생</div>;
+  }
+
+  if (posts === null) {
+    return <div>로딩 중...</div>;
+  }
   return (
     <>
       <WrapperComp>
-        <TitleComp>여행 후기</TitleComp>
+        <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
-        {posts.map((post) => (
-          <BoardListItem key={post.id} post={post} />
+        {posts.map((post, index) => (
+          <BoardListItem key={post.no} post={post} />
         ))}
         {!showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
       </WrapperComp>
