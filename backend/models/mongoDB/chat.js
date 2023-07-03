@@ -14,7 +14,7 @@ const chatSchema = new Schema({
     type: String,
     required: true,
   },
-  chat: {
+  content: {
     type: Object,
   },
   gif: String,

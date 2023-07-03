@@ -1,7 +1,15 @@
+import ListChatsCntr from "../../containers/chat/ListChatCntr";
 import ReadRoomCntr from "../../containers/chat/ReadRoomCntr";
+import SendChatCntr from "../../containers/chat/SendChatCntr";
 
 const RoomReadPage = () => {
-  return <ReadRoomCntr />;
+  return (
+    <div>
+      <ReadRoomCntr />
+      <ListChatsCntr />
+      <SendChatCntr />
+    </div>
+  );
 };
 
 export default RoomReadPage;

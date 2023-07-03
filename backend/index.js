@@ -23,7 +23,7 @@ app.use(
 );
 
 app.use(cookieParser());
-// app.use(jwtMiddleware);
+app.use(jwtMiddleware);
 
 const { PORT, MONGO_URI } = process.env;
 

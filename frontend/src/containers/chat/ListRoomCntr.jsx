@@ -17,9 +17,8 @@ const ListRoomCntr = () => {
   }));
 
   useEffect(() => {
-    const page = parseInt(searchParams.get("page"), 10) || 1;
-    dispatch(listRooms({ page }));
-  }, [dispatch, searchParams]);
+    dispatch(listRooms());
+  }, [dispatch]);
   return (
     <ListRoomComp
       error={error}

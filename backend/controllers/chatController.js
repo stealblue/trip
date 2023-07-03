@@ -44,6 +44,7 @@ exports.createRoom = async (req, res) => {
 
 // 특정 채팅방 출력
 exports.enterRoom = async (req, res) => {
+  console.log("dmdmdmdmdmdmdm", req.params);
   const { roomId } = req.params;
   try {
     const room = await Room.findById({ _id: roomId });
@@ -55,18 +56,29 @@ exports.enterRoom = async (req, res) => {
 
 exports.removeRoom = async (req, res, next) => {};
 
-exports.sendChat = async (req, res) => {
+exports.insertChat = async (req, res) => {
+  // try {
+  //   const chat = await Chat.create({
+  //     room: req.params.id,
+  //     user: req.session.color || "testAdmin2" || req.user.user,
+  //     chat: req.body.chat,
+  //   });
+  //   req.app.get("io").of("/chat").to(req.params.id).emit("chat", chat);
+  //   res.send("ok");
+  // } catch (e) {
+  //   console.error(e);
+  //   next(e);
+  // }
+  const { room, user, content } = req.body;
+};
+
+exports.listChats = async (req, res) => {
+  console.log("req.params : ", req.params);
   try {
-    const chat = await Chat.create({
-      room: req.params.id,
-      user: req.session.color || "testAdmin2" || req.user.user,
-      chat: req.body.chat,
-    });
-    req.app.get("io").of("/chat").to(req.params.id).emit("chat", chat);
-    res.send("ok");
+    const chats = await Chat.find();
+    return res.json(chats);
   } catch (e) {
-    console.error(e);
-    next(e);
+    return res.json(e);
   }
 };
 
