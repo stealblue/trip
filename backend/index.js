@@ -23,12 +23,11 @@ app.use(
 );
 
 app.use(cookieParser());
-// app.use(jwtMiddleware);
+app.use(jwtMiddleware);
 
 const { PORT, MONGO_URI } = process.env;
 
 console.log("port", PORT);
-const authRouter = require("./routes/auth");
 
 // mongoDB 연결
 mongoose

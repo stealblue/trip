@@ -46,7 +46,12 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-const HeaderComp = ({ nick }) => {
+const Button = styled.button`
+  background: none;
+  border: none;
+`;
+
+const HeaderComp = ({ nick, onLogout }) => {
   return (
     <>
       <HeaderContainer>
@@ -78,7 +83,10 @@ const HeaderComp = ({ nick }) => {
           <div>
             <h2>{nick}님 환영합니다!</h2>
             <LoginCategory>
-              <Link to="/auth/logout">로그아웃</Link>
+              <Link to={`/auth/${nick}`}>마이페이지</Link>
+            </LoginCategory>
+            <LoginCategory>
+              <Button onClick={onLogout}>로그아웃</Button>
             </LoginCategory>
           </div>
         ) : (

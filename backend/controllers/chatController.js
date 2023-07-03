@@ -19,7 +19,7 @@ exports.renderMain = async (req, res, next) => {
 
 // 채팅방 생성
 exports.createRoom = async (req, res) => {
-  console.log("createRoom에 들어왔는지 확인");
+  // console.log("createRoom에 들어왔는지 확인");
   try {
     const roomSchema = Joi.object().keys({
       title: Joi.string().trim().allow("").required(),
@@ -46,7 +46,7 @@ exports.createRoom = async (req, res) => {
 exports.enterRoom = async (req, res) => {
   const { _id } = req.params;
   const { password } = req.query;
-  console.log("id : ", _id, " password : ", password);
+  // console.log("id : ", _id, " password : ", password);
   try {
     const room = await Room.findOne({ _id });
     if (!room) return res.redirect("/?error=존재하지 않는 방입니다.");
@@ -55,7 +55,7 @@ exports.enterRoom = async (req, res) => {
 
     const io = req.app.get("io");
     const { rooms } = io.of("/chat").adapter;
-    console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
+    // console.log(rooms, rooms.get(req.params.id), rooms.get(req.params.id));
     if (room.max <= rooms.get(req.params.id)?.size) {
       return res.redirect("/?error=허용 인원이 초과하였습니다.");
     }

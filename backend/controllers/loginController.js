@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
         id
       }
     });
-    const nick = exUser.nick;
+
     //코드 위치 수정 금지!!
     if (id === null) {
       return res.status(401).json({authError: "아이디를 입력해주세요"});
@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({authError: "비밀번호를 확인해주세요."}); //비밀번호 빈칸 및 확인
     }
     //비밀번호 n회 틀릴경우 로그인 막고 전화인증 받아서 풀게하기 추가!!
-    return res.json({auth: true, nick: nick}); //유저정보 및 페이지이동 해야함
+    return res.json({auth: true, nick: exUser.nick}); //유저정보 및 페이지이동 해야함
   } catch (e) {
     console.error(e, "에러입니다");
     return res.status(500).json({ authError: "로그인 실패"});
@@ -45,14 +45,18 @@ exports.login = async (req, res) => {
 }
 
 exports.check = async (req, res) => {
-  const exUser = req.data;
+  const { id, nick } = req.data;
+  const exUser = { id, nick };
+  
   if (!exUser) {
+    console.log("CHECK 실패")
     return res.status(401).json("로그인중 아님");
   }
   return res.json(exUser);
 }
 
 exports.logout = async (req, res) => {
-  req.cookies["access_token"];
+  // req.cookies["access_token"];
+  res.clearCookie("access_token");
   return res.status(204).json("로그아웃 했습니다.");
 }
