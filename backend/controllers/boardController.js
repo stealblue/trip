@@ -1,14 +1,26 @@
 const { Sequelize } = require("sequelize");
 const { board } = require("../models/mysql");
+const sanitizeHtml = require("sanitize-html");
 
-exports.boardListPage = async (req, res) => {
-  // res.render("/board/list");
+const sanitizeOption = {
+  allowedTags: ["h1", "h2", "b", "i", "u", "s", "p", "ul", "ol", "li", "blockquote", "a", "img"],
+  allowedAttributes: {
+    a: ["href", "name", "target"],
+    img: ["src"],
+    li: ["class"],
+  },
+  allowedSchemes: ["data", "http"],
+};
+
+exports.boardListPage = async (req, res, next) => {
+  console.log("boardLitpage들어옴");
   try {
     const boards = await board.findAll();
-    res.json(boards);
+    console.log(boards);
+    return res.json(boards);
     // /board/105 get
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 };
 
@@ -20,9 +32,10 @@ exports.boardDetailPage = async (req, res) => {
     const detailPage = await board.findOne({
       where: { no },
     });
-    res.json(detailPage);
+    console.log(detailPage.title);
+    return res.json(detailPage);
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 };
 
@@ -37,7 +50,7 @@ exports.boardAdd = async (req, res) => {
       id,
       img,
       title,
-      content,
+      content: sanitizeHtml(content, sanitizeOption),
       like,
       cnt,
     });
@@ -47,3 +60,28 @@ exports.boardAdd = async (req, res) => {
     res.json(error);
   }
 };
+
+exports.boardModify = async (req, res) => {
+  try {
+    const { no, title, content } = req.body;
+    console.log("req.body : ", req.body);
+    console.log("수정하기");
+
+    await board.update(
+      {
+        title,
+        content,
+        updateAt: Sequelize.Sequelize.literal("now()"),
+      },
+      {
+        where: { no },
+      }
+    );
+    return res.send("내 꿈은 꼬마박사");
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send("대홍단 왕감자");
+  }
+};
+
+exports.boardRemove = async (req, res) => {};

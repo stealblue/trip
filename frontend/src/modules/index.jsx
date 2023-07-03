@@ -3,7 +3,7 @@ import { all } from "redux-saga/effects";
 import RegisterMod, { registerSaga } from "./RegisterMod";
 import LoginMod, { loginSaga } from "./LoginMod";
 import WriteMod, { writeSaga } from "./board/WriteMod";
-import BoardListMod, { listSaga } from "./board/BoardListMod";
+import BoardListMod, { postsSaga } from "./board/BoardListMod";
 import RoomMod, { roomSaga } from "./chat/RoomMod";
 import ReadMod, { postSaga } from "./board/ReadMod";
 
@@ -17,14 +17,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([
-    writeSaga(),
-    loginSaga(),
-    registerSaga(),
-    listSaga(),
-    roomSaga(),
-    postSaga(),
-  ]);
+  yield all([writeSaga(), loginSaga(), registerSaga(), postsSaga(), roomSaga(), postSaga()]);
 }
 
 export default rootReducer;

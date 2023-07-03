@@ -21,14 +21,7 @@ const ListRoomCntr = () => {
     const page = parseInt(searchParams.get("page"), 10) || 1;
     dispatch(listRooms({ page }));
   }, [dispatch, searchParams]);
-  return (
-    <ListRoomComp
-      error={error}
-      rooms={rooms}
-      loading={loading}
-      onClick={onClick}
-    />
-  );
+  return <ListRoomComp error={error} rooms={rooms} loading={loading} onClick={onClick} />;
 };
 
 export default ListRoomCntr;

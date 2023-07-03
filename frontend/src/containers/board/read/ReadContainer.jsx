@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { readPost, unloadPost } from "../../../modules/board/ReadMod";
 import ReadComp from "../../../components/board/read/ReadComp";
+import ListActionButtonsComp from "../../../components/board/write/ListActionButtonsComp";
+import { setOriginPost } from "../../../modules/board/WriteMod";
 
 const ReadContainer = () => {
   const { readNo } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { post, error, loading } = useSelector(({ ReadMod, loading }) => ({
@@ -20,7 +23,15 @@ const ReadContainer = () => {
       dispatch(unloadPost());
     };
   }, [dispatch, readNo]);
-  return <ReadComp post={post} loading={loading} error={error}></ReadComp>;
+
+  const onEdit = () => {
+    dispatch(setOriginPost(post));
+    navigate("/board/write");
+  };
+
+  console.log("setOriginpost---->", setOriginPost);
+
+  return <ReadComp post={post} loading={loading} error={error} actionButtons={<ListActionButtonsComp onEdit={onEdit} />}></ReadComp>;
 };
 
 export default ReadContainer;

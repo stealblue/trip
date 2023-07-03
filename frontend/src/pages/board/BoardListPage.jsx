@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
-import BoardListContainer from "../../components/board/read/BoardListComp";
 import { Link } from "react-router-dom";
 import { TitleComp, SubTitleComp } from "../../components/common/TitleComp";
 import WrapperComp from "../../components/common/WrapperComp";
 import ButtonComp from "../../components/common/ButtonComp";
+import BoardListContainer from "../../containers/board/read/BoardListContainer";
 
 const ListContainer = styled.div`
   margin-top: 50px;
