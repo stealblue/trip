@@ -16,6 +16,7 @@ const ReadContainer = () => {
     error: ReadMod.error,
     // loading: loading["post/READ_POST"],
   }));
+  console.log("아아아아아ㅏ아아", post);
 
   useEffect(() => {
     dispatch(readPost(readNo));
@@ -25,8 +26,10 @@ const ReadContainer = () => {
   }, [dispatch, readNo]);
 
   const onEdit = () => {
-    dispatch(setOriginPost(post));
-    navigate("/board/write");
+    if (post) {
+      dispatch(setOriginPost(post));
+      navigate("/board/write");
+    }
   };
 
   console.log("setOriginpost---->", setOriginPost);
