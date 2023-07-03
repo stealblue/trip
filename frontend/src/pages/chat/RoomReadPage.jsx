@@ -1,5 +1,7 @@
+import ReadRoomCntr from "../../containers/chat/ReadRoomCntr";
+
 const RoomReadPage = () => {
-  return <div />;
+  return <ReadRoomCntr />;
 };
 
 export default RoomReadPage;

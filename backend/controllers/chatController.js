@@ -6,6 +6,7 @@ const { user } = require("../models/mysql");
 const client = mqtt.connect("192.168.10.104:1883");
 const Joi = require("joi");
 
+// 채팅방 리스트 출력
 exports.renderMain = async (req, res, next) => {
   try {
     const roomList = await Room.find();
@@ -16,8 +17,7 @@ exports.renderMain = async (req, res, next) => {
   }
 };
 
-exports.renderRoom = (req, res) => {};
-
+// 채팅방 생성
 exports.createRoom = async (req, res) => {
   console.log("createRoom에 들어왔는지 확인");
   try {
@@ -42,6 +42,7 @@ exports.createRoom = async (req, res) => {
   }
 };
 
+// 특정 채팅방 출력
 exports.enterRoom = async (req, res) => {
   const { _id } = req.params;
   const { password } = req.query;
