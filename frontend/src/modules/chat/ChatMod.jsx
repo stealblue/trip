@@ -19,7 +19,6 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-
 export const listChats = createAction(LIST_CHATS, ({ room }) => ({ room })); // 채팅 컬렉션의 room (채팅방의 _id)
 export const insertChat = createAction(
   INSERT_CHAT,
