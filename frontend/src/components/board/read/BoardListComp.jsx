@@ -96,7 +96,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
       <WrapperComp>
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
-        {posts.map((post, index) => (
+        {posts?.map((post, index) => (
           <BoardListItem key={post.no} post={post} />
         ))}
         {!showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}

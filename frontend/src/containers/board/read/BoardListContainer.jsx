@@ -13,7 +13,7 @@ const BoardListContainer = () => {
     error: BoardListMod.error,
   }));
   const postlist2 = posts && posts.data;
-  console.log("postlist2===>", postlist2);
+  // console.log("postlist2===>", postlist2);
   console.log("BoardListcon-->", posts);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const BoardListContainer = () => {
     dispatch(listPosts({ page }));
   }, [dispatch, searchParams]);
 
-  return <BoardListComp posts={postlist2} error={error} />;
+  return <BoardListComp posts={posts} error={error} />;
 };
 
 export default BoardListContainer;

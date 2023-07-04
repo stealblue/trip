@@ -7,6 +7,7 @@ const INITIALIZE = "write/INITIALIZE"; //모든 내용 초기화
 const CHANGE_FIELD = "wrtie/CHANGE_FIELD"; // 특정 key값 바꾸기
 const SET_ORIGIN_POST = "write/SET_ORIGIN_POST";
 const [WRITE_POST, WRITE_POST_SUCCESS, WRITE_POST_FAILURE] = createRequestActionTypes("write/WRITE_POST"); //글작성
+const [UPDATE_POST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE] = createRequestActionTypes("write/UPDATE_POST"); // 글수정
 
 // 액션지정
 export const initialize = createAction(INITIALIZE);
@@ -19,11 +20,16 @@ export const writePost = createAction(WRITE_POST, ({ title, content }) => ({
   content,
 }));
 export const setOriginPost = createAction(SET_ORIGIN_POST, (post) => post);
+export const updatePost = createAction(UPDATE_POST, ({ id, title, content }) => ({ id, title, content }));
 
+//사가
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
+const updatePostSaga = createRequestSaga(UPDATE_POST, postsAPI.updatePost);
 export function* writeSaga() {
   yield takeLatest(WRITE_POST, writePostSaga);
+  yield takeLatest(UPDATE_POST, updatePostSaga);
 }
+
 // state 초깃값 설정
 const initialState = {
   title: "",
@@ -61,6 +67,14 @@ const WriteMod = handleActions(
       title: post.title,
       content: post.content,
       originPostId: post.id,
+    }),
+    [UPDATE_POST_SUCCESS]: (state, { payload: post }) => ({
+      ...state,
+      post,
+    }),
+    [UPDATE_POST_FAILURE]: (state, { payload: postError }) => ({
+      ...state,
+      postError,
     }),
   },
   initialState
