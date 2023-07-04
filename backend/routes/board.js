@@ -8,6 +8,6 @@ board.get("/", boardListPage); // localhost:4000/board method:get
 board.post("/write", boardAdd);
 board.get("/read/:boardNo", boardDetailPage);
 board.post("/modify", boardModify);
-board.post("/board/Remove", boardRemove);
+board.post("/Remove/:boardNo", boardRemove);
 
 module.exports = board;

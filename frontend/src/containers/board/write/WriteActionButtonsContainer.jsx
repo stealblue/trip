@@ -8,25 +8,29 @@ const WriteActionButtonsContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { title, content, post, postError, originPostId } = useSelector(({ WriteMod }) => ({
+  const { title, content, post, postError, originPostId, id } = useSelector(({ WriteMod, UserMod }) => ({
     title: WriteMod.title,
     content: WriteMod.content,
     // tags: WriteMod.tags,
     post: WriteMod.post,
     postError: WriteMod.postError,
-    originPostId: writePost.originPostId,
+    originPostId: WriteMod.originPostId,
+    id: UserMod.user.id,
   }));
 
   // 포스트 등록
   const onPublish = () => {
+    console.log("보내기전 no : ", originPostId);
     if (originPostId) {
-      dispatch(updatePost({ title, content, id: originPostId }));
+      dispatch(updatePost({ title, content, no: originPostId }));
       return;
     }
+    console.log("글쓰기 버튼 컨테이너에서 전송!!", id);
     dispatch(
       writePost({
         title,
         content,
+        id,
       })
     );
   };
@@ -45,6 +49,7 @@ const WriteActionButtonsContainer = () => {
 
   // 성공 실패시 작업
   useEffect(() => {
+    console.log("post가 존재하나  : ", post);
     if (post) {
       // const { id } = post;
       console.log("WriteActionButtonsCon=>", post);
@@ -58,7 +63,7 @@ const WriteActionButtonsContainer = () => {
 
   return (
     <>
-      <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCancel} isEdit={!originPostId} />
+      <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCancel} isEdit={!!originPostId} />
     </>
   );
 };

@@ -65,7 +65,7 @@ const BoardListItem = ({ post }) => {
     return <div>오류</div>;
   }
 
-  const { no, title, content, like, cnt } = post;
+  const { no, id, title, content, like, cnt, user } = post;
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -74,6 +74,7 @@ const BoardListItem = ({ post }) => {
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
             <p>{content}</p>
+            <p>{id}</p>
           </div>
         </div>
       </Link>
@@ -99,7 +100,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         {posts?.map((post, index) => (
           <BoardListItem key={post.no} post={post} />
         ))}
-        {!showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
+        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
       </WrapperComp>
     </>
   );

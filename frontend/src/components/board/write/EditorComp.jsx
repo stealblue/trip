@@ -66,7 +66,7 @@ const EditorComp = ({ title, content, onChangeField }) => {
 
   return (
     <EditorBlock>
-      <TitleInput placeholder="제목입력" onChange={onChangeTitle} />
+      <TitleInput placeholder="제목입력" onChange={onChangeTitle} value={title} />
       <QuillWrapper>
         <div ref={quillElement} />
       </QuillWrapper>

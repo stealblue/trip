@@ -8,20 +8,21 @@ const BoardListContainer = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
 
-  const { posts, error } = useSelector(({ BoardListMod }) => ({
+  const { posts, user, error } = useSelector(({ BoardListMod, UserMod }) => ({
     posts: BoardListMod.posts,
     error: BoardListMod.error,
+    user: UserMod.user,
   }));
-  const postlist2 = posts && posts.data;
-  // console.log("postlist2===>", postlist2);
+
   console.log("BoardListcon-->", posts);
+  console.log("BoardListconuser-->", user);
 
   useEffect(() => {
     const page = parseInt(searchParams.get("page"), 10) || 1;
     dispatch(listPosts({ page }));
   }, [dispatch, searchParams]);
 
-  return <BoardListComp posts={posts} error={error} />;
+  return <BoardListComp posts={posts} error={error} showWriteButton={user} />;
 };
 
 export default BoardListContainer;

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { readPost, unloadPost } from "../../../modules/board/ReadMod";
 import ReadComp from "../../../components/board/read/ReadComp";
-import ListActionButtonsComp from "../../../components/board/write/ListActionButtonsComp";
+import ListActionButtonsComp from "../../../components/board/read/ListActionButtonsComp";
 import { setOriginPost } from "../../../modules/board/WriteMod";
+import { removePost } from "../../../lib/api/posts";
 
 const ReadContainer = () => {
   const { readNo } = useParams();
@@ -26,15 +27,23 @@ const ReadContainer = () => {
   }, [dispatch, readNo]);
 
   const onEdit = () => {
-    if (post) {
-      dispatch(setOriginPost(post));
-      navigate("/board/write");
+    dispatch(setOriginPost(post));
+    navigate("/board/write");
+  };
+
+  const onRemove = async () => {
+    try {
+      const no = readNo;
+      await removePost(no);
+      navigate("/board");
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  console.log("setOriginpost---->", setOriginPost);
+  console.log("setOriginpost---->", setOriginPost(post));
 
-  return <ReadComp post={post} loading={loading} error={error} actionButtons={<ListActionButtonsComp onEdit={onEdit} />}></ReadComp>;
+  return <ReadComp post={post} loading={loading} error={error} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
 };
 
 export default ReadContainer;

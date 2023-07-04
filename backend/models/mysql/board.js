@@ -16,7 +16,6 @@ module.exports = function (sequelize, DataTypes) {
           model: "user",
           key: "id",
         },
-        defaultValue: "testAdmin",
       },
       img: {
         type: DataTypes.STRING(50),
