@@ -46,7 +46,6 @@ const LoginCntr = () => {
     if (auth) {
       console.log("로그인 성공");
       dispatch(check());
-      return;
     }
   }, [auth, authError, dispatch]);
 
