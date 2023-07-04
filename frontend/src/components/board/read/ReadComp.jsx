@@ -42,20 +42,20 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
     return null;
   }
 
-  console.log("BoardRead====>", post.data.title);
+  console.log("BoardRead====>", post.title);
   return (
     <>
       <Responsive>
         <ReadContainer>
-          <TitleComp>{post.data.title}</TitleComp>
-          <p className="id">{post.data.id}</p>
+          <TitleComp>{post.title}</TitleComp>
+          <p className="id">{post.id}</p>
           <div className="likeandcnt">
-            <p>{post.data.like}</p>
-            <p>{post.data.cnt}</p>
+            <p>{post.like}</p>
+            <p>{post.cnt}</p>
           </div>
         </ReadContainer>
         <Content>
-          <p>{post.data.content}</p>
+          <p>{post.content}</p>
         </Content>
         {actionButtons}
       </Responsive>

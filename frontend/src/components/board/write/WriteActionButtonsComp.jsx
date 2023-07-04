@@ -14,10 +14,10 @@ const Buttons = styled(ButtonComp)`
   }
 `;
 
-const WriteActionbuttonsComp = ({ onCancel, onPublish }) => {
+const WriteActionbuttonsComp = ({ onCancel, onPublish, isEdit }) => {
   return (
     <ButtonsBlock>
-      <Buttons onClick={onPublish}>등록</Buttons>
+      <Buttons onClick={onPublish}>게시글{isEdit ? "수정" : "등록"}</Buttons>
       <Buttons onClick={onCancel}>취소</Buttons>
     </ButtonsBlock>
   );
