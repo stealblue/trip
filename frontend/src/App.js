@@ -11,7 +11,7 @@ import Area from "./pages/area/AreaListPage";
 import RoomCreatePage from "./pages/chat/RoomCreatePage";
 import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
-import MyPage from "./pages/auth/MyPage";
+import ProfilePage from "./pages/auth/ProfilePage";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           <Route path="/board/read/:readNo" element={<ReadPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/auth/:nick" element={<MyPage />} />
+          <Route path="/auth/:nick" element={<ProfilePage />} />
         </Route>
       </Routes>
     </>

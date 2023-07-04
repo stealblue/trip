@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 
 const RegisterFormBlock = styled.div`
   display: flex;
@@ -12,12 +12,25 @@ const RegisterInput = styled.input`
   margin-top: 10px;
   padding-left: 10px;
 `;
-const LoginInput = styled.input`
+
+const SubIdInput = styled.input`
   border: none;
   border-bottom: 1px solid black;
   height: 27px;
   margin-top: 10px;
   padding-left: 10px;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: gray;
+      disabled
+    `}
+`;
+
+const EmailSelect = styled.select`
+  border: none;
+  border-bottom: 1px solid black;
 `;
 
 const NameTag = styled.div`
@@ -47,8 +60,7 @@ const items = [
   "성별",
 ];
 
-const RegisterFormComp = ({ onChange, onSubmit, form }) => {
-  // const { id, nick, phone } = form;
+const RegisterFormComp = ({ onChange, onSubmit, onCheck }) => {
   return (
     <>
       <RegisterFormBlock>
@@ -66,13 +78,21 @@ const RegisterFormComp = ({ onChange, onSubmit, form }) => {
               onChange={onChange}
             />
             @
-            <select name="selectEmail">
+            <SubIdInput
+              placeholder="직접입력"
+              name="domain"
+              type="text"
+              onChange={onChange}
+            />
+            <EmailSelect name="subEmail" onChange={onChange}>
               <option value="directInput">직접입력</option>
               <option value="gmail.com">gmail.com</option>
               <option value="naver.com">naver.com</option>
               <option value="hanmail.net">hanmail.net</option>
-            </select>
-            <button>중복확인</button>
+            </EmailSelect>
+            <button name="emailChk" onClick={onCheck}>
+              중복확인
+            </button>
             <ConfirmMessage>
               {/* {`${id}는 이미 가입된 이메일 입니다.`} */}
             </ConfirmMessage>
@@ -87,6 +107,7 @@ const RegisterFormComp = ({ onChange, onSubmit, form }) => {
             placeholder="비밀번호 확인"
             name="pwdConfirm"
             type="password"
+            onChange={onChange}
           />
           <ConfirmMessage>비밀번호를 다시 확인해주세요.</ConfirmMessage>
           <RegisterInput
@@ -95,7 +116,9 @@ const RegisterFormComp = ({ onChange, onSubmit, form }) => {
             type="text"
             onChange={onChange}
           />
-          <button>중복확인</button>
+          <button name="nickChk" onClick={onCheck}>
+            중복확인
+          </button>
           <ConfirmMessage>
             {/* {`${nick}은 이미 존재하는 닉네임 입니다.`} */}
           </ConfirmMessage>
@@ -105,9 +128,13 @@ const RegisterFormComp = ({ onChange, onSubmit, form }) => {
             type="text"
             onChange={onChange}
           />
-          <button>인증번호 받기</button>
+          <button name="phoneChk" onClick={onCheck}>
+            인증번호 받기
+          </button>
           <input placeholder="인증번호를 입력해주세요" />
-          <button>인증확인</button>
+          <button name="phoneAuthChk" onClick={onCheck}>
+            인증확인
+          </button>
           <ConfirmMessage>
             이미 가입된 번호입니다.//인증 유효시간 60초
           </ConfirmMessage>
