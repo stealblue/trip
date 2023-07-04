@@ -45,12 +45,10 @@ exports.login = async (req, res) => {
 }
 
 exports.check = async (req, res) => {
-  console.log("체크 ====================",req.data);
   const exUser = req.data;
-  console.log(exUser);
   
   if (!exUser) {
-    console.log("CHECK 실패")
+    console.log("CHECK 실패");
     return res.status(401).json("로그인중 아님");
   }
   return res.json({id: exUser.id, nick: exUser.nick });
