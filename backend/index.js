@@ -10,10 +10,12 @@ dotenv.config();
 // const mqtt = require("./mqtt");
 const { jwtMiddleware } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
-const WebSocket = require("./socket");
+// const WebSocket = require("./socket");
+// const Mqtt = require("./mqtt");
 const connect = require("./models/mongoDB");
 
 const app = express();
+
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -80,4 +82,5 @@ app.use((err, req, res) => {
   res.render("error");
 });
 
-WebSocket(server, app, sessionMiddleware);
+// WebSocket(server, app, sessionMiddleware);
+// Mqtt(server, app, sessionMiddleware);

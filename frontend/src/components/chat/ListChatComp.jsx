@@ -16,7 +16,7 @@ const ChatBlock = styled.div`
 
 const ChatItem = ({ chat, onChange }) => {
   console.log("chat : ", chat);
-  const { room, user, content, _id } = chat;
+  const { user, content, _id } = chat;
   return (
     <div key={_id}>
       <p>보낸이 : {user}</p>

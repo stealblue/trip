@@ -36,8 +36,8 @@ const CreateRoomButtonCntr = () => {
 
   useEffect(() => {
     if (room) {
-      // console.log("room : ", room.data);
-      navigate(`/chat/room/${room.data._id}`);
+      console.log("room : ", room);
+      navigate(`/chat/room/${room?._id}`);
     }
 
     if (roomError) console.error(roomError);

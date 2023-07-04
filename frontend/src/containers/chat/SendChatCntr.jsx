@@ -24,12 +24,19 @@ const SendChatCntr = () => {
       })
     );
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(changeField({ value, key: name }));
   };
 
-  return <SendChatComp onClick={onClick} onChange={onChange} />;
+  return (
+    <SendChatComp onClick={onClick} onChange={onChange} onSubmit={onSubmit} />
+  );
 };
 
 export default SendChatCntr;

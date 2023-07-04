@@ -12,13 +12,14 @@ const ListRoomCntr = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { rooms, error, loading } = useSelector(({ RoomMod }) => ({
-    rooms: RoomMod.rooms,
+    rooms: RoomMod?.rooms,
     error: RoomMod.error,
   }));
 
   useEffect(() => {
     dispatch(listRooms());
   }, [dispatch]);
+  if (!rooms) return <div>채팅방 없음</div>;
   return (
     <ListRoomComp
       error={error}

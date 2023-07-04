@@ -1,30 +1,28 @@
 const mqtt = require("mqtt");
 
-const topicArray = []; // topic(주제)를 담을 객체
+exports.connectToRoom = (roomId) => {
+  const mqttClient = mqtt.connect("mqtt://192.168.10.102:1883"); // MQTT Broker(server)를 연결
 
-module.exports = () => {
-  const client = mqtt.connect("mqtt://192.168.10.104:1883"); // MQTT Broker(server)를 연결
-
-  client.on("connect", (roomId, user) => {
-    console.log("connected :", client.connected);
-    client.subscribe(`/room/${roomId}`, () => {
-      topicArray.push(`/room/${roomId}`);
+  mqttClient.on("connect", () => {
+    console.log("MQTT connected :", mqttClient.connected);
+    mqttClient.subscribe(`/room/${roomId}`, () => {
+      console.log(`/room/${roomId} 구독 중`);
     });
   });
 
-  client.on("disconnect", () => {
-    client.end();
+  mqttClient.on("disconnect", () => {
+    console.log("MQTT disconnect");
+    mqttClient.end();
   });
 
-  client.on("error", (error) => {
-    console.log("error: ", error);
+  mqttClient.on("error", (error) => {
+    console.log("MQTT error: ", error);
     process.exit(1);
   });
 
-  client.on("message", (topic, message, packet) => {
-    console.log("topic : ", topic);
-    console.log("message : ", message);
-    console.log("packet : ", packet);
-    client.publish(topic, message);
+  mqttClient.on("message", (topic, message) => {
+    console.log(`보낸 메세지 ==> ${topic}: ${message.toString()}`);
   });
+
+  return mqttClient;
 };
