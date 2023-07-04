@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
-import ListActionButtonsComp from "../write/ListActionButtonsComp";
+import ListActionButtonsComp from "./ListActionButtonsComp";
 
 const ReadContainer = styled.div`
   text-align: left;

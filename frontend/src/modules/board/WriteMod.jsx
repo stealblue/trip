@@ -15,12 +15,13 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ title, content }) => ({
+export const writePost = createAction(WRITE_POST, ({ title, content, id }) => ({
   title,
   content,
+  id,
 }));
 export const setOriginPost = createAction(SET_ORIGIN_POST, (post) => post);
-export const updatePost = createAction(UPDATE_POST, ({ id, title, content }) => ({ id, title, content }));
+export const updatePost = createAction(UPDATE_POST, ({ no, title, content }) => ({ no, title, content }));
 
 //사가
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
@@ -66,7 +67,7 @@ const WriteMod = handleActions(
       ...state,
       title: post.title,
       content: post.content,
-      originPostId: post.id,
+      originPostId: post.no,
     }),
     [UPDATE_POST_SUCCESS]: (state, { payload: post }) => ({
       ...state,
