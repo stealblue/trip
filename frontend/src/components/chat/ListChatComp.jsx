@@ -19,18 +19,18 @@ const ChatItem = ({ chat, onChange }) => {
   const { room, user, content, _id } = chat;
   return (
     <div key={_id}>
-      <p>{user}</p>
-      <p>{content.String}</p>
+      <p>보낸이 : {user}</p>
+      <p>내용 : {content}</p>
     </div>
   );
 };
 
 const ListChatComp = ({ chats, loading, onChange }) => {
+  console.log("ListChatComp ====> chats : ", chats);
   return (
     <ChatBlock>
-      {!loading &&
-        chats &&
-        chats.data.map((chat) => (
+      {chats &&
+        chats.map((chat) => (
           <ChatItem chat={chat} onChange={onChange} key={chat._id} />
         ))}
     </ChatBlock>

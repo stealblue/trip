@@ -27,9 +27,9 @@ export function* rootSaga() {
     registerSaga(),
     postsSaga(),
     userSaga(),
+    chatSaga(),
     roomSaga(),
     postSaga(),
-    chatSaga(),
   ]);
 }
 

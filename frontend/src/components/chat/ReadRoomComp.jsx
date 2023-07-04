@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-
+// import styled from "styled-components";
+import ListChatCntr from "../../containers/chat/ListChatCntr";
 // const ChatBlock = styled.div`
 //   height: 600px;
 //   overflow: auto;
@@ -32,7 +32,7 @@ const ReadRoomComp = ({
   if (!room) {
     return null;
   }
-  const { title, owner, max } = room?.data;
+  const { title, owner, max } = room;
   // console.log("room : ", room);
   return (
     <div>
@@ -41,6 +41,7 @@ const ReadRoomComp = ({
         <p>{owner}</p>
         <p>{max}</p>
       </div>
+
       {/* <ChatBlock />
       <div>
         <p>
@@ -48,6 +49,7 @@ const ReadRoomComp = ({
           <button onClick={onClick}>전송</button>
         </p>
       </div> */}
+      <ListChatCntr />
     </div>
   );
 };

@@ -23,11 +23,12 @@ const RoomItem = ({ room, onClick }) => {
 };
 
 const ListRoomComp = ({ rooms, loading, onClick }) => {
+  console.log("rooms : ", rooms);
   return (
     <div>
       {!loading &&
         rooms &&
-        rooms.data.map((room) => (
+        rooms.map((room) => (
           <RoomItem room={room} onClick={onClick} key={room._id} />
         ))}
     </div>

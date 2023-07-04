@@ -5,14 +5,15 @@ import { insertChat, changeField } from "../../modules/chat/ChatMod";
 
 const SendChatCntr = () => {
   const dispatch = useDispatch();
-  const { room, user, content } = useSelector(({ ChatMod }) => ({
-    room: ChatMod.room,
+  const { room, user, content, _id } = useSelector(({ ChatMod, RoomMod }) => ({
+    room: RoomMod.room?._id,
     user: ChatMod.user,
     content: ChatMod.content,
     chat: ChatMod.chat,
     chatError: ChatMod.chatError,
+    _id: RoomMod.room?._id,
   }));
-
+  // console.log("_id : ", _id, room);
   const onClick = () => {
     console.log(`room : ${room} / user : ${user} / content: ${content}`);
     dispatch(

@@ -57,16 +57,37 @@ exports.enterRoom = async (req, res) => {
 exports.removeRoom = async (req, res, next) => {};
 
 exports.insertChat = async (req, res) => {
-  const { room, user, content } = req.body;
+  console.log("insertChat check!!!!!");
+  try {
+    // const chatSchema = Joi.object().keys({
+    //   room: Joi.object().required(),
+    //   user: Joi.string().required(),
+    //   content: Joi.object(),
+    // });
+    // const result = chatSchema.validate(req.body);
+    const { room, user, content } = req.body;
+    // console.log("req.body : ", req.body);
+    // if (result.error) return res.status(400).json(result.error);
+    const chat = await Chat.create({ room, user, content });
+    console.log("chat : ", chat);
+    return res.json(chat);
+  } catch (error) {
+    console.error("error : ", error);
+    return res.status(400).json(error);
+  }
 };
 
 exports.listChats = async (req, res) => {
   console.log("req.params : ", req.params);
+  const { roomId } = req.params;
   try {
-    const chats = await Chat.find();
+    const chats = await Chat.find({ room: roomId });
+    console.log("채팅리스트 성공", chats);
     return res.json(chats);
   } catch (e) {
-    return res.json(e);
+    console.log("채팅리스트 실패");
+    console.error(e);
+    return res.status(400).json(e);
   }
 };
 

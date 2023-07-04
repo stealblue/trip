@@ -5,22 +5,23 @@ import { listChats } from "../../modules/chat/ChatMod";
 import { useSearchParams } from "react-router-dom";
 
 const ListChatsCntr = () => {
-  const [searchParams] = useSearchParams();
-
+  // const [searchParams] = useSearchParams("roomId");
   const dispatch = useDispatch();
-  const { chats, chatError, loading } = useSelector(({ ChatMod }) => ({
-    chats: ChatMod.chats,
-    chatError: ChatMod.chatError,
-  }));
+  const { chats, chatError, loading, room } = useSelector(
+    ({ ChatMod, RoomMod }) => ({
+      chats: ChatMod.chats,
+      chatError: ChatMod.chatError,
+      room: RoomMod.room?._id,
+    })
+  );
 
   const onChange = (e) => {};
 
   useEffect(() => {
-    const room = searchParams.get("room");
-
+    // const room = searchParams.get("roomId");
     console.log("ListChatCntr ==> room : ", room);
     dispatch(listChats({ room }));
-  }, [dispatch, searchParams]);
+  }, []);
   return (
     <ListChatComp
       chats={chats}

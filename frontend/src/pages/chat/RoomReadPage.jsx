@@ -1,4 +1,4 @@
-import ListChatsCntr from "../../containers/chat/ListChatCntr";
+// import ListChatsCntr from "../../containers/chat/ListChatCntr";
 import ReadRoomCntr from "../../containers/chat/ReadRoomCntr";
 import SendChatCntr from "../../containers/chat/SendChatCntr";
 
@@ -6,7 +6,7 @@ const RoomReadPage = () => {
   return (
     <div>
       <ReadRoomCntr />
-      <ListChatsCntr />
+      {/* <ListChatsCntr /> */}
       <SendChatCntr />
     </div>
   );
