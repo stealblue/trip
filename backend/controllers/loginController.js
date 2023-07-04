@@ -59,3 +59,9 @@ exports.logout = async (req, res) => {
   res.clearCookie("access_token");
   return res.status(204).json("로그아웃 했습니다.");
 }
+
+exports.profile = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  return res.status(205).json({ id });
+}

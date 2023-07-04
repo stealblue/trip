@@ -70,3 +70,79 @@ exports.register = async (req, res) => {
     return res.status(500).json("회원가입 실패");
   }
 }
+
+exports.idChk = async (req, res) => {
+  const {id} = req.body;
+  console.log("idChk=========", id);
+  try {
+    const exUser = await user.findOne({
+      where: {
+        id,
+      }
+    });
+
+    if (!exUser) {
+      return res.status(201).json({idAuth: true}); //사용가능한 아이디
+    }
+    return res.status(401).json({idError: true}); //중복된 아이디
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+exports.nickChk = async (req, res) => {
+  const {nick} = req.body;
+  console.log("nickChk=========", nick);
+  try {
+    const exUser = await user.findOne({
+      where: {
+        nick,
+      }
+    });
+
+    if (!exUser) {
+      return res.status(201).json({nickAuth: true}); //사용가능한 닉네임
+    }
+    return res.status(401).json({nickError: true}); //중복된 닉네임
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+exports.phoneChk = async (req, res) => {
+  const {phone} = req.body;
+  console.log("phoneChk=========", phone);
+  try {
+    const exUser = await user.findOne({
+      where: {
+        phone,
+      }
+    });
+
+    if (!exUser) {
+      return res.status(201).json({phoneAuth: true}); //사용가능한 닉네임
+    }
+    return res.status(401).json({phoneError: true}); //중복된 닉네임
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+exports.authNumChk = async (req, res) => {
+  const {authNum} = req.body;
+  console.log("authNumChk=========", authNum);
+  try {
+    const exUser = await user.findOne({
+      where: {
+        authNum,
+      }
+    });
+
+    if (!exUser) {
+      return res.status(201).json({authNum: true}); //인증완료
+    }
+    return res.status(401).json({authNumError: true}); //인증 실패
+  } catch (e) {
+    console.error(e);
+  }
+}
