@@ -139,79 +139,79 @@
 
 // export default ListChatsCntr;
 
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ListChatComp from "../../components/chat/ListChatComp";
-import { listChats } from "../../modules/chat/ChatMod";
-import { client } from "paho-mqtt";
+// import React, { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import ListChatComp from "../../components/chat/ListChatComp";
+// import { listChats } from "../../modules/chat/ChatMod";
+// import { client } from "paho-mqtt";
 
-const ListChatsCntr = () => {
-  const dispatch = useDispatch();
-  const { chats, chatError, loading, room } = useSelector(
-    ({ ChatMod, RoomMod }) => ({
-      chats: ChatMod.chats,
-      chatError: ChatMod.chatError,
-      room: RoomMod.room?._id,
-    })
-  );
+// const ListChatsCntr = () => {
+//   const dispatch = useDispatch();
+//   const { chats, chatError, loading, room } = useSelector(
+//     ({ ChatMod, RoomMod }) => ({
+//       chats: ChatMod.chats,
+//       chatError: ChatMod.chatError,
+//       room: RoomMod.room?._id,
+//     })
+//   );
 
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState("");
+//   const [messages, setMessages] = useState([]);
+//   const [inputMessage, setInputMessage] = useState("");
 
-  const onChange = (e) => {
-    setInputMessage(e.target.value);
-  };
+//   const onChange = (e) => {
+//     setInputMessage(e.target.value);
+//   };
 
-  useEffect(() => {
-    const mqttClient = new client("ws://localhost:8080", "clientId");
-    mqttClient.onConnectionLost = (responseObject) => {
-      if (responseObject.errorCode !== 0) {
-        console.log("Connection lost: " + responseObject.errorMessage);
-      }
-    };
+//   useEffect(() => {
+//     const mqttClient = new client("ws://localhost:8080", "clientId");
+//     mqttClient.onConnectionLost = (responseObject) => {
+//       if (responseObject.errorCode !== 0) {
+//         console.log("Connection lost: " + responseObject.errorMessage);
+//       }
+//     };
 
-    mqttClient.onMessageArrived = (message) => {
-      console.log("Received message: " + message.payloadString);
-      const receivedMessage = JSON.parse(message.payloadString);
-      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
-    };
+//     mqttClient.onMessageArrived = (message) => {
+//       console.log("Received message: " + message.payloadString);
+//       const receivedMessage = JSON.parse(message.payloadString);
+//       setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+//     };
 
-    mqttClient.connect({ onSuccess: onConnect });
+//     mqttClient.connect({ onSuccess: onConnect });
 
-    const onConnect = () => {
-      console.log("Connected");
-      mqttClient.subscribe(`/room/${room}`);
-    };
+//     const onConnect = () => {
+//       console.log("Connected");
+//       mqttClient.subscribe(`/room/${room}`);
+//     };
 
-    return () => {
-      mqttClient.disconnect();
-    };
+//     return () => {
+//       mqttClient.disconnect();
+//     };
 
-    // dispatch(listChats({ room }));
-  }, [room]);
+//     // dispatch(listChats({ room }));
+//   }, [room]);
 
-  const handleSendMessage = () => {
-    const newMessage = {
-      user: "User",
-      content: inputMessage,
-    };
+//   const handleSendMessage = () => {
+//     const newMessage = {
+//       user: "User",
+//       content: inputMessage,
+//     };
 
-    const mqttClient = new client("ws://localhost:8080", "clientId");
-    mqttClient.send(`/room/${room}`, JSON.stringify(newMessage));
+//     const mqttClient = new client("ws://localhost:8080", "clientId");
+//     mqttClient.send(`/room/${room}`, JSON.stringify(newMessage));
 
-    setInputMessage("");
-  };
+//     setInputMessage("");
+//   };
 
-  return (
-    <ListChatComp
-      chats={chats}
-      onChange={onChange}
-      loading={loading}
-      chatError={chatError}
-      inputMessage={inputMessage}
-      onClick={handleSendMessage}
-    />
-  );
-};
+//   return (
+//     <ListChatComp
+//       chats={chats}
+//       onChange={onChange}
+//       loading={loading}
+//       chatError={chatError}
+//       inputMessage={inputMessage}
+//       onClick={handleSendMessage}
+//     />
+//   );
+// };
 
-export default ListChatsCntr;
+// export default ListChatsCntr;
