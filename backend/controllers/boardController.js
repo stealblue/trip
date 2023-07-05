@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-const { board } = require("../models/mysql");
+const { board, like } = require("../models/mysql");
 const sanitizeHtml = require("sanitize-html");
 
 const sanitizeOption = {
@@ -98,5 +98,77 @@ exports.boardRemove = async (req, res) => {
     return res.send("삭제");
   } catch (error) {
     console.error(error);
+  }
+};
+
+exports.boardLike = async (req, res) => {
+  // const no = req.params.boardNo;
+  // try {
+  //   // 해당 게시물 가져오기
+  //   const board = await board.findOne({ where: { no } });
+
+  //   // 게시물이 존재하지 않으면 오류 응답
+  //   if (!board) {
+  //     return res.status(404).json({ error: "게시물을 찾을 수 없습니다." });
+  //   }
+
+  //   // 좋아요 수 증가
+  //   board.like += 1;
+
+  //   // DB에 변경사항 저장
+  //   await board.save();
+
+  //   // 성공 응답
+  //   return res.status(200).json({ success: true, message: "좋아요가 추가되었습니다." });
+  // } catch (error) {
+  //   // 오류 응답
+  //   return res.status(500).json({ error: "서버 오류가 발생했습니다." });
+  // }
+  const { no, id } = req.body;
+  try {
+    const originLike = await like.findOne({
+      bno: no,
+      id,
+    });
+    const originBoard = await board.findOne({
+      no,
+    });
+    if (!originLike) {
+      await like.create({
+        bno: no,
+        id,
+      });
+      await board.update(
+        {
+          like: originBoard.like + 1,
+        },
+        {
+          where: {
+            no,
+          },
+        }
+      );
+    } else {
+      await like.destroy({
+        where: {
+          bno: no,
+          id,
+        },
+      });
+      await board.update(
+        {
+          like: originBoard.like - 1,
+        },
+        {
+          where: {
+            no,
+          },
+        }
+      );
+    }
+
+    res.json({ msg: "ok" });
+  } catch (error) {
+    res.status(400).json({ msg: error });
   }
 };

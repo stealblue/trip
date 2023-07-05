@@ -41,6 +41,14 @@ const Content = styled.div`
 `;
 
 const ReadComp = ({ post, error, loading, actionButtons }) => {
+  const [like, setLike] = useState(0);
+
+  const likeButton = () => {
+    setLike(like + 1);
+  };
+
+  console.log(like);
+
   if (error) {
     if (error.response && error.response.status === 404) {
       return <div>존재하지않는포스트입니다</div>;
@@ -52,7 +60,7 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
     return null;
   }
 
-  console.log("BoardRead====>", post.title);
+  // console.log("BoardRead====>", post.title);
   return (
     <>
       <Responsive>
@@ -61,8 +69,8 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
             <p>
-              <MdFavoriteBorder className="icon" size="24" color="red" />
-              {post.like}
+              <MdFavoriteBorder onClick={likeButton} className="icon" size="24" color="red" />
+              {like}
             </p>
             <p>
               <MdRemoveRedEye className="icon" size="24" />
