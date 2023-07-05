@@ -1,56 +1,80 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-const RegionThemeItemBlock = styled.div`
-  display: flex;
-  .thumbnail {
-    margin-right: 1rem;
-    img {
-      display: block;
-      width: 160px;
-      height: 100px;
-      object-fit: cover;
-    }
-  }
-  .contents {
-    h2 {
-      margin: 0;
-      a {
-        color: black;
-      }
-    }
-    p {
-      margin: 0;
-      line-height: 1.5;
-      margin-top: 0.5rem;
-      white-space: normal;
-    }
-  }
-  & + & {
-    margin-top: 3rem;
-  }
-`;
+// const RegionThemeItemBlock = styled.div`
+//   display: flex;
+//   .thumbnail {
+//     margin-right: 1rem;
+//     img {
+//       display: block;
+//       width: 160px;
+//       height: 100px;
+//       object-fit: cover;
+//     }
+//   }
+//   .contents {
+//     h2 {
+//       margin: 0;
+//       a {
+//         color: black;
+//       }
+//     }
+//     p {
+//       margin: 0;
+//       line-height: 1.5;
+//       margin-top: 0.5rem;
+//       white-space: normal;
+//     }
+//   }
+//   & + & {
+//     margin-top: 3rem;
+//   }
+// `;
 
-const RegionThemeItem = ({ article}) => {
-const { title, description, url, urlToImage } = article;
-return (
-<RegionThemeItemBlock>
-{urlToImage && (
-<div className="thumbnail">
-<a href={url} target="_blank" rel="noopener noreferrer">
-<img src={urlToImage} alt="thumbnail" />
-</a>
-</div>
-)}
-<div className="contents">
-<h2>
-<a href={url} target="_blank" rel="noopener noreferrer">
-{title}
-</a>
-</h2>
-<p>{description}</p>
-</div>
-</RegionThemeItemBlock>
-);
+// const RegionThemeItem = ({ article}) => {
+// const { title, description, url, urlToImage } = article;
+// return (
+// <RegionThemeItemBlock>
+// {urlToImage && (
+// <div className="thumbnail">
+// <a href={url} target="_blank" rel="noopener noreferrer">
+// <img src={urlToImage} alt="thumbnail" />
+// </a>
+// </div>
+// )}
+// <div className="contents">
+// <h2>
+// <a href={url} target="_blank" rel="noopener noreferrer">
+// {title}
+// </a>
+// </h2>
+// <p>{description}</p>
+// </div>
+// </RegionThemeItemBlock>
+// );
+// };
+
+// export default RegionThemeItemBlock;
+
+
+import React from 'react';
+
+const AreaListPage = () => {
+  return (
+    <div>
+      관광api,kakaomap api 이용
+      <div>
+        <div>
+          <h2>8도그림</h2>
+          <div>대구</div>
+          <div>부산</div>
+          <div>경상</div>
+        </div>
+        <div>
+          <h2>리스트</h2>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default RegionThemeItemBlock;
+export default AreaListPage;

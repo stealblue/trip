@@ -7,11 +7,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { sequelize } = require("./models/mysql");
 dotenv.config();
-// const mqtt = require("./mqtt");
 const { jwtMiddleware } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
-// const WebSocket = require("./socket");
-// const Mqtt = require("./mqtt");
 const connect = require("./models/mongoDB");
 const multer = require("multer");
 const path = require("path");
@@ -116,6 +113,3 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render("error");
 });
-
-// WebSocket(server, app, sessionMiddleware);
-// Mqtt(server, app, sessionMiddleware);

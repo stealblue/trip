@@ -1,6 +1,7 @@
 const { user } = require("../models/mysql");
 const bcrypt = require("bcrypt");
 const {generateToken} = require("./authController");
+const temporary = require("../models/mongoDB/temporary");
 
 exports.register = async (req, res) => {
   const {id, pwd, nick, phone, addr1, addr2, zipcode, gender} = req.body;
@@ -125,7 +126,23 @@ exports.phoneChk = async (req, res) => {
       }
     });
 
-    if (!exUser) {
+    if (exUser) {
+      console.log("이미 가입된 회원입니다.");
+      return res.status(401).json({phoneError: true}); //중복된 번호
+    }
+
+    const alreadyGetNum = await temporary.findOne({
+      phone,
+    });
+    
+    if (!alreadyGetNum) {
+      await temporary.create({
+        authNum: code,
+        phone: phone,
+        expire: Date.now(),
+        ok: false,
+      });
+      
       // await client.messages
       //   .create({
       //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
@@ -133,30 +150,40 @@ exports.phoneChk = async (req, res) => {
       //     to: "+821053930614",
       //   }, function (err, message) {
       //     if (err) {
-      //       res.json({ joined: true, message: "서버에러, 인증 요청 실패." });
+      //       res.json("서버에러, 인증 요청 실패.");
       //     } else{
-      //       res.json({ joined: true, message: "인증번호가 발급되었습니다. 확인해주세요.", already: "true" });
+      //       res.json("인증번호가 발급되었습니다. 확인해주세요.");
       //     }
       //   });
-      return res.status(201).json({phoneAuth: true}); //사용가능한 닉네임
+      // return res.status(200).json("인증번호가 발급되었습니다.");
+      console.log("발급되었습니다");
+      return res.status(201).json("발급되었습니다");
     }
-    return res.status(401).json({phoneError: true}); //중복된 닉네임
+    if (alreadyGetNum && !alreadyGetNum.ok) {
+      console.log("이미 발급된 인증번호가 존재합니다.");
+      return res.status(401).json("이미 발급된 인증번호가 존재합니다.");
+    }
+    if (alreadyGetNum && alreadyGetNum.ok) {
+      console.log("이미 인증이 완료되었습니다.");
+      return res.status(401).json("이미 인증이 완료되었습니다.");;
+    }
   } catch (e) {
     console.error(e);
   }
 }
 
 exports.authNumChk = async (req, res) => {
-  const {authNum} = req.body;
+  const { authNum } = req.body;
+  //폰번호도 같이 받아와야함!
   console.log("authNumChk=========", authNum);
   try {
-    const exUser = await user.findOne({
+    const alreadyGetNum = await temporary.findOne({
       where: {
         authNum,
       }
     });
 
-    if (!exUser) {
+    if (alreadyGetNum) {
       return res.status(201).json({authNum: true}); //인증완료
     }
     return res.status(401).json({authNumError: true}); //인증 실패

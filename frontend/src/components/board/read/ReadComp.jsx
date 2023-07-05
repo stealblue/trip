@@ -1,7 +1,12 @@
+import React, { useState } from "react";
+
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
 import ListActionButtonsComp from "./ListActionButtonsComp";
+import ReplyWriteComp from "../reply/ReplyWriteComp";
+
+import { MdFavoriteBorder, MdRemoveRedEye } from "react-icons/md";
 
 const ReadContainer = styled.div`
   text-align: left;
@@ -17,10 +22,15 @@ const ReadContainer = styled.div`
   .likeandcnt {
     display: flex;
     text-align: right;
+    justify-content: flex-end;
   }
 
   .likeandcnt p {
     margin-left: 20px;
+
+    .icon {
+      margin-right: 5px;
+    }
   }
 `;
 
@@ -31,6 +41,14 @@ const Content = styled.div`
 `;
 
 const ReadComp = ({ post, error, loading, actionButtons }) => {
+  const [like, setLike] = useState(0);
+
+  const likeButton = () => {
+    setLike(like + 1);
+  };
+
+  console.log(like);
+
   if (error) {
     if (error.response && error.response.status === 404) {
       return <div>존재하지않는포스트입니다</div>;
@@ -42,7 +60,7 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
     return null;
   }
 
-  console.log("BoardRead====>", post.title);
+  // console.log("BoardRead====>", post.title);
   return (
     <>
       <Responsive>
@@ -50,14 +68,22 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
           <TitleComp>{post.title}</TitleComp>
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
-            <p>{post.like}</p>
-            <p>{post.cnt}</p>
+            <p>
+              <MdFavoriteBorder onClick={likeButton} className="icon" size="24" color="red" />
+              {like}
+            </p>
+            <p>
+              <MdRemoveRedEye className="icon" size="24" />
+              {post.cnt}
+            </p>
           </div>
         </ReadContainer>
         <Content>
           <p>{post.content}</p>
         </Content>
         {actionButtons}
+
+        <ReplyWriteComp />
       </Responsive>
     </>
   );

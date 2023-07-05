@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  authNumChk,
   changeValue,
   idChk,
   idModify,
@@ -35,6 +36,7 @@ const RegisterCntr = () => {
     phone,
     phoneAuth,
     phoneError,
+    authNum,
   } = useSelector(({ RegisterMod }) => ({
     form: RegisterMod,
     id: RegisterMod.user.id,
@@ -49,6 +51,7 @@ const RegisterCntr = () => {
     phone: RegisterMod.user.phone,
     phoneAuth: RegisterMod.auth.phoneAuth,
     phoneError: RegisterMod.auth.phoneError,
+    authNum: RegisterMod.auth.authNum,
   }));
   const chooseDomain = useRef();
   const onChange = (e) => {
@@ -97,7 +100,11 @@ const RegisterCntr = () => {
     }
 
     if (name === "phoneAuthChk") {
-      console.log("폰 인증번호 확인");
+      dispatch(
+        authNumChk({
+          authNum,
+        })
+      );
     }
   };
 

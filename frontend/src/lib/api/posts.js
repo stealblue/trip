@@ -26,3 +26,8 @@ export const updatePost = ({ no, title, content }) => {
 export const removePost = (no) => {
   return client.post(`/board/remove/${no}`);
 };
+
+//좋아요
+export const likePost = (no) => {
+  return client.post(`/board/like`, { no });
+};
