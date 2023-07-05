@@ -62,6 +62,7 @@ const RegisterCntr = () => {
     );
   };
 
+  //회원가입 정보 제출
   const onSubmit = (e) => {
     e.preventDefault();
     // dispatch(register({ }));

@@ -110,7 +110,14 @@ exports.nickChk = async (req, res) => {
 
 exports.phoneChk = async (req, res) => {
   const {phone} = req.body;
-  
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const fromNum = process.env.TWILIO_FORM_NUM;
+  const client = require('twilio')(accountSid, authToken);
+
+  let code = '';
+  for (let i = 0; i < 4; i++) code += Math.floor(Math.random() * 10); //랜덤숫자열 생성
+  console.log(code);
   try {
     const exUser = await user.findOne({
       where: {
@@ -119,6 +126,18 @@ exports.phoneChk = async (req, res) => {
     });
 
     if (!exUser) {
+      // await client.messages
+      //   .create({
+      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+      //     from: fromNum,
+      //     to: "+821053930614",
+      //   }, function (err, message) {
+      //     if (err) {
+      //       res.json({ joined: true, message: "서버에러, 인증 요청 실패." });
+      //     } else{
+      //       res.json({ joined: true, message: "인증번호가 발급되었습니다. 확인해주세요.", already: "true" });
+      //     }
+      //   });
       return res.status(201).json({phoneAuth: true}); //사용가능한 닉네임
     }
     return res.status(401).json({phoneError: true}); //중복된 닉네임
