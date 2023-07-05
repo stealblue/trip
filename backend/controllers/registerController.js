@@ -99,7 +99,6 @@ exports.nickChk = async (req, res) => {
         nick,
       }
     });
-
     if (!exUser) {
       return res.status(201).json({nickAuth: true}); //사용가능한 닉네임
     }

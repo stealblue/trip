@@ -8,15 +8,17 @@ import { produce } from "immer";
 
 const INITIALIZE_FORM = "register/INITIALIZE_FORM";
 const CHANGE_VALUE = "register/CHANGE_VALUE";
-const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILUER] =
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("register/REGISTER");
-const [ID_CHECK, ID_CHECK_SUCCESS, ID_CHECK_FAILUER] =
+const [ID_CHECK, ID_CHECK_SUCCESS, ID_CHECK_FAILURE] =
   createRequestActionTypes("register/ID_CHECK");
-const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILUER] =
+const PWD_CHECK = "register/PWD_CHECK";
+const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILURE] =
   createRequestActionTypes("register/NICK_CHECK");
-const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILUER] =
+const NICK_MODIFY = "register/NICK_MODIFY";
+const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILURE] =
   createRequestActionTypes("register/PHONE_CHECK");
-const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILUER] =
+const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILURE] =
   createRequestActionTypes("register/AUTHNUM_CHECK");
 
 export const initializeRegisterForm = createAction(INITIALIZE_FORM);
@@ -32,13 +34,19 @@ export const register = createAction(REGISTER, (form) => form);
 export const idChk = createAction(ID_CHECK, ({ id }) => ({
   id,
 }));
+export const pwdChk = createAction(PWD_CHECK, ({ form, key, value }) => ({
+  form,
+  key,
+  value,
+}));
 export const nickChk = createAction(NICK_CHECK, ({ nick }) => ({
   nick,
 }));
-export const phoneChk = createAction(NICK_CHECK, ({ phone }) => ({
+export const nickModify = createAction(NICK_MODIFY);
+export const phoneChk = createAction(PHONE_CHECK, ({ phone }) => ({
   phone,
 }));
-export const authNumChk = createAction(NICK_CHECK, ({ authNum }) => ({
+export const authNumChk = createAction(AUTHNUM_CHECK, ({ authNum }) => ({
   authNum,
 }));
 
@@ -89,7 +97,6 @@ const initialState = {
     idAuth: null,
     idError: null,
     pwdAuth: null,
-    pwdError: null,
     nickAuth: null,
     nickError: null,
     phoneAuth: null,
@@ -110,7 +117,7 @@ const RegisterMod = handleActions(
       ...state,
       form,
     }),
-    [REGISTER_FAILUER]: (state, action) => ({
+    [REGISTER_FAILURE]: (state, action) => ({
       ...state,
     }),
     [ID_CHECK_SUCCESS]: (state, { payload: { idAuth } }) => ({
@@ -118,27 +125,36 @@ const RegisterMod = handleActions(
       idAuth: idAuth,
       idError: null,
     }),
-    [ID_CHECK_FAILUER]: (state, { payload: { idError } }) => ({
+    [ID_CHECK_FAILURE]: (state, { payload: { idError } }) => ({
       ...state,
       idAuth: null,
       idError: idError,
     }),
-    [NICK_CHECK_SUCCESS]: (state, { payload: { nickAuth } }) => ({
-      ...state,
-      nickAuth: nickAuth,
-      nickError: null,
-    }),
-    [NICK_CHECK_FAILUER]: (state, { payload: { nickError } }) => ({
-      ...state,
-      nickAuth: null,
-      nickError: nickError,
-    }),
+    [PWD_CHECK]: (state, { payload: { form, key, value } }) =>
+      produce(state, (draft) => {
+        draft[form][key] = value;
+      }),
+    [NICK_CHECK_SUCCESS]: (state, { payload: { nickAuth } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["nickAuth"] = nickAuth;
+        draft["auth"]["nickError"] = false;
+      }),
+    [NICK_CHECK_FAILURE]: (state, { payload: { nickError } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["nickAuth"] = false;
+        draft["auth"]["nickError"] = nickError;
+      }),
+    [NICK_MODIFY]: (state) =>
+      produce(state, (draft) => {
+        draft["auth"]["nickAuth"] = null;
+        draft["auth"]["nickError"] = null;
+      }),
     [PHONE_CHECK_SUCCESS]: (state, { payload: { phoneAuth } }) => ({
       ...state,
       phoneAuth: phoneAuth,
       phoneError: null,
     }),
-    [PHONE_CHECK_FAILUER]: (state, { payload: { phoneError } }) => ({
+    [PHONE_CHECK_FAILURE]: (state, { payload: { phoneError } }) => ({
       ...state,
       phoneAuth: null,
       phoneError: phoneError,
@@ -148,7 +164,7 @@ const RegisterMod = handleActions(
       authNum: authNum,
       authNumError: null,
     }),
-    [AUTHNUM_CHECK_FAILUER]: (state, { payload: { authNumError } }) => ({
+    [AUTHNUM_CHECK_FAILURE]: (state, { payload: { authNumError } }) => ({
       ...state,
       authNum: null,
       authNumError: authNumError,

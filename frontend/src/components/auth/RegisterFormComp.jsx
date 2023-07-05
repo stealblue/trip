@@ -46,6 +46,18 @@ const ConfirmMessage = styled.div`
   background: skyblue;
   font-size: 15px;
   height: 20px;
+  ${(props) =>
+    props.authok &&
+    css`
+      background: #92b8b1;
+      color: green;
+    `}
+  ${(props) =>
+    props.autherror &&
+    css`
+      background: pink;
+      color: red;
+    `}
 `;
 
 const items = [
@@ -60,7 +72,13 @@ const items = [
   "성별",
 ];
 
-const RegisterFormComp = ({ onChange, onSubmit, onCheck }) => {
+const RegisterFormComp = ({
+  onChange,
+  onSubmit,
+  onCheck,
+  onPwdChk,
+  onNickChk,
+}) => {
   return (
     <>
       <RegisterFormBlock>
@@ -109,7 +127,13 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck }) => {
             type="password"
             onChange={onChange}
           />
-          <ConfirmMessage>비밀번호를 다시 확인해주세요.</ConfirmMessage>
+          {onPwdChk === false ? (
+            <ConfirmMessage autherror="true">
+              비밀번호를 확인해주세요.
+            </ConfirmMessage>
+          ) : (
+            <ConfirmMessage></ConfirmMessage>
+          )}
           <RegisterInput
             placeholder="닉네임"
             name="nick"
@@ -119,9 +143,24 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck }) => {
           <button name="nickChk" onClick={onCheck}>
             중복확인
           </button>
-          <ConfirmMessage>
-            {/* {`${nick}은 이미 존재하는 닉네임 입니다.`} */}
-          </ConfirmMessage>
+          {/* {onNickChk === "empty" ? (
+            <ConfirmMessage></ConfirmMessage>
+          ) : (
+            <ConfirmMessage autherror="true">
+              이미 사용중인 닉네임입니다.
+            </ConfirmMessage>
+          )} */}
+          {onNickChk === "empty" ? (
+            <ConfirmMessage></ConfirmMessage>
+          ) : onNickChk === false ? (
+            <ConfirmMessage autherror="true">
+              이미 사용중인 닉네임입니다.
+            </ConfirmMessage>
+          ) : (
+            <ConfirmMessage authok="true">
+              사용가능한 닉네임입니다.
+            </ConfirmMessage>
+          )}
           <RegisterInput
             placeholder="010-0000-0000"
             name="phone"
