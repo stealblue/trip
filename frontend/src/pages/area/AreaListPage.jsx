@@ -62,6 +62,17 @@ const AreaListPage = () => {
   return (
     <div>
       관광api,kakaomap api 이용
+      <div>
+        <div>
+          <h2>8도그림</h2>
+          <div>대구</div>
+          <div>부산</div>
+          <div>경상</div>
+        </div>
+        <div>
+          <h2>리스트</h2>
+        </div>
+      </div>
     </div>
   );
 };
