@@ -7,7 +7,8 @@ const temporarySchema = new mongoose.Schema({
     type:String,
   },
   expire:{
-    type:String,
+    type:Date,
+    expires:5
   },
   ok:{
     type:Object
