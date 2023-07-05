@@ -73,17 +73,17 @@ exports.register = async (req, res) => {
 
 exports.idChk = async (req, res) => {
   const {id} = req.body;
-  console.log("idChk=========", id);
   try {
     const exUser = await user.findOne({
       where: {
         id,
       }
     });
-
     if (!exUser) {
+      console.log("사용가능 허가");
       return res.status(201).json({idAuth: true}); //사용가능한 아이디
     }
+    console.log("사용불가능");
     return res.status(401).json({idError: true}); //중복된 아이디
   } catch (e) {
     console.error(e);
@@ -110,7 +110,7 @@ exports.nickChk = async (req, res) => {
 
 exports.phoneChk = async (req, res) => {
   const {phone} = req.body;
-  console.log("phoneChk=========", phone);
+  
   try {
     const exUser = await user.findOne({
       where: {

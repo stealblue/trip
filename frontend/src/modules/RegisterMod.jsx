@@ -12,12 +12,15 @@ const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("register/REGISTER");
 const [ID_CHECK, ID_CHECK_SUCCESS, ID_CHECK_FAILURE] =
   createRequestActionTypes("register/ID_CHECK");
+const ID_MODIFY = "register/ID_MODIFY";
 const PWD_CHECK = "register/PWD_CHECK";
 const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILURE] =
   createRequestActionTypes("register/NICK_CHECK");
 const NICK_MODIFY = "register/NICK_MODIFY";
 const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILURE] =
   createRequestActionTypes("register/PHONE_CHECK");
+const PHONE_MODIFY = "register/PHONE_MODIFY";
+
 const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILURE] =
   createRequestActionTypes("register/AUTHNUM_CHECK");
 
@@ -34,6 +37,7 @@ export const register = createAction(REGISTER, (form) => form);
 export const idChk = createAction(ID_CHECK, ({ id }) => ({
   id,
 }));
+export const idModify = createAction(ID_MODIFY);
 export const pwdChk = createAction(PWD_CHECK, ({ form, key, value }) => ({
   form,
   key,
@@ -46,6 +50,7 @@ export const nickModify = createAction(NICK_MODIFY);
 export const phoneChk = createAction(PHONE_CHECK, ({ phone }) => ({
   phone,
 }));
+export const phoneModify = createAction(PHONE_MODIFY);
 export const authNumChk = createAction(AUTHNUM_CHECK, ({ authNum }) => ({
   authNum,
 }));
@@ -120,16 +125,21 @@ const RegisterMod = handleActions(
     [REGISTER_FAILURE]: (state, action) => ({
       ...state,
     }),
-    [ID_CHECK_SUCCESS]: (state, { payload: { idAuth } }) => ({
-      ...state,
-      idAuth: idAuth,
-      idError: null,
-    }),
-    [ID_CHECK_FAILURE]: (state, { payload: { idError } }) => ({
-      ...state,
-      idAuth: null,
-      idError: idError,
-    }),
+    [ID_CHECK_SUCCESS]: (state, { payload: { idAuth } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["idAuth"] = idAuth;
+        draft["auth"]["idError"] = false;
+      }),
+    [ID_CHECK_FAILURE]: (state, { payload: { idError } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["idAuth"] = false;
+        draft["auth"]["idError"] = idError;
+      }),
+    [ID_MODIFY]: (state) =>
+      produce(state, (draft) => {
+        draft["auth"]["idAuth"] = null;
+        draft["auth"]["idError"] = null;
+      }),
     [PWD_CHECK]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
         draft[form][key] = value;
@@ -159,6 +169,11 @@ const RegisterMod = handleActions(
       phoneAuth: null,
       phoneError: phoneError,
     }),
+    [PHONE_MODIFY]: (state) =>
+      produce(state, (draft) => {
+        draft["auth"]["phoneAuth"] = null;
+        draft["auth"]["phoneError"] = null;
+      }),
     [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum } }) => ({
       ...state,
       authNum: authNum,
