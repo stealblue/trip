@@ -1,7 +1,12 @@
+import React, { useState } from "react";
+
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
 import ListActionButtonsComp from "./ListActionButtonsComp";
+import ReplyWriteComp from "../reply/ReplyWriteComp";
+
+import { MdFavoriteBorder, MdRemoveRedEye } from "react-icons/md";
 
 const ReadContainer = styled.div`
   text-align: left;
@@ -17,10 +22,15 @@ const ReadContainer = styled.div`
   .likeandcnt {
     display: flex;
     text-align: right;
+    justify-content: flex-end;
   }
 
   .likeandcnt p {
     margin-left: 20px;
+
+    .icon {
+      margin-right: 5px;
+    }
   }
 `;
 
@@ -50,14 +60,22 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
           <TitleComp>{post.title}</TitleComp>
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
-            <p>{post.like}</p>
-            <p>{post.cnt}</p>
+            <p>
+              <MdFavoriteBorder className="icon" size="24" color="red" />
+              {post.like}
+            </p>
+            <p>
+              <MdRemoveRedEye className="icon" size="24" />
+              {post.cnt}
+            </p>
           </div>
         </ReadContainer>
         <Content>
           <p>{post.content}</p>
         </Content>
         {actionButtons}
+
+        <ReplyWriteComp />
       </Responsive>
     </>
   );
