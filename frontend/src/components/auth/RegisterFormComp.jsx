@@ -28,7 +28,7 @@ const SubIdInput = styled.input`
     `}
 `;
 
-const EmailSelect = styled.select`
+const SelectDomain = styled.select`
   border: none;
   border-bottom: 1px solid black;
 `;
@@ -76,8 +76,12 @@ const RegisterFormComp = ({
   onChange,
   onSubmit,
   onCheck,
+  onIdChk,
   onPwdChk,
   onNickChk,
+  changeDomain,
+  chooseDomain,
+  disabledDomain,
 }) => {
   return (
     <>
@@ -96,23 +100,44 @@ const RegisterFormComp = ({
               onChange={onChange}
             />
             @
-            <SubIdInput
-              placeholder="직접입력"
-              name="domain"
-              type="text"
-              onChange={onChange}
-            />
-            <EmailSelect name="subEmail" onChange={onChange}>
+            {disabledDomain ? (
+              <SubIdInput
+                name="domain"
+                type="text"
+                onChange={onChange}
+                ref={chooseDomain}
+                disabled={true}
+              />
+            ) : (
+              <SubIdInput
+                placeholder="직접입력"
+                name="domain"
+                type="text"
+                onChange={onChange}
+                ref={chooseDomain}
+              />
+            )}
+            <SelectDomain name="SelectDomain" onChange={changeDomain}>
               <option value="directInput">직접입력</option>
               <option value="gmail.com">gmail.com</option>
               <option value="naver.com">naver.com</option>
               <option value="hanmail.net">hanmail.net</option>
-            </EmailSelect>
+            </SelectDomain>
             <button name="emailChk" onClick={onCheck}>
               중복확인
             </button>
             <ConfirmMessage>
-              {/* {`${id}는 이미 가입된 이메일 입니다.`} */}
+              {onIdChk === "empty" ? (
+                <ConfirmMessage></ConfirmMessage>
+              ) : onIdChk === false ? (
+                <ConfirmMessage autherror="true">
+                  이미 사용중인 닉네임입니다.
+                </ConfirmMessage>
+              ) : (
+                <ConfirmMessage authok="true">
+                  사용가능한 닉네임입니다.
+                </ConfirmMessage>
+              )}
             </ConfirmMessage>
           </div>
           <RegisterInput
@@ -143,13 +168,6 @@ const RegisterFormComp = ({
           <button name="nickChk" onClick={onCheck}>
             중복확인
           </button>
-          {/* {onNickChk === "empty" ? (
-            <ConfirmMessage></ConfirmMessage>
-          ) : (
-            <ConfirmMessage autherror="true">
-              이미 사용중인 닉네임입니다.
-            </ConfirmMessage>
-          )} */}
           {onNickChk === "empty" ? (
             <ConfirmMessage></ConfirmMessage>
           ) : onNickChk === false ? (
@@ -162,7 +180,7 @@ const RegisterFormComp = ({
             </ConfirmMessage>
           )}
           <RegisterInput
-            placeholder="010-0000-0000"
+            placeholder="'-' 없이 입력하세요."
             name="phone"
             type="text"
             onChange={onChange}

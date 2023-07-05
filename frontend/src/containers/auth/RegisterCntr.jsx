@@ -3,9 +3,12 @@ import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeValue,
+  idChk,
+  idModify,
   initializeRegisterForm,
   nickChk,
   nickModify,
+  phoneChk,
   pwdChk,
   register,
 } from "../../modules/RegisterMod";
@@ -13,21 +16,41 @@ import {
 const RegisterCntr = () => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState(null);
+  const [disabledDomain, setDisabledDomain] = useState("");
+  const [onIdChk, setOnIdChk] = useState("empty");
   const [onPwdChk, setOnPwdChk] = useState("");
   const [onNickChk, setOnNickChk] = useState("empty");
   const dispatch = useDispatch();
-  const { form, id, domain, pwd, pwdConfirm, nick, nickAuth, nickError } =
-    useSelector(({ RegisterMod }) => ({
-      form: RegisterMod,
-      id: RegisterMod.user.id,
-      domain: RegisterMod.user.domain,
-      pwd: RegisterMod.user.pwd,
-      pwdConfirm: RegisterMod.user.pwdConfirm,
-      nick: RegisterMod.user.nick,
-      nickAuth: RegisterMod.auth.nickAuth,
-      nickError: RegisterMod.auth.nickError,
-    }));
-
+  const {
+    form,
+    id,
+    domain,
+    idAuth,
+    idError,
+    pwd,
+    pwdConfirm,
+    nick,
+    nickAuth,
+    nickError,
+    phone,
+    phoneAuth,
+    phoneError,
+  } = useSelector(({ RegisterMod }) => ({
+    form: RegisterMod,
+    id: RegisterMod.user.id,
+    domain: RegisterMod.user.domain,
+    idAuth: RegisterMod.auth.idAuth,
+    idError: RegisterMod.auth.idError,
+    pwd: RegisterMod.user.pwd,
+    pwdConfirm: RegisterMod.user.pwdConfirm,
+    nick: RegisterMod.user.nick,
+    nickAuth: RegisterMod.auth.nickAuth,
+    nickError: RegisterMod.auth.nickError,
+    phone: RegisterMod.user.phone,
+    phoneAuth: RegisterMod.auth.phoneAuth,
+    phoneError: RegisterMod.auth.phoneError,
+  }));
+  const chooseDomain = useRef();
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -44,11 +67,16 @@ const RegisterCntr = () => {
     // dispatch(register({ }));
   };
 
+  //리팩토링해서 모듈로 뺄 수 있는지 확인
   const onCheck = (e) => {
     const { name } = e.target;
 
     if (name === "emailChk") {
-      console.log("이메일체크");
+      dispatch(
+        idChk({
+          id: email,
+        })
+      );
     }
 
     if (name === "nickChk") {
@@ -60,7 +88,11 @@ const RegisterCntr = () => {
     }
 
     if (name === "phoneChk") {
-      console.log("폰번호 체크 및 인증번호 발송");
+      dispatch(
+        phoneChk({
+          phone,
+        })
+      );
     }
 
     if (name === "phoneAuthChk") {
@@ -68,14 +100,36 @@ const RegisterCntr = () => {
     }
   };
 
+  //domain 옵션 선택시 email 값 변경
+  const changeDomain = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    if (value !== "directInput") {
+      chooseDomain.current.value = value; //useref로 직접 input에 접근하여 조작
+      //dispatch하여 store내의 domain값 변경 후 setEmail에 넣어줌
+      dispatch(
+        changeValue({
+          form: "user",
+          value: value,
+          key: "domain",
+        })
+      );
+      setEmail(`${id}@${domain}`); //선택된 도메인 값 email에 적용
+      setDisabledDomain(true); //도메인 선택 disabled 적용
+    } else {
+      setDisabledDomain(false); //도메인 선택 disabled 해제
+      chooseDomain.current.value = ""; //도메인 선택 "직접입력"시 input 초기화
+    }
+  };
+
   useEffect(() => {
     dispatch(initializeRegisterForm());
   }, [dispatch]);
-
+  //비밀번호, 비밀번호확인 체크
   useEffect(() => {
     if (pwd !== null && pwdConfirm !== null) {
       if (pwd !== pwdConfirm) {
-        setOnPwdChk(false);
+        setOnPwdChk(false); //아래랑 리팩토링
         dispatch(
           pwdChk({
             form: "auth",
@@ -85,7 +139,7 @@ const RegisterCntr = () => {
         );
       }
       if (pwd === pwdConfirm) {
-        setOnPwdChk(true);
+        setOnPwdChk(true); //여기랑 리팩토링
         dispatch(
           pwdChk({
             form: "auth",
@@ -113,21 +167,40 @@ const RegisterCntr = () => {
       setOnNickChk(true);
     }
   }, [nickError]);
-
+  //id + domain으로 이메일 만들기
   useEffect(() => {
     if (id !== null || domain !== null) {
       setEmail(`${id}@${domain}`);
     }
-    console.log("아이디", id, "도메인", domain);
   }, [id, domain]);
-  console.log(email);
+  //id 또는 email 중복확인 후 값 변경시 다시 중복확인 해야함
+  useEffect(() => {
+    if (idAuth || idAuth === false) {
+      dispatch(idModify());
+    }
+  }, [email]);
+  //email 변경시 중복확인 메세지 실시간 변경
+  useEffect(() => {
+    if (idError === null) {
+      setOnIdChk("empty");
+    } else if (idError) {
+      setOnIdChk(false);
+    } else {
+      setOnIdChk(true);
+    }
+  }, [idError]);
+
   return (
     <RegisterFormComp
       onChange={onChange}
       onSubmit={onSubmit}
       onCheck={onCheck}
+      onIdChk={onIdChk}
       onPwdChk={onPwdChk}
       onNickChk={onNickChk}
+      changeDomain={changeDomain}
+      chooseDomain={chooseDomain}
+      disabledDomain={disabledDomain}
     />
   );
 };
