@@ -188,7 +188,11 @@ const RegisterFormComp = ({
           <button name="phoneChk" onClick={onCheck}>
             인증번호 받기
           </button>
-          <input placeholder="인증번호를 입력해주세요" />
+          <input
+            placeholder="인증번호를 입력해주세요"
+            name="authNum"
+            onChange={onCheck}
+          />
           <button name="phoneAuthChk" onClick={onCheck}>
             인증확인
           </button>

@@ -6,9 +6,13 @@ const temporarySchema = new mongoose.Schema({
   phone:{
     type:String,
   },
+  insertTime: {
+    type:String,
+  },
   expire:{
     type:Date,
-    expires:5
+    expires: 1,
+    default:Date.now,
   },
   ok:{
     type:Object

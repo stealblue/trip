@@ -30,31 +30,6 @@ exports.register = async (req, res) => {
       httpOnly: true,
     });
 
-    //아이디 중복확인
-    if (!exUser) { 
-      return idChk = true;
-    }
-
-    if (!idChk) {
-      //중복체크 빈칸 확인
-      return res.status(409).json("아이디 확인");
-    }
-
-    if (!pwdChk) {
-      //비밀번호 && 체크 맞는지확인
-      return res.status(409).json("비밀번호 확인");
-    }
-
-    if (!nickChk) {
-      //중복체크 빈칸 확인
-      return res.status(409).json("닉네임 확인");
-    }
-
-    if (!phoneChk) {
-      //중복체크 빈칸 확인
-      return res.status(409).json("전화번호 확인");
-    }
-
     const newUser = await user.create({
       id: id,
       pwd: hashedPwd,
@@ -110,15 +85,29 @@ exports.nickChk = async (req, res) => {
 }
 
 exports.phoneChk = async (req, res) => {
-  const {phone} = req.body;
+  const { phone } = req.body;
+  const substrPhone = phone.substr(1);
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const fromNum = process.env.TWILIO_FORM_NUM;
   const client = require('twilio')(accountSid, authToken);
+  const code = makeAuthNum(); //랜덤숫자 4자리
+  const expires = Date.now() + 15000; //인증번호 유효기간
 
-  let code = '';
-  for (let i = 0; i < 4; i++) code += Math.floor(Math.random() * 10); //랜덤숫자열 생성
-  console.log(code);
+  function makeAuthNum() {
+    let code = '';
+    for (let i = 0; i < 4; i++) code += Math.floor(Math.random() * 10); //랜덤숫자열 생성
+    return code;
+  }
+
+  function calcExpire(time) {
+    const valid = Date.now() - time;
+    if (valid > 0) {
+      return false;
+    }
+    return true;
+  }
+
   try {
     const exUser = await user.findOne({
       where: {
@@ -131,35 +120,55 @@ exports.phoneChk = async (req, res) => {
       return res.status(401).json({phoneError: true}); //중복된 번호
     }
 
-    const alreadyGetNum = await temporary.findOne({
+    const alreadyGetNum = await temporary.findOne({ //인증번호를 이미 발급 받았는지 확인
       phone,
     });
-    
+
     if (!alreadyGetNum) {
       await temporary.create({
         authNum: code,
         phone: phone,
+        insertTime: expires,
         expire: Date.now(),
         ok: false,
       });
-      
-      // await client.messages
-      //   .create({
-      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
-      //     from: fromNum,
-      //     to: "+821053930614",
-      //   }, function (err, message) {
-      //     if (err) {
-      //       res.json("서버에러, 인증 요청 실패.");
-      //     } else{
-      //       res.json("인증번호가 발급되었습니다. 확인해주세요.");
-      //     }
-      //   });
-      // return res.status(200).json("인증번호가 발급되었습니다.");
-      console.log("발급되었습니다");
-      return res.status(201).json("발급되었습니다");
+
+      console.log(code,"가 발급되었습니다");
+      await client.messages
+        .create({
+          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+          from: fromNum,
+          to: "+820153930614",
+        }, function (err, message) {
+          if (err) console.log(err);
+          else console.log(message.sid);
+        });
+      return res.json("asdasd");
     }
-    if (alreadyGetNum && !alreadyGetNum.ok) {
+
+    const expire = alreadyGetNum.insertTime;
+
+    if (!calcExpire(expire) && !alreadyGetNum.ok) {
+      await temporary.updateOne({phone: phone}, {
+        authNum: code,
+        insertTime: expires,
+        expire: Date.now(),
+      });
+
+      await client.messages
+        .create({
+          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+          from: fromNum,
+          to: `+820153930614`,
+        }, function (err, message) {
+          if (err) {
+            res.json("서버에러, 인증 요청 실패.");
+          } else{
+            res.json("인증번호가 재발급되었습니다. 확인해주세요.");
+          }
+        });
+    }
+    if (calcExpire(expire) && !alreadyGetNum.ok) {
       console.log("이미 발급된 인증번호가 존재합니다.");
       return res.status(401).json("이미 발급된 인증번호가 존재합니다.");
     }
@@ -173,20 +182,59 @@ exports.phoneChk = async (req, res) => {
 }
 
 exports.authNumChk = async (req, res) => {
-  const { authNum } = req.body;
-  //폰번호도 같이 받아와야함!
-  console.log("authNumChk=========", authNum);
+  const { authNum, phone } = req.body;
+
+  function calcExpire(time) {
+    const valid = time - Date.now();
+    if (valid > 0) {
+      console.log("valid : ", valid);
+      return false;
+    }
+    return true;
+  }
+
+  function compareAuthNum(received, inserted) {
+    if (String(received) === inserted) {
+      return true;
+    }
+    return false;
+  }
+
   try {
-    const alreadyGetNum = await temporary.findOne({
-      where: {
-        authNum,
-      }
+    const insertedPhone = await temporary.findOne({
+      phone
     });
 
-    if (alreadyGetNum) {
+    if (!insertedPhone) {
+      console.log("인증번호를 발급받아 주세요.");
+      return res.status(401).json({ authNumError: true });
+    }
+
+    if (insertedPhone.ok) {
+       console.log("인증이 이미 완료되었습니다.");
+      return res.status(401).json({ authNumError: true });
+    }
+
+    const receivedNum = insertedPhone.authNum;
+    const expire = insertedPhone.insertTime;
+
+    if (calcExpire(expire) === true) {
+      console.log("인증번호가 만료되었습니다. 다시 발급 받아주세요.");
+      return res.status(401).json({ authNumError: true });
+    }
+
+    if (!compareAuthNum(receivedNum, authNum)) {
+      console.log("인증번호를 다시 확인해주세요.");
+      return res.status(401).json({ authNumError: true });
+    }
+
+    if (compareAuthNum(receivedNum, authNum)) {
+      await temporary.updateOne({phone: phone}, {
+        ok: true,
+      });
+      console.log("인증이 완료되었습니다.");
       return res.status(201).json({authNum: true}); //인증완료
     }
-    return res.status(401).json({authNumError: true}); //인증 실패
   } catch (e) {
     console.error(e);
   }

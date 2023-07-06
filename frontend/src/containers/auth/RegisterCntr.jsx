@@ -100,9 +100,22 @@ const RegisterCntr = () => {
     }
 
     if (name === "phoneAuthChk") {
+      console.log(authNum, phone);
       dispatch(
         authNumChk({
           authNum,
+          phone,
+        })
+      );
+    }
+
+    if (name === "authNum") {
+      const { value } = e.target;
+      dispatch(
+        changeValue({
+          form: "auth",
+          value,
+          key: name,
         })
       );
     }

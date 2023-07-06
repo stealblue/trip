@@ -16,6 +16,6 @@ export const phoneChk = async ({ phone }) => {
     return await client.post("/auth/register/phoneChk", { phone });
 }
 
-export const authNumChk = async ({ authNum }) => {
-    return await client.post("auth/register/authNumChk", { authNum });
+export const authNumChk = async ({ authNum, phone }) => {
+    return await client.post("auth/register/authNumChk", { authNum, phone });
 }
