@@ -51,8 +51,9 @@ export const phoneChk = createAction(PHONE_CHECK, ({ phone }) => ({
   phone,
 }));
 export const phoneModify = createAction(PHONE_MODIFY);
-export const authNumChk = createAction(AUTHNUM_CHECK, ({ authNum }) => ({
+export const authNumChk = createAction(AUTHNUM_CHECK, ({ authNum, phone }) => ({
   authNum,
+  phone,
 }));
 
 export const registerProcess = createRequestSaga(
