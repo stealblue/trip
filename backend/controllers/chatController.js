@@ -99,13 +99,13 @@ exports.temporary = async(req,res)=>{
   console.log(authNum);
   try {
     const now = new Date();
+    console.log('시간 :', now);
     const testTemporary = await Temporary.create({
       authNum,
-      expire:now
+      expire:now // 데이터 들어간 시간 
     });
     return res.json(testTemporary);    
   } catch (error) {
     return res.status(400).json(error);
   }
-
 }

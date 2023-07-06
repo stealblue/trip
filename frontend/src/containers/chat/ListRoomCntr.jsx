@@ -9,6 +9,7 @@ const onClick = (e) => {
 };
 
 const ListRoomCntr = () => {
+  
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { rooms, error, loading } = useSelector(({ RoomMod }) => ({

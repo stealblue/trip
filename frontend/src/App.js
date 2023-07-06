@@ -7,7 +7,7 @@ import WritePage from "./pages/board/WritePage";
 import RoomListPage from "./pages/chat/RoomListPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import Area from "./pages/area/AreaListPage";
+import AreaListPage from "./pages/area/AreaListPage";
 import RoomCreatePage from "./pages/chat/RoomCreatePage";
 import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/chat/room" element={<RoomCreatePage />} />
           <Route path="/chat/room/:roomId" element={<RoomReadPage />} />
           <Route path="/board" element={<BoardListPage />} />
-          <Route path="/area" element={<Area />} />
+          <Route path="/area" element={<AreaListPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/read/:readNo" element={<ReadPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
