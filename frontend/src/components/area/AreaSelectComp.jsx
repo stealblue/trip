@@ -1,20 +1,20 @@
 import React from 'react';
 
 const SelectItem = ({ onClick, area }) => {
-  // console.log('selectItem : ', area);
+  console.log('selectItem : ', area);
   return (
     <>
-      <button onClick={onClick}>{area.name}</button>
+      <button onClick={onClick} value={area.code}>{area.name}</button>
     </>
   );
 }
 
-const AreaSelectComp = ({ onClick, areaCodes, areaCode }) => {
-  console.log('codes : ', areaCodes);
+const AreaSelectComp = ({ onClick, areas }) => {
+  console.log('codes : ', areas);
   return (
     <div>
-      {areaCodes.map((area) => (
-        <SelectItem area={area} />
+      {areas.map((area) => (
+        <SelectItem area={area} key={area.code} onClick={onClick} />
       ))}
     </div>
   );

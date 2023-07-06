@@ -89,6 +89,7 @@ exports.boardModify = async (req, res) => {
 };
 
 exports.boardRemove = async (req, res) => {
+  console.log('777777777777777777777777777777777777777777777777777777777777777777777');
   try {
     const no = req.params.boardNo;
     console.log("removereqbody==>", req.body);

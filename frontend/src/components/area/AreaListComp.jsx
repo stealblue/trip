@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import PageNavComp from '../common/PageNavComp';
 
 const AreaItemBlock = styled.div`
   img{
@@ -9,10 +10,10 @@ const AreaItemBlock = styled.div`
 `;
 
 
-const AreaItem = ({ area }) => {
+const AreaItem = ({ area, key, onClick }) => {
   console.log('area : ', area);
   return (
-    <AreaItemBlock>
+    <AreaItemBlock key={key} onClick={onClick}>
       <p><img src={area.firstimage !== "" ? area.firstimage : area.firstimge2} alt="이미지없음" /></p>
       <p>{area.title} / {area.addr1}</p>
       <hr />
@@ -26,8 +27,9 @@ const AreaListComp = ({ areas, error, onClick }) => {
   return (
     <div>
       {areas && target.map((area) => (
-        <AreaItem area={area} />
+        <AreaItem area={area} key={area.contentid} onClick={onClick} />
       ))}
+      <PageNavComp />
     </div>
   );
 };

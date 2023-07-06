@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 const temporarySchema = new mongoose.Schema({
-  authNum:{
-    type:Number,
+  authNum: {
+    type: Number,
   },
-  phone:{
-    type:String,
+  phone: {
+    type: String,
   },
   insertTime: {
-    type:String,
+    type: String,
   },
-  expire:{
-    type:Date,
-expires:60, // TTL 5s
-    default:Date.now,
+  expire: {
+    type: Date,
+    expires: 60, // TTL 5s
+    default: Date.now,
   },
-  ok:{
-    type:Object
+  ok: {
+    type: Object
   }
 });
 

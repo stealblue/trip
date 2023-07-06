@@ -7,10 +7,10 @@ const onClick = (e) => {
   console.log("item : ", e.target.value);
 };
 
-const AreaListCntr = () => {
+const AreaListCntr = ({ areaCode }) => {
   console.log('AreaListCntr ====>');
   const pageNo = 0;
-  const areaCode = 0;
+  const selectCode = areaCode || 0;
   const dispatch = useDispatch();
   const { areas, error, loading } = useSelector(({ AreaListMod }) => ({
     areas: AreaListMod?.areas,
@@ -20,10 +20,15 @@ const AreaListCntr = () => {
   console.log(`pageNo : ${pageNo} / areaCode : ${areaCode}`);
   useEffect(() => {
     console.log(`RE =====> pageNo : ${pageNo} / areaCode : ${areaCode}`);
-    if (pageNo === 0 || areaCode === 0) return <div>내용x</div>;
-    dispatch(listAreas({ pageNo, areaCode }));
-  }, [dispatch]);
-  if (!areas) return <div>내용 없음</div>;
+    if (pageNo === 0 || selectCode === 0) return <div>내용x</div>;
+    dispatch(listAreas({ pageNo, selectCode }));
+  }, [dispatch, areaCode]);
+
+  if (!areas) {
+    console.log('내용 없음');
+    return <div>내용 없음</div>;
+  }
+
   return (
     <AreaListComp
       error={error}

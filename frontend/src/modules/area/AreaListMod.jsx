@@ -13,8 +13,6 @@ export function* areaSaga() {
 }
 
 const initialState = {
-  // pageNo:1,
-  // areaCode:1,
   areas: null,
   error: null,
 };
