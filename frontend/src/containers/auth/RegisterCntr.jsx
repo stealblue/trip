@@ -39,6 +39,7 @@ const RegisterCntr = () => {
     phoneAuth,
     phoneError,
     authNum,
+    authError,
   } = useSelector(({ RegisterMod }) => ({
     form: RegisterMod,
     id: RegisterMod.user.id,
@@ -54,6 +55,7 @@ const RegisterCntr = () => {
     phoneAuth: RegisterMod.auth.phoneAuth,
     phoneError: RegisterMod.auth.phoneError,
     authNum: RegisterMod.auth.authNum,
+    authError: RegisterMod.auth.authError,
   }));
   const chooseDomain = useRef();
   const onChange = (e) => {
@@ -228,9 +230,13 @@ const RegisterCntr = () => {
     }
   }, [phone]);
   //인증번호 유효시간
+  const [count, setCount] = useState(60);
+  useEffect(() => {
+    if (authNum === true) {
+      setCount(60);
+    }
+  }, [authNum]);
 
-  const [count, setCount] = useState(5);
-  const [reissuance, setReissuance] = useState(false);
   useInterval(
     () => {
       if (count > 0) {
@@ -238,7 +244,7 @@ const RegisterCntr = () => {
       }
       if (count === 0) {
         dispatch(phoneModify());
-        return setCount(5);
+        return setCount(60);
       }
     },
     count > -1 && phoneAuth ? 1000 : null
@@ -277,7 +283,10 @@ const RegisterCntr = () => {
       changeDomain={changeDomain}
       chooseDomain={chooseDomain}
       disabledDomain={disabledDomain}
+      phoneAuth={phoneAuth}
+      phoneError={phoneError}
       authNum={authNum}
+      authError={authError}
       count={count}
     />
   );

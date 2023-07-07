@@ -173,6 +173,7 @@ const RegisterMod = handleActions(
       produce(state, (draft) => {
         draft["auth"]["phoneAuth"] = null;
         draft["auth"]["phoneError"] = null;
+        draft["auth"]["authNum"] = null;
       }),
     [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum } }) =>
       produce(state, (draft) => {

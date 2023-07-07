@@ -92,7 +92,7 @@ exports.phoneChk = async (req, res) => {
   const fromNum = process.env.TWILIO_FORM_NUM;
   const client = require('twilio')(accountSid, authToken);
   const code = makeAuthNum(); //랜덤숫자 4자리
-  const expires = Date.now() + 15000; //인증번호 유효기간
+  const expires = Date.now() + 60000; //인증번호 유효기간
 
   function makeAuthNum() {//랜덤숫자열 생성
     let code = '';
@@ -168,11 +168,11 @@ exports.phoneChk = async (req, res) => {
     }
     if (calcExpire(expire) && !alreadyGetNum.ok) {
       console.log("이미 발급된 인증번호가 존재합니다.");
-      return res.status(401).json({phoneError: true});
+      return res.status(400).json({phoneError: true});
     }
     if (alreadyGetNum && alreadyGetNum.ok) {
       console.log("이미 인증이 완료되었습니다.");
-      return res.status(401).json({phoneError: true});;
+      return res.status(200).json({phoneAuth: true});;
     }
   } catch (e) {
     console.error(e);
@@ -210,7 +210,7 @@ exports.authNumChk = async (req, res) => {
 
     if (insertedPhone.ok) {
        console.log("인증이 이미 완료되었습니다.");
-      return res.status(200).json();
+      return res.status(200).json({authNum: true});
     }
 
     const receivedNum = insertedPhone.authNum;

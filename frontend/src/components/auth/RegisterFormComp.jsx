@@ -79,11 +79,13 @@ const RegisterFormComp = ({
   onIdChk,
   onPwdChk,
   onNickChk,
-  onPhoneChk,
   changeDomain,
   chooseDomain,
   disabledDomain,
+  phoneAuth,
+  phoneError,
   authNum,
+  authError,
   count,
 }) => {
   return (
@@ -192,12 +194,7 @@ const RegisterFormComp = ({
             인증번호 받기
           </button>
           {authNum === true ? (
-            <SubIdInput
-              placeholder="인증번호를 입력해주세요"
-              name="authNum"
-              onChange={onCheck}
-              disabled={true}
-            />
+            <SubIdInput name="authNum" onChange={onCheck} disabled={true} />
           ) : (
             <SubIdInput
               placeholder="인증번호를 입력해주세요"
@@ -209,10 +206,11 @@ const RegisterFormComp = ({
             인증확인
           </button>
           <ConfirmMessage>
-            <span>이미 가입된 번호입니다.</span>
-            {count === 5 ? (
+            {phoneError && <span>{"폰 인증 에러"}</span>}
+            {authError && <span>{"인증번호 에러"}</span>}
+            {count === 60 || authNum === true ? (
               ""
-            ) : count !== 0 ? (
+            ) : count !== 0 && phoneAuth ? (
               <span>인증 유효시간 {count}초</span>
             ) : (
               ""
