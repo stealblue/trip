@@ -1,4 +1,7 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
+import { listAreas } from "../../modules/area/AreaMod"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const areas = [
   { "name": "서울", "code": 1 }, { "name": "인천", "code": 2 }, { "name": "대전", "code": 3 }, { "name": "대구", "code": 4 },
@@ -8,13 +11,17 @@ const areas = [
   { "name": "전라북도", "code": 37 }, { "name": "전라남도", "code": 38 }, { "name": "제주특별자치도", "code": 39 }
 ];
 
-const AreaSelectCntr = ({ onClick }) => {
-
-  const AreaClick = (e) => {
-    onClick(e.target.value);
+const AreaSelectCntr = ({ pageNo }) => {
+  const dispatch = useDispatch();
+  const onClick = (e) => {
+    //채워나갈 내용
+    console.log('value : ', e.target.value);
+    const areaCode = e.target.value;
+    const page = pageNo || 1;
+    dispatch(listAreas({ pageNo: page, areaCode }));
   };
 
-  return <AreaSelectComp onClick={AreaClick} areas={areas} />;
+  return <AreaSelectComp onClick={onClick} areas={areas} />;
 };
 
 export default AreaSelectCntr;
