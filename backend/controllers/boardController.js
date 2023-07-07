@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-const { board, like } = require("../models/mysql");
+const { board, like, reply } = require("../models/mysql");
 const sanitizeHtml = require("sanitize-html");
 
 const sanitizeOption = {
@@ -125,14 +125,19 @@ exports.boardLike = async (req, res) => {
   //   return res.status(500).json({ error: "서버 오류가 발생했습니다." });
   // }
   const { no, id } = req.body;
+  console.log(`no : ${no}  / id : ${id}`);
   try {
+    // let newCount; // 게시글에 업데이트된 정보(좋아요 수)를 담을 변수
     const originLike = await like.findOne({
-      bno: no,
-      id,
+      where: {
+        bno: no,
+        id,
+      },
     });
     const originBoard = await board.findOne({
       no,
     });
+    console.log("originLike :", originLike);
     if (!originLike) {
       await like.create({
         bno: no,
@@ -148,6 +153,7 @@ exports.boardLike = async (req, res) => {
           },
         }
       );
+      // newCount = originBoard.like + 1;
     } else {
       await like.destroy({
         where: {
@@ -165,10 +171,59 @@ exports.boardLike = async (req, res) => {
           },
         }
       );
+      // newCount = originBoard.like - 1;
     }
-
-    res.json({ msg: "ok" });
+    const post = await board.findOne({
+      where: {
+        bno: no,
+        id,
+      },
+    });
+    res.json(post);
+    // res.json({ checkLike: newCount }); //업데이트된 숫자
   } catch (error) {
     res.status(400).json({ msg: error });
+  }
+};
+
+exports.commentAdd = async (req, res) => {
+  console.log("commentAdd 들어왔나 ===> ", req.params);
+  try {
+    const no = req.params.bno;
+    const { bno, id, content } = req.body;
+    console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    console.log(req.body, "commentAdd try....");
+
+    const commentAdd = await reply.create(
+      {
+        bno,
+        id,
+        content,
+      },
+      {
+        where: {
+          bno,
+        },
+      }
+    );
+
+    return res.json(commentAdd);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+exports.commentRead = async (req, res, next) => {
+  const bno = req.params.bno;
+  console.log("commentLitpage들어옴");
+  try {
+    const replys = await reply.findAll({
+      where: { bno },
+    });
+    // console.log(boards);
+    return res.json(replys);
+    // /board/105 get
+  } catch (error) {
+    return res.json(error);
   }
 };

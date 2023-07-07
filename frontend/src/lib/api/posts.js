@@ -17,7 +17,7 @@ export const readPost = (no) => {
   return client.get(`/board/read/${no}`);
 };
 
-// 수정 : 안됨
+// 글 수정
 export const updatePost = ({ no, title, content }) => {
   return client.post(`/board/modify`, { title, content, no });
 };
@@ -28,6 +28,17 @@ export const removePost = (no) => {
 };
 
 //좋아요
-export const likePost = (no) => {
-  return client.post(`/board/like`, { no });
+export const likePost = ({ id, bno }) => {
+  return client.post(`/board/like`, { id, bno });
+};
+
+//댓글쓰기
+export const replyPost = ({ content, id, bno }) => {
+  return client.post(`/board/write/comment/${bno}}`, { content, id, bno });
+};
+
+//댓글읽기
+export const replyreadPosts = (bno) => {
+  console.log("api replyreadPosts");
+  return client.get(`/board/read/comment/${bno}`);
 };
