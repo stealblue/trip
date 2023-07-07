@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
-import ListActionButtonsComp from "./ListActionButtonsComp";
 import ReplyWriteComp from "../reply/ReplyWriteComp";
+import ReplyReadComp from "../reply/ReplyReadComp";
 
 import { MdFavoriteBorder, MdRemoveRedEye } from "react-icons/md";
 
@@ -40,14 +39,14 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const ReadComp = ({ post, error, loading, actionButtons }) => {
-  const [like, setLike] = useState(0);
+const ReadComp = ({ post, error, loading, actionButtons, onlike }) => {
+  // const [like, setLike] = useState(0);
 
   const likeButton = () => {
-    setLike(like + 1);
+    // setLike(like + 1);
   };
 
-  console.log(like);
+  // console.log(like);
 
   if (error) {
     if (error.response && error.response.status === 404) {
@@ -70,7 +69,7 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
           <div className="likeandcnt">
             <p>
               <MdFavoriteBorder onClick={likeButton} className="icon" size="24" color="red" />
-              {like}
+              {post.like}
             </p>
             <p>
               <MdRemoveRedEye className="icon" size="24" />
@@ -82,8 +81,8 @@ const ReadComp = ({ post, error, loading, actionButtons }) => {
           <p>{post.content}</p>
         </Content>
         {actionButtons}
-
         <ReplyWriteComp />
+        <ReplyReadComp />
       </Responsive>
     </>
   );
