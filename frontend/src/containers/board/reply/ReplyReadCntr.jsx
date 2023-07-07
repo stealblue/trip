@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { replyreadPost } from "../../../modules/board/ReplyReadMod";
+import { replyReadPost } from "../../../modules/board/ReplyReadMod";
 import ReplyReadComp from "../../../components/board/reply/ReplyReadComp";
 
-const ReadContainer = () => {
+const ReplyReadCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
-  const { reply, content, user } = useSelector(({ ReplyReadMod, UserMod }) => ({
-    reply: ReplyReadMod.reply,
+  const { replys, content, user } = useSelector(({ ReplyReadMod, UserMod }) => ({
+    replys: ReplyReadMod.replys,
     content: ReplyReadMod.content,
     user: UserMod.user,
   }));
-  console.log("reply :", reply);
-  // console.log("아아아아아ㅏ아아", post);
+  console.log("reply :", replys);
+  console.log("아아아아아ㅏ아아", content);
 
   useEffect(() => {
     dispatch(
-      replyreadPost({
+      replyReadPost({
         bno: readNo,
         content: content,
         user: user,
@@ -26,7 +26,7 @@ const ReadContainer = () => {
   }, [dispatch]);
   // console.log("setOriginpost---->", setOriginPost(post));
 
-  return <ReplyReadComp content={content} reply={reply} user={user} />;
+  return <ReplyReadComp content={content} replys={replys} user={user} />;
 };
 
-export default ReadContainer;
+export default ReplyReadCntr;

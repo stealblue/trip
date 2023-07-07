@@ -10,7 +10,7 @@ import ChatMod, { chatSaga } from "./chat/ChatMod";
 import UserMod, { userSaga } from "./UserMod";
 import AreaListMod, { areaSaga } from "./area/AreaListMod";
 import ReplyMod, { replySaga } from "./board/ReplyWriteMod";
-import ReplyReadMod, { replyreadSaga } from "./board/ReplyReadMod";
+import ReplyReadMod, { replyReadSaga } from "./board/ReplyReadMod";
 const rootReducer = combineReducers({
   LoginMod,
   RegisterMod,
@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([writeSaga(), loginSaga(), registerSaga(), postsSaga(), userSaga(), chatSaga(), roomSaga(), postSaga(), areaSaga(), replySaga(), replyreadSaga()]);
+  yield all([writeSaga(), loginSaga(), registerSaga(), postsSaga(), userSaga(), chatSaga(), roomSaga(), postSaga(), areaSaga(), replySaga(), replyReadSaga()]);
 }
 
 export default rootReducer;
