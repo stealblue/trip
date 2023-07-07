@@ -18,6 +18,8 @@ import {
 const RegisterCntr = () => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [address, setAddress] = useState({});
   const [disabledDomain, setDisabledDomain] = useState("");
   const [onIdChk, setOnIdChk] = useState("empty");
   const [onPwdChk, setOnPwdChk] = useState("");
@@ -68,6 +70,18 @@ const RegisterCntr = () => {
       })
     );
   };
+
+  //Modal창 컨트롤
+  const openSearchAddress = (e) => {
+    setModal(!modal);
+  };
+
+  const onCompletePost = (data) => {
+    const { roadAddress, zonecode } = data;
+    setAddress({ roadAddress, zonecode });
+    setModal(!modal);
+  };
+
   //회원가입 정보 제출
   const onSubmit = (e) => {
     e.preventDefault();
@@ -288,6 +302,10 @@ const RegisterCntr = () => {
       authNum={authNum}
       authError={authError}
       count={count}
+      openSearchAddress={openSearchAddress}
+      modal={modal}
+      onCompletePost={onCompletePost}
+      address={address}
     />
   );
 };

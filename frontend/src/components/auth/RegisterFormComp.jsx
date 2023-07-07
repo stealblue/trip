@@ -1,4 +1,27 @@
 import { css, styled } from "styled-components";
+import Modal from "styled-react-modal";
+import DaumPostcode from "react-daum-postcode";
+import { useEffect } from "react";
+
+const StyledModal = Modal.styled`
+  background: white;
+  height: 450px;
+  width: 500px;
+
+  div{
+    display: flex;
+    padding: 5px;
+    justify-contents: space-between;
+  }
+`;
+
+const DivInModal = styled.div`
+  cursor: pointer;
+  color: red;
+  margin-left: 400px;
+  background: none;
+  text-align: center;
+`;
 
 const RegisterFormBlock = styled.div`
   display: flex;
@@ -87,7 +110,14 @@ const RegisterFormComp = ({
   authNum,
   authError,
   count,
+  openSearchAddress,
+  modal,
+  onCompletePost,
+  address,
 }) => {
+  const aaa = () => {
+    console.log("asdasd");
+  };
   return (
     <>
       <RegisterFormBlock>
@@ -216,6 +246,8 @@ const RegisterFormComp = ({
               ""
             )}
           </ConfirmMessage>
+          <input placeholder="우편번호" name="zipcode" onChange={onChange} />
+          <button onClick={openSearchAddress}>주소찾기</button>
           <RegisterInput
             placeholder="주소"
             name="addr1"
@@ -228,16 +260,31 @@ const RegisterFormComp = ({
             type="text"
             onChange={onChange}
           />
-          <input placeholder="우편번호" name="zipcode" onChange={onChange} />
-          <input type="radio" name="gender" value="0" onChange={onChange} />
-          남자
-          <input type="radio" name="gender" value="1" onChange={onChange} />
-          여자
+          <div>
+            <input type="radio" name="gender" value="0" onChange={onChange} />
+            남자
+            <input type="radio" name="gender" value="1" onChange={onChange} />
+            여자
+          </div>
           <div>
             <button>가입하기</button>
           </div>
         </form>
       </RegisterFormBlock>
+      {modal && (
+        <StyledModal
+          isOpen={modal} //true = 열림 / false = 닫힘
+          ariahideapp={"false"} //에러 안뜨게하기
+          onEscapeKeydown={openSearchAddress} //esc키로 빠져나오기
+          onBackgroundClick={openSearchAddress} //esc키 or 오버레이부분 클릭시 Modal닫힘
+        >
+          <div>
+            <div>주소검색</div>
+            <DivInModal onClick={openSearchAddress}>X</DivInModal>
+          </div>
+          <DaumPostcode autoClose onComplete={onCompletePost} />
+        </StyledModal>
+      )}
     </>
   );
 };
