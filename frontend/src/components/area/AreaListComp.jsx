@@ -2,28 +2,14 @@ import React from 'react';
 import { styled } from 'styled-components';
 import PageNavComp from '../common/PageNavComp';
 
-// const AreaCategotyBlock = styled.li`
-//   display: inline-block;
-// `;
-
-const AreaItemBlock = styled.div`
-  img{
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-// const AreaCategoty = ({ onClick, area }) => {
-//   console.log('areaCategoty : ', area);
-//   return <AreaCategotyBlock onClick={onClick} area={area} />
-// }
+const AreaItemBlock = styled.div`img{width: 100px;height: 100px;}`;
 
 const AreaItem = ({ area, key, onClick }) => {
   console.log('area : ', area);
   return (
-    <AreaItemBlock key={key} onClick={onClick}>
+    <AreaItemBlock key={area.contentid}>
       <p><img src={area.firstimage !== "" ? area.firstimage : area.firstimge2} alt="이미지없음" /></p>
-      <p>{area.title} / {area.addr1}</p>
+      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>{area.title} / {area.addr1}</p>
       <hr />
     </AreaItemBlock>
   );
@@ -32,8 +18,9 @@ const AreaItem = ({ area, key, onClick }) => {
 const AreaListComp = ({ areas, error, onClick }) => {
   console.log("areas : ", areas);
   // console.log("areaArr : ", areaArr);
+  const result = areas.response.body;
   let target;
-  if (areas) target = areas.response.body.items.item;
+  if (areas) target = result.items.item;
   return (
     <div>
       {/* {areaArr.map((area) => (
@@ -41,11 +28,15 @@ const AreaListComp = ({ areas, error, onClick }) => {
       ))} */}
 
       {areas && target && target.map((area) => (
-        <AreaItem area={area} key={area.contentid} onClick={onClick} />
+        <AreaItem area={area} onClick={onClick} key={area.contentid} />
       ))}
-      <PageNavComp />
+      <PageNavComp
+        pageNo={result.pageNo}
+        totalCount={result.totalCount}
+        numOfRows={result.numOfRows}
+      />
     </div>
   );
 };
 
-export default AreaListComp;
+export default React.memo(AreaListComp);

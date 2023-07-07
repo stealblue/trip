@@ -1,7 +1,7 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
 import { listAreas } from "../../modules/area/AreaMod"
-import React, { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 
 const areas = [
   { "name": "서울", "code": 1 }, { "name": "인천", "code": 2 }, { "name": "대전", "code": 3 }, { "name": "대구", "code": 4 },

@@ -1,10 +1,20 @@
 import React from 'react';
+import { styled } from 'styled-components';
+
+const LiBlock = styled.li`
+  display: inline-block;
+`;
 
 const PageNavComp = ({ totalCount, pageNo, numOfRows, onClick }) => {
   const res = parseInt(Math.ceil(totalCount / numOfRows));
   const page = pageNo || 1;
   const pageNavEndNum = Math.ceil(page / numOfRows) * 10;
   const pageNavStartNum = Math.floor(page / numOfRows) * 10;
+
+  // const onClick = (e) => {
+  //   console.log('page Click : ', e.target.value);
+  // }
+
   console.log('res :', res);
   console.log(`start : ${pageNavStartNum} / end : ${pageNavEndNum}`);
   const resArray = Array.from({ length: pageNavEndNum - pageNavStartNum }, (_, index) => index + 1);
@@ -12,7 +22,7 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows, onClick }) => {
     <div>
       <p>
         {resArray.map((r) => (
-          <li onClick={onClick}>{r + pageNavStartNum}</li>
+          <LiBlock onClick={onClick} key={r + pageNavStartNum} value={r + pageNavStartNum}>{r + pageNavStartNum}</LiBlock>
         ))}</p>
     </div>
   );

@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, { createRequestActionTypes } from "../../lib/createRequestSaga";
 import * as areaAPI from "../../lib/api/area";
 import { takeLatest } from "redux-saga/effects";
+import { produce } from 'immer';
 
 const INITIALIZE = createRequestActionTypes('area/INITIALIZE');
 const [LIST_AREAS, LIST_AREAS_SUCCESS, LIST_AREAS_FAILURE] = createRequestActionTypes("area/LIST_AREAS");
@@ -23,8 +24,14 @@ const initialState = {
 const AreaMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [LIST_AREAS_SUCCESS]: (state, { payload: areas }) => ({ ...state, areas }),
-    [LIST_AREAS_FAILURE]: (state, { payload: error }) => ({ ...state, error }),
+    [LIST_AREAS_SUCCESS]: (state, { payload: areas }) =>
+      produce(state, (draft) => {
+        draft.areas = areas;
+      }),
+    [LIST_AREAS_FAILURE]: (state, { payload: error }) =>
+      produce(state, (draft) => {
+        draft.error = error;
+      }),
   },
   initialState
 );

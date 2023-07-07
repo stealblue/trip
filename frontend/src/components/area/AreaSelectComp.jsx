@@ -20,4 +20,4 @@ const AreaSelectComp = ({ onClick, areas }) => {
   );
 };
 
-export default AreaSelectComp;
+export default React.memo(AreaSelectComp);
