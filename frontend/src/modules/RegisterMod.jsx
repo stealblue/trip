@@ -20,7 +20,6 @@ const NICK_MODIFY = "register/NICK_MODIFY";
 const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILURE] =
   createRequestActionTypes("register/PHONE_CHECK");
 const PHONE_MODIFY = "register/PHONE_MODIFY";
-
 const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILURE] =
   createRequestActionTypes("register/AUTHNUM_CHECK");
 
@@ -160,31 +159,32 @@ const RegisterMod = handleActions(
         draft["auth"]["nickAuth"] = null;
         draft["auth"]["nickError"] = null;
       }),
-    [PHONE_CHECK_SUCCESS]: (state, { payload: { phoneAuth } }) => ({
-      ...state,
-      phoneAuth: phoneAuth,
-      phoneError: null,
-    }),
-    [PHONE_CHECK_FAILURE]: (state, { payload: { phoneError } }) => ({
-      ...state,
-      phoneAuth: null,
-      phoneError: phoneError,
-    }),
+    [PHONE_CHECK_SUCCESS]: (state, { payload: { phoneAuth } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["phoneAuth"] = phoneAuth;
+        draft["auth"]["phoneError"] = false;
+      }),
+    [PHONE_CHECK_FAILURE]: (state, { payload: { phoneError } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["phoneAuth"] = false;
+        draft["auth"]["phoneError"] = phoneError;
+      }),
     [PHONE_MODIFY]: (state) =>
       produce(state, (draft) => {
         draft["auth"]["phoneAuth"] = null;
         draft["auth"]["phoneError"] = null;
+        draft["auth"]["authNum"] = null;
       }),
-    [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum } }) => ({
-      ...state,
-      authNum: authNum,
-      authNumError: null,
-    }),
-    [AUTHNUM_CHECK_FAILURE]: (state, { payload: { authNumError } }) => ({
-      ...state,
-      authNum: null,
-      authNumError: authNumError,
-    }),
+    [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["authNum"] = authNum;
+        draft["auth"]["authNumError"] = false;
+      }),
+    [AUTHNUM_CHECK_FAILURE]: (state, { payload: { authNumError } }) =>
+      produce(state, (draft) => {
+        draft["auth"]["authNum"] = false;
+        draft["auth"]["authNumError"] = authNumError;
+      }),
   },
   initialState
 );

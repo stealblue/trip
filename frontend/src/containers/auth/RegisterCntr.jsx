@@ -10,6 +10,7 @@ import {
   nickChk,
   nickModify,
   phoneChk,
+  phoneModify,
   pwdChk,
   register,
 } from "../../modules/RegisterMod";
@@ -21,6 +22,7 @@ const RegisterCntr = () => {
   const [onIdChk, setOnIdChk] = useState("empty");
   const [onPwdChk, setOnPwdChk] = useState("");
   const [onNickChk, setOnNickChk] = useState("empty");
+  const [onPhoneChk, setOnPhoneChk] = useState("empty");
   const dispatch = useDispatch();
   const {
     form,
@@ -37,6 +39,7 @@ const RegisterCntr = () => {
     phoneAuth,
     phoneError,
     authNum,
+    authError,
   } = useSelector(({ RegisterMod }) => ({
     form: RegisterMod,
     id: RegisterMod.user.id,
@@ -52,6 +55,7 @@ const RegisterCntr = () => {
     phoneAuth: RegisterMod.auth.phoneAuth,
     phoneError: RegisterMod.auth.phoneError,
     authNum: RegisterMod.auth.authNum,
+    authError: RegisterMod.auth.authError,
   }));
   const chooseDomain = useRef();
   const onChange = (e) => {
@@ -64,7 +68,6 @@ const RegisterCntr = () => {
       })
     );
   };
-
   //회원가입 정보 제출
   const onSubmit = (e) => {
     e.preventDefault();
@@ -210,6 +213,63 @@ const RegisterCntr = () => {
       setOnIdChk(true);
     }
   }, [idError]);
+  //핸드폰 인증상황에 따른 중복확인 메세지 실시간 변경
+  useEffect(() => {
+    if (phoneError === null) {
+      setOnPhoneChk("empty");
+    } else if (phoneError) {
+      setOnPhoneChk(false);
+    } else {
+      setOnPhoneChk(true);
+    }
+  }, [phoneError]);
+  //핸드폰 값 변경시 다시 인증받아야함.
+  useEffect(() => {
+    if (phoneAuth) {
+      dispatch(phoneModify());
+    }
+  }, [phone]);
+  //인증번호 유효시간
+  const [count, setCount] = useState(60);
+  useEffect(() => {
+    if (authNum === true) {
+      setCount(60);
+    }
+  }, [authNum]);
+
+  useInterval(
+    () => {
+      if (count > 0) {
+        return setCount(count - 1);
+      }
+      if (count === 0) {
+        dispatch(phoneModify());
+        return setCount(60);
+      }
+    },
+    count > -1 && phoneAuth ? 1000 : null
+  );
+
+  //useInterval 구조
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
   return (
     <RegisterFormComp
@@ -219,9 +279,15 @@ const RegisterCntr = () => {
       onIdChk={onIdChk}
       onPwdChk={onPwdChk}
       onNickChk={onNickChk}
+      onPhoneChk={onPhoneChk}
       changeDomain={changeDomain}
       chooseDomain={chooseDomain}
       disabledDomain={disabledDomain}
+      phoneAuth={phoneAuth}
+      phoneError={phoneError}
+      authNum={authNum}
+      authError={authError}
+      count={count}
     />
   );
 };

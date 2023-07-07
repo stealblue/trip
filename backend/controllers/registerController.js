@@ -68,7 +68,7 @@ exports.idChk = async (req, res) => {
 
 exports.nickChk = async (req, res) => {
   const {nick} = req.body;
-  console.log("nickChk=========", nick);
+
   try {
     const exUser = await user.findOne({
       where: {
@@ -92,15 +92,15 @@ exports.phoneChk = async (req, res) => {
   const fromNum = process.env.TWILIO_FORM_NUM;
   const client = require('twilio')(accountSid, authToken);
   const code = makeAuthNum(); //랜덤숫자 4자리
-  const expires = Date.now() + 15000; //인증번호 유효기간
+  const expires = Date.now() + 60000; //인증번호 유효기간
 
-  function makeAuthNum() {
+  function makeAuthNum() {//랜덤숫자열 생성
     let code = '';
-    for (let i = 0; i < 4; i++) code += Math.floor(Math.random() * 10); //랜덤숫자열 생성
+    for (let i = 0; i < 4; i++) code += Math.floor(Math.random() * 10); 
     return code;
   }
 
-  function calcExpire(time) {
+  function calcExpire(time) { //인증 유효시간 계산
     const valid = Date.now() - time;
     if (valid > 0) {
       return false;
@@ -134,16 +134,16 @@ exports.phoneChk = async (req, res) => {
       });
 
       console.log(code,"가 발급되었습니다");
-      await client.messages
-        .create({
-          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
-          from: fromNum,
-          to: "+820153930614",
-        }, function (err, message) {
-          if (err) console.log(err);
-          else console.log(message.sid);
-        });
-      return res.json("asdasd");
+      // await client.messages
+      //   .create({
+      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+      //     from: fromNum,
+      //     to: `+82${substrPhone}`,
+      //   }, function (err, message) {
+      //     if (err) console.log(err);
+      //     else console.log(message.sid);
+      //   });
+      return res.status(200).json({phoneAuth: true});
     }
 
     const expire = alreadyGetNum.insertTime;
@@ -154,27 +154,25 @@ exports.phoneChk = async (req, res) => {
         insertTime: expires,
         expire: Date.now(),
       });
-
-      await client.messages
-        .create({
-          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
-          from: fromNum,
-          to: `+820153930614`,
-        }, function (err, message) {
-          if (err) {
-            res.json("서버에러, 인증 요청 실패.");
-          } else{
-            res.json("인증번호가 재발급되었습니다. 확인해주세요.");
-          }
-        });
+      console.log(`${code}가 재발급되었씁니다.`);
+      // await client.messages
+      //   .create({
+      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+      //     from: fromNum,
+      //     to: `+82${substrPhone}`,
+      //   }, function (err, message) {
+      //      if (err) console.log(err);
+      //     else console.log(message.sid);
+      //   });
+      return res.status(200).json({ phoneAuth: true });
     }
     if (calcExpire(expire) && !alreadyGetNum.ok) {
       console.log("이미 발급된 인증번호가 존재합니다.");
-      return res.status(401).json("이미 발급된 인증번호가 존재합니다.");
+      return res.status(400).json({phoneError: true});
     }
     if (alreadyGetNum && alreadyGetNum.ok) {
       console.log("이미 인증이 완료되었습니다.");
-      return res.status(401).json("이미 인증이 완료되었습니다.");;
+      return res.status(200).json({phoneAuth: true});;
     }
   } catch (e) {
     console.error(e);
@@ -212,7 +210,7 @@ exports.authNumChk = async (req, res) => {
 
     if (insertedPhone.ok) {
        console.log("인증이 이미 완료되었습니다.");
-      return res.status(401).json({ authNumError: true });
+      return res.status(200).json({authNum: true});
     }
 
     const receivedNum = insertedPhone.authNum;
@@ -233,7 +231,7 @@ exports.authNumChk = async (req, res) => {
         ok: true,
       });
       console.log("인증이 완료되었습니다.");
-      return res.status(201).json({authNum: true}); //인증완료
+      return res.status(200).json({authNum: true}); //인증완료
     }
   } catch (e) {
     console.error(e);
