@@ -1,6 +1,6 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
 import { listAreas } from "../../modules/area/AreaMod"
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const areas = [

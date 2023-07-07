@@ -59,5 +59,10 @@ id varchar(35) not null,
 );
 
 ALTER TABLE trip.board ADD createAt TIMESTAMP DEFAULT now() NOT NULL;
-ALTER TABLE trip.board ADD updateAt TIMESTAMP DEFAULT now() NULL;
+ALTER TABLE trip.board ADD updateAt TIMESTAMP;
 ALTER TABLE trip.board MODIFY COLUMN updateAt timestamp NULL;
+
+ALTER TABLE trip.reply ADD createAt timestamp DEFAULT now() NOT NULL;
+ALTER TABLE trip.reply ADD updateAt TIMESTAMP DEFAULT now() NULL;
+
+ALTER TABLE trip.wishList ADD createAt timestamp DEFAULT now() NOT NULL;
