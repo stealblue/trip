@@ -64,5 +64,6 @@ ALTER TABLE trip.board MODIFY COLUMN updateAt timestamp NULL;
 
 ALTER TABLE trip.reply ADD createAt timestamp DEFAULT now() NOT NULL;
 ALTER TABLE trip.reply ADD updateAt TIMESTAMP DEFAULT now() NULL;
+ALTER TABLE trip.reply MODIFY COLUMN updateAt timestamp NULL;
 
 ALTER TABLE trip.wishList ADD createAt timestamp DEFAULT now() NOT NULL;
