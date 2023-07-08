@@ -7,6 +7,7 @@ import {
   idChk,
   idModify,
   initializeRegisterForm,
+  inputAddress,
   nickChk,
   nickModify,
   phoneChk,
@@ -80,6 +81,12 @@ const RegisterCntr = () => {
     const { roadAddress, zonecode } = data;
     setAddress({ roadAddress, zonecode });
     setModal(!modal);
+    dispatch(
+      inputAddress({
+        addr1: roadAddress,
+        zipcode: zonecode,
+      })
+    );
   };
 
   //회원가입 정보 제출

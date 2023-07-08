@@ -22,6 +22,7 @@ const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILURE] =
 const PHONE_MODIFY = "register/PHONE_MODIFY";
 const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILURE] =
   createRequestActionTypes("register/AUTHNUM_CHECK");
+const [INPUT_ADDRESS] = "register/INPUT_ADDRESS";
 
 export const initializeRegisterForm = createAction(INITIALIZE_FORM);
 export const changeValue = createAction(
@@ -54,6 +55,13 @@ export const authNumChk = createAction(AUTHNUM_CHECK, ({ authNum, phone }) => ({
   authNum,
   phone,
 }));
+export const inputAddress = createAction(
+  INPUT_ADDRESS,
+  ({ addr1, zipcode }) => ({
+    addr1,
+    zipcode,
+  })
+);
 
 export const registerProcess = createRequestSaga(
   REGISTER,
@@ -184,6 +192,11 @@ const RegisterMod = handleActions(
       produce(state, (draft) => {
         draft["auth"]["authNum"] = false;
         draft["auth"]["authNumError"] = authNumError;
+      }),
+    [INPUT_ADDRESS]: (state, { payload: { addr1, zipcode } }) =>
+      produce(state, (draft) => {
+        draft["user"]["addr1"] = addr1;
+        draft["user"]["zipcode"] = zipcode;
       }),
   },
   initialState
