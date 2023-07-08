@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 
 const LiBlock = styled.li`
@@ -11,9 +12,10 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows, onClick }) => {
   const pageNavEndNum = Math.ceil(page / numOfRows) * 10;
   const pageNavStartNum = Math.floor(page / numOfRows) * 10;
 
-  // const onClick = (e) => {
-  //   console.log('page Click : ', e.target.value);
-  // }
+
+  // const areaCode = useSelector(({AreaMod})=>({
+  //   areaCode:AreaMod.areaCode
+  // }));
 
   console.log('res :', res);
   console.log(`start : ${pageNavStartNum} / end : ${pageNavEndNum}`);

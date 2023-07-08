@@ -12,6 +12,7 @@ import RoomCreatePage from "./pages/chat/RoomCreatePage";
 import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
 import ProfilePage from "./pages/auth/ProfilePage";
+import TrafficListPage from "./pages/traffic/TrafficListPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/auth/:nick" element={<ProfilePage />} />
+          <Route path="/traffic" element={<TrafficListPage />} />
         </Route>
       </Routes>
     </>

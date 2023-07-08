@@ -1,37 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AreaListComp from "../../components/area/AreaListComp";
-import KakaoMapComp from '../../components/common/KakaoMapComp';
 import { listAreas } from "../../modules/area/AreaListMod";
-import Swal from 'sweetalert2';
-import { renderToString } from 'react-dom/server';
+import ModalBasic from "../../components/common/ModalBasic";
 
-const onClick = (e) => {
-  const mapComp = (<KakaoMapComp />);
-  const mapStr = renderToString(mapComp);
-  Swal.fire({
-    title: 'Kakao Map',
-    html: mapStr,
-    showConfirmButton: false,
-    width: '800px'
-  });
-}
-
-const AreaListCntr = ({ areaCode }) => {
-  const pageNo = 0;
+const AreaListCntr = ({ areaCode, pageNo }) => {
+  const selectNo = pageNo || 0;
   const selectCode = areaCode || 0;
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mapData, setMapData] = useState({});
+
+  // 모달창 노출
+  const onClick = (e) => {
+    console.log('data : ', e.target.dataset);
+    setModalOpen(true);
+    setMapData({
+      title: e.target.dataset.title,
+      mapx: e.target.dataset.mapx,
+      mapy: e.target.dataset.mapy
+    });
+  };
+
+
   const dispatch = useDispatch();
-  const { areas, error, loading } = useSelector(({ AreaListMod }) => ({
-    areas: AreaListMod?.areas,
-    error: AreaListMod?.error,
+
+  const { areas, error, loading } = useSelector(({ AreaMod }) => ({
+    areas: AreaMod?.areas,
+    error: AreaMod?.error,
   }));
+
+
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      if (pageNo !== 0 && selectCode !== 0) {
-        dispatch(listAreas({ pageNo, selectCode }));
+      if (selectNo !== 0 && selectCode !== 0) {
+        dispatch(listAreas({ selectNo, selectCode }));
       }
     }
-  }, [dispatch, areaCode, pageNo, selectCode]);
+  }, [dispatch, selectCode, selectCode]);
 
   if (!areas) {
     console.log('내용 없음');
@@ -39,12 +46,17 @@ const AreaListCntr = ({ areaCode }) => {
   }
 
   return (
-    <AreaListComp
-      error={error}
-      areas={areas}
-      loading={loading}
-      onClick={onClick}
-    />
+    <>
+      {/* <button onClick={showModal}>ddddddddd</button> */}
+      {modalOpen && <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />}
+      <AreaListComp
+        error={error}
+        areas={areas}
+        loading={loading}
+        onClick={onClick}
+      />
+
+    </>
   );
 };
 

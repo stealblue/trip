@@ -4,14 +4,20 @@ import AreaSelectCntr from '../../containers/area/AreaSelectCntr';
 
 const AreaListPage = () => {
   const [areaCode, setAreaCode] = useState(null);
-  const onClick = (value) => {
-    console.log('AreaListPage onClick : ', value);
-    setAreaCode(value);
+  const [pageNo, setPageNo] = useState(null);
+
+  const onClickAreaCode = (e) => {
+    console.log('AreaListPage onClick : ', e.target.value);
+    setAreaCode(e.target.value);
   }
+  // const onClickPageNo = (value) => {
+  //   setPageNo(value);
+  // }
+
   return (
     <div>
-      <AreaSelectCntr onClick={onClick} />
-      <AreaListCntr areaCode={areaCode} />
+      <AreaSelectCntr onClick={onClickAreaCode} />
+      <AreaListCntr areaCode={areaCode} pageNo={pageNo} />
     </div>
   );
 };

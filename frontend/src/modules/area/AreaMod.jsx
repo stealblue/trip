@@ -6,10 +6,13 @@ import { produce } from 'immer';
 
 const INITIALIZE = createRequestActionTypes('area/INITIALIZE');
 const [LIST_AREAS, LIST_AREAS_SUCCESS, LIST_AREAS_FAILURE] = createRequestActionTypes("area/LIST_AREAS");
+const SHOW_AREA_CODE = createRequestActionTypes('area/SHOW_AREA_CODE');
 
 export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode }) => ({ pageNo, areaCode }));
+export const showAreaCode = createAction(SHOW_AREA_CODE, (areaCode) => (areaCode));
 
 const listAreasSaga = createRequestSaga(LIST_AREAS, areaAPI.listAreas);
+
 export function* areaSaga() {
   yield takeLatest(LIST_AREAS, listAreasSaga);
 }
@@ -32,6 +35,10 @@ const AreaMod = handleActions(
       produce(state, (draft) => {
         draft.error = error;
       }),
+    [SHOW_AREA_CODE]: (state, { payload: areaCode }) =>
+      produce(state, (draft) => {
+        draft.areaCode = areaCode;
+      })
   },
   initialState
 );
