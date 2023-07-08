@@ -25,14 +25,14 @@ exports.boardListPage = async (req, res, next) => {
 };
 
 exports.boardDetailPage = async (req, res) => {
-  console.log("req.params=======>", req.params);
+  // console.log("req.params=======>", req.params);
   try {
     const no = req.params.boardNo;
     console.log(no);
     const detailPage = await board.findOne({
       where: { no },
     });
-    console.log(detailPage.title);
+    // console.log(detailPage.title);
     return res.json(detailPage);
   } catch (error) {
     return res.json(error);
@@ -192,8 +192,8 @@ exports.commentAdd = async (req, res) => {
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;
-    console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
-    console.log(req.body, "commentAdd try....");
+    // console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    // console.log(req.body, "commentAdd try....");
 
     const commentAdd = await reply.create(
       {
@@ -216,7 +216,7 @@ exports.commentAdd = async (req, res) => {
 
 exports.commentRead = async (req, res, next) => {
   const bno = req.params.bno;
-  console.log("commentLitpage들어옴");
+  console.log("commentLitpage들어옴 bno==>", bno);
   try {
     const replys = await reply.findAll({
       where: { bno },
@@ -225,6 +225,7 @@ exports.commentRead = async (req, res, next) => {
     return res.json(replys);
     // /board/105 get
   } catch (error) {
+    bno;
     return res.json(error);
   }
 };

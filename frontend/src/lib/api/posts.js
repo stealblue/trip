@@ -38,7 +38,8 @@ export const replyPost = ({ content, id, bno }) => {
 };
 
 //댓글읽기
-export const replyreadPosts = (bno) => {
+export const replyReadPosts = (bno) => {
   console.log("api replyreadPosts");
-  return client.get(`/board/read/comment/${bno}`);
+  console.log("bno : ", bno);
+  return client.get(`/board/read/comment/${bno.bno}`);
 };
