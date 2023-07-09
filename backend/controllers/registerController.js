@@ -4,41 +4,19 @@ const {generateToken} = require("./authController");
 const temporary = require("../models/mongoDB/temporary");
 
 exports.register = async (req, res) => {
-  const {id, pwd, nick, phone, addr1, addr2, zipcode, gender} = req.body;
+  const {email, pwd, nick, phone, addr1, addr2, zipcode, gender} = req.body;
   const hashedPwd = await bcrypt.hash(pwd, 10); //해쉬 비밀번호
 
-  const idChk = false;
-  const pwdChk = false;
-  const nickChk = false;
-  const phoneChk = false;
-  const authOk = false;
-
-  if (idChk && pwdChk && nickChk && phoneChk) {
-    return authOk = true;
-  }
-
   try {
-    const exUser = await user.findOne({
-      where: {
-        id,
-      }
-    });
-
-    const token = generateToken(id, pwd);
-    res.cookie("access_token", token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-    });
-
     const newUser = await user.create({
-      id: id,
+      id: email,
       pwd: hashedPwd,
-      nick: nick,
-      phone: phone,
-      addr1: addr1,
-      addr2: addr2,
-      zipcode: zipcode,
-      gender: gender,
+      nick,
+      phone,
+      addr1,
+      addr2,
+      zipcode,
+      gender,
     });
     return res.status(200).json(newUser);
   } catch (e) {
