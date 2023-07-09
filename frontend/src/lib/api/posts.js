@@ -34,12 +34,17 @@ export const likePost = ({ id, bno }) => {
 
 //댓글쓰기
 export const replyPost = ({ content, id, bno }) => {
-  return client.post(`/board/write/comment/${bno}}`, { content, id, bno });
+  return client.post(`/board/write/reply/${bno}}`, { content, id, bno });
 };
 
 //댓글읽기
 export const replyReadPosts = (bno) => {
   console.log("api replyreadPosts");
   console.log("bno : ", bno);
-  return client.get(`/board/read/comment/${bno.bno}`);
+  return client.get(`/board/read/reply/${bno.bno}`);
+};
+
+//댓글수정
+export const replyModifyPost = ({ no, content }) => {
+  return client.post(`/borad/read/reply/modify`);
 };

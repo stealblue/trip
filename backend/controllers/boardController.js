@@ -89,7 +89,7 @@ exports.boardModify = async (req, res) => {
 };
 
 exports.boardRemove = async (req, res) => {
-  console.log('777777777777777777777777777777777777777777777777777777777777777777777');
+  console.log("777777777777777777777777777777777777777777777777777777777777777777777");
   try {
     const no = req.params.boardNo;
     console.log("removereqbody==>", req.body);
@@ -187,13 +187,13 @@ exports.boardLike = async (req, res) => {
   }
 };
 
-exports.commentAdd = async (req, res) => {
+exports.replyAdd = async (req, res) => {
   console.log("commentAdd 들어왔나 ===> ", req.params);
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;
-    // console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
-    // console.log(req.body, "commentAdd try....");
+    console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    console.log(req.body, "commentAdd try....");
 
     const commentAdd = await reply.create(
       {
@@ -214,18 +214,40 @@ exports.commentAdd = async (req, res) => {
   }
 };
 
-exports.commentRead = async (req, res, next) => {
+exports.replyRead = async (req, res, next) => {
   const bno = req.params.bno;
-  console.log("commentLitpage들어옴 bno==>", bno);
+  // console.log("commentLitpage들어옴 bno==>", bno);
   try {
     const replys = await reply.findAll({
       where: { bno },
     });
-    // console.log(boards);
+    console.log("replys", reply);
     return res.json(replys);
     // /board/105 get
   } catch (error) {
     bno;
+    return res.json(error);
+  }
+};
+
+exports.replyModify = async (req, res, next) => {
+  try {
+    const { content, no } = req.body;
+    console.log("no : ", no);
+    // console.log("req.body : ", req.body);
+    console.log("수정하기");
+
+    await reply.update(
+      {
+        content,
+        updateAt: Sequelize.Sequelize.literal("now()"),
+      },
+      {
+        where: { no },
+      }
+    );
+    return res.send("내 꿈은 꼬마박사");
+  } catch (error) {
     return res.json(error);
   }
 };

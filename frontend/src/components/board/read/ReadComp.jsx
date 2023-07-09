@@ -81,7 +81,6 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike }) => {
           <p>{post.content}</p>
         </Content>
         {actionButtons}
-        <ReplyWriteComp />
       </Responsive>
     </>
   );
