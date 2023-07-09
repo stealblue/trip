@@ -1,16 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { styled } from 'styled-components';
+import { showPageNo } from '../../modules/area/AreaMod';
 
 const LiBlock = styled.li`
   display: inline-block;
 `;
 
-const PageNavComp = ({ totalCount, pageNo, numOfRows, onClick }) => {
+const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
   const res = parseInt(Math.ceil(totalCount / numOfRows));
   const page = pageNo || 1;
   const pageNavEndNum = Math.ceil(page / numOfRows) * 10;
   const pageNavStartNum = Math.floor(page / numOfRows) * 10;
+  const dispatch = useDispatch();
+
+  const onClickTest = (e) => {
+    console.log(e.target.value);
+    const page = e.target.value;
+    dispatch(showPageNo(page));
+  }
 
 
   // const areaCode = useSelector(({AreaMod})=>({
@@ -24,7 +32,7 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows, onClick }) => {
     <div>
       <p>
         {resArray.map((r) => (
-          <LiBlock onClick={onClick} key={r + pageNavStartNum} value={r + pageNavStartNum}>{r + pageNavStartNum}</LiBlock>
+          <LiBlock onClick={onClickTest} key={r + pageNavStartNum} value={r + pageNavStartNum}>{r + pageNavStartNum}</LiBlock>
         ))}</p>
     </div>
   );

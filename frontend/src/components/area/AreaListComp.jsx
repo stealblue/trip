@@ -4,7 +4,7 @@ import PageNavComp from '../common/PageNavComp';
 
 const AreaItemBlock = styled.div`img{width: 100px;height: 100px;}`;
 
-const AreaItem = ({ area, itemKey, onClickMap, onClick }) => {
+const AreaItem = ({ area, itemKey, onClick }) => {
   console.log('area : ', area);
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
@@ -15,10 +15,15 @@ const AreaItem = ({ area, itemKey, onClickMap, onClick }) => {
   );
 }
 
-const AreaListComp = ({ areas, error, onClick }) => {
+const AreaListComp = ({ areas, error, onClick, onClickTest }) => {
   const result = areas.response.body;
   let target;
   if (areas) target = result.items.item;
+
+  // const onClickTest = (e) => {
+  //   console.log(e.target.value);
+  // }
+
   return (
     <div>
       {areas && target && target.map((area) => (
@@ -28,6 +33,7 @@ const AreaListComp = ({ areas, error, onClick }) => {
         pageNo={result.pageNo}
         totalCount={result.totalCount}
         numOfRows={result.numOfRows}
+        onClickTest={onClickTest}
       />
     </div>
   );

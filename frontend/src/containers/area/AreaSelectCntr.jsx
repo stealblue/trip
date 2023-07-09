@@ -11,13 +11,13 @@ const areas = [
   { "name": "전라북도", "code": 37 }, { "name": "전라남도", "code": 38 }, { "name": "제주특별자치도", "code": 39 }
 ];
 
-const AreaSelectCntr = ({ pageNo }) => {
+const AreaSelectCntr = () => {
   const dispatch = useDispatch();
   const onClick = (e) => {
     console.log('value : ', e.target.value);
     const areaCode = e.target.value;
-    const page = pageNo || 1;
-    dispatch(listAreas({ pageNo: page, areaCode }));
+    // const page = 1;
+    // dispatch(listAreas({ pageNo: page, areaCode }));
     dispatch(showAreaCode(areaCode));
   };
 

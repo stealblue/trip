@@ -4,9 +4,9 @@ import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas } from "../../modules/area/AreaListMod";
 import ModalBasic from "../../components/common/ModalBasic";
 
-const AreaListCntr = ({ areaCode, pageNo }) => {
-  const selectNo = pageNo || 0;
-  const selectCode = areaCode || 0;
+const AreaListCntr = ({ onClickTest }) => {
+  // const selectNo = pageNo || 0;
+  // const selectCode = areaCode || 0;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
@@ -22,23 +22,30 @@ const AreaListCntr = ({ areaCode, pageNo }) => {
     });
   };
 
+  // const onClickTest = (e) => {
+  //   console.log('onClickTest : ', e.target.value);
+  // }
 
   const dispatch = useDispatch();
 
-  const { areas, error, loading } = useSelector(({ AreaMod }) => ({
+  const { areas, error, loading, areaCode, pageNo } = useSelector(({ AreaMod }) => ({
     areas: AreaMod?.areas,
     error: AreaMod?.error,
+    areaCode: AreaMod?.areaCode,
+    pageNo: AreaMod.pageNo
   }));
 
 
 
   useEffect(() => {
+    // console.log('selectNo : ', selectNo);
+    // console.log('selectCode : ', selectCode);
     if (typeof window !== 'undefined') {
-      if (selectNo !== 0 && selectCode !== 0) {
-        dispatch(listAreas({ selectNo, selectCode }));
+      if (pageNo !== 0 && areaCode !== 0) {
+        dispatch(listAreas({ pageNo, areaCode }));
       }
     }
-  }, [dispatch, selectCode, selectCode]);
+  }, [dispatch, pageNo, areaCode]);
 
   if (!areas) {
     console.log('내용 없음');
@@ -54,6 +61,7 @@ const AreaListCntr = ({ areaCode, pageNo }) => {
         areas={areas}
         loading={loading}
         onClick={onClick}
+        onClickTest={onClickTest}
       />
 
     </>

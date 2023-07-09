@@ -13,11 +13,16 @@ const AreaListPage = () => {
   // const onClickPageNo = (value) => {
   //   setPageNo(value);
   // }
+  const onClickTest = (e) => {
+    console.log('onClickTest : ', e.target.value);
+    const no = parseInt(e.target.value);
+    setPageNo(no);
+  }
 
   return (
     <div>
       <AreaSelectCntr onClick={onClickAreaCode} />
-      <AreaListCntr areaCode={areaCode} pageNo={pageNo} />
+      <AreaListCntr areaCode={areaCode} pageNo={pageNo} onClickTest={onClickTest} />
     </div>
   );
 };

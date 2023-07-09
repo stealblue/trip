@@ -7,9 +7,12 @@ import { produce } from 'immer';
 const INITIALIZE = createRequestActionTypes('area/INITIALIZE');
 const [LIST_AREAS, LIST_AREAS_SUCCESS, LIST_AREAS_FAILURE] = createRequestActionTypes("area/LIST_AREAS");
 const SHOW_AREA_CODE = createRequestActionTypes('area/SHOW_AREA_CODE');
+const SHOW_PAGE_NO = createRequestActionTypes('area/SHOW_PAGE_NO');
+
 
 export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode }) => ({ pageNo, areaCode }));
 export const showAreaCode = createAction(SHOW_AREA_CODE, (areaCode) => (areaCode));
+export const showPageNo = createAction(SHOW_PAGE_NO, (pageNo) => (pageNo));
 
 const listAreasSaga = createRequestSaga(LIST_AREAS, areaAPI.listAreas);
 
@@ -38,6 +41,10 @@ const AreaMod = handleActions(
     [SHOW_AREA_CODE]: (state, { payload: areaCode }) =>
       produce(state, (draft) => {
         draft.areaCode = areaCode;
+      }),
+    [SHOW_PAGE_NO]: (state, { payload: pageNo }) =>
+      produce(state, (draft) => {
+        draft.pageNo = pageNo;
       })
   },
   initialState
