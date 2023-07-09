@@ -1,5 +1,5 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
-import { listAreas, showAreaCode } from "../../modules/area/AreaMod"
+import { showAreaCode, showPageNo } from "../../modules/area/AreaMod"
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -16,9 +16,10 @@ const AreaSelectCntr = () => {
   const onClick = (e) => {
     console.log('value : ', e.target.value);
     const areaCode = e.target.value;
-    // const page = 1;
+    const page = 1;
     // dispatch(listAreas({ pageNo: page, areaCode }));
     dispatch(showAreaCode(areaCode));
+    dispatch(showPageNo(page));
   };
 
   return <AreaSelectComp onClick={onClick} areas={areas} />;
