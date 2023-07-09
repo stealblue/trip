@@ -5,9 +5,9 @@ import { takeLatest } from "redux-saga/effects";
 
 const INITIALIZE = "reply/INITIALIZE"; //모든 내용 초기화
 const CHANGE_FIELD = "reply/CHANGE_FIELD"; // 특정 key값 바꾸기
-const SET_ORIGIN_POST = "reply/SET_ORIGIN_POST";
+const REPLY_SET_ORIGIN_POST = "reply/SET_ORIGIN_POST";
 const [REPLY_WRITE_POST, REPLY_WRITE_POST_SUCCESS, REPLY_WRITE_POST_FAILURE] = createRequestActionTypes("reply/REPLY_WRITE_POST"); //글작성
-// const [UPDATE_POST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE] = createRequestActionTypes("write/UPDATE_POST"); // 글수정
+const [REPLY_UPDATE_POST, REPLY_UPDATE_POST_SUCCESS, REPLY_UPDATE_POST_FAILURE] = createRequestActionTypes("reply/REPLY_UPDATE_POST"); // 글수정
 
 // 액션지정
 export const initialize = createAction(INITIALIZE);
@@ -20,15 +20,16 @@ export const replywritePost = createAction(REPLY_WRITE_POST, ({ bno, id, content
   content,
   id,
 }));
-export const setOriginPost = createAction(SET_ORIGIN_POST, (post) => post);
-// export const updatePost = createAction(UPDATE_POST, ({ no, title, content }) => ({ no, title, content }));
+export const replysetOriginPost = createAction(REPLY_SET_ORIGIN_POST, (reply) => reply);
+export const replyupdatePost = createAction(REPLY_UPDATE_POST, ({ no, content }) => ({ no, content }));
 
 //사가
 const replywritePostSaga = createRequestSaga(REPLY_WRITE_POST, postsAPI.replyPost);
-// const updatePostSaga = createRequestSaga(UPDATE_POST, postsAPI.updatePost);
+const replyupdatePostSaga = createRequestSaga(REPLY_UPDATE_POST, postsAPI.replyModifyPost);
 export function* replySaga() {
+  console.log("replysagaaaaaaaaaaaaaaaaa");
   yield takeLatest(REPLY_WRITE_POST, replywritePostSaga);
-  //   yield takeLatest(UPDATE_POST, updatePostSaga);
+  yield takeLatest(REPLY_UPDATE_POST, replyupdatePostSaga);
 }
 
 // state 초깃값 설정
@@ -36,6 +37,7 @@ const initialState = {
   content: "",
   reply: null,
   replyError: null,
+  originreplyId: null,
 };
 
 const ReplyMod = handleActions(
@@ -60,20 +62,19 @@ const ReplyMod = handleActions(
       ...state,
       replyError,
     }),
-    // [SET_ORIGIN_POST]: (state, { payload: post }) => ({
-    //   ...state,
-    //   title: post.title,
-    //   content: post.content,
-    //   originPostId: post.no,
-    // }),
-    // [UPDATE_POST_SUCCESS]: (state, { payload: post }) => ({
-    //   ...state,
-    //   post,
-    // }),
-    // [UPDATE_POST_FAILURE]: (state, { payload: postError }) => ({
-    //   ...state,
-    //   postError,
-    // }),
+    [REPLY_SET_ORIGIN_POST]: (state, { payload: reply }) => ({
+      ...state,
+      content: reply.content,
+      originreplyId: reply.no,
+    }),
+    [REPLY_UPDATE_POST_SUCCESS]: (state, { payload: reply }) => ({
+      ...state,
+      reply,
+    }),
+    [REPLY_UPDATE_POST_FAILURE]: (state, { payload: replyError }) => ({
+      ...state,
+      replyError,
+    }),
   },
   initialState
 );
