@@ -22,7 +22,7 @@ const [PHONE_CHECK, PHONE_CHECK_SUCCESS, PHONE_CHECK_FAILURE] =
 const PHONE_MODIFY = "register/PHONE_MODIFY";
 const [AUTHNUM_CHECK, AUTHNUM_CHECK_SUCCESS, AUTHNUM_CHECK_FAILURE] =
   createRequestActionTypes("register/AUTHNUM_CHECK");
-const [INPUT_ADDRESS] = "register/INPUT_ADDRESS";
+const INPUT_ADDRESS = "register/INPUT_ADDRESS";
 
 export const initializeRegisterForm = createAction(INITIALIZE_FORM);
 export const changeValue = createAction(
@@ -33,7 +33,19 @@ export const changeValue = createAction(
     form,
   })
 );
-export const register = createAction(REGISTER, (form) => form);
+export const register = createAction(
+  REGISTER,
+  ({ email, pwd, nick, phone, addr1, addr2, zipcode, gender }) => ({
+    email,
+    pwd,
+    nick,
+    phone,
+    addr1,
+    addr2,
+    zipcode,
+    gender,
+  })
+);
 export const idChk = createAction(ID_CHECK, ({ id }) => ({
   id,
 }));
@@ -103,10 +115,9 @@ const initialState = {
     addr2: null,
     zipcode: null,
     gender: null,
+    error: null,
   },
   auth: {
-    auth: null,
-    authError: null,
     idAuth: null,
     idError: null,
     pwdAuth: null,
@@ -118,7 +129,7 @@ const initialState = {
     authNumError: null,
   },
 };
-
+//RegisterMod.auth 리팩토링 필요
 const RegisterMod = handleActions(
   {
     [INITIALIZE_FORM]: (state) => initialState,
@@ -126,12 +137,10 @@ const RegisterMod = handleActions(
       produce(state, (draft) => {
         draft[form][key] = value;
       }),
-    [REGISTER_SUCCESS]: (state, { payload: form }) => ({
+    [REGISTER_SUCCESS]: (state) => initialState,
+    [REGISTER_FAILURE]: (state, { payload: { Error } }) => ({
       ...state,
-      form,
-    }),
-    [REGISTER_FAILURE]: (state, action) => ({
-      ...state,
+      Error,
     }),
     [ID_CHECK_SUCCESS]: (state, { payload: { idAuth } }) =>
       produce(state, (draft) => {

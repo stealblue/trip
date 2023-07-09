@@ -17,7 +17,6 @@ import {
 } from "../../modules/RegisterMod";
 
 const RegisterCntr = () => {
-  const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState(null);
   const [modal, setModal] = useState(false);
   const [address, setAddress] = useState({});
@@ -43,6 +42,10 @@ const RegisterCntr = () => {
     phoneError,
     authNum,
     authError,
+    addr1,
+    addr2,
+    zipcode,
+    gender,
   } = useSelector(({ RegisterMod }) => ({
     form: RegisterMod,
     id: RegisterMod.user.id,
@@ -59,8 +62,13 @@ const RegisterCntr = () => {
     phoneError: RegisterMod.auth.phoneError,
     authNum: RegisterMod.auth.authNum,
     authError: RegisterMod.auth.authError,
+    addr1: RegisterMod.user.addr1,
+    addr2: RegisterMod.user.addr2,
+    zipcode: RegisterMod.user.zipcode,
   }));
   const chooseDomain = useRef();
+  const address1 = useRef();
+  const zipcode1 = useRef();
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -74,57 +82,113 @@ const RegisterCntr = () => {
 
   //Modal창 컨트롤
   const openSearchAddress = (e) => {
+    e.preventDefault();
     setModal(!modal);
   };
-
+  //daum post code 함수
   const onCompletePost = (data) => {
     const { roadAddress, zonecode } = data;
     setAddress({ roadAddress, zonecode });
-    setModal(!modal);
+    setModal(!modal); //주소찾기 완료시 modal창도 닫히게 하기
     dispatch(
       inputAddress({
         addr1: roadAddress,
         zipcode: zonecode,
       })
     );
+    address1.current.value = roadAddress;
+    zipcode1.current.value = zonecode;
   };
 
   //회원가입 정보 제출
   const onSubmit = (e) => {
     e.preventDefault();
-    // dispatch(register({ }));
+    //영문, 숫자, 특수기호 조합으로 8-15자리를 입력해주세요.
+    const valid = (pwd) => {
+      return /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^*()-]).{8,15}$/.test(
+        pwd
+      );
+    };
+    if (!idAuth) {
+      return alert("아이디를 확인하여 주세요!.");
+    }
+    if (!valid(pwd)) {
+      return alert(
+        "비밀번호를 영문, 숫자, 특수기호 조합으로 8-15자리를 입력해주세요."
+      );
+    }
+    if (!nickAuth) {
+      return alert("닉네임을 확인하여 주세요.");
+    }
+    if (!authNum) {
+      return alert("!핸드폰 인증을 해주세요.");
+    }
+    dispatch(
+      register({
+        email,
+        pwd,
+        nick,
+        phone,
+        addr1,
+        addr2,
+        zipcode,
+        gender,
+      })
+    );
   };
 
-  //리팩토링해서 모듈로 뺄 수 있는지 확인
+  //리팩토링해서 모듈로~
   const onCheck = (e) => {
     const { name } = e.target;
 
     if (name === "emailChk") {
-      dispatch(
-        idChk({
-          id: email,
-        })
-      );
+      const valid = (email) => {
+        return /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/.test(email);
+      };
+      if (valid(email)) {
+        dispatch(
+          idChk({
+            id: email,
+          })
+        );
+      } else {
+        return alert("email을 확인하여 주세요!");
+      }
     }
 
     if (name === "nickChk") {
-      dispatch(
-        nickChk({
-          nick,
-        })
-      );
+      const valid = (nick) => {
+        return /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/.test(nick);
+      };
+      if (valid(nick)) {
+        dispatch(
+          nickChk({
+            nick,
+          })
+        );
+      } else {
+        return alert(
+          "닉네임은 2자 이상, 10자 이하 한글, 영어, 숫자 조합이어야 합니다."
+        );
+      }
     }
 
     if (name === "phoneChk") {
-      dispatch(
-        phoneChk({
-          phone,
-        })
-      );
+      const valid = (phone) => {
+        return /^[0-1]{3}[0-9]{4}[0-9]{4}$/.test(phone);
+      };
+      if (valid(phone)) {
+        dispatch(
+          phoneChk({
+            phone,
+          })
+        );
+      } else {
+        return alert("전화번호를 확인하여 주세요!");
+      }
     }
 
     if (name === "phoneAuthChk") {
-      console.log(authNum, phone);
       dispatch(
         authNumChk({
           authNum,
@@ -147,8 +211,8 @@ const RegisterCntr = () => {
 
   //domain 옵션 선택시 email 값 변경
   const changeDomain = (e) => {
-    e.preventDefault();
     const { value } = e.target;
+    e.preventDefault();
     if (value !== "directInput") {
       chooseDomain.current.value = value; //useref로 직접 input에 접근하여 조작
       //dispatch하여 store내의 domain값 변경 후 setEmail에 넣어줌
@@ -170,6 +234,7 @@ const RegisterCntr = () => {
   useEffect(() => {
     dispatch(initializeRegisterForm());
   }, [dispatch]);
+
   //비밀번호, 비밀번호확인 체크
   useEffect(() => {
     if (pwd !== null && pwdConfirm !== null) {
@@ -313,6 +378,9 @@ const RegisterCntr = () => {
       modal={modal}
       onCompletePost={onCompletePost}
       address={address}
+      addr1={addr1}
+      address1={address1}
+      zipcode1={zipcode1}
     />
   );
 };

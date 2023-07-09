@@ -1,7 +1,6 @@
 import { css, styled } from "styled-components";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
-import { useEffect } from "react";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -113,7 +112,9 @@ const RegisterFormComp = ({
   openSearchAddress,
   modal,
   onCompletePost,
-  address,
+  addr1,
+  address1,
+  zipcode1,
 }) => {
   const aaa = () => {
     console.log("asdasd");
@@ -126,7 +127,7 @@ const RegisterFormComp = ({
             <NameTag key={item}>{item}</NameTag>
           ))}
         </div>
-        <form onSubmit={onSubmit}>
+        <div>
           <div>
             <RegisterInput
               placeholder="E-MAIL"
@@ -246,14 +247,38 @@ const RegisterFormComp = ({
               ""
             )}
           </ConfirmMessage>
-          <input placeholder="우편번호" name="zipcode" onChange={onChange} />
+          {addr1 ? (
+            <div>
+              <SubIdInput
+                placeholder="우편번호"
+                name="zipcode"
+                ref={zipcode1}
+                disabled={true}
+              />
+              <SubIdInput
+                placeholder="주소"
+                name="addr1"
+                type="text"
+                ref={address1}
+                disabled={true}
+              />
+            </div>
+          ) : (
+            <div>
+              <SubIdInput
+                placeholder="우편번호"
+                name="zipcode"
+                ref={zipcode1}
+              />
+              <SubIdInput
+                placeholder="주소"
+                name="addr1"
+                type="text"
+                ref={address1}
+              />
+            </div>
+          )}
           <button onClick={openSearchAddress}>주소찾기</button>
-          <RegisterInput
-            placeholder="주소"
-            name="addr1"
-            type="text"
-            onChange={onChange}
-          />
           <RegisterInput
             placeholder="상세주소"
             name="addr2"
@@ -267,9 +292,9 @@ const RegisterFormComp = ({
             여자
           </div>
           <div>
-            <button>가입하기</button>
+            <button onClick={onSubmit}>가입하기</button>
           </div>
-        </form>
+        </div>
       </RegisterFormBlock>
       {modal && (
         <StyledModal

@@ -1,7 +1,21 @@
 import client from "./client"
 
-export const register = async ({ form }) => {
-    return await client.post("/auth/register", { form });
+export const register = async ({ email,
+        pwd,
+        nick,
+        phone,
+        addr1,
+        addr2,
+        zipcode,
+        gender, }) => {
+    return await client.post("/auth/register", { email,
+        pwd,
+        nick,
+        phone,
+        addr1,
+        addr2,
+        zipcode,
+        gender, });
 }
 
 export const idChk = async ({ id }) => {

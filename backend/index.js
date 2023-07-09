@@ -94,6 +94,7 @@ const sessionMiddleware = session({
   cookie: {
     httpOnly: true,
     secure: false,
+    // sameSite: "Lax",
   },
 });
 
