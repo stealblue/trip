@@ -4,8 +4,8 @@ import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
 import ReplyWriteComp from "../reply/ReplyWriteComp";
 import ReplyReadComp from "../reply/ReplyReadComp";
-
-import { MdFavoriteBorder, MdRemoveRedEye } from "react-icons/md";
+import { likePost } from "../../../lib/api/posts";
+import { useDispatch } from "react-redux";
 
 const ReadContainer = styled.div`
   text-align: left;
@@ -31,6 +31,10 @@ const ReadContainer = styled.div`
       margin-right: 5px;
     }
   }
+  button {
+    width: 100px;
+    height: 10px;
+  }
 `;
 
 const Content = styled.div`
@@ -39,11 +43,28 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const ReadComp = ({ post, error, loading, actionButtons, onlike }) => {
-  // const [like, setLike] = useState(0);
+const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
+  console.log("post.like ==========================================>", post);
+  console.log("user =====<>", user);
+  // const test = post.like;
+  const [isLlike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
-  const likeButton = () => {
+  const dispatch = useDispatch();
+
+  const likeButton = (e) => {
     // setLike(like + 1);
+    // console.log("like00000000000000", e.target);
+    if (!isLlike) {
+      setLikeCount(parseInt(e.target.value) + 1);
+      setIsLike(true);
+    } else {
+      setLikeCount(parseInt(e.target.value));
+      setIsLike(false);
+    }
+    // const id = user.id;
+    // const no = post.no;
+    likePost({ id: user.id, no: post.no });
   };
 
   // console.log(like);
@@ -68,11 +89,11 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike }) => {
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
             <p>
-              <MdFavoriteBorder onClick={likeButton} className="icon" size="24" color="red" />
-              {post.like}
+              <button onClick={likeButton} className="icon" size="24" color="red" data-id={post.id} data-no={post.no} />
+              {likeCount === 0 ? parseInt(post.like) : likeCount}
             </p>
             <p>
-              <MdRemoveRedEye className="icon" size="24" />
+              <button className="icon" size="24" />
               {post.cnt}
             </p>
           </div>

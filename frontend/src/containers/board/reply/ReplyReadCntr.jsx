@@ -52,9 +52,10 @@ const ReplyReadCntr = () => {
 
   const onRemove = async (e) => {
     console.log("onRemove reply -> ", e.target);
+    console.log("onRemove reply -> ", e.target.dataset.no);
     try {
-      const no = readNo;
-      await replyRemovePost(e.target);
+      const no = e.target.dataset.no;
+      replyRemovePost(no);
     } catch (error) {
       console.log(error);
     }
