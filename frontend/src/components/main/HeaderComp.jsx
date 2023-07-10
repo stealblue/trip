@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  /* position: fixed; */
+  position: fixed;
   width: 100%;
   left: 50%;
-  /* transform: translate(-50%); */
+  transform: translate(-50%);
   z-index: 10000;
   padding: 30px;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  background: #fff;
+  /* background: #fff; */
 `;
 
 const Logo = styled.div`
@@ -43,7 +43,7 @@ const LoginCategory = styled.span`
 `;
 
 const Spacer = styled.div`
-  height: 5rem;
+  height: 10rem;
 `;
 
 const Button = styled.button`

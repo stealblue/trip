@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import ThemeComp from "../../common/ThemeComp";
-import ReplyActionButtonsComp from "../../../containers/board/reply/ReplyActionButtonsComp";
+import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
 
 const ReplyItemWarrap = styled.div`
   width: 40%;

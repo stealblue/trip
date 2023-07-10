@@ -43,8 +43,8 @@ const ReadContainer = () => {
   };
 
   // console.log("setOriginpost---->", setOriginPost(post));
-
-  return <ReadComp post={post} loading={loading} error={error} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
+  console.log("user====================================>", user);
+  return <ReadComp post={post} loading={loading} error={error} user={user} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
 };
 
 export default ReadContainer;

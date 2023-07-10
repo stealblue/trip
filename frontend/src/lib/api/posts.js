@@ -28,8 +28,8 @@ export const removePost = (no) => {
 };
 
 //좋아요
-export const likePost = ({ id, bno }) => {
-  return client.post(`/board/like`, { id, bno });
+export const likePost = ({ id, no }) => {
+  return client.post(`/board/like`, { id, no });
 };
 
 //댓글쓰기

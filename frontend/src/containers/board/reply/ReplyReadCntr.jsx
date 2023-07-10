@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { replyReadPost } from "../../../modules/board/ReplyReadMod";
 import ReplyReadComp from "../../../components/board/reply/ReplyReadComp";
-import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
+import ReplyActionButtonsComp from "../../../components/board/reply/ReplyActionButtonsComp";
 import { replysetOriginPost, replyupdatePost } from "../../../modules/board/ReplyWriteMod";
 import { replyRemovePost } from "../../../lib/api/posts";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const ReplyReadCntr = () => {
   const dispatch = useDispatch();
@@ -33,27 +33,29 @@ const ReplyReadCntr = () => {
 
   const onEdit = (e) => {
     const no = e.target.dataset.no;
-    console.log('no : ', no);
+    console.log("no : ", no);
     const content = e.target.dataset.content;
-    console.log('content : ', content);
+    console.log("content : ", content);
     Swal.fire({
-      title: '댓글 수정',
-      input: 'text',
+      title: "댓글 수정",
+      input: "text",
       inputValue: `${content}`,
       showCancelButton: true,
-      confirmButtonText: 'submit',
+      confirmButtonText: "submit",
       showLoaderOnConfirm: true, // 필요가 없을거 같기도 하지만 넣음
       preConfirm: (input) => {
-        dispatch(replyupdatePost({ no, content: input }))
-      }
+        dispatch(replyupdatePost({ no, content: input }));
+      },
     });
     // dispatch(replysetOriginPost(reply));
   };
 
-  const onRemove = async () => {
+  const onRemove = async (e) => {
+    console.log("onRemove reply -> ", e.target);
+    console.log("onRemove reply -> ", e.target.dataset.no);
     try {
-      const no = readNo;
-      await replyRemovePost(no);
+      const no = e.target.dataset.no;
+      replyRemovePost(no);
     } catch (error) {
       console.log(error);
     }
