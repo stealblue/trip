@@ -3,23 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeField, replywritePost } from "../../../modules/board/ReplyWriteMod";
 import { useParams } from "react-router-dom";
 import LoginMod from "../../../modules/LoginMod";
-import ReplyMod from "../../../modules/board/ReplyWriteMod";
+import ReplyWriteMod from "../../../modules/board/ReplyWriteMod";
 import { initialize } from "../../../modules/board/ReplyWriteMod";
 import ReplyWriteComp from "../../../components/board/reply/ReplyWriteComp";
-import { replyModifyPost } from "../../../lib/api/posts";
 
 const ReplyWriteCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
   const emptyReply = useRef();
-  const { id, content, reply, originreplyId } = useSelector(({ LoginMod, ReplyMod }) => ({
+  const { id, content, reply, originreplyId } = useSelector(({ LoginMod, ReplyWriteMod }) => ({
     id: LoginMod.id,
-    content: ReplyMod.content,
-    reply: ReplyMod.reply,
-    originreplyId: ReplyMod.originreplyId,
+    content: ReplyWriteMod.content,
+    reply: ReplyWriteMod.reply,
   }));
 
-  console.log(reply);
+  // console.log(content);
   const onChangeField = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -31,10 +29,6 @@ const ReplyWriteCntr = () => {
   };
 
   const onPublish = (e) => {
-    if (originreplyId) {
-      dispatch(replyModifyPost({ content, no: originreplyId }));
-      return;
-    }
     e.preventDefault();
     dispatch(
       replywritePost({

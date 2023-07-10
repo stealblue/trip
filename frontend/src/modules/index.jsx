@@ -9,7 +9,7 @@ import ReadMod, { postSaga } from "./board/ReadMod";
 import ChatMod, { chatSaga } from "./chat/ChatMod";
 import UserMod, { userSaga } from "./UserMod";
 import AreaMod, { areaSaga } from "./area/AreaMod";
-import ReplyMod, { replySaga } from "./board/ReplyWriteMod";
+import ReplyWriteMod, { replySaga } from "./board/ReplyWriteMod";
 import ReplyReadMod, { replyReadSaga } from "./board/ReplyReadMod";
 const rootReducer = combineReducers({
   LoginMod,
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   ReadMod,
   ChatMod,
   AreaMod,
-  ReplyMod,
+  ReplyWriteMod,
   ReplyReadMod,
 });
 
