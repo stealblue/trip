@@ -11,7 +11,8 @@ exports.areaList = async (req, res) => {
     // const areas = originAreas.data.response.body.items;
     // if(!areas) return res.status(400).json({msg:"에러에러에러"})
     console.log('area json ============> ', areas.response.body.items);
-    return res.json(areas);
+    return res.json(areas); // id , 지역 ==> 가공
+
   } catch (e) {
     return res.status(400).json(e);
   }
