@@ -1,9 +1,10 @@
 const { user } = require("../models/mysql");
 const bcrypt = require("bcrypt");
-const {generateToken} = require("./authController");
+const { generateToken } = require("./authController");
+const jwt = require("jsonwebtoken");
+
 
 exports.login = async (req, res) => {
-  console.log("로그인뺶ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ")
   const { id, pwd } = req.body;
 
   try {
@@ -28,7 +29,7 @@ exports.login = async (req, res) => {
 
     const hashedPwd = exUser.pwd;
     const pwdChk = await bcrypt.compare(pwd, hashedPwd); //결과값 true OR false
-    const token = generateToken(id, pwd); //jwt token 발행
+    const token = generateToken(id, exUser.nick); //jwt token 발행
     res.cookie("access_token", token, { //res cookie에 jwt token 담기
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
@@ -47,27 +48,29 @@ exports.login = async (req, res) => {
 }
 
 exports.check = (req, res) => {
-  console.log('asdfasdfasdfasdfasf')
+  const exUser = req.cookies.access_token;
 
-  // const exUser = req.cookies.access_token;
-  // console.log('sssssssssssss', exUser)
-
-  // if (!exUser) {
-  //   console.log("CHECK 실패");
-  //   return res.status(401).json("로그인중 아님");
-  // }
-  // return res.json(exUser);
+  if (!exUser) {
+    return res.status(401).json("로그인중 아님");
+  }
+  return res.json(jwt.verify(exUser,process.env.JWT_TOKEN));
 }
 
 exports.profile = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   return res.status(200).json({ id });
 }
 
 exports.logout = async (req, res) => {
-  console.log('로그아우웃');
-  // req.cookies["access_token"];
   res.clearCookie("access_token");
   return res.status(200).json("로그아웃 했습니다.");
+}
+
+exports.searchId = async (req, res) => {
+  console.log("아이디 찾기");
+}
+
+exports.searchPwd = async (req, res) => {
+  console.log("비밀번호 찾기");
 }

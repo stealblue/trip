@@ -1,5 +1,5 @@
 const express = require("express");
-const {login, check, profile, logout} = require("../controllers/loginController");
+const {login, check, profile, logout, searchId, searchPwd} = require("../controllers/loginController");
 const {register, idChk, nickChk, phoneChk, authNumChk} = require("../controllers/registerController");
 const app = express();
 const auth = express.Router();
@@ -13,5 +13,7 @@ auth.post("/register/phoneChk", phoneChk);
 auth.post("/register/authNumChk", authNumChk);
 auth.get("/check", check);
 auth.get("/:id", profile);
+auth.get("/searchId", searchId);
+auth.get("/searchPwd", searchPwd);
 
 module.exports = auth;

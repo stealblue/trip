@@ -4,12 +4,16 @@ import {
   changeValue,
   initializeLoginForm,
   login,
+  searchId,
+  searchPwd,
 } from "../../modules/LoginMod";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { check } from "../../modules/UserMod";
 
 const LoginCntr = () => {
+  const [findId, setFindId] = useState("");
+  const [findPwd, setFindPwd] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -32,6 +36,26 @@ const LoginCntr = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ id, pwd }));
+  };
+
+  const searchId = (e) => {
+    setFindId(!findId);
+    // dispatch(
+    //   searchId({
+    //     email: id,
+    //     phone,
+    //   })
+    // );
+  };
+
+  const searchPwd = (e) => {
+    setFindPwd(!findPwd);
+    // dispatch(
+    //   searchPwd({
+    //     email: id,
+    //     phone,
+    //   })
+    // );
   };
 
   useEffect(() => {
@@ -59,7 +83,15 @@ const LoginCntr = () => {
     }
   }, [navigate, user]);
 
-  return <LoginComp error={error} onChange={onChange} onSubmit={onSubmit} />;
+  return (
+    <LoginComp
+      error={error}
+      onChange={onChange}
+      onSubmit={onSubmit}
+      findId={findId}
+      findPwd={findPwd}
+    />
+  );
 };
 
 export default LoginCntr;
