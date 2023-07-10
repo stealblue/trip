@@ -1,5 +1,5 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
-import { showAreaCode, showPageNo } from "../../modules/area/AreaMod"
+import { showAreaCode, showContentTypeId, showPageNo } from "../../modules/area/AreaMod"
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -11,18 +11,28 @@ const areas = [
   { "name": "전라북도", "code": 37 }, { "name": "전라남도", "code": 38 }, { "name": "제주특별자치도", "code": 39 }
 ];
 
+const contentTypes = [
+  { "name": "관광지", "code": 12 }, { "name": "문화시설", "code": 14 }, { "name": "축제공연행사", "code": 15 },
+  { "name": "레포츠", "code": 28 }, { "name": "숙박", "code": 32 }, { "name": "쇼핑", "code": 38 }, { "name": "음식점", "code": 39 }];
+
 const AreaSelectCntr = () => {
   const dispatch = useDispatch();
-  const onClick = (e) => {
+
+  const onClickArea = (e) => {
     console.log('value : ', e.target.value);
     const areaCode = e.target.value;
     const page = 1;
-    // dispatch(listAreas({ pageNo: page, areaCode }));
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));
   };
+  const onClickType = (e) => {
+    const contentTypeId = e.target.value;
+    const page = 1;
+    dispatch(showContentTypeId(contentTypeId));
+    dispatch(showPageNo(page));
+  }
 
-  return <AreaSelectComp onClick={onClick} areas={areas} />;
+  return <AreaSelectComp onClickArea={onClickArea} onClickType={onClickType} areas={areas} contentTypes={contentTypes} />;
 };
 
 export default AreaSelectCntr;
