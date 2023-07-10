@@ -9,6 +9,7 @@ import createSagaMiddleware from "@redux-saga/core";
 import App from "./App";
 import { tempSetUser, check } from "./modules/UserMod";
 import { ModalProvider } from 'styled-react-modal'
+// import { CookiesProvider } from "react-cookie";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
@@ -18,7 +19,7 @@ function loadUser() {
     const user = localStorage.getItem("USER");
     if (!user) return;
     store.dispatch(tempSetUser(JSON.parse(user)));
-    store.dispatch(check(user));
+    store.dispatch(check());
   } catch (e) {
     console.log("localStorage is not working");
   }
@@ -31,10 +32,12 @@ const rootNode = document.getElementById("root");
 
 ReactDOM.createRoot(rootNode).render(
   <Provider store={store}>
+		{/* <CookiesProvider> */}
     <BrowserRouter>
       <ModalProvider>
       <App />
       </ModalProvider>
     </BrowserRouter>
-  </Provider>
+    {/* </CookiesProvider> */}
+    </Provider>
 );

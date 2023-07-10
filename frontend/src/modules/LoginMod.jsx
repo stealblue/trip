@@ -37,9 +37,8 @@ const LoginMod = handleActions(
       ...state,
       [key]: value,
     }),
-    [LOGIN_SUCCESS]: (state, { payload: { auth, nick } }) => ({
+    [LOGIN_SUCCESS]: (state, { payload: { auth } }) => ({
       ...state,
-      nick: nick,
       auth: auth,
       authError: null,
     }),
