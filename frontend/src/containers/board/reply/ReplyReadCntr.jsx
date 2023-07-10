@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { replyReadPost } from "../../../modules/board/ReplyReadMod";
 import ReplyReadComp from "../../../components/board/reply/ReplyReadComp";
-import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
+import ReplyActionButtonsComp from "../../../components/board/reply/ReplyActionButtonsComp";
 import { replysetOriginPost } from "../../../modules/board/ReplyWriteMod";
 import { replyRemovePost } from "../../../lib/api/posts";
 
@@ -36,10 +36,11 @@ const ReplyReadCntr = () => {
     dispatch(replysetOriginPost(reply));
   };
 
-  const onRemove = async () => {
+  const onRemove = async (e) => {
+    console.log("onRemove reply -> ", e.target);
     try {
       const no = readNo;
-      await replyRemovePost(no);
+      await replyRemovePost(e.target);
     } catch (error) {
       console.log(error);
     }

@@ -2,14 +2,93 @@ const { Sequelize } = require("sequelize");
 const { board, like, reply } = require("../models/mysql");
 const sanitizeHtml = require("sanitize-html");
 
+const removeHtml = (body) => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: [],
+  });
+  return filtered.length < 1000 ? filtered : `${filtered.slice(0, 1000)}...`;
+};
+
 const sanitizeOption = {
-  allowedTags: ["h1", "h2", "b", "i", "u", "s", "p", "ul", "ol", "li", "blockquote", "a", "img"],
+  allowedTags: [
+    "address",
+    "article",
+    "aside",
+    "footer",
+    "header",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "hgroup",
+    "main",
+    "nav",
+    "section",
+    "blockquote",
+    "dd",
+    "div",
+    "dl",
+    "dt",
+    "figcaption",
+    "figure",
+    "hr",
+    "li",
+    "main",
+    "ol",
+    "p",
+    "pre",
+    "ul",
+    "a",
+    "abbr",
+    "b",
+    "bdi",
+    "bdo",
+    "br",
+    "cite",
+    "code",
+    "data",
+    "dfn",
+    "em",
+    "i",
+    "kbd",
+    "mark",
+    "q",
+    "rb",
+    "rp",
+    "rt",
+    "rtc",
+    "ruby",
+    "s",
+    "samp",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "time",
+    "u",
+    "var",
+    "wbr",
+    "caption",
+    "col",
+    "colgroup",
+    "table",
+    "tbody",
+    "td",
+    "tfoot",
+    "th",
+    "thead",
+    "tr",
+  ],
   allowedAttributes: {
     a: ["href", "name", "target"],
-    img: ["src"],
-    li: ["class"],
+    // We don't currently allow img itself by default, but
+    // these attributes would make sense if we did.
+    img: ["src", "srcset", "alt", "title", "width", "height", "loading"],
   },
-  allowedSchemes: ["data", "http"],
+  allowedSchemes: ["http", "https", "ftp", "mailto", "tel"],
 };
 
 exports.boardListPage = async (req, res, next) => {
@@ -51,7 +130,7 @@ exports.boardAdd = async (req, res) => {
       id,
       img,
       title,
-      content: sanitizeHtml(content, sanitizeOption),
+      content: removeHtml(req.body.content),
       like,
       cnt,
     });
@@ -260,6 +339,7 @@ exports.replyRemove = async (req, res, next) => {
     await reply.destroy({
       where: { no },
     });
+    return res.send("내 꿈은 꼬마박사");
   } catch (error) {
     return res.json(error);
   }

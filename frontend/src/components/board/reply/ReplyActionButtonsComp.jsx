@@ -25,7 +25,9 @@ const ReplyActionButtonsComp = ({ onEdit, onRemove, reply }) => {
         <span onClick={onEdit} value={reply}>
           수정
         </span>
-        <span onClick={onRemove}>삭제</span>
+        <span onClick={onRemove} value={reply.no}>
+          삭제
+        </span>
       </ReplyAction>
     </>
   );
