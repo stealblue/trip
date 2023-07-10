@@ -231,6 +231,7 @@ exports.replyRead = async (req, res, next) => {
 };
 
 exports.replyModify = async (req, res, next) => {
+  const no = req.params.bno;
   try {
     const { content, no } = req.body;
     console.log("no : ", no);
@@ -247,6 +248,18 @@ exports.replyModify = async (req, res, next) => {
       }
     );
     return res.send("내 꿈은 꼬마박사");
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+exports.replyRemove = async (req, res, next) => {
+  const no = req.params.bno;
+  console.log("replyremovereq.body==>", no);
+  try {
+    await reply.destroy({
+      where: { no },
+    });
   } catch (error) {
     return res.json(error);
   }
