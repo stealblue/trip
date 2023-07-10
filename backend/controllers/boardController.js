@@ -310,13 +310,8 @@ exports.replyRead = async (req, res, next) => {
 };
 
 exports.replyModify = async (req, res, next) => {
-  const no = req.params.bno;
   try {
     const { content, no } = req.body;
-    console.log("no : ", no);
-    // console.log("req.body : ", req.body);
-    console.log("수정하기");
-
     await reply.update(
       {
         content,

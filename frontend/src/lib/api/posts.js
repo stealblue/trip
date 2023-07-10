@@ -46,7 +46,8 @@ export const replyReadPosts = (bno) => {
 
 //댓글수정
 export const replyModifyPost = ({ no, content }) => {
-  return client.post(`/borad/read/reply/modify/${no}`, { content });
+  // console.log('프론트 엔드 api replyModifyPost ===>', no, "    :    ", content)
+  return client.post(`/board/read/reply/modify`, { no, content });
 };
 
 //댓글삭제

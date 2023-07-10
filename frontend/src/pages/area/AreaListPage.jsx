@@ -10,9 +10,7 @@ const AreaListPage = () => {
     console.log('AreaListPage onClick : ', e.target.value);
     setAreaCode(e.target.value);
   }
-  // const onClickPageNo = (value) => {
-  //   setPageNo(value);
-  // }
+
   const onClickTest = (e) => {
     console.log('onClickTest : ', e.target.value);
     const no = parseInt(e.target.value);
