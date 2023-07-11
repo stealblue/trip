@@ -40,15 +40,15 @@ mongoose
     console.error("error : ", e);
   });
 
-// MySQL 연결
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("Connected to MySQL");
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+// // MySQL 연결
+// sequelize
+//   .sync({ force: false })
+//   .then(() => {
+//     console.log("Connected to MySQL");
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });
 
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "1mb" }));

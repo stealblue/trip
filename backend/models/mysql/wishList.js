@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     contentId: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(30),
       allowNull: false
     },
     id: {
@@ -18,6 +18,15 @@ module.exports = function(sequelize, DataTypes) {
         model: 'user',
         key: 'id'
       }
+    },
+    createAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    title: {
+      type: DataTypes.STRING(40),
+      allowNull: false
     }
   }, {
     sequelize,
