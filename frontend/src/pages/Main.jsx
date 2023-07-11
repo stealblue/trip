@@ -10,9 +10,18 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightLong } from "@fortawesome/free-solid-svg-icons";
+import MainSearchComp from "../components/main/MainSearchComp";
+import MaincontentComp from "../components/main/MainContentComp";
+import MainChatComp from "../components/main/MainChatComp";
+import MainBoardComp from "../components/main/MainBoardComp";
+import WrapperComp from "../components/common/WrapperComp";
+
 const SlideWarraper = styled.div`
   position: relative;
   top: -200px;
+  height: 850px;
 
   img {
     width: 100%;
@@ -27,22 +36,35 @@ const SlideWarraper = styled.div`
     position: absolute;
     bottom: 140px;
     left: 140px;
+  }
 
-    h3 {
-      font-size: 70px;
-      font-family: "PyeongChangPeace-Bold";
-      line-height: 74px;
-    }
-    p {
-      font-size: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px 40px;
-      border-radius: 50px;
-      margin-top: 10px;
-      display: inline-block;
+  h3 {
+    font-size: 70px;
+    font-family: "PyeongChangPeace-Bold";
+    line-height: 74px;
+  }
+  p {
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 40px;
+    border-radius: 50px;
+    margin-top: 10px;
+    display: inline-block;
+    color: #fff;
+    cursor: pointer;
+
+    span {
+      margin-right: 10px;
       color: #fff;
     }
   }
+  p:hover {
+    background: #111;
+  }
+`;
+
+const MainBoardListContainer = styled.div`
+  display: flex;
 `;
 
 const FadeInLeft = ({ children }) => (
@@ -53,59 +75,83 @@ const FadeInLeft = ({ children }) => (
 
 const Main = () => {
   return (
-    <SlideWarraper>
-      <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
-        <SwiperSlide>
-          <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
+    <>
+      <SlideWarraper>
+        <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
+          <SwiperSlide>
+            <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
 
-          <div className="slide-text">
-            <Reveal repeat trigger={<div />}>
-              <FadeInLeft>
-                <h3>바다로 떠나는 여행</h3>
-                <p>전국 곳곳 바다여행 알아보기</p>
-              </FadeInLeft>
-            </Reveal>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/assets/mainslide2.jpeg" alt="슬라이드1" />
-          <div className="slide-text">
-            <Reveal repeat trigger={<div />}>
-              <FadeInLeft>
-                <h3>
-                  하늘에서 즐기는
-                  <br />
-                  자유로운 여행
-                </h3>
-                <p>전국 곳곳 바다여행 알아보기</p>
-              </FadeInLeft>
-            </Reveal>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/assets/mainslide3.jpg" alt="슬라이드1" />
-          <div className="slide-text">
-            <Reveal repeat trigger={<div />}>
-              <FadeInLeft>
-                <h3>바다로 떠나는 여행</h3>
-                <p>전국 곳곳 바다여행 알아보기</p>
-              </FadeInLeft>
-            </Reveal>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/assets/mainslide4.jpeg" alt="슬라이드1" />
-          <div className="slide-text">
-            <Reveal repeat trigger={<div />}>
-              <FadeInLeft>
-                <h3>바다로 떠나는 여행</h3>
-                <p>전국 곳곳 바다여행 알아보기</p>
-              </FadeInLeft>
-            </Reveal>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </SlideWarraper>
+            <div className="slide-text">
+              <Reveal repeat trigger={<div />}>
+                <FadeInLeft>
+                  <h3>바다로 떠나는 여행</h3>
+                  <p>
+                    <span>전국 곳곳 바다여행 알아보기</span>
+                    <FontAwesomeIcon icon={faRightLong} />
+                  </p>
+                </FadeInLeft>
+              </Reveal>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/assets/mainslide2.jpeg" alt="슬라이드1" />
+            <div className="slide-text">
+              <Reveal repeat trigger={<div />}>
+                <FadeInLeft>
+                  <h3>
+                    하늘에서 즐기는 <br /> 액티비티한 여행
+                  </h3>
+                  <p>
+                    <span>액티비티 여행 찾아보기</span>
+                    <FontAwesomeIcon icon={faRightLong} />
+                  </p>
+                </FadeInLeft>
+              </Reveal>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/assets/mainslide3.jpg" alt="슬라이드1" />
+            <div className="slide-text">
+              <Reveal repeat trigger={<div />}>
+                <FadeInLeft>
+                  <h3>아름다운 풍경과 마주하는 여행</h3>
+                  <p>
+                    <span>전국 풍경 명소 찾아보기</span>
+                    <FontAwesomeIcon icon={faRightLong} />
+                  </p>
+                </FadeInLeft>
+              </Reveal>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/assets/mainslide4.jpeg" alt="슬라이드1" />
+            <div className="slide-text">
+              <Reveal repeat trigger={<div />}>
+                <FadeInLeft>
+                  <h3>
+                    고즈넉한 <br />
+                    한옥을 즐기고 싶다면
+                  </h3>
+                  <p>
+                    <span>아름다운 한옥펜션 알아보기</span>
+                    <FontAwesomeIcon icon={faRightLong} />
+                  </p>
+                </FadeInLeft>
+              </Reveal>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </SlideWarraper>
+      <WrapperComp>
+        <MainSearchComp />
+        <MaincontentComp />
+        <MaincontentComp />
+        <MainBoardListContainer>
+          <MainChatComp />
+          <MainBoardComp />
+        </MainBoardListContainer>
+      </WrapperComp>
+    </>
   );
 };
 

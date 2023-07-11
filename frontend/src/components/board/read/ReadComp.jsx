@@ -63,6 +63,7 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
     if (!isLlike) {
       setLikeCount(parseInt(e.target.value) + 1);
       setIsLike(true);
+      console.log("setLikeCount===>", e.target.value);
     } else {
       setLikeCount(parseInt(e.target.value));
       setIsLike(false);
