@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SelectItem = ({ onClick, area }) => {
-  console.log('selectItem : ', area);
+const SelectArea = ({ onClick, area }) => {
+  // console.log('selectItem : ', area);
   return (
     <>
       <button onClick={onClick} value={area.code}>{area.name}</button>
@@ -9,14 +9,31 @@ const SelectItem = ({ onClick, area }) => {
   );
 }
 
-const AreaSelectComp = ({ onClick, areas }) => {
-  console.log('codes : ', areas);
+const SelectType = ({ onClick, type }) => {
+  // console.log('selectItem : ', type);
   return (
-    <div>
-      {areas.map((area) => (
-        <SelectItem area={area} key={area.code} onClick={onClick} />
-      ))}
-    </div>
+    <>
+      <button onClick={onClick} value={type.code}>{type.name}</button>
+    </>
+  );
+}
+
+
+const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes }) => {
+  // console.log('codes : ', areas);
+  return (
+    <>
+      <div>
+        {areas.map((area) => (
+          <SelectArea area={area} key={area.code} onClick={onClickArea} />
+        ))}
+      </div>
+      <div>
+        {contentTypes.map((type) => (
+          <SelectType type={type} key={type.code} onClick={onClickType} />
+        ))}
+      </div>
+    </>
   );
 };
 

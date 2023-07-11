@@ -58,10 +58,9 @@ const initialState = {
   content: "",
   reply: null,
   replyError: null,
-  originreplyId: null,
 };
 
-const ReplyMod = handleActions(
+const ReplyWriteMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState, // 초기 상태로 바뀜
     [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
@@ -85,8 +84,7 @@ const ReplyMod = handleActions(
     }),
     [REPLY_SET_ORIGIN_POST]: (state, { payload: reply }) => ({
       ...state,
-      content: reply.content,
-      originreplyId: reply.no,
+      reply,
     }),
     [REPLY_UPDATE_POST_SUCCESS]: (state, { payload: reply }) => ({
       ...state,
@@ -100,4 +98,4 @@ const ReplyMod = handleActions(
   initialState
 );
 
-export default ReplyMod;
+export default ReplyWriteMod;

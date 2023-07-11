@@ -38,6 +38,7 @@
     "styled-components": "^6.0.0-rc.6",
     "styled-react-modal": "^3.0.1",
     "sweetalert2": "^11.7.12",
+    "swiper": "^10.0.4",
     "web-vitals": "^2.1.0",
     "ws": "^8.13.0"
   },

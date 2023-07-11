@@ -41,12 +41,6 @@ const WriteActionButtonsContainer = () => {
     navigate(-1);
   };
 
-  // const submitTest = () => {
-  //   Axios.get("http://localhost:4000/", {}).then(() => {
-  //     alert("등록 완료!");
-  //   });
-  // };
-
   // 성공 실패시 작업
   useEffect(() => {
     console.log("post가 존재하나  : ", post);
@@ -63,7 +57,7 @@ const WriteActionButtonsContainer = () => {
 
   return (
     <>
-      <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCancel} isEdit={!!originPostId} />
+      <WriteActionbuttonsComp onPublish={onPublish} onCancel={onCancel} />
     </>
   );
 };

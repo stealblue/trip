@@ -2,14 +2,93 @@ const { Sequelize } = require("sequelize");
 const { board, like, reply } = require("../models/mysql");
 const sanitizeHtml = require("sanitize-html");
 
+const removeHtml = (body) => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: [],
+  });
+  return filtered.length < 1000 ? filtered : `${filtered.slice(0, 1000)}...`;
+};
+
 const sanitizeOption = {
-  allowedTags: ["h1", "h2", "b", "i", "u", "s", "p", "ul", "ol", "li", "blockquote", "a", "img"],
+  allowedTags: [
+    "address",
+    "article",
+    "aside",
+    "footer",
+    "header",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "hgroup",
+    "main",
+    "nav",
+    "section",
+    "blockquote",
+    "dd",
+    "div",
+    "dl",
+    "dt",
+    "figcaption",
+    "figure",
+    "hr",
+    "li",
+    "main",
+    "ol",
+    "p",
+    "pre",
+    "ul",
+    "a",
+    "abbr",
+    "b",
+    "bdi",
+    "bdo",
+    "br",
+    "cite",
+    "code",
+    "data",
+    "dfn",
+    "em",
+    "i",
+    "kbd",
+    "mark",
+    "q",
+    "rb",
+    "rp",
+    "rt",
+    "rtc",
+    "ruby",
+    "s",
+    "samp",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "time",
+    "u",
+    "var",
+    "wbr",
+    "caption",
+    "col",
+    "colgroup",
+    "table",
+    "tbody",
+    "td",
+    "tfoot",
+    "th",
+    "thead",
+    "tr",
+  ],
   allowedAttributes: {
     a: ["href", "name", "target"],
-    img: ["src"],
-    li: ["class"],
+    // We don't currently allow img itself by default, but
+    // these attributes would make sense if we did.
+    img: ["src", "srcset", "alt", "title", "width", "height", "loading"],
   },
-  allowedSchemes: ["data", "http"],
+  allowedSchemes: ["http", "https", "ftp", "mailto", "tel"],
 };
 
 exports.boardListPage = async (req, res, next) => {
@@ -28,6 +107,28 @@ exports.boardDetailPage = async (req, res) => {
   // console.log("req.params=======>", req.params);
   try {
     const no = req.params.boardNo;
+    const boards = await board.findOne({
+      where: {
+        no,
+      },
+    });
+    if (req.cookies["f" + no] == undefined) {
+      const addr = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+      res.cookie("f" + no, addr, {
+        maxAge: 30000,
+      });
+      await board.update(
+        {
+          cnt: boards.cnt + 1,
+        },
+        {
+          where: {
+            no,
+          },
+        }
+      );
+    }
+
     console.log(no);
     const detailPage = await board.findOne({
       where: { no },
@@ -51,7 +152,7 @@ exports.boardAdd = async (req, res) => {
       id,
       img,
       title,
-      content: sanitizeHtml(content, sanitizeOption),
+      content: removeHtml(req.body.content),
       like,
       cnt,
     });
@@ -103,86 +204,31 @@ exports.boardRemove = async (req, res) => {
 };
 
 exports.boardLike = async (req, res) => {
-  // const no = req.params.boardNo;
-  // try {
-  //   // 해당 게시물 가져오기
-  //   const board = await board.findOne({ where: { no } });
-
-  //   // 게시물이 존재하지 않으면 오류 응답
-  //   if (!board) {
-  //     return res.status(404).json({ error: "게시물을 찾을 수 없습니다." });
-  //   }
-
-  //   // 좋아요 수 증가
-  //   board.like += 1;
-
-  //   // DB에 변경사항 저장
-  //   await board.save();
-
-  //   // 성공 응답
-  //   return res.status(200).json({ success: true, message: "좋아요가 추가되었습니다." });
-  // } catch (error) {
-  //   // 오류 응답
-  //   return res.status(500).json({ error: "서버 오류가 발생했습니다." });
-  // }
   const { no, id } = req.body;
   console.log(`no : ${no}  / id : ${id}`);
   try {
-    // let newCount; // 게시글에 업데이트된 정보(좋아요 수)를 담을 변수
-    const originLike = await like.findOne({
-      where: {
-        bno: no,
-        id,
-      },
-    });
-    const originBoard = await board.findOne({
-      no,
-    });
-    console.log("originLike :", originLike);
+    const originLike = await like.findOne({ where: { bno: no, id } });
+    const originBoard = await board.findOne({ no });
+    console.log("originLike =========================================> :", originLike);
     if (!originLike) {
-      await like.create({
-        bno: no,
-        id,
-      });
-      await board.update(
-        {
-          like: originBoard.like + 1,
-        },
-        {
-          where: {
-            no,
-          },
-        }
-      );
-      // newCount = originBoard.like + 1;
+      console.log("check Success1");
+      await like.create({ bno: no, id });
+      console.log("check Success2");
+      await board.update({ like: originBoard.like + 1 }, { where: { no } });
+      console.log("check Success3");
     } else {
-      await like.destroy({
-        where: {
-          bno: no,
-          id,
-        },
-      });
-      await board.update(
-        {
-          like: originBoard.like - 1,
-        },
-        {
-          where: {
-            no,
-          },
-        }
-      );
-      // newCount = originBoard.like - 1;
+      console.log("check Success1-1");
+      await like.destroy({ where: { bno: no, id } });
+      console.log("check Success2-1");
+      await board.update({ like: originBoard.like - 1 }, { where: { no } });
+      console.log("check Success3-1");
     }
-    const post = await board.findOne({
-      where: {
-        bno: no,
-        id,
-      },
-    });
+    const post = await board.findOne({ where: { no } });
+    console.log("like success?????????????????????????????????????????????????????????", post);
     res.json(post);
     // res.json({ checkLike: newCount }); //업데이트된 숫자
   } catch (error) {
+    console.log("error??????????????????????????????????????  : ", error);
     res.status(400).json({ msg: error });
   }
 };
@@ -233,10 +279,6 @@ exports.replyRead = async (req, res, next) => {
 exports.replyModify = async (req, res, next) => {
   try {
     const { content, no } = req.body;
-    console.log("no : ", no);
-    // console.log("req.body : ", req.body);
-    console.log("수정하기");
-
     await reply.update(
       {
         content,
@@ -246,6 +288,19 @@ exports.replyModify = async (req, res, next) => {
         where: { no },
       }
     );
+    return res.send("내 꿈은 꼬마박사");
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+exports.replyRemove = async (req, res, next) => {
+  const no = req.params.bno;
+  console.log("replyremovereq.body==>", no);
+  try {
+    await reply.destroy({
+      where: { no },
+    });
     return res.send("내 꿈은 꼬마박사");
   } catch (error) {
     return res.json(error);

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import RegisterFormComp from "../../components/auth/RegisterFormComp";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   authNumChk,
   changeValue,
@@ -25,6 +26,7 @@ const RegisterCntr = () => {
   const [onPwdChk, setOnPwdChk] = useState("");
   const [onNickChk, setOnNickChk] = useState("empty");
   const [onPhoneChk, setOnPhoneChk] = useState("empty");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     form,
@@ -34,11 +36,13 @@ const RegisterCntr = () => {
     idError,
     pwd,
     pwdConfirm,
+    pwdAuth,
     nick,
     nickAuth,
     nickError,
     phone,
     phoneAuth,
+    phoneMsg,
     phoneError,
     authNum,
     authError,
@@ -54,11 +58,13 @@ const RegisterCntr = () => {
     idError: RegisterMod.auth.idError,
     pwd: RegisterMod.user.pwd,
     pwdConfirm: RegisterMod.user.pwdConfirm,
+    pwdAuth: RegisterMod.auth.pwdAuth,
     nick: RegisterMod.user.nick,
     nickAuth: RegisterMod.auth.nickAuth,
     nickError: RegisterMod.auth.nickError,
     phone: RegisterMod.user.phone,
     phoneAuth: RegisterMod.auth.phoneAuth,
+    phoneMsg: RegisterMod.auth.phoneMsg,
     phoneError: RegisterMod.auth.phoneError,
     authNum: RegisterMod.auth.authNum,
     authError: RegisterMod.auth.authError,
@@ -102,7 +108,6 @@ const RegisterCntr = () => {
 
   //회원가입 정보 제출
   const onSubmit = (e) => {
-    e.preventDefault();
     //영문, 숫자, 특수기호 조합으로 8-15자리를 입력해주세요.
     const valid = (pwd) => {
       return /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^*()-]).{8,15}$/.test(
@@ -110,18 +115,21 @@ const RegisterCntr = () => {
       );
     };
     if (!idAuth) {
-      return alert("아이디를 확인하여 주세요!.");
+      return alert("아이디 중복확인을 해주세요.");
+    }
+    if (!pwdAuth) {
+      return alert("비밀번호를 확인하여 주세요.");
     }
     if (!valid(pwd)) {
       return alert(
-        "비밀번호를 영문, 숫자, 특수기호 조합으로 8-15자리를 입력해주세요."
+        "비밀번호는 영문, 숫자, 특수기호 조합으로 8-15자리를 입력해주세요."
       );
     }
     if (!nickAuth) {
-      return alert("닉네임을 확인하여 주세요.");
+      return alert("닉네임 중복확인을 해주세요.");
     }
     if (!authNum) {
-      return alert("!핸드폰 인증을 해주세요.");
+      return alert("핸드폰 인증을 해주세요.");
     }
     dispatch(
       register({
@@ -135,6 +143,7 @@ const RegisterCntr = () => {
         gender,
       })
     );
+    navigate("/");
   };
 
   //리팩토링해서 모듈로~
@@ -318,10 +327,10 @@ const RegisterCntr = () => {
   //인증번호 유효시간
   const [count, setCount] = useState(60);
   useEffect(() => {
-    if (authNum === true) {
+    if (authNum === true || !phoneAuth) {
       setCount(60);
     }
-  }, [authNum]);
+  }, [authNum, phone]);
 
   useInterval(
     () => {
@@ -370,9 +379,8 @@ const RegisterCntr = () => {
       chooseDomain={chooseDomain}
       disabledDomain={disabledDomain}
       phoneAuth={phoneAuth}
-      phoneError={phoneError}
+      phoneMsg={phoneMsg}
       authNum={authNum}
-      authError={authError}
       count={count}
       openSearchAddress={openSearchAddress}
       modal={modal}

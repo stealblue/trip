@@ -29,7 +29,7 @@ const LoginComp = ({ error, onChange, onSubmit, searchId, searchPwd }) => {
           onChange={onChange}
         />
         <button>로그인</button>
-        {error && <ErrorText>{error}</ErrorText>} //props 받아서 처리 할 수 있게
+        {error && <ErrorText>{error}</ErrorText>}
         <button onClick={searchId}>ID찾기</button>
         <button onClick={searchPwd}>PW찾기</button>
         <button></button>
