@@ -7,10 +7,15 @@ import ReplyReadComp from "../reply/ReplyReadComp";
 import { likePost } from "../../../lib/api/posts";
 import { useDispatch } from "react-redux";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
 const ReadContainer = styled.div`
   text-align: left;
   border-bottom: 2px solid #333;
   padding: 13px 25px;
+  margin-top: 50px;
 
   .id {
     font-weight: 400;
@@ -89,11 +94,11 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
             <p>
-              <button onClick={likeButton} className="icon" size="24" color="red" data-id={post.id} data-no={post.no} />
+              <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} />
               {likeCount === 0 ? parseInt(post.like) : likeCount}
             </p>
             <p>
-              <button className="icon" size="24" />
+              <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} />
               {post.cnt}
             </p>
           </div>
