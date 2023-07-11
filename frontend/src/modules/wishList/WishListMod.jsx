@@ -8,7 +8,7 @@ const INITIALIZE = createRequestActionTypes('wishList/INITIALIZE');
 const [ADD_WISHLIST, ADD_WISHLIST_SUCCESS, ADD_WISHLIST_FAILURE] = createRequestActionTypes('wishList/ADD_WISHLIST');
 const UNLOAD_PAGE = 'wishList/UNLOAD_PAGE';
 
-export const addWishList = createAction(ADD_WISHLIST, ({ id, contentid }) => ({ id, contentid }));
+export const addWishList = createAction(ADD_WISHLIST, ({ id, contentid, title }) => ({ id, contentid, title }));
 export const unloadPage = createAction(UNLOAD_PAGE);
 
 const addWishListSaga = createRequestSaga(ADD_WISHLIST, wishListAPI.addWishList);

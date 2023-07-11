@@ -9,7 +9,7 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
       <p><img src={area.firstimage !== "" ? area.firstimage : area.firstimge2} alt="이미지없음" /></p>
-      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>{area.title} / {area.addr1}</p><p><button onClick={addWish} data-contentid={area.contentid}>추가</button></p>
+      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>{area.title} / {area.addr1}</p><p><button onClick={addWish} data-contentid={area.contentid} data-title={area.title}>추가</button></p>
       <hr />
     </AreaItemBlock>
   );

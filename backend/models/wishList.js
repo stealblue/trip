@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    contentid: {
-      type: DataTypes.STRING(10),
+    contentId: {
+      type: DataTypes.STRING(30),
       allowNull: false
     },
     id: {
@@ -23,6 +23,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    title: {
+      type: DataTypes.STRING(40),
+      allowNull: false
     }
   }, {
     sequelize,
