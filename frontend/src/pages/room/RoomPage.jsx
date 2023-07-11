@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import AreaSelectCntr from '../../containers/area/AreaSelectCntr';
+import RoomListCntr from '../../containers/room/RoomListCntr';
+import RoomSelectCntr from '../../containers/room/RoomSelectCntr';
 
 const RoomPageBlock = styled.div`
   background-color: pink;
@@ -22,13 +23,8 @@ const RoomPageBlock = styled.div`
 const Roompage = () => {
   return (
     <RoomPageBlock>
-      <div className='left'>
-        <AreaSelectCntr />
-      </div>
-      <div className='right'>
-        <div className='first'>첫번째</div>
-        <div className='second'>두번째</div>
-      </div>
+      <RoomSelectCntr className='left' />
+      <RoomListCntr className='right' />
     </RoomPageBlock >
   );
 };

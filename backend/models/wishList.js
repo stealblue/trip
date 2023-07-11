@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    contentId: {
+    contentid: {
       type: DataTypes.STRING(10),
       allowNull: false
     },

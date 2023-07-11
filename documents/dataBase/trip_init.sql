@@ -67,3 +67,5 @@ ALTER TABLE trip.reply ADD updateAt TIMESTAMP DEFAULT now() NULL;
 ALTER TABLE trip.reply MODIFY COLUMN updateAt timestamp NULL;
 
 ALTER TABLE trip.wishList ADD createAt timestamp DEFAULT now() NOT NULL;
+ALTER TABLE trip.wishList CHANGE contentId contentid varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;
+ALTER TABLE trip.wishList CHANGE contentid contentId varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;
