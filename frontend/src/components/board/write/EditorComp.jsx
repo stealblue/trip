@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
 
 const EditorBlock = styled.div`
   margin-top: 30px;

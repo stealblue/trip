@@ -10,7 +10,7 @@ const ListContainer = styled.div`
     display: flex;
     padding: 10px 0px;
     border-bottom: 1px solid #999;
-    padding: 50px 10px;
+    padding: 40px 10px;
     transition: 0.3s;
     cursor: pointer;
   }
@@ -23,10 +23,16 @@ const ListContainer = styled.div`
     margin-top: 0px;
     font-size: 24px;
     font-weight: 600;
+
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .board-list-text {
     margin-left: 20px;
+    margin-top: 1rem;
   }
 
   .des {
@@ -41,6 +47,26 @@ const ListContainer = styled.div`
   .date {
     margin-top: 5px;
     font-size: 12px;
+  }
+  .content {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-top: 1rem;
+  }
+
+  .write-id {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+
+  .createat {
+    font-size: 12px;
+    color: #7b7b7b;
+    margin-top: 1rem;
   }
 `;
 const WriteButton = styled(ButtonComp)`
@@ -65,7 +91,7 @@ const BoardListItem = ({ post }) => {
     return <div>오류</div>;
   }
 
-  const { no, id, title, content, like, cnt, user } = post;
+  const { no, id, title, content, createAt, like, cnt, user } = post;
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -73,8 +99,9 @@ const BoardListItem = ({ post }) => {
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
-            <p>{content}</p>
-            <p>{id}</p>
+            <p className="content">{content}</p>
+            <p className="write-id">{id}</p>
+            <p className="createat">작성일자 : {createAt}</p>
           </div>
         </div>
       </Link>
@@ -97,6 +124,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
       <WrapperComp>
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
+        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
         {posts?.map((post, index) => (
           <BoardListItem key={post.no} post={post} />
         ))}
