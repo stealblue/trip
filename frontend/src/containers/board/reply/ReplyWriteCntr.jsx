@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, replywritePost } from "../../../modules/board/ReplyWriteMod";
+import {
+  changeField,
+  replywritePost,
+} from "../../../modules/board/ReplyWriteMod";
 import { useParams } from "react-router-dom";
-import LoginMod from "../../../modules/LoginMod";
+import LoginMod from "../../../modules/auth/LoginMod";
 import ReplyWriteMod from "../../../modules/board/ReplyWriteMod";
 import { initialize } from "../../../modules/board/ReplyWriteMod";
 import ReplyWriteComp from "../../../components/board/reply/ReplyWriteComp";
@@ -11,11 +14,13 @@ const ReplyWriteCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
   const emptyReply = useRef();
-  const { id, content, reply, originreplyId } = useSelector(({ LoginMod, ReplyWriteMod }) => ({
-    id: LoginMod.id,
-    content: ReplyWriteMod.content,
-    reply: ReplyWriteMod.reply,
-  }));
+  const { id, content, reply, originreplyId } = useSelector(
+    ({ LoginMod, ReplyWriteMod }) => ({
+      id: LoginMod.id,
+      content: ReplyWriteMod.content,
+      reply: ReplyWriteMod.reply,
+    })
+  );
 
   // console.log(content);
   const onChangeField = (e) => {
@@ -51,7 +56,13 @@ const ReplyWriteCntr = () => {
 
   return (
     <>
-      <ReplyWriteComp onReset={onReset} onPublish={onPublish} onChangeField={onChangeField} emptyReply={emptyReply} isEdit={!!originreplyId} />
+      <ReplyWriteComp
+        onReset={onReset}
+        onPublish={onPublish}
+        onChangeField={onChangeField}
+        emptyReply={emptyReply}
+        isEdit={!!originreplyId}
+      />
     </>
   );
 };

@@ -1,9 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
-import * as loginAPI from "../lib/api/login";
+import * as loginAPI from "../../lib/api/login";
 import { call, takeLatest } from "redux-saga/effects";
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
+} from "../../lib/createRequestSaga";
 
 const TEMP_SET_USER = "user/TEMP_SET_USER";
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] =
@@ -55,10 +55,10 @@ const UserMod = handleActions(
       user,
       checkError: null,
     }),
-    [CHECK_FAILURE]: (state, { payload: error }) => ({
+    [CHECK_FAILURE]: (state, { payload: checkError }) => ({
       ...state,
       user: null,
-      checkError: error,
+      checkError,
     }),
     [LOGOUT]: (state) => ({
       ...state,

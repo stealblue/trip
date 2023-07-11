@@ -294,20 +294,18 @@ const RegisterFormComp = ({
           </div>
         </div>
       </RegisterFormBlock>
-      {modal && (
-        <StyledModal
-          isOpen={modal} //true = 열림 / false = 닫힘
-          ariahideapp={"false"} //에러 안뜨게하기
-          onEscapeKeydown={openSearchAddress} //esc키로 빠져나오기
-          onBackgroundClick={openSearchAddress} //esc키 or 오버레이부분 클릭시 Modal닫힘
-        >
-          <div>
-            <div>주소검색</div>
-            <DivInModal onClick={openSearchAddress}>X</DivInModal>
-          </div>
-          <DaumPostcode autoClose onComplete={onCompletePost} />
-        </StyledModal>
-      )}
+      <StyledModal
+        isOpen={modal} //true = 열림 / false = 닫힘
+        ariahideapp={"false"} //에러 안뜨게하기
+        onEscapeKeydown={openSearchAddress} //esc키 눌렀을경우 함수 실행
+        onBackgroundClick={openSearchAddress} //esc키 or 오버레이부분 클릭시 함수 실행
+      >
+        <div>
+          <div>주소검색</div>
+          <DivInModal onClick={openSearchAddress}>X</DivInModal>
+        </div>
+        <DaumPostcode autoClose onComplete={onCompletePost} />
+      </StyledModal>
     </>
   );
 };

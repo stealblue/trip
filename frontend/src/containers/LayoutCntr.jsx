@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 import Footer from "../components/main/FooterComp";
 import HeaderComp from "../components/main/HeaderComp";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../modules/UserMod";
-import { initializeLoginForm } from "../modules/LoginMod";
+import { logout } from "../modules/auth/UserMod";
+import { initializeLoginForm } from "../modules/auth/LoginMod";
 
 const LayoutCntr = () => {
   const dispatch = useDispatch();

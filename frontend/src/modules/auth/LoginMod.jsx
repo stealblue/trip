@@ -1,8 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as loginAPI from "../lib/api/login";
+} from "../../lib/createRequestSaga";
+import * as loginAPI from "../../lib/api/login";
 import { takeLatest } from "redux-saga/effects";
 
 const INITIALIZE = "login/INITIALIZE_FORM";
@@ -20,18 +20,17 @@ export const login = createAction(LOGIN, ({ id, pwd }) => ({
   id,
   pwd,
 }));
-export const searchId = createAction(SEARCH_ID, ({ email, phone }) => ({
-  email,
+export const onSearchId = createAction(SEARCH_ID, ({ phone }) => ({
   phone,
 }));
-export const searchPwd = createAction(SEARCH_PWD, ({ email, phone }) => ({
+export const onSearchPwd = createAction(SEARCH_PWD, ({ email, phone }) => ({
   email,
   phone,
 }));
 
 const loginProcess = createRequestSaga(LOGIN, loginAPI.login);
-const searchIdProcess = createRequestSaga(LOGIN, loginAPI.searchId);
-const searchPwdProcess = createRequestSaga(LOGIN, loginAPI.searchPwd);
+const searchIdProcess = createRequestSaga(SEARCH_ID, loginAPI.searchId);
+const searchPwdProcess = createRequestSaga(SEARCH_PWD, loginAPI.searchPwd);
 
 export function* loginSaga() {
   yield takeLatest(LOGIN, loginProcess);
@@ -42,12 +41,14 @@ export function* loginSaga() {
 const initialState = {
   id: null,
   pwd: null,
+  email: null,
+  phone: null,
   auth: null,
   authError: null,
   searchId: null,
   seacchIdError: null,
   searchPwd: null,
-  seacchPwdError: null,
+  searchPwdError: null,
 };
 
 const LoginMod = handleActions(
@@ -59,12 +60,12 @@ const LoginMod = handleActions(
     }),
     [LOGIN_SUCCESS]: (state, { payload: { auth } }) => ({
       ...state,
-      auth: auth,
+      auth,
       authError: null,
     }),
     [LOGIN_FAILURE]: (state, { payload: { authError } }) => ({
       ...state,
-      authError: authError,
+      authError,
     }),
     [SEARCH_ID_SUCCESS]: (state, { payload: { searchId } }) => ({
       ...state,
