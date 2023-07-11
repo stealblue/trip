@@ -124,6 +124,7 @@ const initialState = {
     nickAuth: null,
     nickError: null,
     phoneAuth: null,
+    phoneMsg: null,
     phoneError: null,
     authNum: null,
     authNumError: null,
@@ -176,31 +177,36 @@ const RegisterMod = handleActions(
         draft["auth"]["nickAuth"] = null;
         draft["auth"]["nickError"] = null;
       }),
-    [PHONE_CHECK_SUCCESS]: (state, { payload: { phoneAuth } }) =>
+    [PHONE_CHECK_SUCCESS]: (state, { payload: { phoneAuth, phoneMsg } }) =>
       produce(state, (draft) => {
         draft["auth"]["phoneAuth"] = phoneAuth;
+        draft["auth"]["phoneMsg"] = phoneMsg;
         draft["auth"]["phoneError"] = false;
       }),
-    [PHONE_CHECK_FAILURE]: (state, { payload: { phoneError } }) =>
+    [PHONE_CHECK_FAILURE]: (state, { payload: { phoneMsg, phoneError } }) =>
       produce(state, (draft) => {
         draft["auth"]["phoneAuth"] = false;
+        draft["auth"]["phoneMsg"] = phoneMsg;
         draft["auth"]["phoneError"] = phoneError;
       }),
     [PHONE_MODIFY]: (state) =>
       produce(state, (draft) => {
         draft["auth"]["phoneAuth"] = null;
+        draft["auth"]["phoneMsg"] = null;
         draft["auth"]["phoneError"] = null;
         draft["auth"]["authNum"] = null;
       }),
-    [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum } }) =>
+    [AUTHNUM_CHECK_SUCCESS]: (state, { payload: { authNum, phoneMsg } }) =>
       produce(state, (draft) => {
         draft["auth"]["authNum"] = authNum;
         draft["auth"]["authNumError"] = false;
+        draft["auth"]["phoneMsg"] = phoneMsg;
       }),
-    [AUTHNUM_CHECK_FAILURE]: (state, { payload: { authNumError } }) =>
+    [AUTHNUM_CHECK_FAILURE]: (state, { payload: { authNumError, phoneMsg } }) =>
       produce(state, (draft) => {
         draft["auth"]["authNum"] = false;
         draft["auth"]["authNumError"] = authNumError;
+        draft["auth"]["phoneMsg"] = phoneMsg;
       }),
     [INPUT_ADDRESS]: (state, { payload: { addr1, zipcode } }) =>
       produce(state, (draft) => {

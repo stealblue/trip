@@ -15,11 +15,11 @@ exports.login = async (req, res) => {
     });
 
     //코드 위치 수정 금지!!
-    if (id === null) {
+    if (id === "") {
       return res.status(401).json({ authError: "아이디를 입력해주세요" });
     }
 
-    if (pwd === null) {
+    if (pwd === "") {
       return res.status(401).json({ authError: "비밀번호를 입력해주세요" });
     }
 

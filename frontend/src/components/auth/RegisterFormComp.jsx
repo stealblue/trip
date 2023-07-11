@@ -105,9 +105,8 @@ const RegisterFormComp = ({
   chooseDomain,
   disabledDomain,
   phoneAuth,
-  phoneError,
+  phoneMsg,
   authNum,
-  authError,
   count,
   openSearchAddress,
   modal,
@@ -237,8 +236,7 @@ const RegisterFormComp = ({
             인증확인
           </button>
           <ConfirmMessage>
-            {phoneError && <span>{"폰 인증 에러"}</span>}
-            {authError && <span>{"인증번호 에러"}</span>}
+            {<span>{phoneMsg}</span>}
             {count === 60 || authNum === true ? (
               ""
             ) : count !== 0 && phoneAuth ? (
