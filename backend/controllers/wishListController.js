@@ -3,9 +3,9 @@ const { wishList } = require("../models/mysql/index");
 
 exports.addWishList = async (req, res) => {
   const { contentid, id, title } = req.body;
-  console.log('wishListController');
-  console.log(req.body);
-  console.log(`contentid : ${contentid} , id : ${id} , title : ${title}`);
+  // console.log('wishListController');
+  // console.log(req.body);
+  // console.log(`contentid : ${contentid} , id : ${id} , title : ${title}`);
   try {
     const newWishList = await wishList.create({
       id,
