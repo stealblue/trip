@@ -10,7 +10,7 @@ const ErrorText = styled.h2`
   color: red;
 `;
 
-const LoginComp = ({ error, onChange, onSubmit }) => {
+const LoginComp = ({ error, onChange, onSubmit, searchId, searchPwd }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -30,6 +30,9 @@ const LoginComp = ({ error, onChange, onSubmit }) => {
         />
         <button>로그인</button>
         {error && <ErrorText>{error}</ErrorText>} //props 받아서 처리 할 수 있게
+        <button onClick={searchId}>ID찾기</button>
+        <button onClick={searchPwd}>PW찾기</button>
+        <button></button>
       </form>
     </>
   );
