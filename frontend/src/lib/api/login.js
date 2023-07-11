@@ -19,3 +19,7 @@ export const searchId = async ({ phone }) => {
 export const searchPwd = async ({email, phone}) => {
     return await client.post("/auth/searchPwd", {email, phone});
 }
+
+export const updatePwd = async ({email, pwd}) => {
+    return await client.post("/auth/searchPwd/:id", {email, pwd});
+}

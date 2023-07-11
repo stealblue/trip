@@ -1,4 +1,5 @@
 const { user } = require("../models/mysql");
+const crypto = require('crypto');
 const bcrypt = require("bcrypt");
 const { generateToken } = require("./authController");
 const jwt = require("jsonwebtoken");
@@ -86,6 +87,9 @@ exports.searchId = async (req, res) => {
 
 exports.searchPwd = async (req, res) => {
   const { email, phone } = req.body;
+  const algorithm = 'aes-256-cbc';//복호화 알고리즘
+  const key = 'abcdefghijklmnopqrstuvwxyz123456';//복호화 알고리즘
+  const iv = '1234567890123456';//복호화 알고리즘
   
   try {
     const exUser = await user.findOne({
@@ -109,12 +113,15 @@ exports.searchPwd = async (req, res) => {
             pass: EMAIL_PW,
         },
     });
+    const cipher = crypto.createCipheriv(algorithm, key, iv);//복호화 알고리즘
+    let encryptedEmail = cipher.update(receiverEmail, 'utf8', 'base64');//(암호화 할 변수, utf8, base64)
+    encryptedEmail += cipher.final('base64');//복호화 알고리즘
 
     let mailOptions = {
       from: EMAIL, //발신자
       to: receiverEmail, //수신자
       subject: "[Tripper Maker]비밀번호 변경 메일",
-      html: `<a href="http://localhost:3000/auth/SearchPwd/${receiverEmail}>해당 링크를 클릭하여 비밀번호를 변경하세요.</a>`,
+      html: `<a href="http://localhost:3000/auth/SearchPwd/${encryptedEmail}>해당 링크를 클릭하여 비밀번호를 변경하세요.</a>`,
     };
 
     transport.sendMail(mailOptions, (error, info) => {
@@ -134,10 +141,26 @@ exports.searchPwd = async (req, res) => {
   }
 }
 
-exports.changePwd = async (req, res) => {
-  console.log(req.body);
-  console.log("들어옴?");
-  return res.status(200).json("password change ok!");
+exports.updatePwd = async (req, res) => {
+  const { email, pwd } = req.body;
+  const algorithm = 'aes-256-cbc';//복호화 알고리즘
+  const key = 'abcdefghijklmnopqrstuvwxyz123456';//복호화 알고리즘
+  const iv = '1234567890123456';//복호화 알고리즘
+
+  try {
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);//복호화 알고리즘
+    let decryptedEmail = decipher.update(email, 'base64', 'utf8'); //(복호화 할 변수, "base64", "utf8")
+    decryptedEmail += decipher.final('utf8');//복호화 알고리즘
+    
+    const hashedPwd = await bcrypt.hash(pwd, 10);
+
+    await user.update({ pwd: hashedPwd }, { where: { id: decryptedEmail } });
+
+    return res.status(200).json({ pwdAuth: "ok" });
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json("비밀번호 변경 실패 오류");
+  }
 }
 
 exports.profile = async (req, res) => {

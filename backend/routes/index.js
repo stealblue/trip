@@ -1,9 +1,9 @@
 const express = require("express");
-const board = require("./board");
-const chat = require("./chat");
-const auth = require("./auth");
-const room = require("./room");
-const area = require('./area');
+const board = require("./boardRouter");
+const chat = require("./chatRouter");
+const auth = require("./authRouter");
+const room = require("./roomRouter");
+const area = require('./areaRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) {return res.json({ msg: "main" });});

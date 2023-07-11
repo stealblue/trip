@@ -1,5 +1,5 @@
 const express = require("express");
-const {login, check, profile, logout, searchId, searchPwd, changePwd} = require("../controllers/loginController");
+const {login, check, profile, logout, searchId, searchPwd, updatePwd} = require("../controllers/loginController");
 const {register, idChk, nickChk, phoneChk, authNumChk} = require("../controllers/registerController");
 const app = express();
 const auth = express.Router();
@@ -14,7 +14,7 @@ auth.post("/register/authNumChk", authNumChk);
 auth.get("/check", check);
 auth.post("/searchId", searchId);
 auth.post("/searchPwd", searchPwd);
-auth.post("/searchPwd/:id", changePwd);
+auth.post("/searchPwd/:id", updatePwd);
 auth.get("/:id", profile);
 
 module.exports = auth;
