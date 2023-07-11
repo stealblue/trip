@@ -1,36 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('wishList', {
+  return sequelize.define('busTerminal', {
     no: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    title: {
-      type: DataTypes.STRING(40),
+    cityCode: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    id: {
-      type: DataTypes.STRING(35),
-      allowNull: false,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
-    },
-    contentId: {
+    cityName: {
       type: DataTypes.STRING(30),
       allowNull: false
     },
-    createAt: {
-      type: DataTypes.DATE,
+    terminalId: {
+      type: DataTypes.STRING(30),
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      unique: "terminalId"
+    },
+    terminalName: {
+      type: DataTypes.STRING(30),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'wishList',
+    tableName: 'busTerminal',
     timestamps: false,
     indexes: [
       {
@@ -42,10 +38,11 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id",
+        name: "terminalId",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "terminalId" },
         ]
       },
     ]

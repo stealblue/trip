@@ -1,14 +1,22 @@
 var DataTypes = require("sequelize").DataTypes;
 var _board = require("./board");
+var _busTerminal = require("./busTerminal");
+var _busType = require("./busType");
 var _like = require("./like");
 var _reply = require("./reply");
+var _trainStation = require("./trainStation");
+var _trainType = require("./trainType");
 var _user = require("./user");
 var _wishList = require("./wishList");
 
 function initModels(sequelize) {
   var board = _board(sequelize, DataTypes);
+  var busTerminal = _busTerminal(sequelize, DataTypes);
+  var busType = _busType(sequelize, DataTypes);
   var like = _like(sequelize, DataTypes);
   var reply = _reply(sequelize, DataTypes);
+  var trainStation = _trainStation(sequelize, DataTypes);
+  var trainType = _trainType(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
   var wishList = _wishList(sequelize, DataTypes);
 
@@ -27,8 +35,12 @@ function initModels(sequelize) {
 
   return {
     board,
+    busTerminal,
+    busType,
     like,
     reply,
+    trainStation,
+    trainType,
     user,
     wishList,
   };
