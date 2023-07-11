@@ -34,8 +34,10 @@ const AreaListCntr = ({ onClickTest }) => {
       .then(result => {
         const id = user.id;
         const contentid = e.target.dataset.contentid;
+        const title = e.target.dataset.title;
+        console.log(`AreaListCntr =====> addWish : id = ${id} , contentid = ${contentid} , title=${title}`)
         if (result.isConfirmed) {
-          dispatch(addWishList({ id, contentid }))
+          dispatch(addWishList({ id, contentid, title }))
           Swal.fire({
             icon: 'warning',
             text: `추가완료, ${e.target.dataset.contentid}`,
