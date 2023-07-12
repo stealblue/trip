@@ -366,6 +366,41 @@ const RegisterCntr = () => {
     }, [delay]);
   }
 
+  //새로고침 및 창닫기시 실행
+  const preventClose = (e) => {
+    e.preventDefault();
+    alert("새로고침 창닫기시 실행");
+    e.returnValue = ""; //Chrome에서 동작하도록; deprecated
+  };
+
+  //새로고침 및 창닫기시 실행
+  useEffect(() => {
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
+  //뒤로가기시 실행
+  const preventGoBack = () => {
+    alert("뒤로가기시 실행");
+    history.pushState(null, "", location.href);
+  };
+
+  //뒤로가기시 실행
+  useEffect(() => {
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", preventGoBack);
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+      handleCloseDrawer();
+    };
+  }, []);
+
   return (
     <RegisterFormComp
       onChange={onChange}
