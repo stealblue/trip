@@ -26,7 +26,6 @@ const BoardListContainer = () => {
   return (
     <>
       <BoardListComp posts={posts} error={error} showWriteButton={user} />
-      <MainBoardComp posts={posts} error={error} showWriteButton={user} />
     </>
   );
 };
