@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate} from "react-router";
 import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
@@ -18,8 +18,13 @@ import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { user } = useSelector(({ UserMod }) => ({
+    user: UserMod.user
+  }));
+
   return (
     <>
       <Routes>
@@ -32,8 +37,8 @@ function App() {
           <Route path="/area" element={<AreaListPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/read/:readNo" element={<ReadPage />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/auth/login" element={ <LoginPage />} />
+          <Route path="/auth/register" element={user ? <Navigate to="/"/> : <RegisterPage />} />
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           <Route path="/auth/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />
