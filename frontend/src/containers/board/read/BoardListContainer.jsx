@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BoardListComp from "../../../components/board/read/BoardListComp";
 import { listPosts } from "../../../modules/board/BoardListMod";
 import { useSearchParams } from "react-router-dom";
+import MainBoardComp from "../../../components/main/MainBoardComp";
 
 const BoardListContainer = () => {
   const [searchParams] = useSearchParams();
@@ -22,7 +23,12 @@ const BoardListContainer = () => {
     dispatch(listPosts({ page }));
   }, [dispatch, searchParams]);
 
-  return <BoardListComp posts={posts} error={error} showWriteButton={user} />;
+  return (
+    <>
+      <BoardListComp posts={posts} error={error} showWriteButton={user} />
+      <MainBoardComp posts={posts} error={error} showWriteButton={user} />
+    </>
+  );
 };
 
 export default BoardListContainer;

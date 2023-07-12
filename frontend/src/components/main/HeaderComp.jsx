@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -9,10 +11,9 @@ const HeaderContainer = styled.div`
   left: 50%;
   transform: translate(-50%);
   z-index: 10000;
-  padding: 30px;
+  padding: 20px;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  /* background: #fff; */
 `;
 
 const Logo = styled.div`
@@ -40,6 +41,7 @@ const NavList = styled.li`
 
 const LoginCategory = styled.span`
   margin-left: 20px;
+  /* background: #fff; */
 `;
 
 const Spacer = styled.div`

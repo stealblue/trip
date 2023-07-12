@@ -11,6 +11,9 @@ import UserMod, { userSaga } from "./auth/UserMod";
 import AreaMod, { areaSaga } from "./area/AreaMod";
 import ReplyWriteMod, { replySaga } from "./board/ReplyWriteMod";
 import ReplyReadMod, { replyReadSaga } from "./board/ReplyReadMod";
+import LodgingMod, { lodgingSaga } from "./room/LodgingMod";
+import WishListMod, { wishListSaga } from "./wishList/WishListMod";
+
 const rootReducer = combineReducers({
   LoginMod,
   RegisterMod,
@@ -23,6 +26,8 @@ const rootReducer = combineReducers({
   AreaMod,
   ReplyWriteMod,
   ReplyReadMod,
+  LodgingMod,
+  WishListMod,
 });
 
 export function* rootSaga() {
@@ -38,6 +43,8 @@ export function* rootSaga() {
     areaSaga(),
     replySaga(),
     replyReadSaga(),
+    lodgingSaga(),
+    wishListSaga(),
   ]);
 }
 

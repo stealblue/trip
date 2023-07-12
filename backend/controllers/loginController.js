@@ -17,11 +17,11 @@ exports.login = async (req, res) => {
 
     //코드 위치 수정 금지!!
     if (id === "") {
-      return res.status(401).json({authError: "아이디를 입력해주세요"});
+      return res.status(401).json({ authError: "아이디를 입력해주세요" });
     }
 
     if (pwd === "") {
-      return res.status(401).json({authError: "비밀번호를 입력해주세요"});
+      return res.status(401).json({ authError: "비밀번호를 입력해주세요" });
     }
 
     if (!exUser) {
@@ -37,14 +37,14 @@ exports.login = async (req, res) => {
     });
 
     if (!pwdChk) {
-      return res.status(401).json({authError: "비밀번호를 확인해주세요."}); //비밀번호 빈칸 및 확인
+      return res.status(401).json({ authError: "비밀번호를 확인해주세요." }); //비밀번호 빈칸 및 확인
     }
 
     //비밀번호 n회 틀릴경우 로그인 막고 전화인증 받아서 풀게하기 추가!!
-    return res.json({auth: true}); //유저정보 및 페이지이동 해야함
+    return res.json({ auth: true }); //유저정보 및 페이지이동 해야함
   } catch (e) {
     console.error(e, "에러입니다");
-    return res.status(500).json({ authError: "로그인 실패"});
+    return res.status(500).json({ authError: "로그인 실패" });
   }
 }
 
@@ -54,7 +54,7 @@ exports.check = (req, res) => {
   if (!exUser) {
     return res.status(401).json("로그인중 아님");
   }
-  return res.json(jwt.verify(exUser,process.env.JWT_TOKEN));
+  return res.json(jwt.verify(exUser, process.env.JWT_TOKEN));
 }
 
 

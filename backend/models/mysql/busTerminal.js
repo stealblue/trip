@@ -1,31 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('like', {
+  return sequelize.define('busTerminal', {
     no: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    id: {
-      type: DataTypes.STRING(35),
-      allowNull: false,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
-    },
-    bno: {
+    cityCode: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cityName: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
+    terminalId: {
+      type: DataTypes.STRING(30),
       allowNull: false,
-      references: {
-        model: 'board',
-        key: 'no'
-      }
+      unique: "terminalId"
+    },
+    terminalName: {
+      type: DataTypes.STRING(30),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'like',
+    tableName: 'busTerminal',
     timestamps: false,
     indexes: [
       {
@@ -37,17 +38,11 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id",
+        name: "terminalId",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "bno",
-        using: "BTREE",
-        fields: [
-          { name: "bno" },
+          { name: "terminalId" },
         ]
       },
     ]

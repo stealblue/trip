@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas, unloadPage } from "../../modules/area/AreaMod";
 import ModalBasic from "../../components/common/ModalBasic";
+import Swal from 'sweetalert2';
+import { addWishList } from '../../modules/wishList/WishListMod'
 
 const AreaListCntr = ({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
+
+  const dispatch = useDispatch();
 
   // 모달창 노출
   const onClick = (e) => {
@@ -19,14 +23,45 @@ const AreaListCntr = ({ onClickTest }) => {
     });
   };
 
-  const dispatch = useDispatch();
+  const addWish = (e) => {
+    Swal.fire({ // Swal.fire() ==> modal
+      // text: `${e.target.dataset.contentid}입니다.`,
+      text: '추가할까예',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Add'
+    })
+      .then(result => {
+        const id = user.id;
+        const contentid = e.target.dataset.contentid;
+        const title = e.target.dataset.title;
+        console.log(`AreaListCntr =====> addWish : id = ${id} , contentid = ${contentid} , title=${title}`)
+        if (result.isConfirmed) {
+          dispatch(addWishList({ id, contentid, title }));
+          Swal.fire({
+            icon: 'success',
+            text: `추가완료, ${e.target.dataset.contentid}`,
+          })
+        }
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          text: '추가실패'
+        })
+      })
 
-  const { areas, error, loading, areaCode, pageNo, contentTypeId } = useSelector(({ AreaMod }) => ({
+  }
+
+
+
+  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ AreaMod, UserMod }) => ({
     areas: AreaMod?.areas,
     error: AreaMod?.error,
     areaCode: AreaMod?.areaCode,
     pageNo: AreaMod?.pageNo,
-    contentTypeId: AreaMod?.contentTypeId
+    contentTypeId: AreaMod?.contentTypeId,
+    user: UserMod.user
   }));
 
   useEffect(() => {
@@ -57,7 +92,7 @@ const AreaListCntr = ({ onClickTest }) => {
         areas={areas}
         loading={loading}
         onClick={onClick}
-        onClickTest={onClickTest}
+        addWish={addWish}
       />
 
     </>

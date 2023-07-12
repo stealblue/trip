@@ -1,10 +1,6 @@
-desc board;
- 
-drop table `user`;
-drop table board;
-drop table reply;
-drop table `like`;
-drop table wishList;
+create database trip;
+
+use trip;
 
 create table `user` (
 	`no` int auto_increment primary key,
@@ -58,6 +54,34 @@ id varchar(35) not null,
 	foreign key(id) references user(id)
 );
 
+create table trainStation (
+	no int auto_increment primary key,
+	cityName varchar(5) not null,
+	cityCode int not null,
+	stationId varchar(15) not null unique,
+	stationName varchar(10) not null
+);
+
+create table trainType (
+	no int auto_increment primary key,
+	trainCode char(2) not null,
+	trainName varchar(15) not null
+);
+
+create table busTerminal (
+	no int auto_increment primary key,
+	cityCode int not null,
+	cityName varchar(30) not null,
+	terminalId varchar(30) not null unique,
+	terminalName varchar(30) not null
+);
+
+create table busType(
+	no int auto_increment primary key,
+	busCode char(3) not null,
+	busName varchar(15) not null
+);
+drop table busType ;
 ALTER TABLE trip.board ADD createAt TIMESTAMP DEFAULT now() NOT NULL;
 ALTER TABLE trip.board ADD updateAt TIMESTAMP;
 ALTER TABLE trip.board MODIFY COLUMN updateAt timestamp NULL;
@@ -67,3 +91,9 @@ ALTER TABLE trip.reply ADD updateAt TIMESTAMP DEFAULT now() NULL;
 ALTER TABLE trip.reply MODIFY COLUMN updateAt timestamp NULL;
 
 ALTER TABLE trip.wishList ADD createAt timestamp DEFAULT now() NOT NULL;
+ALTER TABLE trip.wishList CHANGE contentId contentid varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;
+ALTER TABLE trip.wishList CHANGE contentid contentId varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;
+ALTER TABLE trip.wishList ADD title varchar(40) NOT NULL;
+ALTER TABLE trip.wishList MODIFY COLUMN contentId varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;
+
+ALTER TABLE trip.busTerminal MODIFY COLUMN terminalName varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL;

@@ -3,14 +3,17 @@ import ThemeComp from "./ThemeComp";
 
 const KeywordBox = styled.div`
   border-radius: 25px;
-  padding: 10px 20px;
+  padding: 12px 30px;
   background-color: ${ThemeComp.lightcolor};
   cursor: pointer;
   outline: none;
   box-shadow: 1px 4px 1px rgb(0, 0, 0, 0.5);
   text-align: center;
   display: inline-block;
-  margin-left: 800px;
+  margin-left: 20px;
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 500
 
   &:active {
     box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
@@ -20,8 +23,8 @@ const KeywordBox = styled.div`
   }
 `;
 
-const Keyword = () => {
+const KeywordComp = () => {
   return <KeywordBox># 키워드</KeywordBox>;
 };
 
-export default Keyword;
+export default KeywordComp;

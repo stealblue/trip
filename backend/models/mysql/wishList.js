@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    contentId: {
-      type: DataTypes.STRING(10),
+    title: {
+      type: DataTypes.STRING(40),
       allowNull: false
     },
     id: {
@@ -18,6 +18,15 @@ module.exports = function(sequelize, DataTypes) {
         model: 'user',
         key: 'id'
       }
+    },
+    contentId: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
+    createAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,

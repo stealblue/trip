@@ -15,6 +15,9 @@ import ProfilePage from "./pages/auth/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
 import Roompage from "./pages/room/RoomPage";
 import SearchPwdPage from "./pages/auth/searchPwdPage";
+import AdminPage from "./pages/admin/AdminPage";
+import AdminUserPage from "./pages/admin/AdminUserPage";
+import AdminBoardPage from "./pages/admin/AdminboardPage";
 
 function App() {
   return (
@@ -34,7 +37,11 @@ function App() {
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           <Route path="/auth/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />
-          <Route path='/room' element={<Roompage />} />
+          <Route path="/room" element={<Roompage />} />
+        </Route>
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path="/admin/user" element={<AdminUserPage />} />
+          <Route path="/admin/board" element={<AdminBoardPage />} />
         </Route>
       </Routes>
     </>
