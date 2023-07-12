@@ -4,28 +4,31 @@ import {
   changeValue,
   initializeLoginForm,
   login,
-  searchId,
-  searchPwd,
-} from "../../modules/LoginMod";
+  onSearchId,
+  onSearchPwd,
+} from "../../modules/auth/LoginMod";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { check } from "../../modules/UserMod";
+import { check } from "../../modules/auth/UserMod";
 
 const LoginCntr = () => {
-  const [findId, setFindId] = useState("");
-  const [findPwd, setFindPwd] = useState("");
+  const [modal, setModal] = useState(false);
+  const [searchName, setSearchName] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const { id, pwd, auth, authError, user } = useSelector(
-    ({ LoginMod, UserMod }) => ({
+  const { id, pwd, email, phone, auth, authError, user, searchId, searchPwd } =
+    useSelector(({ LoginMod, UserMod }) => ({
       id: LoginMod.id,
       pwd: LoginMod.pwd,
+      email: LoginMod.email,
+      phone: LoginMod.phone,
       auth: LoginMod.auth,
       authError: LoginMod.authError,
       user: UserMod.user,
-    })
-  );
+      searchId: LoginMod.searchId,
+      searchPwd: LoginMod.searchPwd,
+    }));
   const USER_KEY = "USER";
 
   const onChange = (e) => {
@@ -38,24 +41,51 @@ const LoginCntr = () => {
     dispatch(login({ id, pwd }));
   };
 
-  const searchId = (e) => {
-    setFindId(!findId);
-    // dispatch(
-    //   searchId({
-    //     email: id,
-    //     phone,
-    //   })
-    // );
+  //모달창 toggle 하면서 state 정보 초기화
+  const switchModal = () => {
+    setModal(!modal);
+    dispatch(initializeLoginForm());
   };
 
-  const searchPwd = (e) => {
-    setFindPwd(!findPwd);
-    // dispatch(
-    //   searchPwd({
-    //     email: id,
-    //     phone,
-    //   })
-    // );
+  const changeInform = (e) => {
+    const { name } = e.target;
+    setSearchName(name);
+    switchModal();
+  };
+
+  const onFindId = (e) => {
+    e.preventDefault();
+    const valid = (phone) => {
+      return /^[0-1]{3}[0-9]{4}[0-9]{4}$/.test(phone);
+    };
+    const phoneValid = valid(phone);
+
+    if (!phoneValid) {
+      alert("전화번호를 확인해주세요.");
+    }
+    dispatch(
+      onSearchId({
+        phone,
+      })
+    );
+  };
+
+  const onFindPwd = (e) => {
+    e.preventDefault();
+    const valid = (email) => {
+      return /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/.test(email);
+    };
+    const emailValid = valid(email);
+
+    if (!emailValid) {
+      alert("이메일을 확인해주세요.");
+    }
+    dispatch(
+      onSearchPwd({
+        email,
+        phone,
+      })
+    );
   };
 
   useEffect(() => {
@@ -83,13 +113,24 @@ const LoginCntr = () => {
     }
   }, [navigate, user]);
 
+  useEffect(() => {
+    if (searchPwd) {
+      alert("해당 이메일로 비밀번호 변경 메일을 발송했습니다. 확인해주세요. ");
+    }
+  }, [searchPwd]);
+
   return (
     <LoginComp
       error={error}
       onChange={onChange}
       onSubmit={onSubmit}
-      findId={findId}
-      findPwd={findPwd}
+      changeInform={changeInform}
+      searchName={searchName}
+      findId={searchId}
+      onFindId={onFindId}
+      onFindPwd={onFindPwd}
+      modal={modal}
+      switchModal={switchModal}
     />
   );
 };

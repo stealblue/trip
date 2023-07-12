@@ -1,11 +1,17 @@
-import React from 'react';
-import KakaoMapComp from '../../components/common/KakaoMapComp';
+import React, { useState } from 'react';
+import TrafficListCntr from '../../containers/traffic/TrafficListCntr';
 
 const TrafficListPage = () => {
+  const [target, setTarget] = useState(null);
+  const onClick = (e) => {
+    console.log('target : ', e.target.value);
+    setTarget(e.target.value);
+  }
   return (
     <div>
-      교통? 111111111111111111
-      <KakaoMapComp />
+      <button onClick={onClick} value="train">기차</button>
+      <button onClick={onClick} value="bus">시외버스</button>
+      <TrafficListCntr target={target} />
     </div>
   );
 };

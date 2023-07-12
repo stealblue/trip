@@ -1,10 +1,11 @@
 const express = require("express");
-const board = require("./board");
-const chat = require("./chat");
-const auth = require("./auth");
-const room = require("./room");
-const area = require('./area');
-const wishList = require('./wishList');
+const board = require("./boardRouter");
+const chat = require("./chatRouter");
+const auth = require("./authRouter");
+const room = require("./roomRouter");
+const area = require('./areaRouter');
+const wishList = require('./wishListRouter');
+const traffic = require('./trafficRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -14,5 +15,6 @@ router.use("/chat", chat);
 router.use("/room", room);
 router.use('/area', area);
 router.use('/wishList', wishList);
+router.use('/traffic', traffic);
 
 module.exports = router;
