@@ -15,7 +15,7 @@ import {
   phoneModify,
   pwdChk,
   register,
-} from "../../modules/RegisterMod";
+} from "../../modules/auth/RegisterMod";
 
 const RegisterCntr = () => {
   const [email, setEmail] = useState(null);

@@ -1,8 +1,9 @@
 const { user } = require("../models/mysql");
+const crypto = require('crypto');
 const bcrypt = require("bcrypt");
 const { generateToken } = require("./authController");
 const jwt = require("jsonwebtoken");
-
+const nodemailer = require("nodemailer");
 
 exports.login = async (req, res) => {
   const { id, pwd } = req.body;
@@ -56,11 +57,6 @@ exports.check = (req, res) => {
   return res.json(jwt.verify(exUser, process.env.JWT_TOKEN));
 }
 
-exports.profile = async (req, res) => {
-  const { id } = req.params;
-
-  return res.status(200).json({ id });
-}
 
 exports.logout = async (req, res) => {
   res.clearCookie("access_token");
@@ -68,9 +64,106 @@ exports.logout = async (req, res) => {
 }
 
 exports.searchId = async (req, res) => {
-  console.log("아이디 찾기");
+  const { phone } = req.body;
+
+  try {
+    const exUser = await user.findOne({
+      where: {
+        phone,
+      }
+    });
+    const { id } = exUser;
+
+    if (!exUser) {
+      return res.status(401).json({ searchIdError: "해당 정보로 가입된 계정이 없습니다." });
+    }
+
+    return res.status(200).json({searchId: id});
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json({ searchIdError: true });
+  }
 }
 
 exports.searchPwd = async (req, res) => {
-  console.log("비밀번호 찾기");
+  const { email, phone } = req.body;
+  const algorithm = 'aes-256-cbc';//복호화 알고리즘
+  const key = 'abcdefghijklmnopqrstuvwxyz123456';//복호화 알고리즘
+  const iv = '1234567890123456';//복호화 알고리즘
+  
+  try {
+    const exUser = await user.findOne({
+      where: {
+        id: email,
+        phone,
+      }
+    });
+
+    if (!exUser) {
+      return res.status(401).json({searchPwdError: "해당 정보로 가입된 계정이 없습니다."})
+    }
+    //nodemailer 설정
+    const EMAIL = "tripper.maker4@gmail.com"; //발신자 메일
+    const EMAIL_PW = "ecxgyfjdoqoiunka"; //gmail의 경우 2단계인증 완료후 앱비밀번호를 생성하여 입력한다.
+    let receiverEmail = `${email}`; //수신자 email
+    let transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: EMAIL,
+            pass: EMAIL_PW,
+        },
+    });
+    const cipher = crypto.createCipheriv(algorithm, key, iv);//복호화 알고리즘
+    let encryptedEmail = cipher.update(receiverEmail, 'utf8', 'base64');//(암호화 할 변수, utf8, base64)
+    encryptedEmail += cipher.final('base64');//복호화 알고리즘
+
+    let mailOptions = {
+      from: EMAIL, //발신자
+      to: receiverEmail, //수신자
+      subject: "[Tripper Maker]비밀번호 변경 메일",
+      html: `<a href="http://localhost:3000/auth/SearchPwd/${encryptedEmail}>해당 링크를 클릭하여 비밀번호를 변경하세요.</a>`,
+    };
+
+    transport.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          console.log(error);
+          return;
+      }
+      console.log(info);
+      console.log("send mail success!");
+    });
+
+
+    return res.status(200).json({searchPwd: true});
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json({ searchPwdError: true });
+  }
+}
+
+exports.updatePwd = async (req, res) => {
+  const { email, pwd } = req.body;
+  const algorithm = 'aes-256-cbc';//복호화 알고리즘
+  const key = 'abcdefghijklmnopqrstuvwxyz123456';//복호화 알고리즘
+  const iv = '1234567890123456';//복호화 알고리즘
+
+  try {
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);//복호화 알고리즘
+    let decryptedEmail = decipher.update(email, 'base64', 'utf8'); //(복호화 할 변수, "base64", "utf8")
+    decryptedEmail += decipher.final('utf8');//복호화 알고리즘
+    
+    const hashedPwd = await bcrypt.hash(pwd, 10);
+
+    await user.update({ pwd: hashedPwd }, { where: { id: decryptedEmail } });
+
+    return res.status(200).json({ pwdAuth: "ok" });
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json("비밀번호 변경 실패 오류");
+  }
+}
+
+exports.profile = async (req, res) => {
+  const { id } = req.params;  
+  return res.status(200).json({ id });
 }

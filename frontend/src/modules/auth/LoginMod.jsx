@@ -1,8 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
-import * as loginAPI from "../lib/api/login";
+} from "../../lib/createRequestSaga";
+import * as loginAPI from "../../lib/api/login";
 import { takeLatest } from "redux-saga/effects";
 
 const INITIALIZE = "login/INITIALIZE_FORM";
@@ -13,6 +13,9 @@ const [SEARCH_ID, SEARCH_ID_SUCCESS, SEARCH_ID_FAILURE] =
   createRequestActionTypes("auth/SEARCH_ID");
 const [SEARCH_PWD, SEARCH_PWD_SUCCESS, SEARCH_PWD_FAILURE] =
   createRequestActionTypes("auth/SEARCH_PWD");
+const [UPDATE_PWD, UPDATE_PWD_SUCCESS, UPDATE_PWD_FAILURE] =
+  createRequestActionTypes("auth/UPDATE_PWD");
+const PWD_CHECK = "auth/PWD_CHECK";
 
 export const initializeLoginForm = createAction(INITIALIZE);
 export const changeValue = createAction(CHANGE_VALUE);
@@ -20,34 +23,48 @@ export const login = createAction(LOGIN, ({ id, pwd }) => ({
   id,
   pwd,
 }));
-export const searchId = createAction(SEARCH_ID, ({ email, phone }) => ({
+export const pwdChk = createAction(PWD_CHECK, ({ key, value }) => ({
+  key,
+  value,
+}));
+export const onSearchId = createAction(SEARCH_ID, ({ phone }) => ({
+  phone,
+}));
+export const onSearchPwd = createAction(SEARCH_PWD, ({ email, phone }) => ({
   email,
   phone,
 }));
-export const searchPwd = createAction(SEARCH_PWD, ({ email, phone }) => ({
+export const updatePwd = createAction(UPDATE_PWD, ({ email, pwd }) => ({
   email,
-  phone,
+  pwd,
 }));
 
 const loginProcess = createRequestSaga(LOGIN, loginAPI.login);
-const searchIdProcess = createRequestSaga(LOGIN, loginAPI.searchId);
-const searchPwdProcess = createRequestSaga(LOGIN, loginAPI.searchPwd);
+const searchIdProcess = createRequestSaga(SEARCH_ID, loginAPI.searchId);
+const searchPwdProcess = createRequestSaga(SEARCH_PWD, loginAPI.searchPwd);
+const changePwdProcess = createRequestSaga(UPDATE_PWD, loginAPI.updatePwd);
 
 export function* loginSaga() {
   yield takeLatest(LOGIN, loginProcess);
   yield takeLatest(SEARCH_ID, searchIdProcess);
   yield takeLatest(SEARCH_PWD, searchPwdProcess);
+  yield takeLatest(UPDATE_PWD, changePwdProcess);
 }
 
 const initialState = {
   id: null,
   pwd: null,
+  pwdConfirm: null,
+  pwdAuth: null,
+  pwdError: null,
+  email: null,
+  phone: null,
   auth: null,
   authError: null,
   searchId: null,
   seacchIdError: null,
   searchPwd: null,
-  seacchPwdError: null,
+  searchPwdError: null,
 };
 
 const LoginMod = handleActions(
@@ -59,12 +76,16 @@ const LoginMod = handleActions(
     }),
     [LOGIN_SUCCESS]: (state, { payload: { auth } }) => ({
       ...state,
-      auth: auth,
+      auth,
       authError: null,
     }),
     [LOGIN_FAILURE]: (state, { payload: { authError } }) => ({
       ...state,
-      authError: authError,
+      authError,
+    }),
+    [PWD_CHECK]: (state, { payload: { key, value } }) => ({
+      ...state,
+      [key]: value,
     }),
     [SEARCH_ID_SUCCESS]: (state, { payload: { searchId } }) => ({
       ...state,
@@ -85,6 +106,16 @@ const LoginMod = handleActions(
       ...state,
       searchPwd: null,
       searchPwdError,
+    }),
+    [UPDATE_PWD_SUCCESS]: (state, { payload: { pwdAuth } }) => ({
+      ...state,
+      pwdAuth,
+      pwdError: null,
+    }),
+    [UPDATE_PWD_FAILURE]: (state, { payload: { pwdError } }) => ({
+      ...state,
+      pwdAuth: null,
+      pwdError,
     }),
   },
   initialState

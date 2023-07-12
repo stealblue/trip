@@ -7,7 +7,7 @@ import rootReducer, { rootSaga } from "./modules";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "@redux-saga/core";
 import App from "./App";
-import { tempSetUser, check } from "./modules/UserMod";
+import { tempSetUser, check } from "./modules/auth/UserMod";
 import { ModalProvider } from 'styled-react-modal'
 // import { CookiesProvider } from "react-cookie";
 
