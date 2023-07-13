@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
+import { motion } from "framer-motion";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
