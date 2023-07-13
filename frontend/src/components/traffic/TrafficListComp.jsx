@@ -61,6 +61,9 @@ const TrafficListComp = ({ stations, terminals, onClick, stationStartDetails, on
           ))}
         </ul>
       </div>
+      <div>
+
+      </div>
     </TrafficListBlock>
   );
 };
