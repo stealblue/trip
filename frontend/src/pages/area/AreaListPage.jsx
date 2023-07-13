@@ -4,10 +4,10 @@ import AreaSelectCntr from '../../containers/area/AreaSelectCntr';
 
 const AreaListPage = () => {
   return (
-    <div>
+    <>
       <AreaSelectCntr />
-      <AreaListCntr />
-    </div>
+      <AreaListCntr className='select' />
+    </>
   );
 };
 

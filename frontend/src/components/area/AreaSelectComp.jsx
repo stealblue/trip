@@ -1,8 +1,6 @@
 import React from 'react';
-import Swal from 'sweetalert2';
 
 const SelectArea = ({ onClick, area }) => {
-  // console.log('selectItem : ', area);
   return (
     <>
       <button onClick={onClick} value={area.code}>{area.name}</button>
@@ -11,7 +9,6 @@ const SelectArea = ({ onClick, area }) => {
 }
 
 const SelectType = ({ onClick, type }) => {
-  // console.log('selectItem : ', type);
   return (
     <>
       <button onClick={onClick} value={type.code}>{type.name}</button>
@@ -21,7 +18,6 @@ const SelectType = ({ onClick, type }) => {
 
 
 const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes }) => {
-  // console.log('codes : ', areas);
   return (
     <>
       <div>
