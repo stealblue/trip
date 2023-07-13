@@ -12,9 +12,8 @@ z-index: 999;
 `;
 
 const ModalBasic = ({ setModalOpen, mapData }) => {
-  console.log('data : ', mapData);
-  const { title, mapx, mapy } = mapData;
-  console.log(`${title} / ${mapx} / ${mapy}`);
+  const { title, mapx, mapy, addr } = mapData;
+  console.log(`${title} / ${mapx} / ${mapy} / ${addr}`);
   const closeModal = () => { setModalOpen(false); }; // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
 
   // 모달 외부 클릭시 끄기 처리
@@ -47,7 +46,8 @@ const ModalBasic = ({ setModalOpen, mapData }) => {
       <button className={styles.close} onClick={closeModal}>
         X
       </button>
-      {title}
+      이름 : {title}<br />
+      주소 : {addr}
       <KakaoMapComp mapx={mapx} mapy={mapy} />
     </ModalBlock >
   );

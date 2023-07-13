@@ -36,17 +36,19 @@ export function* adminUserSaga() {
 
 const initialState = {
   userList: [],
+  totalUser: null,
   listError: null,
   user: null,
   userError: null,
   deleteError: null,
 };
 
-const adminUserMod = handleActions(
+const AdminUserMod = handleActions(
   {
-    [GET_USER_LIST_SUCCESS]: (state, { payload: { userList } }) => ({
+    [GET_USER_LIST_SUCCESS]: (state, { payload: { userList, totalUser } }) => ({
       ...state,
       userList,
+      totalUser,
       listError: null,
     }),
     [GET_USER_LIST_FAILURE]: (state, { payload: { listError } }) => ({
@@ -66,14 +68,14 @@ const adminUserMod = handleActions(
     }),
     [DELETE_USER_SUCCESS]: (state, { payload: { deleteError } }) => ({
       ...state,
-      deleteError: true,
+      deleteError,
     }),
     [DELETE_USER_FAILURE]: (state, { payload: { deleteError } }) => ({
       ...state,
-      deleteError: false,
+      deleteError,
     }),
   },
   initialState
 );
 
-export default adminUserMod;
+export default AdminUserMod;

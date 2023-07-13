@@ -1,5 +1,5 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
-import { showAreaCode, showContentTypeId, showPageNo } from "../../modules/area/AreaMod"
+import { showAreaCode, showContentTypeId, showPageNo, unloadPage } from "../../modules/area/AreaMod"
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -18,13 +18,17 @@ const contentTypes = [
 const AreaSelectCntr = () => {
   const dispatch = useDispatch();
 
+
   const onClickArea = (e) => {
     console.log('value : ', e.target.value);
     const areaCode = e.target.value;
     const page = 1;
+    dispatch(unloadPage());
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));
+    dispatch(showContentTypeId(null));
   };
+
   const onClickType = (e) => {
     const contentTypeId = e.target.value;
     const page = 1;

@@ -24,10 +24,10 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
     dispatch(showPageNo(page));
   }
   const resArray = Array.from({ length: (pageNavEndNum - pageNavStartNum) + 1 }, (_, index) => index + pageNavStartNum);
-  console.log(`전체 페이지수  =====> totalCount : ${totalCount}`);
-  console.log('현재 페이지 =====> pageNo : ', pageNo);
-  console.log('10개 덩어리 페이지 =====> res :', res);
-  console.log(`시작 페이지 =====> start : ${pageNavStartNum} / 마지막 페이지 =====> end : ${pageNavEndNum}`);
+  // console.log(`전체 페이지수  =====> totalCount : ${totalCount}`);
+  // console.log('현재 페이지 =====> pageNo : ', pageNo);
+  // console.log('10개 덩어리 페이지 =====> res :', res);
+  // console.log(`시작 페이지 =====> start : ${pageNavStartNum} / 마지막 페이지 =====> end : ${pageNavEndNum}`);
   console.log('resArray : ', resArray);
   return (
     <div>

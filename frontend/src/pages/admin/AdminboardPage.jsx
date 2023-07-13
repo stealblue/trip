@@ -1,5 +1,11 @@
+import AdminBoardCntr from "../../containers/admin/AdminBoardCntr";
+
 const AdminBoardPage = () => {
-  return <></>;
+  return (
+    <>
+      <AdminBoardCntr />
+    </>
+  );
 };
 
 export default AdminBoardPage;

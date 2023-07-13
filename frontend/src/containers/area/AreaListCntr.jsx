@@ -16,10 +16,12 @@ const AreaListCntr = memo(({ onClickTest }) => {
   const onClick = (e) => {
     // console.log('data : ', e.target.dataset);
     setModalOpen(true);
+    console.log('addr ===============<>', e.target.dataset);
     setMapData({
       title: e.target.dataset.title,
       mapx: e.target.dataset.mapx,
-      mapy: e.target.dataset.mapy
+      mapy: e.target.dataset.mapy,
+      addr: e.target.dataset.addr
     });
   };
 

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Navigate} from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
@@ -18,6 +18,7 @@ import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
+
 import { useSelector } from "react-redux";
 
 function App() {
@@ -37,12 +38,15 @@ function App() {
           <Route path="/area" element={<AreaListPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/read/:readNo" element={<ReadPage />} />
-          <Route path="/auth/login" element={ <LoginPage />} />
-          <Route path="/auth/register" element={user ? <Navigate to="/"/> : <RegisterPage />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           <Route path="/auth/profile/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />
           <Route path="/room" element={<Roompage />} />
+        </Route>
+        <Route>
+          <Route path="/auth/login" element={<LoginPage />} />
         </Route>
         <Route element={<AdminLayoutCntr />}>
           <Route path="/admin/user" element={<AdminUserPage />} />

@@ -48,7 +48,7 @@ const LoginCntr = () => {
   };
 
   const changeInform = (e) => {
-    const { name } = e.target;
+    const name = e.target.getAttribute("name");
     setSearchName(name);
     switchModal();
   };
