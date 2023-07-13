@@ -11,7 +11,7 @@ import UserMod, { userSaga } from "./auth/UserMod";
 import AreaMod, { areaSaga } from "./area/AreaMod";
 import ReplyWriteMod, { replySaga } from "./board/ReplyWriteMod";
 import ReplyReadMod, { replyReadSaga } from "./board/ReplyReadMod";
-import LodgingMod, { lodgingSaga } from './room/LodgingMod';
+import LodgingMod, { lodgingSaga } from "./room/LodgingMod";
 import WishListMod, { wishListSaga } from "./wishList/WishListMod";
 import BusMod, { busSaga } from "./traffic/BusMod";
 import TrainMod, { trainSaga } from "./traffic/TrainMod";

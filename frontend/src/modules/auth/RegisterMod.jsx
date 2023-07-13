@@ -3,7 +3,7 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from "../../lib/createRequestSaga";
 import * as registerAPI from "../../lib/api/register";
-import { takeLatest } from "redux-saga/effects";
+import { call, takeLatest } from "redux-saga/effects";
 import { produce } from "immer";
 
 const INITIALIZE_FORM = "register/INITIALIZE_FORM";

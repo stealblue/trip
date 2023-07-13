@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
@@ -14,12 +14,21 @@ import ReadPage from "./pages/board/ReadPage";
 import ProfilePage from "./pages/auth/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
 import Roompage from "./pages/room/RoomPage";
+import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
+<<<<<<< HEAD
 import SearchPwdPage from "./pages/auth/searchPwdPage";
+=======
+import { useSelector } from "react-redux";
+>>>>>>> 0d1a1317b532c79b848b19f92779d834c0cdc7bc
 
 function App() {
+  const { user } = useSelector(({ UserMod }) => ({
+    user: UserMod.user
+  }));
+
   return (
     <>
       <Routes>
@@ -33,6 +42,7 @@ function App() {
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/read/:readNo" element={<ReadPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           <Route path="/auth/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />

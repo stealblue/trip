@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
 // Import Swiper styles
@@ -68,7 +74,10 @@ const MainBoardListContainer = styled.div`
 `;
 
 const FadeInLeft = ({ children }) => (
-  <Tween from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }} ease="back.out(1.4)">
+  <Tween
+    from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }}
+    ease="back.out(1.4)"
+  >
     {children}
   </Tween>
 );
@@ -77,7 +86,17 @@ const Main = () => {
   return (
     <>
       <SlideWarraper>
-        <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
+        <Swiper
+          cssMode={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={true}
+          navigation={true}
+          pagination={true}
+          mousewheel={true}
+          keyboard={true}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+          className="mySwiper"
+        >
           <SwiperSlide>
             <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
 

@@ -344,7 +344,6 @@ const RegisterCntr = () => {
     },
     count > -1 && phoneAuth ? 1000 : null
   );
-
   //useInterval 구조
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -365,6 +364,41 @@ const RegisterCntr = () => {
       }
     }, [delay]);
   }
+  //새로고침 및 창닫기시 실행
+  const preventClose = (e) => {
+    e.preventDefault();
+    e.returnValue = ""; //Chrome에서 동작하려면 returnValue 설정이 필요; 현재 deprecated된 속성,
+  };
+  //새로고침 및 창닫기시 실행
+  useEffect(() => {
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
+  //뒤로가기시 실행
+  const preventGoBack = () => {
+    if (
+      window.confirm(
+        "입력하신 모든 정보가 초기화됩니다. 그래도 진행하시겠습니까?"
+      )
+    ) {
+      navigate(-1);
+    }
+  };
+
+  //뒤로가기시 실행
+  useEffect(() => {
+    navigate("/auth/register");
+    window.addEventListener("popstate", preventGoBack);
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
+  }, []);
 
   return (
     <RegisterFormComp

@@ -205,41 +205,41 @@ exports.boardRemove = async (req, res) => {
 
 exports.boardLike = async (req, res) => {
   const { no, id } = req.body;
-  console.log(`no : ${no}  / id : ${id}`);
+  // console.log(`no : ${no}  / id : ${id}`);
   try {
     const originLike = await like.findOne({ where: { bno: no, id } });
     const originBoard = await board.findOne({ no });
-    console.log("originLike =========================================> :", originLike);
+    // console.log("originLike =========================================> :", originLike);
     if (!originLike) {
-      console.log("check Success1");
+      // console.log("check Success1");
       await like.create({ bno: no, id });
-      console.log("check Success2");
+      // console.log("check Success2");
       await board.update({ like: originBoard.like + 1 }, { where: { no } });
-      console.log("check Success3");
+      // console.log("check Success3");
     } else {
-      console.log("check Success1-1");
+      // console.log("check Success1-1");
       await like.destroy({ where: { bno: no, id } });
-      console.log("check Success2-1");
+      // console.log("check Success2-1");
       await board.update({ like: originBoard.like - 1 }, { where: { no } });
-      console.log("check Success3-1");
+      // console.log("check Success3-1");
     }
     const post = await board.findOne({ where: { no } });
-    console.log("like success?????????????????????????????????????????????????????????", post);
+    // console.log("like success?????????????????????????????????????????????????????????", post);
     res.json(post);
     // res.json({ checkLike: newCount }); //업데이트된 숫자
   } catch (error) {
-    console.log("error??????????????????????????????????????  : ", error);
+    // console.log("error??????????????????????????????????????  : ", error);
     res.status(400).json({ msg: error });
   }
 };
 
 exports.replyAdd = async (req, res) => {
-  console.log("commentAdd 들어왔나 ===> ", req.params);
+  // console.log("commentAdd 들어왔나 ===> ", req.params);
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;
-    console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
-    console.log(req.body, "commentAdd try....");
+    // console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    // console.log(req.body, "commentAdd try....");
 
     const commentAdd = await reply.create(
       {
@@ -267,7 +267,7 @@ exports.replyRead = async (req, res, next) => {
     const replys = await reply.findAll({
       where: { bno },
     });
-    console.log("replys", reply);
+    // console.log("replys", reply);
     return res.json(replys);
     // /board/105 get
   } catch (error) {
@@ -296,7 +296,7 @@ exports.replyModify = async (req, res, next) => {
 
 exports.replyRemove = async (req, res, next) => {
   const no = req.params.bno;
-  console.log("replyremovereq.body==>", no);
+  // console.log("replyremovereq.body==>", no);
   try {
     await reply.destroy({
       where: { no },
