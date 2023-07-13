@@ -1,11 +1,11 @@
 const ThemeComp = {
-  bgcolor: "#3CB371",
-  subcolor: "#C4D7B2",
-  lightcolor: "#E1ECC8",
+  bgcolor: "#99ccff",
+  subcolor: "#0055ff",
+  lightcolor: "#17bdff",
   smoke: "#F5F5F5",
   softblue: "#D6E4F2",
-  dark: "#809C7D",
-  green: "#13b35b",
+  dark: "#50bcdf",
+  green: "#0055ff",
 };
 
 export default ThemeComp;
