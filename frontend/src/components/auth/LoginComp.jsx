@@ -3,20 +3,32 @@ import Modal from "styled-react-modal";
 import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 const LoginPageContainer = styled.div`
   display: flex;
 `;
 
 const LoginLeftPic = styled.div`
-  width: 50%;
+  width: 45%;
   height: 100vh;
-  background: url("/assets/mainslide2.jpeg");
+  background: url("/assets/mainslide4.jpeg");
   background-position: center;
+  background-size: cover;
   object-fit: cover;
 `;
 
 const LoginWrapper = styled.div`
-  width: 50%;
+  width: 55%;
   height: 100vh;
   margin: 0 auto;
   text-align: center;
@@ -99,12 +111,14 @@ const LoginWrapper = styled.div`
 
 const LoginInput = styled.input`
   border: none;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
   padding-left: 10px;
   padding: 17px;
   border-radius: 40px;
   margin-left: 20px;
   width: 100%;
+  background: none;
+  border: 2px solid #fff;
 `;
 
 const ErrorText = styled.p`
@@ -129,7 +143,9 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
       <LoginLeftPic />
       <LoginWrapper>
         <Link to="/">
-          <div className="home">홈페이지 돌아가기 버튼</div>
+          <div className="home">
+            <FontAwesomeIcon icon={faHouse} size="2xl" />
+          </div>
         </Link>
 
         <h2 className="logo">TRIPPER MAKER</h2>
