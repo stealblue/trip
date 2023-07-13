@@ -23,6 +23,7 @@ import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
 import MainBoardComp from "../components/main/MainBoardComp";
 import WrapperComp from "../components/common/WrapperComp";
+import Swal from 'sweetalert2';
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -81,6 +82,14 @@ const FadeInLeft = ({ children }) => (
     {children}
   </Tween>
 );
+
+const onSearchArea = (e) => {
+  if (e.key === 'Enter') {
+    Swal.fire({
+      text: `${e.target.value}`
+    })
+  }
+}
 
 const Main = () => {
   return (
@@ -162,7 +171,7 @@ const Main = () => {
         </Swiper>
       </SlideWarraper>
       <WrapperComp>
-        <MainSearchComp />
+        <MainSearchComp onSearchArea={onSearchArea} />
         <MaincontentComp />
         <MaincontentComp />
         <MainBoardListContainer>
