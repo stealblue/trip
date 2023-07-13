@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faList } from "@fortawesome/free-solid-svg-icons";
+import { Outlet } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
 const AdminContainer = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   background: #33495e;
@@ -72,7 +74,11 @@ const AdminMainComp = () => {
           <AdminNav>
             <li>
               <Link to={"/admin/user"}>
-                <FontAwesomeIcon icon={faUser} className="icon" style={{ color: "white" }} />
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="icon"
+                  style={{ color: "white" }}
+                />
                 <span>회원관리</span>
               </Link>
             </li>
@@ -84,6 +90,7 @@ const AdminMainComp = () => {
             </li>
           </AdminNav>
         </AdminSideBar>
+        <Outlet />
       </AdminContainer>
     </>
   );

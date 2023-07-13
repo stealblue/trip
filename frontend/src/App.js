@@ -15,7 +15,7 @@ import ProfilePage from "./pages/auth/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
 import Roompage from "./pages/room/RoomPage";
 import SearchPwdPage from "./pages/auth/searchPwdPage";
-import AdminPage from "./pages/admin/AdminPage";
+import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import { useSelector } from "react-redux";
@@ -40,11 +40,11 @@ function App() {
           <Route path="/auth/login" element={ <LoginPage />} />
           <Route path="/auth/register" element={user ? <Navigate to="/"/> : <RegisterPage />} />
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
-          <Route path="/auth/:nick" element={<ProfilePage />} />
+          <Route path="/auth/profile/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />
           <Route path="/room" element={<Roompage />} />
         </Route>
-        <Route path="/admin" element={<AdminPage />}>
+        <Route element={<AdminLayoutCntr />}>
           <Route path="/admin/user" element={<AdminUserPage />} />
           <Route path="/admin/board" element={<AdminBoardPage />} />
         </Route>

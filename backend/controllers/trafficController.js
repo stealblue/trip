@@ -15,6 +15,7 @@ exports.listStations = async (req, res) => {
 };
 
 exports.detailStations = async (req, res) => {
+  console.log('detailStations !!!', req.params);
   const { cityCode } = req.params;
   try {
     const stations = await trainStation.findAll({

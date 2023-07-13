@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas, unloadPage } from "../../modules/area/AreaMod";
@@ -6,7 +6,7 @@ import ModalBasic from "../../components/common/ModalBasic";
 import Swal from 'sweetalert2';
 import { addWishList } from '../../modules/wishList/WishListMod'
 
-const AreaListCntr = ({ onClickTest }) => {
+const AreaListCntr = memo(({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
 
@@ -35,7 +35,6 @@ const AreaListCntr = ({ onClickTest }) => {
         const id = user.id;
         const contentid = e.target.dataset.contentid;
         const title = e.target.dataset.title;
-        console.log(`AreaListCntr =====> addWish : id = ${id} , contentid = ${contentid} , title=${title}`)
         if (result.isConfirmed) {
           dispatch(addWishList({ id, contentid, title }));
           Swal.fire({
@@ -97,6 +96,6 @@ const AreaListCntr = ({ onClickTest }) => {
 
     </>
   );
-};
+});
 
 export default AreaListCntr;

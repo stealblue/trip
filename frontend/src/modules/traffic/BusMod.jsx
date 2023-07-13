@@ -36,7 +36,7 @@ const initialState = {
   error: null
 };
 
-const busMod = handleActions(
+const BusMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
     [LIST_TERMINALS_SUCCESS]: (state, { payload: terminals }) =>
@@ -75,4 +75,4 @@ const busMod = handleActions(
   initialState
 );
 
-export default busMod;
+export default BusMod;

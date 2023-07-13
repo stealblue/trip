@@ -20,11 +20,13 @@ export const selectEnd = createAction(SELECT_END, (stationId) => (stationId));
 const listStationsSaga = createRequestSaga(LIST_STATIONS, trafficAPI.listStations);
 const startStationsSaga = createRequestSaga(START_STATIONS, trafficAPI.detailStations);
 const endStationsSaga = createRequestSaga(END_STATIONS, trafficAPI.detailStations);
+const selectStartSaga = createRequestSaga(SELECT_START);
 
-export function* busSaga() {
+export function* trainSaga() {
   yield takeLatest(LIST_STATIONS, listStationsSaga);
   yield takeLatest(START_STATIONS, startStationsSaga);
   yield takeLatest(END_STATIONS, endStationsSaga);
+  yield takeLatest(SELECT_START, selectStartSaga);
 }
 
 const initialState = {
@@ -36,7 +38,7 @@ const initialState = {
   error: null
 };
 
-const busMod = handleActions(
+const TrainMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
     [LIST_STATIONS_SUCCESS]: (state, { payload: stations }) =>
@@ -65,14 +67,14 @@ const busMod = handleActions(
       }),
     [SELECT_START]: (state, { payload: stationId }) =>
       produce(state, (draft) => {
-        draft.stationId = stationId;
+        draft.startStation = stationId;
       }),
     [SELECT_END]: (state, { payload: stationId }) =>
       produce(state, (draft) => {
-        draft.stationId = stationId;
+        draft.endStation = stationId;
       })
   },
   initialState
 );
 
-export default busMod;
+export default TrainMod;

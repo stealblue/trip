@@ -13,6 +13,9 @@ import ReplyWriteMod, { replySaga } from "./board/ReplyWriteMod";
 import ReplyReadMod, { replyReadSaga } from "./board/ReplyReadMod";
 import LodgingMod, { lodgingSaga } from "./room/LodgingMod";
 import WishListMod, { wishListSaga } from "./wishList/WishListMod";
+import BusMod, { busSaga } from "./traffic/BusMod";
+import TrainMod, { trainSaga } from "./traffic/TrainMod";
+import adminUserMod, { adminUserSaga } from "./admin/adminUserMod";
 
 const rootReducer = combineReducers({
   LoginMod,
@@ -28,10 +31,14 @@ const rootReducer = combineReducers({
   ReplyReadMod,
   LodgingMod,
   WishListMod,
+  BusMod,
+  TrainMod,
+  adminUserMod,
 });
 
 export function* rootSaga() {
   yield all([
+    adminUserSaga(),
     writeSaga(),
     loginSaga(),
     registerSaga(),
@@ -45,6 +52,8 @@ export function* rootSaga() {
     replyReadSaga(),
     lodgingSaga(),
     wishListSaga(),
+    busSaga(),
+    trainSaga(),
   ]);
 }
 
