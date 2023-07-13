@@ -19,7 +19,6 @@ import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import SearchPwdPage from "./pages/auth/searchPwdPage";
 
-
 function App() {
   return (
     <>
@@ -33,12 +32,14 @@ function App() {
           <Route path="/area" element={<AreaListPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/read/:readNo" element={<ReadPage />} />
-          <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           <Route path="/auth/:nick" element={<ProfilePage />} />
           <Route path="/traffic" element={<TrafficListPage />} />
           <Route path="/room" element={<Roompage />} />
+        </Route>
+        <Route>
+          <Route path="/auth/login" element={<LoginPage />} />
         </Route>
         <Route path="/admin" element={<AdminPage />}>
           <Route path="/admin/user" element={<AdminUserPage />} />
