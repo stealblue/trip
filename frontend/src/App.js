@@ -18,11 +18,8 @@ import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
-<<<<<<< HEAD
-import SearchPwdPage from "./pages/auth/searchPwdPage";
-=======
+
 import { useSelector } from "react-redux";
->>>>>>> 0d1a1317b532c79b848b19f92779d834c0cdc7bc
 
 function App() {
   const { user } = useSelector(({ UserMod }) => ({
