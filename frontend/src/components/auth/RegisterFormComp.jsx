@@ -64,7 +64,7 @@ const RegisterInput = styled.input`
   border-bottom: 1px solid black;
   height: 27px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 7px 10px;
   /* border-radius: 30px; */
   margin: 2px 10px;
   border: 2px solid #fff;
@@ -77,9 +77,9 @@ const SubIdInput = styled.input`
   border-bottom: 1px solid black;
   height: 27px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 7px 10px;
   /* border-radius: 30px; */
-  margin-right: 10px;
+  /* margin-right: 10px; */
   border: 2px solid #fff;
   background: none;
   color: #fff;
@@ -96,6 +96,7 @@ const SelectDomain = styled.select`
   border: none;
   border-bottom: 1px solid black;
   padding: 10px 20px;
+  margin-left: 10px;
 `;
 
 const NameTag = styled.div`
