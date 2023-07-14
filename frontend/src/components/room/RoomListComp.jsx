@@ -1,19 +1,52 @@
-import React from 'react';
-import styled from 'styled-components';
-import PageNavComp2 from '../common/PageNavComp2';
+import React from "react";
+import styled from "styled-components";
+import PageNavComp2 from "../common/PageNavComp2";
 
-const AreaItemBlock = styled.div`img{width: 100px;height: 100px;}`;
+const AreaItemBlock = styled.div`
+  /* background: #3ff; */
+  margin-top: 20px;
+  border-radius: 20px;
+  /* border: 1px solid #333; */
+  margin-top: 100px;
+  img {
+    width: 420px;
+    height: 340px;
+    border-radius: 20px;
+  }
+  .title {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .addr {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+`;
+
+const RoomList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 85%;
+  margin: 0 auto;
+  margin-top: 50px;
+`;
 
 const AreaItem = ({ area, itemKey, onClick }) => {
   // console.log('area : ', area);
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
-      <p><img src={area.firstimage !== "" ? area.firstimage : area.firstimge2} alt="이미지없음" /></p>
-      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>{area.title} / {area.addr1}</p>
-      <hr />
+      <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/noImage.png"} alt="이미지없음" loading="lazy" />
+
+      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
+        <p className="title">{area.title}</p>
+        <p className="addr">{area.addr1}</p>
+      </p>
     </AreaItemBlock>
   );
-}
+};
 
 const RoomListComp = ({ areas, error, onClick, onClickTest }) => {
   const result = areas.response.body;
@@ -22,14 +55,8 @@ const RoomListComp = ({ areas, error, onClick, onClickTest }) => {
 
   return (
     <div>
-      {areas && target && target.map((area) => (
-        <AreaItem area={area} onClick={onClick} itemKey={area.contentid} />
-      ))}
-      <PageNavComp2
-        pageNo={result.pageNo}
-        totalCount={result.totalCount}
-        numOfRows={result.numOfRows}
-      />
+      <RoomList>{areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} />)}</RoomList>
+      <PageNavComp2 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} />
     </div>
   );
 };
