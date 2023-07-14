@@ -1,12 +1,14 @@
 const express = require("express");
-const { listStations, detailStations, listTerminals, detailTerminals } = require("../controllers/trafficController");
+const { listStations, detailStations, listTerminals, detailTerminals, listTrains } = require("../controllers/trafficController");
 
 const app = express();
 const traffic = express.Router();
 
-traffic.get("/train", listStations);
+traffic.get("/train/info", listStations);
 
-traffic.get("/train/:cityCode", detailStations);
+traffic.get("/train/info/:cityCode", detailStations);
+
+traffic.get("/train/result", listTrains);
 
 traffic.get("/bus", listTerminals);
 
