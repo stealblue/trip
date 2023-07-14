@@ -1,9 +1,9 @@
-import React from 'react';
+import TrafficListComp from '../../components/traffic/TrafficListComp'
 
 const TrafficListCntr = () => {
   return (
     <div>
-
+      <TrafficListComp />
     </div>
   );
 };
