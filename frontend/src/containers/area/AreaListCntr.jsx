@@ -1,5 +1,6 @@
 import React, { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas, unloadPage } from "../../modules/area/AreaMod";
 import ModalBasic from "../../components/common/ModalBasic";
@@ -11,6 +12,7 @@ const AreaListCntr = memo(({ onClickTest }) => {
   const [mapData, setMapData] = useState({});
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 모달창 노출
   const onClick = (e) => {
@@ -26,9 +28,8 @@ const AreaListCntr = memo(({ onClickTest }) => {
   };
 
   const addWish = (e) => {
-    Swal.fire({ // Swal.fire() ==> modal
-      // text: `${e.target.dataset.contentid}입니다.`,
-      text: '추가할까예',
+    Swal.fire({
+      text: '추가할까요?',
       showCancelButton: true,
       cancelButtonText: 'Cancel',
       confirmButtonText: 'Add'
@@ -41,10 +42,18 @@ const AreaListCntr = memo(({ onClickTest }) => {
           dispatch(addWishList({ id, contentid, title }));
           Swal.fire({
             icon: 'success',
-            text: `추가완료, ${e.target.dataset.contentid}`,
+            text: `추가했습니다., ${e.target.dataset.contentid}`,
+            // confirmButtonText: "찜목록"
+
           })
         }
       })
+      // .then(result => {
+      //   const nick = user?.nick;
+      //   if (result.isConfirmed && nick) {
+      //     navigate(`/auth/${nick}`);
+      //   }
+      // })
       .catch(error => {
         Swal.fire({
           icon: 'error',

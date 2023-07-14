@@ -3,6 +3,7 @@ import Modal from "styled-react-modal";
 import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
@@ -106,6 +107,7 @@ const LoginWrapper = styled.div`
 
   .find:hover {
     opacity: 0.8;
+
   }
 `;
 
@@ -197,15 +199,31 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
           <form onSubmit={onSubmit}>
             <div className="input">
               <div className="label">이메일</div>
+
               <LoginInput placeholder="E-MAIL" name="id" type="text" onChange={onChange} />
-            </div>
+            </div >
             <div className="input">
               <div className="label">비밀번호</div>
               <LoginInput placeholder="비밀번호" name="pwd" type="password" onChange={onChange} />
+              <LoginInput
+                placeholder="E-MAIL"
+                name="id"
+                type="text"
+                onChange={onChange}
+              />
+            </div>
+            <div className="input">
+              <div className="label">비밀번호</div>
+              <LoginInput
+                placeholder="비밀번호"
+                name="pwd"
+                type="password"
+                onChange={onChange}
+              />
             </div>
             {error && <ErrorText>{error}</ErrorText>}
             <button className="login-btn">LOGIN</button>
-          </form>
+          </form >
           <span onClick={changeInform} name="id" className="find">
             ID 찾기
           </span>
@@ -257,9 +275,9 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
               </div>
             )}
           </StyledModal>
-        </LoginWrapper>
-      </LoginPageContainer>
-    </motion.div>
+        </LoginWrapper >
+      </LoginPageContainer >
+    </motion.div >
   );
 };
 

@@ -1,50 +1,42 @@
 import React from 'react';
-import { styled } from 'styled-components';
-
-const TrafficListBlock = styled.div`
-display: flex;
-/* :first-child{
-  display: flex;
-  background-color: steelblue;
-}
-:last-child{
-  background-color: red;
-} */
-`;
 
 const StartItem = ({ station, onClick }) => {
-  // console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="start">{station.cityName}</li>;
 }
 
 const StartDetailItem = ({ station, onClick2 }) => {
-  // console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="start">{station.stationName}</li>;
 }
 const EndItem = ({ station, onClick }) => {
-  // console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="end">{station.cityName}</li>;
 }
 const EndDetailItem = ({ station, onClick2 }) => {
-  // console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="end">{station.stationName}</li>;
 }
 
 
-const TrafficListComp = ({ stations, terminals, onClick, stationStartDetails, onClick2, stationEndDetails }) => {
+
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate }) => {
   console.log('stations : ', stations);
   return (
-    <TrafficListBlock>
+    <div>
+      <div>
+        <button onClick={onClickCategory} value="train">기차</button>
+        <button onClick={onClickCategory} value="bus">시외버스</button>
+        <input type='date' onChange={onChangeDate} />
+        <select>
+          <option>종류</option>
+        </select>
+      </div>
       <div>
         <p>출발지</p>
         <ul>
-          {stations && stations.map((station) => (
-            <StartItem station={station} key={station.cityCode} onClick={onClick} className="test" />
-          ))}
+          {stations && stations.map((station) => (<StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />))}
+          {terminals && terminals.map((station) => (<StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />))}
         </ul>
         <ul>
           {stationStartDetails && stationStartDetails.map((station) => (
-            <StartDetailItem station={station} onClick2={onClick2} />
+            <StartDetailItem station={station} onClick={onClickPlace} />
           ))}
         </ul>
       </div>
@@ -52,20 +44,18 @@ const TrafficListComp = ({ stations, terminals, onClick, stationStartDetails, on
         <p>도착지</p>
         <ul>
           {stations && stations.map((station) => (
-            <EndItem station={station} key={station.cityCode} onClick={onClick} className="test" />
+            <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />
           ))}
         </ul>
         <ul>
           {stationEndDetails && stationEndDetails.map((station) => (
-            <EndDetailItem station={station} onClick2={onClick2} />
+            <EndDetailItem station={station} onClickCategory={onClickCategory} />
           ))}
         </ul>
       </div>
       <div>
-
       </div>
-    </TrafficListBlock>
+    </div>
   );
 };
-
-export default TrafficListComp;
+export default TrafficSelectComp;

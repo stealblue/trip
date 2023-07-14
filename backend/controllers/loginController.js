@@ -121,7 +121,7 @@ exports.searchPwd = async (req, res) => {
       from: EMAIL, //발신자
       to: receiverEmail, //수신자
       subject: "[Tripper Maker]비밀번호 변경 메일",
-      html: `<a href="http://localhost:3000/auth/SearchPwd/${encryptedEmail}>해당 링크를 클릭하여 비밀번호를 변경하세요.</a>`,
+      html: `http://localhost:3000/auth/SearchPwd/${encryptedEmail} 해당 링크를 클릭하여 비밀번호를 변경하세요.`,
     };
 
     transport.sendMail(mailOptions, (error, info) => {
