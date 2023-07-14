@@ -13,20 +13,20 @@ display: flex;
 `;
 
 const StartItem = ({ station, onClick }) => {
-  console.log('StationItem ===> station : ', station);
+  // console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="start">{station.cityName}</li>;
 }
 
 const StartDetailItem = ({ station, onClick2 }) => {
-  console.log('detailItem ===> station : ', station);
+  // console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="start">{station.stationName}</li>;
 }
 const EndItem = ({ station, onClick }) => {
-  console.log('StationItem ===> station : ', station);
+  // console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="end">{station.cityName}</li>;
 }
 const EndDetailItem = ({ station, onClick2 }) => {
-  console.log('detailItem ===> station : ', station);
+  // console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="end">{station.stationName}</li>;
 }
 
