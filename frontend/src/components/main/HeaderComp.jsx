@@ -14,6 +14,14 @@ const HeaderContainer = styled.div`
   padding: 20px;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: 0.8s;
+  &.original_header {
+    background: none;
+  }
+
+  &.change_header {
+    background: #fff;
+  }
 `;
 
 const Logo = styled.div`
@@ -54,9 +62,16 @@ const Button = styled.button`
 `;
 
 const HeaderComp = ({ nick, onLogout }) => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+  });
   return (
     <>
-      <HeaderContainer>
+      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo>
           <Link to="/">
             TRIPPER

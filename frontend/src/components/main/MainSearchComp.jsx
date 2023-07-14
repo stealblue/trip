@@ -27,12 +27,13 @@ const SearchForm = styled.div`
   }
 `;
 
-const MainSearchComp = () => {
+const MainSearchComp = ({ onSearchArea }) => {
   return (
     <Responsive>
       <SearchForm>
         <span>검색</span>
-        <input placeholder="장소,지역,테마 등을 입력하세요" />
+        <input placeholder="장소,지역,테마 등을 입력하세요" onKeyUp={onSearchArea} />
+        {/* <input placeholder="장소,지역,테마 등을 입력하세요" onKeyDown={window.event.key === 'Enter' ? onSearchArea : null} /> */}
         <div className="search-keyword">
           <KeywordComp />
           <KeywordComp />

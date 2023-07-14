@@ -15,9 +15,6 @@ const BoardListContainer = () => {
     user: UserMod.user,
   }));
 
-  console.log("BoardListcon-->", posts);
-  console.log("BoardListconuser-->", user);
-
   useEffect(() => {
     const page = parseInt(searchParams.get("page"), 10) || 1;
     dispatch(listPosts({ page }));
@@ -26,7 +23,6 @@ const BoardListContainer = () => {
   return (
     <>
       <BoardListComp posts={posts} error={error} showWriteButton={user} />
-      <MainBoardComp posts={posts} error={error} showWriteButton={user} />
     </>
   );
 };

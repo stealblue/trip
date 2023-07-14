@@ -48,7 +48,7 @@ const LoginCntr = () => {
   };
 
   const changeInform = (e) => {
-    const { name } = e.target;
+    const name = e.target.getAttribute("name"); //e.target.name 으로 접근 안됨.
     setSearchName(name);
     switchModal();
   };
