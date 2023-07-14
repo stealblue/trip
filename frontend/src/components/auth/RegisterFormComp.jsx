@@ -23,7 +23,7 @@ const StyledModal = Modal.styled`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  color: ${ThemeComp.red}
+  color: ${ThemeComp.red};
   margin-left: 400px;
   background: none;
   text-align: center;

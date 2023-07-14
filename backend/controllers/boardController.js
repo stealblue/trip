@@ -238,7 +238,7 @@ exports.replyAdd = async (req, res) => {
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;
-    // console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    console.log(`no: ${no} / bno : ${bno} / id : ${id} / content : ${content}`);
     // console.log(req.body, "commentAdd try....");
 
     const commentAdd = await reply.create(

@@ -56,6 +56,7 @@ const ThemeListItem = styled.button`
   border: none;
   &:hover {
     background: ${ThemeComp.subcolor};
+    color: ${ThemeComp.white};
   }
 `;
 
@@ -88,6 +89,7 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes }) => {
           {areas.map((area) => (
             <SelectArea area={area} key={area.code} onClick={onClickArea} />
           ))}
+          AreaName
         </div>
 
         <ListContainer>

@@ -9,8 +9,8 @@ const AreaItemBlock = styled.div`
   /* border: 1px solid #333; */
   margin-top: 100px;
   img {
-    width: 420px;
-    height: 340px;
+    width: 400px;
+    height: 360px;
     border-radius: 20px;
   }
   .title {
@@ -29,7 +29,7 @@ const RoomList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   margin-top: 50px;
 `;

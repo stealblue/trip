@@ -38,7 +38,7 @@ const AreaItemBlock = styled.div`
     }
 
     .add-btn {
-      padding: 7px 9px;
+      padding: 7px 9px;ight
       background: ${ThemeComp.lightblack};
       width: 50px;
       text-align: center;
@@ -46,6 +46,12 @@ const AreaItemBlock = styled.div`
       color: ${ThemeComp.white};
       border-radius: 15px;
       margin-left: 320px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: ${ThemeComp.subcolor};
+      }
     }
   }
 `;
