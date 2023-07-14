@@ -6,9 +6,9 @@ import { takeLatest } from "redux-saga/effects";
 import * as adminAPI from "../../lib/api/admin";
 
 const [GET_USER_LIST, GET_USER_LIST_SUCCESS, GET_USER_LIST_FAILURE] =
-  createRequestActionTypes("admin/GET_USERLIST");
+  createRequestActionTypes("admin/GET_USER_LIST");
 const [GET_USER_DETAIL, GET_USER_DETAIL_SUCCESS, GET_USER_DETAIL_FAILURE] =
-  createRequestActionTypes("admin/GET_DETAIL");
+  createRequestActionTypes("admin/GET_USER_DETAIL");
 const [DELETE_USER, DELETE_USER_SUCCESS, DELETE_USER_FAILURE] =
   createRequestActionTypes("admin/DELETE_USER");
 

@@ -22,12 +22,12 @@ const Board = styled.div`
   border-radius: 20px;
 `;
 
-const UserInfoContainer = styled.div`
+const BoardInfoContainer = styled.div`
   display: flex;
   background: green;
 `;
 
-const UserInfo = styled.div`
+const BoardInfo = styled.div`
   display: flex;
   align-items: center;
   background: gray;
@@ -60,8 +60,62 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminBoardComp = () => {
-  return <div>AdminBoardComp</div>;
+const AdminBoardComp = ({
+  getBoardInform,
+  deleteBoardInform,
+  boardList,
+  totalBoard,
+  board,
+  modal,
+  switchModal,
+}) => {
+  return (
+    <div>
+      <BoardContainer>
+        <BoardName>아이콘 / 게시물 </BoardName>
+        <AdminUserGraph totalItem={totalBoard} type={"board"} />
+      </BoardContainer>
+
+      <BoardContainer>
+        <BoardName>아이콘 / 게시물 / 총 게시물 수({totalBoard})개</BoardName>
+        <Board>
+          {boardList?.map((board) => (
+            <BoardInfoContainer key={board.no}>
+              <BoardInfo id={board.no} onClick={getBoardInform}>
+                <Detail>게시물 번호 : {board.no}</Detail>
+                <Detail>작성자 : {board.id}</Detail>
+                <Detail>제목 : {board.title}</Detail>
+                <Detail>좋아요 : {board.like}</Detail>
+                <Detail>조회수 : {board.cnt}</Detail>
+                <Detail>작성일 : {board.createAt}</Detail>
+              </BoardInfo>
+              <ControlButton onClick={() => deleteBoardInform(board.no)}>
+                삭제
+              </ControlButton>
+            </BoardInfoContainer>
+          ))}
+          {modal && board && (
+            <StyledModal
+              isOpen={modal} //true = 열림 / false = 닫힘
+              ariahideapp={"false"} //없으면 에러 뜸
+              onEscapeKeydown={switchModal} //esc키 눌렀을경우 함수 실행
+              onBackgroundClick={switchModal} //esc키 or 오버레이부분 클릭시 함수 실행
+            >
+              <div>게시물 번호 : {board.no}</div>
+              <div>작성자 : {board.id}</div>
+              <div>제목 : {board.title}</div>
+              <div>사진 : {board.img}</div>
+              <div>내용 : {board.content}</div>
+              <div>좋아요 : {board.like}</div>
+              <div>조회수 : {board.cnt}</div>
+              <div>작성일 : {board.createAt}</div>
+              <ControlButton onClick={switchModal}>닫기</ControlButton>
+            </StyledModal>
+          )}
+        </Board>
+      </BoardContainer>
+    </div>
+  );
 };
 
 export default AdminBoardComp;

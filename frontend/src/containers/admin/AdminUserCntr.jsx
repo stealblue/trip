@@ -24,7 +24,7 @@ const AdminUserCnrt = () => {
   };
 
   const getUserInform = (e) => {
-    const { id } = e.currentTarget; //자식 요소를 클릭할 경우 이벤트가 제대로 발생하지 않음. e.target과 차이가 있음.
+    const { id } = e.currentTarget; //target을 보면, 자식 요소를 클릭할 경우 이벤트가 제대로 발생하지 않음. e.target과 차이가 있음.
     dispatch(getUserDetail({ id }));
     switchModal();
   };

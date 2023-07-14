@@ -17,7 +17,7 @@ export const getBoardList = async () => {
 }
 
 export const getBoardDetail = async ({ no }) => {
-  return await client.post("/admin/user/getBoardDetail", {no});
+  return await client.post("/admin/board/getBoardDetail", {no});
 }
 
 export const deleteBoard = async ({ no }) => {

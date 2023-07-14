@@ -41,6 +41,7 @@ const rootReducer = combineReducers({
 export function* rootSaga() {
   yield all([
     adminUserSaga(),
+    adminBoardSaga(),
     writeSaga(),
     loginSaga(),
     registerSaga(),

@@ -66,9 +66,11 @@ const AdminMainComp = () => {
       <AdminContainer>
         <AdminSideBar>
           <div className="logo">
-            TRIPPER
-            <br />
-            MAKER
+            <Link to={"/"}>
+              TRIPPER
+              <br />
+              MAKER
+            </Link>
             <p>admin</p>
           </div>
           <AdminNav>

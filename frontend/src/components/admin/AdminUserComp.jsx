@@ -73,7 +73,7 @@ const AdminUserComp = ({
     <div>
       <BoardContainer>
         <BoardName>아이콘 / 가입자수</BoardName>
-        <AdminUserGraph totalUser={totalUser} />
+        <AdminUserGraph totalItem={totalUser} type={"user"} />
       </BoardContainer>
 
       <BoardContainer>

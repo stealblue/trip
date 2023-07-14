@@ -6,11 +6,11 @@ import { takeLatest } from "redux-saga/effects";
 import * as adminAPI from "../../lib/api/admin";
 
 const [GET_BOARD_LIST, GET_BOARD_LIST_SUCCESS, GET_BOARD_LIST_FAILURE] =
-  createRequestActionTypes("admin/GET_USERLIST");
+  createRequestActionTypes("admin/GET_BOARD_LIST");
 const [GET_BOARD_DETAIL, GET_BOARD_DETAIL_SUCCESS, GET_BOARD_DETAIL_FAILURE] =
-  createRequestActionTypes("admin/GET_DETAIL");
+  createRequestActionTypes("admin/GET_BOARD_DETAIL");
 const [DELETE_BOARD, DELETE_BOARD_SUCCESS, DELETE_BOARD_FAILURE] =
-  createRequestActionTypes("admin/DELETE_USER");
+  createRequestActionTypes("admin/DELETE_BOARD");
 
 export const getBoardList = createAction(GET_BOARD_LIST);
 export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({
@@ -57,11 +57,11 @@ const AdminBoardMod = handleActions(
       totalBoard,
       boardError: null,
     }),
-    [GET_BOARD_LIST_FAILURE]: (state, { payload: { boardError } }) => ({
+    [GET_BOARD_LIST_FAILURE]: (state, { payload: { listError } }) => ({
       ...state,
       boardList: null,
       totalBoard: null,
-      boardError,
+      listError,
     }),
     [GET_BOARD_DETAIL_SUCCESS]: (state, { payload: { board } }) => ({
       ...state,
