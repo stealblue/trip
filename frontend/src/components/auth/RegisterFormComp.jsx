@@ -122,7 +122,8 @@ const RegisterInput = styled.input`
   border-radius: 10px;
   border: 2px solid #999;
   background: none;
-  color: #fff;
+  /* color: #fff; */
+  color:black;
   margin-right: 5px;
   width: 200px;
 `;
@@ -165,7 +166,7 @@ const NameTag = styled.span`
   width: 100px;
   text-align: left;
   display: inline-block;
-  color: #777
+  color: #777;
   font-weight: 600;
   margin-left: 10px;
   /* background:#333; */
@@ -174,7 +175,8 @@ const NameTag = styled.span`
 const ConfirmMessage = styled.div`
   /* background: skyblue; */
   font-size: 15px;
-  height: 20px;상세주소
+  height: 20px;
+  /* 상세주소 */
   ${(props) =>
     props.authok &&
     css`

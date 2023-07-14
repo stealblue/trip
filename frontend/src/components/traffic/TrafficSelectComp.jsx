@@ -3,30 +3,19 @@ import { styled } from 'styled-components';
 
 const TrafficListBlock = styled.div`
 display: flex;
-/* :first-child{
-  display: flex;
-  background-color: steelblue;
-}
-:last-child{
-  background-color: red;
-} */
 `;
 
 const StartItem = ({ station, onClick }) => {
-  console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="start">{station.cityName}</li>;
 }
 
 const StartDetailItem = ({ station, onClick2 }) => {
-  console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="start">{station.stationName}</li>;
 }
 const EndItem = ({ station, onClick }) => {
-  console.log('StationItem ===> station : ', station);
   return <li value={station.cityCode} onClick={onClick} data-type="end">{station.cityName}</li>;
 }
 const EndDetailItem = ({ station, onClick2 }) => {
-  console.log('detailItem ===> station : ', station);
   return <li data-value={station.stationId} onClick={onClick2} data-type="end">{station.stationName}</li>;
 }
 
@@ -62,7 +51,6 @@ const TrafficListComp = ({ stations, terminals, onClick, stationStartDetails, on
         </ul>
       </div>
       <div>
-
       </div>
     </TrafficListBlock>
   );
