@@ -13,16 +13,14 @@ import AreaListPage from "./pages/area/AreaListPage";
 import RoomCreatePage from "./pages/chat/RoomCreatePage";
 import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
-import ProfilePage from "./pages/auth/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
 import Roompage from "./pages/room/RoomPage";
 import SearchPwdPage from "./pages/auth/searchPwdPage";
-import AdminPage from "./pages/admin/AdminPage";
+import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
-
 import { useSelector } from "react-redux";
-
 import { AnimatePresence } from "framer-motion";
 
 function App() {
@@ -47,23 +45,20 @@ function App() {
             <Route path="/board/write" element={<WritePage />} />
             <Route path="/board/read/:readNo" element={<ReadPage />} />
             <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
-            <Route path="/auth/:nick" element={<ProfilePage />} />
+            <Route path="/profile/:id" element={user ? <ProfilePage /> : <Navigate to="/" />} />
             <Route path="/traffic" element={<TrafficListPage />} />
             <Route path="/room" element={<Roompage />} />
           </Route>
-
           <Route>
             <Route path="/auth/login" element={<LoginPage />} />
-            <Route path="/auth/register" element={<RegisterPage />} />
+            <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
           </Route>
-
-          <Route path="/admin" element={<AdminPage />}>
+          <Route element={<AdminLayoutCntr />}>
             <Route path="/admin/user" element={<AdminUserPage />} />
             <Route path="/admin/board" element={<AdminBoardPage />} />
           </Route>
         </Routes>
       </AnimatePresence>
-
     </>
   );
 }
