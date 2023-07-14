@@ -15,6 +15,7 @@ const EndDetailItem = ({ station, onClick2 }) => {
 }
 
 
+
 const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate }) => {
   console.log('stations : ', stations);
   return (
@@ -57,5 +58,4 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
     </div>
   );
 };
-
 export default TrafficSelectComp;

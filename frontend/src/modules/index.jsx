@@ -15,6 +15,9 @@ import LodgingMod, { lodgingSaga } from "./room/LodgingMod";
 import WishListMod, { wishListSaga } from "./wishList/WishListMod";
 import BusMod, { busSaga } from "./traffic/BusMod";
 import TrainMod, { trainSaga } from "./traffic/TrainMod";
+import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
+import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
+
 
 const rootReducer = combineReducers({
   LoginMod,
@@ -31,11 +34,15 @@ const rootReducer = combineReducers({
   LodgingMod,
   WishListMod,
   BusMod,
-  TrainMod
+  TrainMod,
+  AdminUserMod,
+  AdminBoardMod,
 });
 
 export function* rootSaga() {
   yield all([
+    adminUserSaga(),
+    adminBoardSaga(),
     writeSaga(),
     loginSaga(),
     registerSaga(),
@@ -50,7 +57,7 @@ export function* rootSaga() {
     lodgingSaga(),
     wishListSaga(),
     busSaga(),
-    trainSaga()
+    trainSaga(),
   ]);
 }
 
