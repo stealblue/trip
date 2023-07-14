@@ -128,15 +128,11 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
         {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
-        {showWriteButton && (
-          <WriteButton to={"/board/write"}>글쓰기</WriteButton>
-        )}
+        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
         {posts.slice(offset, offset + limit).map((post, index) => (
           <BoardListItem key={post.no} post={post} />
         ))}
-        {showWriteButton && (
-          <WriteButton to={"/board/write"}>글쓰기</WriteButton>
-        )}
+        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
       </WrapperComp>
       <footer>
         <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />

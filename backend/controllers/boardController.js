@@ -94,7 +94,9 @@ const sanitizeOption = {
 exports.boardListPage = async (req, res, next) => {
   console.log("boardLitpage들어옴");
   try {
-    const boards = await board.findAll();
+    const boards = await board.findAll({
+      include: {},
+    });
     // console.log(boards);
     return res.json(boards);
     // /board/105 get
