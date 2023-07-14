@@ -20,7 +20,7 @@ const RoomSelectCntr = () => {
     const page = 1;
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));
-    dispatch(showContentTypeId(12));
+    dispatch(showContentTypeId(32));
   };
 
   return <RoomSelectComp onClickArea={onClickArea} areas={areas} />;
