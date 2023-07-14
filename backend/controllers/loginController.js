@@ -160,8 +160,3 @@ exports.updatePwd = async (req, res) => {
     return res.status(401).json("비밀번호 변경 실패 오류");
   }
 };
-
-exports.profile = async (req, res) => {
-  const { id } = req.params;
-  return res.status(200).json({ id });
-};

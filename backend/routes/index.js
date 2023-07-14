@@ -7,6 +7,7 @@ const area = require('./areaRouter');
 const wishList = require('./wishListRouter');
 const traffic = require('./trafficRouter');
 const admin = require("./adminRouter");
+const profile = require("./profileRouter");
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -16,6 +17,7 @@ router.use("/admin", admin);
 router.use("/chat", chat);
 router.use("/room", room);
 router.use('/area', area);
+router.use('/profile', profile);
 router.use('/wishList', wishList);
 router.use('/traffic', traffic);
 
