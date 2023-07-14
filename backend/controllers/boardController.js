@@ -94,9 +94,7 @@ const sanitizeOption = {
 exports.boardListPage = async (req, res, next) => {
   console.log("boardLitpage들어옴");
   try {
-    const boards = await board.findAll({
-      include: {},
-    });
+    const boards = await board.findAll();
     // console.log(boards);
     return res.json(boards);
     // /board/105 get
@@ -240,7 +238,7 @@ exports.replyAdd = async (req, res) => {
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;
-    // console.log(`no: ${no} / bno : ${bno} id : ${id} / content : ${content}`);
+    console.log(`no: ${no} / bno : ${bno} / id : ${id} / content : ${content}`);
     // console.log(req.body, "commentAdd try....");
 
     const commentAdd = await reply.create(
