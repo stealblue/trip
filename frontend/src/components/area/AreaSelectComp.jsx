@@ -17,7 +17,7 @@ const MapContainer = styled.div`
 `;
 
 const ListContainer = styled.div`
-  width: 40%;
+  width: 700px;
   height: 100vh;
   position: absolute;
   top: 0;

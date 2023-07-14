@@ -1,20 +1,20 @@
-import React from 'react';
-import { styled } from 'styled-components';
-import RoomListCntr from '../../containers/room/RoomListCntr';
-import RoomSelectCntr from '../../containers/room/RoomSelectCntr';
+import React from "react";
+import { styled } from "styled-components";
+import RoomListCntr from "../../containers/room/RoomListCntr";
+import RoomSelectCntr from "../../containers/room/RoomSelectCntr";
 
 const RoomPageBlock = styled.div`
   background-color: pink;
   display: flex;
   color: whitesmoke;
-  .left{
+  .left {
     background-color: green;
   }
-  .right{
-    :first-child{
+  .right {
+    :first-child {
       background-color: darkorange;
     }
-    :nth-child(2){
+    :nth-child(2) {
       background-color: steelblue;
     }
   }
@@ -22,10 +22,11 @@ const RoomPageBlock = styled.div`
 
 const Roompage = () => {
   return (
-    <RoomPageBlock>
-      <RoomSelectCntr className='left' />
-      <RoomListCntr className='right' />
-    </RoomPageBlock >
+    <>
+      <RoomPageBlock />
+      <RoomSelectCntr className="left" />
+      <RoomListCntr className="right" />
+    </>
   );
 };
 

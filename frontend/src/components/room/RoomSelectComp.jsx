@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
 
 const SelectArea = ({ onClick, area }) => {
   // console.log('selectItem : ', area);
   return (
     <>
-      <button onClick={onClick} value={area.code}>{area.name}</button>
+      <button onClick={onClick} value={area.code}>
+        {area.name}
+      </button>
     </>
   );
-}
-
-
+};
 
 const AreaSelectComp = ({ onClickArea, areas }) => {
   // console.log('codes : ', areas);
