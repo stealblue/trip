@@ -27,6 +27,7 @@ const UserInform = styled.div`
 
 const Inform = styled.div`
   background: green;
+  margin: 5px;
 `;
 
 const NameTag = styled.div`
@@ -42,9 +43,18 @@ const Button = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
+`;
+
+const SelectButton = styled.button`
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 5px;
+  margin: 5px;
 
   &:focus {
-    background: purple;
+    background: orange;
   }
 `;
 
@@ -72,6 +82,7 @@ const SchedulerBox = styled.div`
 `;
 
 const Item = styled.div`
+  display: flex;
   background: none;
   border-bottom: 1px solid black;
 `;
@@ -81,42 +92,48 @@ const ProfileComp = ({
   modal,
   boardType,
   boardList,
+  totalBoard,
   replyList,
+  likeList,
   wishList,
-  schedulerList,
   changePhoto,
   onModify,
   onWithdraw,
-  getBoardList,
-  getReplyList,
-  getWishList,
-  getScheduler,
+  onDelete,
+  onGetBoardList,
+  onGetReplyList,
+  onGetLikeList,
+  onGetWishList,
 }) => {
   return (
     <>
       <ProfileBlock>
         <ImageBox onClick={changePhoto} />
         <UserInformBox>
-          <UserInform>
-            <NameTag>아이디</NameTag>
-            <Inform>jaeho714@1234.1234</Inform>
-          </UserInform>
-          <UserInform>
-            <NameTag>닉네임</NameTag>
-            <Inform>ddddd</Inform>
-          </UserInform>
-          <UserInform>
-            <NameTag>전화번호</NameTag>
-            <Inform>010-1234-1234</Inform>
-          </UserInform>
-          <UserInform>
-            <NameTag>주소</NameTag>
-            <Inform>서울특별시 관악산로 12길 33번지</Inform>
-          </UserInform>
-          <UserInform>
-            <NameTag>성별</NameTag>
-            <Inform>남자</Inform>
-          </UserInform>
+          {user && (
+            <>
+              <UserInform>
+                <NameTag>아이디</NameTag>
+                <Inform>{user.id}</Inform>
+              </UserInform>
+              <UserInform>
+                <NameTag>닉네임</NameTag>
+                <Inform>{user.nick}</Inform>
+              </UserInform>
+              <UserInform>
+                <NameTag>전화번호</NameTag>
+                <Inform>{user.phone}</Inform>
+              </UserInform>
+              <UserInform>
+                <NameTag>주소</NameTag>
+                <Inform>{user.addr1 + user.addr2}</Inform>
+              </UserInform>
+              <UserInform>
+                <NameTag>성별</NameTag>
+                <Inform>{user.gender === "0" ? "남자" : "여자"}</Inform>
+              </UserInform>
+            </>
+          )}
         </UserInformBox>
         <div>
           <Button onClick={onModify}>정보수정</Button>
@@ -124,16 +141,25 @@ const ProfileComp = ({
         </div>
       </ProfileBlock>
       <ButtonBox>
-        <Button onClick={getBoardList}>게시물</Button>
-        <Button onClick={getReplyList}>댓글</Button>
-        <Button onClick={getWishList}>좋아요</Button>
-        <Button onClick={getScheduler}>Scheduler</Button>
+        <SelectButton onClick={onGetBoardList}>
+          게시물 ({totalBoard})
+        </SelectButton>
+        <SelectButton onClick={onGetReplyList}>댓글</SelectButton>
+        <SelectButton onClick={onGetLikeList}>좋아요</SelectButton>
+        <SelectButton onClick={onGetWishList}>wishList</SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
           <BoardBox>
-            {boardList.map((board) => (
-              <Item key={board}>{board}</Item>
+            {boardList?.map((board) => (
+              <Item key={board.no}>
+                <Inform>{board.title}</Inform>
+                <Inform>{board.id}</Inform>
+                <Inform>{board.content}</Inform>
+                <Inform>좋아요아이콘{board.like}</Inform>
+                <Inform>눈아이콘{board.cnt}</Inform>
+                <Button onClick={() => onDelete(board.no)}>삭제</Button>
+              </Item>
             ))}
           </BoardBox>
         ) : boardType === "REPLY" ? (
@@ -142,16 +168,16 @@ const ProfileComp = ({
               <Item key={reply}>{reply}</Item>
             ))}
           </ReplyBox>
-        ) : boardType === "WISHLIST" ? (
+        ) : boardType === "LIKELIST" ? (
           <WishListBox>
-            {wishList.map((wish) => (
-              <Item key={wish}>{wish}</Item>
+            {likeList.map((like) => (
+              <Item key={like}>{like}</Item>
             ))}
           </WishListBox>
-        ) : boardType === "SCHEDULER" ? (
+        ) : boardType === "WISHLIST" ? (
           <SchedulerBox>
-            {schedulerList.map((schedule) => (
-              <Item key={schedule}>{schedule}</Item>
+            {wishList.map((wish) => (
+              <Item key={wish}>{wish}</Item>
             ))}
           </SchedulerBox>
         ) : (

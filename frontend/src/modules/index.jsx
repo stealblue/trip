@@ -17,6 +17,7 @@ import BusMod, { busSaga } from "./traffic/BusMod";
 import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
+import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
 
 
 const rootReducer = combineReducers({
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   TrainMod,
   AdminUserMod,
   AdminBoardMod,
+  ProfileMod,
 });
 
 export function* rootSaga() {
@@ -58,6 +60,7 @@ export function* rootSaga() {
     wishListSaga(),
     busSaga(),
     trainSaga(),
+    ProfileSaga(),
   ]);
 }
 

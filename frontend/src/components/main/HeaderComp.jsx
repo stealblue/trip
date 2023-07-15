@@ -80,7 +80,9 @@ const HeaderComp = ({ nick, onLogout }) => {
   });
   return (
     <>
-      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
+      <HeaderContainer
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+      >
         <Logo>
           <Link to="/">
             TRIPPER
@@ -109,7 +111,7 @@ const HeaderComp = ({ nick, onLogout }) => {
           <div>
             <div className="welecome">{nick}님 환영합니다!</div>
             <LoginCategory>
-              <Link to={`/auth/${nick}`}>마이페이지</Link>
+              <Link to={`/profile/${nick}`}>마이페이지</Link>
             </LoginCategory>
             <LoginCategory>
               <span className="logout" onClick={onLogout}>
