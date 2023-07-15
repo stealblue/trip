@@ -38,7 +38,7 @@ const AreaItemBlock = styled.div`
     }
 
     .add-btn {
-      padding: 7px 9px;ight
+      padding: 7px 9px;ight;
       background: ${ThemeComp.lightblack};
       width: 50px;
       text-align: center;
@@ -78,10 +78,10 @@ const AreaItem = ({ area, onClick, addWish }) => {
 };
 
 const AreaListComp = ({ areas, error, onClick, addWish }) => {
-  const result = areas.response.body;
+  if (!areas.response.body) return null;
+  const result = areas.response?.body;
   let target;
   if (areas) target = result.items.item;
-
   return (
     <div>
       {areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}

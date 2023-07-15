@@ -49,10 +49,12 @@ const AreaItem = ({ area, itemKey, onClick }) => {
 };
 
 const RoomListComp = ({ areas, error, onClick, onClickTest }) => {
-  const result = areas.response.body;
+  let result;
   let target;
-  if (areas) target = result.items.item;
-
+  if (areas && areas.response && areas.response.body) {
+    result = areas.response.body;
+    target = result.items.item;
+  }
   return (
     <div>
       <RoomList>{areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} />)}</RoomList>
