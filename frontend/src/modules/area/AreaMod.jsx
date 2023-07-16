@@ -11,7 +11,7 @@ const SHOW_PAGE_NO = createRequestActionTypes('area/SHOW_PAGE_NO');
 const SHOW_CONTENT_TYPE_ID = createRequestActionTypes('area/SHOW_CONTENT_TYPE_ID');
 const UNLOAD_PAGE = 'area/UNLOAD_PAGE';
 
-export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode, contentTypeId }) => ({ pageNo, areaCode, contentTypeId }));
+export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode, contentTypeId, numOfRows }) => ({ pageNo, areaCode, contentTypeId, numOfRows }));
 export const showAreaCode = createAction(SHOW_AREA_CODE, (areaCode) => (areaCode));
 export const showPageNo = createAction(SHOW_PAGE_NO, (pageNo) => (pageNo));
 export const showContentTypeId = createAction(SHOW_CONTENT_TYPE_ID, (contentTypeId) => (contentTypeId));
@@ -25,7 +25,7 @@ export function* areaSaga() {
 
 const initialState = {
   areaCode: null,
-  pageNo: null,
+  pageNo: 1,
   contentTypeId: null,
   areas: null,
   error: null,

@@ -4,14 +4,14 @@ const StartItem = ({ station, onClick }) => {
   return <li value={station.cityCode} onClick={onClick} data-type="start">{station.cityName}</li>;
 }
 
-const StartDetailItem = ({ station, onClick2 }) => {
-  return <li data-value={station.stationId} onClick={onClick2} data-type="start">{station.stationName}</li>;
+const StartDetailItem = ({ station, onClick }) => {
+  return <li data-value={station.stationId} onClick={onClick} data-type="start">{station.stationName}</li>;
 }
 const EndItem = ({ station, onClick }) => {
   return <li value={station.cityCode} onClick={onClick} data-type="end">{station.cityName}</li>;
 }
-const EndDetailItem = ({ station, onClick2 }) => {
-  return <li data-value={station.stationId} onClick={onClick2} data-type="end">{station.stationName}</li>;
+const EndDetailItem = ({ station, onClick }) => {
+  return <li data-value={station.stationId} onClick={onClick} data-type="end">{station.stationName}</li>;
 }
 
 
@@ -49,7 +49,7 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         </ul>
         <ul>
           {stationEndDetails && stationEndDetails.map((station) => (
-            <EndDetailItem station={station} onClickCategory={onClickCategory} />
+            <EndDetailItem station={station} onClick={onClickPlace} />
           ))}
         </ul>
       </div>

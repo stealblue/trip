@@ -57,7 +57,6 @@ const TrafficSelectCntr = () => {
   useEffect(() => {
     if (target === 'train') { dispatch(listStations()) }
     else if (target === 'bus') { dispatch(listTerminals()) }
-    else { }
     if (startStation && endStation && date) {
       const startValue = startStation.stationId;
       const endValue = endStation.stationId;

@@ -38,7 +38,8 @@ const RoomListCntr = ({ onClickTest }) => {
     if (typeof window !== 'undefined') {
       console.log(`pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`);
       if (pageNo && areaCode && contentTypeId) {
-        dispatch(listAreas({ pageNo, areaCode, contentTypeId }));
+        const numOfRows = 9;
+        dispatch(listAreas({ pageNo, areaCode, contentTypeId, numOfRows }));
       }
     }
   }, [dispatch, pageNo, areaCode, contentTypeId]);
