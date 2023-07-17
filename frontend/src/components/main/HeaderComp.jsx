@@ -90,7 +90,7 @@ const HeaderComp = ({ nick, onLogout }) => {
             {/* TRIPPER
             <br />
             MAKER */}
-            <img src="/assets/triplogo8.png" />
+            <img src="/assets/triplogo8.png" alt='img' />
           </Link>
         </Logo>
         <Nav>

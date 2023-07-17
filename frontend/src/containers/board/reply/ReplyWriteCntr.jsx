@@ -11,8 +11,8 @@ const ReplyWriteCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
   const emptyReply = useRef();
-  const { id, content, reply, originreplyId } = useSelector(({ LoginMod, ReplyWriteMod }) => ({
-    id: LoginMod.id,
+  const { id, content, reply, originreplyId } = useSelector(({ UserMod, ReplyWriteMod }) => ({
+    id: UserMod.user.id,
     content: ReplyWriteMod.content,
     reply: ReplyWriteMod.reply,
   }));

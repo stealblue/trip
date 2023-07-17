@@ -16,6 +16,7 @@ const [
   REPLY_UPDATE_POST_FAILURE,
 ] = createRequestActionTypes("reply/REPLY_UPDATE_POST"); // 글수정
 
+
 // 액션지정
 export const initialize = createAction(INITIALIZE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -39,6 +40,7 @@ export const replyupdatePost = createAction(
   ({ no, content }) => ({ no, content })
 );
 
+
 //사가
 const replywritePostSaga = createRequestSaga(
   REPLY_WRITE_POST,
@@ -48,9 +50,11 @@ const replyupdatePostSaga = createRequestSaga(
   REPLY_UPDATE_POST,
   postsAPI.replyModifyPost
 );
+
 export function* replySaga() {
   yield takeLatest(REPLY_WRITE_POST, replywritePostSaga);
   yield takeLatest(REPLY_UPDATE_POST, replyupdatePostSaga);
+
 }
 
 // state 초깃값 설정
@@ -94,6 +98,7 @@ const ReplyWriteMod = handleActions(
       ...state,
       replyError,
     }),
+
   },
   initialState
 );

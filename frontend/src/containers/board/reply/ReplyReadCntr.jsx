@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { replyReadPost } from "../../../modules/board/ReplyReadMod";
+import { replyReadPost, replyDeletePost } from "../../../modules/board/ReplyReadMod";
 import ReplyReadComp from "../../../components/board/reply/ReplyReadComp";
 import ReplyActionButtonsComp from "../../../components/board/reply/ReplyActionButtonsComp";
 import { replysetOriginPost, replyupdatePost } from "../../../modules/board/ReplyWriteMod";
-import { replyRemovePost } from "../../../lib/api/posts";
+
 import Swal from "sweetalert2";
 
 const ReplyReadCntr = () => {
@@ -55,7 +55,7 @@ const ReplyReadCntr = () => {
     console.log("onRemove reply -> ", e.target.dataset.no);
     try {
       const no = e.target.dataset.no;
-      replyRemovePost(no);
+      dispatch(replyDeletePost(no));
     } catch (error) {
       console.log(error);
     }

@@ -34,6 +34,7 @@ export const likePost = ({ id, no }) => {
 
 //댓글쓰기
 export const replyPost = ({ content, id, bno }) => {
+  console.log(`댓글 쓰기 : ${id}`);
   return client.post(`/board/write/reply/${bno}`, { content, id, bno });
 };
 
@@ -51,6 +52,6 @@ export const replyModifyPost = ({ no, content }) => {
 };
 
 //댓글삭제
-export const replyRemovePost = (no) => {
-  return client.post(`/board/read/reply/remove/${no}`);
+export const replyRemovePost = async (no) => {
+  return await client.post(`/board/read/reply/remove/${no}`);
 };

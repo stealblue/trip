@@ -234,7 +234,7 @@ exports.boardLike = async (req, res) => {
 };
 
 exports.replyAdd = async (req, res) => {
-  // console.log("commentAdd 들어왔나 ===> ", req.params);
+  console.log("commentAdd 들어왔나 ===> ", req.params);
   try {
     const no = req.params.bno;
     const { bno, id, content } = req.body;

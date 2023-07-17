@@ -36,6 +36,7 @@ const TrafficListComp = ({ resultTrains }) => {
         <span>종류</span>
       </TrafficHeader>
       {resultTrains && result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
+      {/* <PageNavComp3 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} /> */}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listTerminals } from "../../modules/traffic/BusMod";
 import { listStations, startStations, selectStart, endStations, selectEnd, listTrains } from "../../modules/traffic/TrainMod";
 import TrafficSelectComp from '../../components/traffic/TrafficSelectComp';
+import Swal from 'sweetalert2';
 
 const TrafficSelectCntr = () => {
   const [target, setTarget] = useState(null);
@@ -52,6 +53,9 @@ const TrafficSelectCntr = () => {
     const targetDate = e.target.value;
     const originDate = new Date(targetDate);
     setDate(originDate);
+    // Swal.fire({
+    //   input:""
+    // })
   }
 
   useEffect(() => {
