@@ -61,11 +61,11 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
     // setLike(like + 1);
     // console.log("like00000000000000", e.target);
     if (!isLlike) {
-      setLikeCount(parseInt(e.target.value) + 1);
+      setLikeCount(parseInt(e.target.dataset.cnt) + 1);
       setIsLike(true);
-      console.log("setLikeCount===>", e.target.value);
+      console.log("setLikeCount===>", e.target.dataset.cnt);
     } else {
-      setLikeCount(parseInt(e.target.value));
+      setLikeCount(parseInt(e.target.dataset.cnt) - 1);
       setIsLike(false);
     }
     // const id = user.id;
@@ -95,7 +95,7 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
           <p className="id">{post.id}</p>
           <div className="likeandcnt">
             <p>
-              <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} />
+              <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} />
               {likeCount === 0 ? parseInt(post.like) : likeCount}
             </p>
             <p>

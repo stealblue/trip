@@ -14,10 +14,10 @@ exports.getProfile = async (req, res) => {
 		if (User) {
 			return res.status(200).json({ user: User });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.log(e);
 		return res.status(400).json({ userError: true });
-  }
+	}
 };
 
 // exports.changeImage = async (req, res) => {
@@ -68,10 +68,10 @@ exports.getBoardList = async (req, res) => {
 		if (boardList) {
 			return res.status(200).json({ boardList, totalBoard });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.log(e);
 		return res.status(400).json({ boardListError: true });
-  }
+	}
 };
 
 exports.deleteBoard = async (req, res) => {
@@ -89,10 +89,10 @@ exports.deleteBoard = async (req, res) => {
 			return res.status(200).json({ deleteBoardError: false });
 		}
 
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ deleteBoardError: true });
-  }
+	}
 };
 
 exports.getReplyList = async (req, res) => {
@@ -110,10 +110,10 @@ exports.getReplyList = async (req, res) => {
 		if (replyList) {
 			return res.status(200).json({ replyList, totalReply });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ boardListError: true });
-  }
+	}
 };
 
 exports.deleteReply = async (req, res) => {
@@ -130,10 +130,10 @@ exports.deleteReply = async (req, res) => {
 			await Reply.destroy();
 			return res.status(200).json({ deleteReplyError: false });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
-		return res.status(400).json({deleteReplyError: true})
-  }
+		return res.status(400).json({ deleteReplyError: true })
+	}
 };
 
 exports.getLikeList = async (req, res) => {
@@ -150,14 +150,14 @@ exports.getLikeList = async (req, res) => {
 		if (likeList) {
 			return res.status(200).json({ likeList, totalLike });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ likeListError: true });
-  }
+	}
 };
 
 exports.deleteLike = async (req, res) => {
-	const { no } = req.params();
+	const { no } = req.params;
 
 	try {
 		const Like = await like.findOne({
@@ -170,10 +170,10 @@ exports.deleteLike = async (req, res) => {
 			await Like.destroy();
 			return res.status(200).json({ deleteLikeError: false });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ deleteLikeError: true });
-  }
+	}
 };
 
 exports.getWishList = async (req, res) => {
@@ -190,10 +190,10 @@ exports.getWishList = async (req, res) => {
 		if (wishList) {
 			return res.status(200).json({ wishList, totalWish });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ wishListError: true });
-  }
+	}
 };
 
 exports.deleteWish = async (req, res) => {
@@ -210,9 +210,9 @@ exports.deleteWish = async (req, res) => {
 			await Wish.destroy();
 			return res.status(200).json({ deleteWishError: false });
 		}
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ deleteWishError: true });
-  }
+	}
 };
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileMod, {
   deleteBoard,
+  deleteLike,
   deleteReply,
   getBoardList,
   getLikeList,
@@ -23,6 +24,9 @@ const ProfileCntr = () => {
     replyList,
     totalReply,
     deleteReplyError,
+    likeList,
+    totalLike,
+    deleteLikeError,
   } = useSelector(({ UserMod, ProfileMod }) => ({
     id: UserMod.user.id,
     user: ProfileMod.user,
@@ -34,6 +38,7 @@ const ProfileCntr = () => {
     deleteReplyError: ProfileMod.deleteReplyError,
     likeList: ProfileMod.likeList,
     totalLike: ProfileMod.totalLike,
+    deleteLikeError: ProfileMod.deleteLikeError,
   }));
   const modal = "modal";
   const [boardType, setBoardType] = useState();
@@ -86,8 +91,12 @@ const ProfileCntr = () => {
     navigate(`/board/read/${bno}`);
   };
 
-  const onDeleteLike = () => {
-    console.log("삭제");
+  const onDeleteLike = (no) => {
+    dispatch(
+      deleteLike({
+        no,
+      })
+    );
   };
 
   const onGetWishList = () => {
@@ -132,6 +141,14 @@ const ProfileCntr = () => {
       })
     );
   }, [deleteReplyError]);
+
+  useEffect(() => {
+    dispatch(
+      getLikeList({
+        id,
+      })
+    );
+  }, [deleteLikeError]);
 
   return (
     <div>
