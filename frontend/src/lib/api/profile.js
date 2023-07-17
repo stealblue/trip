@@ -38,7 +38,8 @@ export const getLikeList = async ({id}) => {
   return await client.get(`/profile/getLikeList/${id}`);
 }
 
-export const deleteLike = async ({no}) => {
+export const deleteLike = async ({ no }) => {
+  console.log(no,"============");
     return await client.delete(`/profile/deleteLike/${no}`);
 }
 ///wishList

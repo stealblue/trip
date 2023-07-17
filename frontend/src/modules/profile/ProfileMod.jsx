@@ -58,7 +58,7 @@ export const getLikeList = createAction(GET_LIKE_LIST);
 // export const getLikeDetail = createAction(GET_LIKE_DETAIL, ({ id }) => ({
 //   id,
 // }));
-export const deleteLike = createAction(DELETE_LIKE, ({ id }) => ({ id }));
+export const deleteLike = createAction(DELETE_LIKE, ({ no }) => ({ no }));
 
 const getLikeListProcess = createRequestSaga(
   GET_LIKE_LIST,
