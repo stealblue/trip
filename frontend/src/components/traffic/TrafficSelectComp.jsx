@@ -4,18 +4,26 @@ import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 25%;
-  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  .traffic-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+  }
   button {
     background: none;
-    padding: 10px;
+    padding: 10px 30px;
     text-align: center;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
   }
   .icon {
     width: 30px;
-    margin-right: 10px;
     display: block;
+    margin-top: 10px;
   }
 `;
 
@@ -98,18 +106,25 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
   return (
     <div>
       <TrafficContainer>
-        <button onClick={onClickCategory} value="train">
-          <img src="/assets/train.png" alt="train" className="icon" />
-          기차
-        </button>
-        <button onClick={onClickCategory} value="bus">
-          <img src="/assets/bus.png" alt="bus" className="icon" />
-          시외버스 <p>출발지</p>
-        </button>
-        <input type="date" onChange={onChangeDate} />
-        <select>
-          <option>종류</option>
-        </select>
+        <div className="traffic-btn">
+          <button onClick={onClickCategory} value="train">
+            <img src="/assets/train.png" alt="train" className="icon" />
+            기차
+          </button>
+          <button onClick={onClickCategory} value="bus">
+            <img src="/assets/bus.png" alt="bus" className="icon" />
+            버스
+          </button>
+        </div>
+        <div className="select-option">
+          <div>출발지</div>
+          <div>도착지</div>
+
+          <input type="date" onChange={onChangeDate} />
+          <select>
+            <option>종류</option>
+          </select>
+        </div>
       </TrafficContainer>
       <SelectCheckList>
         <div className="check-list">
