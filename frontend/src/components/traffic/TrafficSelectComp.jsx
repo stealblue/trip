@@ -19,6 +19,15 @@ const TrafficContainer = styled.div`
   }
 `;
 
+const SelectCheckList = styled.div`
+  display: flex;
+  text-align: center;
+
+  .check-list {
+    border: 1px solid #333;
+  }
+`;
+
 const SelectListContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -102,6 +111,16 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
           <option>종류</option>
         </select>
       </TrafficContainer>
+      <SelectCheckList>
+        <div className="check-list">
+          <div>출발지</div>
+          <p>선택출발지</p>
+        </div>
+        <div className="check-list">
+          <div>도착지</div>
+          <p>선택도착지</p>
+        </div>
+      </SelectCheckList>
 
       <SelectListContainer>
         <div className="list">

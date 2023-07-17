@@ -93,7 +93,7 @@ const BoardListItem = ({ post }) => {
   }
 
   const { no, id, title, content, createAt, like, cnt, user } = post;
-  console.log('content : ', content);
+  console.log("content : ", content);
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
