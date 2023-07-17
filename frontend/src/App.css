@@ -6,11 +6,7 @@
   color: #111;
   font-family: "Pretendard-Regular";
 }
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
+
 @font-face {
   font-family: "TTWanjudaedunsancheB";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/TTWanjudaedunsancheB.woff2") format("woff2");

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { TitleComp, SubTitleComp } from "../../../components/common/TitleComp";
 import WrapperComp from "../../../components/common/WrapperComp";
 import ButtonComp from "../../../components/common/ButtonComp";
-import PaginationComp from "./PaginationComp";
+import PaginationComp from "../../common/PaginationComp";
 const ListContainer = styled.div`
   margin-top: 50px;
   .board-list {
@@ -115,13 +115,6 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   console.log("posts : ", posts);
-  if (error) {
-    return <div>에러발생</div>;
-  }
-
-  if (posts === null) {
-    return <div>로딩 중...</div>;
-  }
   return (
     <>
       <WrapperComp>

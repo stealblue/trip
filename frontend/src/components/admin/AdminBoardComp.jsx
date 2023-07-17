@@ -1,51 +1,121 @@
+import React, { useState } from "react";
 import { styled } from "styled-components";
+import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 
+import PaginationComp from "../common/PaginationComp";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartSimple, faUser } from "@fortawesome/free-solid-svg-icons";
+
+const AdminBoardWrap = styled.div`
+  width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 30px;
+`;
+
 const BoardContainer = styled.div`
-  background: skyblue;
-  height: 600px;
-  width: 800px;
-  margin: 20px;
+  background: ${ThemeComp.smoke};
+
+  &:first-child {
+    width: 35%;
+    height: 100%;
+    margin-left: 1%;
+  }
+  &:last-child {
+    width: 62%;
+    margin-left: 1%;
+  }
 `;
 
 const BoardName = styled.div`
-  background: yellow;
-  color: green;
+  background: ${ThemeComp.dark};
+
   font-size: 20px;
-  padding: 10px 0;
+  padding: 10px 20px;
+  span {
+    color: ${ThemeComp.smoke};
+    margin-left: 10px;
+  }
 `;
 
 const Board = styled.div`
   background: white;
-  height: 100%;
   border-radius: 20px;
+  .list-name {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 14px 0;
+    width: 100%;
+    background: ${ThemeComp.smoke};
+    border-bottom: 2px solid #333;
+    li {
+      text-align: center;
+      width: 5%;
+      line-height: 30px;
+    }
+
+    li:nth-child(3n),
+    li:nth-child(2) {
+      width: 20%;
+    }
+
+    li:first-child {
+      line-height: 17px;
+    }
+  }
 `;
 
 const BoardInfoContainer = styled.div`
   display: flex;
-  background: green;
 `;
 
 const BoardInfo = styled.div`
   display: flex;
-  align-items: center;
-  background: gray;
-  border-bottom: 1px solid black;
+  justify-content: space-around;
+  width: 100%;
+  /* background: ${ThemeComp.smoke}; */
+  border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
-  height: 40px;
-  padding: 0 10px;
+  padding: 14px 0;
+  line-height: 30px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const Detail = styled.span`
   margin-right: 10px;
+  width: 30%;
+  text-align: center;
+  width: 5%;
+
+  &:nth-child(3n),
+  &:nth-child(2) {
+    width: 20%;
+  }
+
+  &.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const ControlButton = styled.button`
   border: none;
-  background: gray;
+  background: ${ThemeComp.lightblack};
+  color: ${ThemeComp.smoke};
   cursor: pointer;
-  margin: 0 10px;
+  padding: 7px 12px;
+
+  &:hover {
+    background: ${ThemeComp.softblack};
+  }
 `;
 
 const StyledModal = Modal.styled`
@@ -60,40 +130,50 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminBoardComp = ({
-  getBoardInform,
-  deleteBoardInform,
-  boardList,
-  totalBoard,
-  board,
-  modal,
-  switchModal,
-}) => {
+const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal }) => {
+  const [limit, setLimit] = useState(12);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   return (
-    <div>
+    <AdminBoardWrap>
       <BoardContainer>
-        <BoardName>아이콘 / 게시물 </BoardName>
+        <BoardName>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물</span>
+        </BoardName>
         <AdminUserGraph totalItem={totalBoard} type={"board"} />
       </BoardContainer>
 
       <BoardContainer>
-        <BoardName>아이콘 / 게시물 / 총 게시물 수({totalBoard})개</BoardName>
+        <BoardName>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물</span>
+          <span>총 게시물 수({totalBoard})개</span>
+        </BoardName>
         <Board>
-          {boardList?.map((board) => (
+          <ul className="list-name">
+            <li>게시물 번호</li>
+            <li>작성자</li>
+            <li>제목</li>
+            <li>좋아요</li>
+            <li>조회수</li>
+            <li>작성일</li>
+            <li></li>
+          </ul>
+          {boardList.slice(offset, offset + limit).map((board) => (
             <BoardInfoContainer key={board.no}>
               <BoardInfo id={board.no} onClick={getBoardInform}>
-                <Detail>게시물 번호 : {board.no}</Detail>
-                <Detail>작성자 : {board.id}</Detail>
-                <Detail>제목 : {board.title}</Detail>
-                <Detail>좋아요 : {board.like}</Detail>
-                <Detail>조회수 : {board.cnt}</Detail>
-                <Detail>작성일 : {board.createAt}</Detail>
+                <Detail>{board.no}</Detail>
+                <Detail>{board.id}</Detail>
+                <Detail className="title">{board.title}</Detail>
+                <Detail>{board.like}</Detail>
+                <Detail>{board.cnt}</Detail>
+                <Detail>{board.createAt}</Detail>
+                <Detail>
+                  <ControlButton onClick={() => deleteBoardInform(board.no)}>삭제</ControlButton>
+                </Detail>
               </BoardInfo>
-              <ControlButton onClick={() => deleteBoardInform(board.no)}>
-                삭제
-              </ControlButton>
             </BoardInfoContainer>
           ))}
+          <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />
           {modal && board && (
             <StyledModal
               isOpen={modal} //true = 열림 / false = 닫힘
@@ -114,7 +194,7 @@ const AdminBoardComp = ({
           )}
         </Board>
       </BoardContainer>
-    </div>
+    </AdminBoardWrap>
   );
 };
 
