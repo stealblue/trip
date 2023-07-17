@@ -18,7 +18,7 @@ const AdminSideBar = styled.div`
   background: #1a2b3c;
   width: 250px;
   height: 100vh;
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(2, 2, 2, 0.3);
   .logo {
     font-size: 30px;
     color: #fff;
@@ -76,11 +76,7 @@ const AdminMainComp = () => {
           <AdminNav>
             <li>
               <Link to={"/admin/user"}>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="icon"
-                  style={{ color: "white" }}
-                />
+                <FontAwesomeIcon icon={faUser} className="icon" style={{ color: "white" }} />
                 <span>회원관리</span>
               </Link>
             </li>

@@ -4,7 +4,7 @@ const ThemeComp = {
   lightcolor: "#17bdff",
   smoke: "#F5F5F5",
   softblue: "#D6E4F2",
-  dark: "#50bcdf",
+  dark: "#1a2b3c",
   green: "#0055ff",
   black: "#000",
   softblack: "#333",
