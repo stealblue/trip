@@ -15,25 +15,16 @@ const getProfileProcess = createRequestSaga(GET_PROFILE, profileAPI.getProfile);
 //게시물
 const [GET_BOARD_LIST, GET_BOARD_LIST_SUCCESS, GET_BOARD_LIST_FAILURE] =
   createRequestActionTypes("profile/GET_BOARD_LIST");
-// const [GET_BOARD_DETAIL, GET_BOARD_DETAIL_SUCCESS, GET_BOARD_DETAIL_FAILURE] =
-//   createRequestActionTypes("profile/GET_BOARD_DETAIL");
 const [DELETE_BOARD, DELETE_BOARD_SUCCESS, DELETE_BOARD_FAILURE] =
   createRequestActionTypes("profile/DELETE_BOARD");
 
 export const getBoardList = createAction(GET_BOARD_LIST);
-// export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({
-//   no,
-// }));
 export const deleteBoard = createAction(DELETE_BOARD, ({ no }) => ({ no }));
 
 const getBoardListProcess = createRequestSaga(
   GET_BOARD_LIST,
   profileAPI.getBoardList
 );
-// const getBoardDetailProcess = createRequestSaga(
-//   GET_BOARD_DETAIL,
-//   profileAPI.getBoardDetail
-// );
 const deleteBoardProcess = createRequestSaga(
   DELETE_BOARD,
   profileAPI.deleteBoard
@@ -41,25 +32,16 @@ const deleteBoardProcess = createRequestSaga(
 //댓글
 const [GET_REPLY_LIST, GET_REPLY_LIST_SUCCESS, GET_REPLY_LIST_FAILURE] =
   createRequestActionTypes("profile/GET_REPLY_LIST");
-// const [GET_REPLY_DETAIL, GET_REPLY_DETAIL_SUCCESS, GET_REPLY_DETAIL_FAILURE] =
-//   createRequestActionTypes("profile/GET_REPLY_DETAIL");
 const [DELETE_REPLY, DELETE_REPLY_SUCCESS, DELETE_REPLY_FAILURE] =
   createRequestActionTypes("profile/DELETE_REPLY");
 
 export const getReplyList = createAction(GET_REPLY_LIST);
-// export const getReplyDetail = createAction(GET_REPLY_DETAIL, ({ id }) => ({
-//   id,
-// }));
-export const deleteReply = createAction(DELETE_REPLY, ({ id }) => ({ id }));
+export const deleteReply = createAction(DELETE_REPLY, ({ no }) => ({ no }));
 
 const getReplyListProcess = createRequestSaga(
   GET_REPLY_LIST,
   profileAPI.getReplyList
 );
-// const getReplyDetailProcess = createRequestSaga(
-//   GET_REPLY_DETAIL,
-//   profileAPI.getReplyDetail
-// );
 const deleteReplyProcess = createRequestSaga(
   DELETE_REPLY,
   profileAPI.deleteReply
@@ -114,10 +96,8 @@ const deleteWishProcess = createRequestSaga(DELETE_WISH, profileAPI.deleteWish);
 export function* ProfileSaga() {
   yield takeLatest(GET_PROFILE, getProfileProcess);
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
-  //   yield takeLatest(GET_BOARD_DETAIL, getBoardDetailProcess);
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
   yield takeLatest(GET_REPLY_LIST, getReplyListProcess);
-  //   yield takeLatest(GET_REPLY_DETAIL, getReplyDetailProcess);
   yield takeLatest(DELETE_REPLY, deleteReplyProcess);
   yield takeLatest(GET_LIKE_LIST, getLikeListProcess);
   //   yield takeLatest(GET_LIKE_DETAIL, getLikeDetailProcess);
@@ -134,22 +114,16 @@ const initialState = {
   boardList: [],
   totalBoard: null,
   boardListError: null,
-  //   board: null,
-  //   boardError: null,
   deleteBoardError: null,
 
   replyList: [],
   totalReply: null,
   replyListError: null,
-  //   reply: null,
-  //   replyError: null,
   deleteReplyError: null,
 
   likeList: [],
   totalLike: null,
   likeListError: null,
-  //   like: null,
-  //   likeError: null,
   deleteLikeError: null,
 
   wishList: [],
@@ -181,23 +155,15 @@ const ProfileMod = handleActions(
       boardList,
       totalBoard,
       boardListError: null,
+      deleteBoardError: null,
     }),
     [GET_BOARD_LIST_FAILURE]: (state, { payload: { boardListError } }) => ({
       ...state,
       boardList: null,
       totalBoard: null,
       boardListError,
+      deleteBoardError: null,
     }),
-    // [GET_BOARD_DETAIL_SUCCESS]: (state, { payload: { board } }) => ({
-    //   ...state,
-    //   board,
-    //   boardError: null,
-    // }),
-    // [GET_BOARD_DETAIL_FAILURE]: (state, { payload: { boardError } }) => ({
-    //   ...state,
-    //   board: null,
-    //   boardError,
-    // }),
     [DELETE_BOARD_SUCCESS]: (state, { payload: { deleteBoardError } }) => ({
       ...state,
       deleteBoardError,
@@ -215,23 +181,15 @@ const ProfileMod = handleActions(
       replyList,
       totalReply,
       replyListError: null,
+      deleteReplyError: null,
     }),
     [GET_REPLY_LIST_FAILURE]: (state, { payload: { replyListError } }) => ({
       ...state,
       replyList: null,
       totalReply: null,
       replyListError,
+      deleteReplyError: null,
     }),
-    // [GET_REPLY_DETAIL_SUCCESS]: (state, { payload: { reply } }) => ({
-    //   ...state,
-    //   reply,
-    //   replyError: null,
-    // }),
-    // [GET_REPLY_DETAIL_FAILURE]: (state, { payload: { replyError } }) => ({
-    //   ...state,
-    //   reply: null,
-    //   replyError,
-    // }),
     [DELETE_REPLY_SUCCESS]: (state, { payload: { deleteReplyError } }) => ({
       ...state,
       deleteReplyError,
@@ -246,12 +204,14 @@ const ProfileMod = handleActions(
       likeList,
       totalLike,
       likeListError: null,
+      deleteLikeError: null,
     }),
     [GET_LIKE_LIST_FAILURE]: (state, { payload: { likeListError } }) => ({
       ...state,
       likeList: null,
       totalLike: null,
       likeListError,
+      deleteLikeError: null,
     }),
     // [GET_LIKE_DETAIL_SUCCESS]: (state, { payload: { like } }) => ({
     //   ...state,

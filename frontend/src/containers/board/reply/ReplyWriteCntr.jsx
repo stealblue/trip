@@ -41,7 +41,7 @@ const ReplyWriteCntr = () => {
       Swal.fire({
         text: '로그인해주세요'
       });
-      // navigate('/auth/login');
+      navigate('/auth/login');
     }
   };
 
@@ -57,7 +57,13 @@ const ReplyWriteCntr = () => {
 
   return (
     <>
-      <ReplyWriteComp onReset={onReset} onPublish={onPublish} onChangeField={onChangeField} emptyReply={emptyReply} isEdit={!!originreplyId} />
+      <ReplyWriteComp
+        onReset={onReset}
+        onPublish={onPublish}
+        onChangeField={onChangeField}
+        emptyReply={emptyReply}
+        isEdit={!!originreplyId}
+      />
     </>
   );
 };

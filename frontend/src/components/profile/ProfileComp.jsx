@@ -25,7 +25,13 @@ const UserInform = styled.div`
   border-bottom: 1px solid black;
 `;
 
-const Inform = styled.div`
+const BoardInfo = styled.div`
+  background: gray;
+  display: flex;
+  cursor: pointer;
+`;
+
+const Detail = styled.div`
   background: green;
   margin: 5px;
 `;
@@ -85,6 +91,7 @@ const Item = styled.div`
   display: flex;
   background: none;
   border-bottom: 1px solid black;
+  justify-content: space-between;
 `;
 
 const ProfileComp = ({
@@ -94,15 +101,22 @@ const ProfileComp = ({
   boardList,
   totalBoard,
   replyList,
+  totalReply,
   likeList,
+  totalLike,
   wishList,
   changePhoto,
   onModify,
   onWithdraw,
-  onDelete,
   onGetBoardList,
+  onGetBoardDetail,
+  onDeleteBoard,
   onGetReplyList,
+  onGetReplyDetail,
+  onDeleteReply,
   onGetLikeList,
+  onGetLikeDetail,
+  onDeleteLike,
   onGetWishList,
 }) => {
   return (
@@ -114,23 +128,23 @@ const ProfileComp = ({
             <>
               <UserInform>
                 <NameTag>아이디</NameTag>
-                <Inform>{user.id}</Inform>
+                <Detail>{user.id}</Detail>
               </UserInform>
               <UserInform>
                 <NameTag>닉네임</NameTag>
-                <Inform>{user.nick}</Inform>
+                <Detail>{user.nick}</Detail>
               </UserInform>
               <UserInform>
                 <NameTag>전화번호</NameTag>
-                <Inform>{user.phone}</Inform>
+                <Detail>{user.phone}</Detail>
               </UserInform>
               <UserInform>
                 <NameTag>주소</NameTag>
-                <Inform>{user.addr1 + user.addr2}</Inform>
+                <Detail>{user.addr1 + user.addr2}</Detail>
               </UserInform>
               <UserInform>
                 <NameTag>성별</NameTag>
-                <Inform>{user.gender === "0" ? "남자" : "여자"}</Inform>
+                <Detail>{user.gender === "0" ? "남자" : "여자"}</Detail>
               </UserInform>
             </>
           )}
@@ -144,8 +158,12 @@ const ProfileComp = ({
         <SelectButton onClick={onGetBoardList}>
           게시물 ({totalBoard})
         </SelectButton>
-        <SelectButton onClick={onGetReplyList}>댓글</SelectButton>
-        <SelectButton onClick={onGetLikeList}>좋아요</SelectButton>
+        <SelectButton onClick={onGetReplyList}>
+          댓글 ({totalReply})
+        </SelectButton>
+        <SelectButton onClick={onGetLikeList}>
+          좋아요 ({totalLike})
+        </SelectButton>
         <SelectButton onClick={onGetWishList}>wishList</SelectButton>
       </ButtonBox>
       <ListBox>
@@ -153,39 +171,57 @@ const ProfileComp = ({
           <BoardBox>
             {boardList?.map((board) => (
               <Item key={board.no}>
-                <Inform>{board.title}</Inform>
-                <Inform>{board.id}</Inform>
-                <Inform>{board.content}</Inform>
-                <Inform>좋아요아이콘{board.like}</Inform>
-                <Inform>눈아이콘{board.cnt}</Inform>
-                <Button onClick={() => onDelete(board.no)}>삭제</Button>
+                <BoardInfo onClick={() => onGetBoardDetail(board.no)}>
+                  <Detail>{board.title}</Detail>
+                  <Detail>{board.id}</Detail>
+                  <Detail>{board.content}</Detail>
+                  <Detail>좋아요아이콘{board.like}</Detail>
+                  <Detail>눈아이콘{board.cnt}</Detail>
+                </BoardInfo>
+                <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
               </Item>
             ))}
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
             {replyList.map((reply) => (
-              <Item key={reply}>{reply}</Item>
+              <Item key={reply.no}>
+                <BoardInfo onClick={() => onGetReplyDetail(reply.bno)}>
+                  <Detail>{reply.id}</Detail>
+                  <Detail>{reply.content}</Detail>
+                  <Detail>{reply.createAt.substr(0, 10)}</Detail>
+                </BoardInfo>
+                <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
+              </Item>
             ))}
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <WishListBox>
             {likeList.map((like) => (
-              <Item key={like}>{like}</Item>
+              <Item key={like.no}>
+                <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
+                  <Detail>제목</Detail>
+                  <Detail>내용</Detail>
+                </BoardInfo>
+                <Button onClick={() => onDeleteLike(like.no)}>
+                  좋아요버튼
+                </Button>
+              </Item>
             ))}
           </WishListBox>
         ) : boardType === "WISHLIST" ? (
           <SchedulerBox>
             {wishList.map((wish) => (
-              <Item key={wish}>{wish}</Item>
+              <Item key={wish.id}>{wish}</Item>
             ))}
           </SchedulerBox>
         ) : (
-          <BoardBox>
-            {boardList.map((board) => (
-              <Item key={board}>{board}</Item>
-            ))}
-          </BoardBox>
+          ""
+          // <BoardBox> 이부분 같은 key 공유한다고 에러뜸 해결해야함.
+          //   {boardList.map((board) => (
+          //     <Item key={board.index}>{board}</Item>
+          //   ))}
+          // </BoardBox>
         )}
       </ListBox>
     </>
