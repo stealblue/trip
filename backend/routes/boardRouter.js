@@ -13,6 +13,7 @@ board.post("/like", boardLike);
 board.post("/write/reply/:bno", replyAdd);
 board.get("/read/reply/:bno", replyRead);
 board.post("/read/reply/modify", replyModify);
-board.post("/read/reply/remove/:bno", replyRemove);
+// board.post("/read/reply/remove/:bno", replyRemove);
+board.post("/read/reply/remove", replyRemove);
 
 module.exports = board;

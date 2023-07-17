@@ -20,11 +20,18 @@ const ReadContainer = () => {
   }));
   // console.log("아아아아아ㅏ아아", post);
 
+
   useEffect(() => {
-    dispatch(readPost(readNo), likePost(readNo, user));
     return () => {
       dispatch(unloadPost());
-    };
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(readPost(readNo), likePost(readNo, user));
+    // return () => {
+    //   dispatch(unloadPost());
+    // };
   }, [dispatch, readNo, user]);
 
   const onEdit = () => {

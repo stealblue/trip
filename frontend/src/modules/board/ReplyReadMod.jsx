@@ -12,7 +12,7 @@ const [REPLY_DELETE_POST, REPLY_DELETE_POST_SUCCESS, REPLY_DELETE_POST_FAILURE] 
 export const replyReadPost = createAction(REPLY_READ_POST);
 export const replyDeletePost = createAction(
   REPLY_DELETE_POST,
-  (no) => (no)
+  ({ bno, no }) => ({ bno, no })
 );
 
 const replyreadPostSaga = createRequestSaga(

@@ -11,11 +11,12 @@ import Swal from "sweetalert2";
 const ReplyReadCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
-  const { replys, content, user, reply, no } = useSelector(({ ReplyWriteMod, ReplyReadMod, UserMod }) => ({
+  const { replys, content, user, reply, bno } = useSelector(({ ReplyWriteMod, ReplyReadMod, UserMod, ReadMod }) => ({
     reply: ReplyWriteMod.reply,
     replys: ReplyReadMod.replys,
     content: ReplyReadMod.content,
     user: UserMod.user,
+    bno: ReadMod.post?.no
   }));
 
   console.log("replyReadcntr ====> originpost :", replys);
@@ -55,7 +56,7 @@ const ReplyReadCntr = () => {
     console.log("onRemove reply -> ", e.target.dataset.no);
     try {
       const no = e.target.dataset.no;
-      dispatch(replyDeletePost(no));
+      dispatch(replyDeletePost({ bno, no }));
     } catch (error) {
       console.log(error);
     }

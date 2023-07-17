@@ -295,14 +295,20 @@ exports.replyModify = async (req, res, next) => {
 };
 
 exports.replyRemove = async (req, res, next) => {
-  const no = req.params.bno;
+  // const no = req.params.bno;
+  const { bno, no } = req.body;
   // console.log("replyremovereq.body==>", no);
   try {
     await reply.destroy({
       where: { no },
     });
-    return res.send("내 꿈은 꼬마박사");
+    // return res.send("내 꿈은 꼬마박사");
+    const replys = await reply.findAll({
+      where: { bno }
+    })
+    return res.json(replys);
   } catch (error) {
+    console.error(error);
     return res.json(error);
   }
 };

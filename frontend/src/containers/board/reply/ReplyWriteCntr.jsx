@@ -1,18 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, replywritePost } from "../../../modules/board/ReplyWriteMod";
-import { useParams } from "react-router-dom";
-import LoginMod from "../../../modules/auth/LoginMod";
-import ReplyWriteMod from "../../../modules/board/ReplyWriteMod";
-import { initialize } from "../../../modules/board/ReplyWriteMod";
+import { changeField, replywritePost, initialize } from "../../../modules/board/ReplyWriteMod";
+import { useNavigate, useParams } from "react-router-dom";
 import ReplyWriteComp from "../../../components/board/reply/ReplyWriteComp";
+import Swal from 'sweetalert2';
 
 const ReplyWriteCntr = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { readNo } = useParams();
   const emptyReply = useRef();
   const { id, content, reply, originreplyId } = useSelector(({ UserMod, ReplyWriteMod }) => ({
-    id: UserMod.user.id,
+    id: UserMod.user?.id,
     content: ReplyWriteMod.content,
     reply: ReplyWriteMod.reply,
   }));
@@ -30,13 +29,20 @@ const ReplyWriteCntr = () => {
 
   const onPublish = (e) => {
     e.preventDefault();
-    dispatch(
-      replywritePost({
-        bno: readNo,
-        id: id,
-        content: content,
-      })
-    );
+    if (id) {
+      dispatch(
+        replywritePost({
+          bno: readNo,
+          id: id,
+          content: content,
+        })
+      );
+    } else {
+      Swal.fire({
+        text: '로그인해주세요'
+      });
+      // navigate('/auth/login');
+    }
   };
 
   //댓글 등록시 input 초기화

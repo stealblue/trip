@@ -48,6 +48,6 @@ export const replyModifyPost = ({ no, content }) => {
 };
 
 //댓글삭제
-export const replyRemovePost = async (no) => {
-  return await client.post(`/board/read/reply/remove/${no}`);
+export const replyRemovePost = async ({ bno, no }) => {
+  return await client.post(`/board/read/reply/remove`, { bno, no });
 };
