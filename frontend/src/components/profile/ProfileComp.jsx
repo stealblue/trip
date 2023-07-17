@@ -200,8 +200,8 @@ const ProfileComp = ({
             {likeList.map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
-                  <Detail>제목</Detail>
-                  <Detail>내용</Detail>
+                  <Detail>{like.no}</Detail>
+                  <Detail>{like.bno}</Detail>
                 </BoardInfo>
                 <Button onClick={() => onDeleteLike(like.no)}>
                   좋아요버튼

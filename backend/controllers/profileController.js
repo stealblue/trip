@@ -157,7 +157,7 @@ exports.getLikeList = async (req, res) => {
 };
 
 exports.deleteLike = async (req, res) => {
-	const { no } = req.params();
+	const { no } = req.params;
 
 	try {
 		const Like = await like.findOne({
