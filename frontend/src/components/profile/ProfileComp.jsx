@@ -14,6 +14,10 @@ const ImageBox = styled.img`
   background: black;
 `;
 
+const InputBox = styled.input`
+  background: white;
+`;
+
 const UserInformBox = styled.div`
   background: skyblue;
   height: 240px;
@@ -40,6 +44,10 @@ const NameTag = styled.div`
   background: orange;
   margin-right: 20px;
   width: 70px;
+`;
+
+const ErrorMessage = styled.span`
+  background: red;
 `;
 
 const Button = styled.button`
@@ -96,7 +104,11 @@ const Item = styled.div`
 
 const ProfileComp = ({
   user,
+  nick,
+  nickAuth,
+  nickError,
   modal,
+  changeInform,
   boardType,
   boardList,
   totalBoard,
@@ -105,8 +117,10 @@ const ProfileComp = ({
   likeList,
   totalLike,
   wishList,
-  changePhoto,
-  onModify,
+  onChangePhoto,
+  onChange,
+  onChangeProfile,
+  onNickCheck,
   onWithdraw,
   onGetBoardList,
   onGetBoardDetail,
@@ -119,12 +133,13 @@ const ProfileComp = ({
   onDeleteLike,
   onGetWishList,
 }) => {
+  console.log(nickError, "123123123");
   return (
     <>
       <ProfileBlock>
-        <ImageBox onClick={changePhoto} />
+        <ImageBox onClick={onChangePhoto} />
         <UserInformBox>
-          {user && (
+          {user && !changeInform ? (
             <>
               <UserInform>
                 <NameTag>아이디</NameTag>
@@ -147,10 +162,39 @@ const ProfileComp = ({
                 <Detail>{user.gender === "0" ? "남자" : "여자"}</Detail>
               </UserInform>
             </>
+          ) : user && changeInform ? (
+            <>
+              <UserInform>
+                <NameTag>아이디</NameTag>
+                <Detail>{user.id}</Detail>
+              </UserInform>
+              <UserInform>
+                <NameTag>닉네임</NameTag>
+                <InputBox placeholder={"ID"} onChange={onChange} />
+                <Button onClick={onNickCheck}>중복확인</Button>
+              </UserInform>
+              {nickError && (
+                <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
+              )}
+              <UserInform>
+                <NameTag>전화번호</NameTag>
+                <Detail>{user.phone}</Detail>
+              </UserInform>
+              <UserInform>
+                <NameTag>주소</NameTag>
+                <Detail>{user.addr1 + user.addr2}</Detail>
+              </UserInform>
+              <UserInform>
+                <NameTag>성별</NameTag>
+                <Detail>{user.gender === "0" ? "남자" : "여자"}</Detail>
+              </UserInform>
+            </>
+          ) : (
+            ""
           )}
         </UserInformBox>
         <div>
-          <Button onClick={onModify}>정보수정</Button>
+          <Button onClick={onChangeProfile}>정보수정</Button>
           <Button onClick={onWithdraw}>회원탈퇴</Button>
         </div>
       </ProfileBlock>
@@ -200,8 +244,8 @@ const ProfileComp = ({
             {likeList.map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
-                  <Detail>{like.no}</Detail>
-                  <Detail>{like.bno}</Detail>
+                  <Detail>{like.bno_board.id}</Detail>
+                  <Detail>{like.bno_board.title}</Detail>
                 </BoardInfo>
                 <Button onClick={() => onDeleteLike(like.no)}>
                   좋아요버튼
@@ -217,11 +261,6 @@ const ProfileComp = ({
           </SchedulerBox>
         ) : (
           ""
-          // <BoardBox> 이부분 같은 key 공유한다고 에러뜸 해결해야함.
-          //   {boardList.map((board) => (
-          //     <Item key={board.index}>{board}</Item>
-          //   ))}
-          // </BoardBox>
         )}
       </ListBox>
     </>

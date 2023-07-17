@@ -9,8 +9,12 @@ export const changeImage = async ({id}) => {
     return await client.post("/profile/changeImage/:id", {id});
 }
 
-export const onModify = async ({id}) => {
-    return await client.post("/profile/onModify/:id", {id});
+export const nickChk = async ({ nick }) => {
+  return await client.post("/profile/nickChk/:nick", { nick });
+}
+
+export const changeProfile = async ({ id, nick }) => {
+  return await client.post("/profile/changeProfile/:id", {id, nick});
 }
 
 export const onWithdraw = async ({id}) => {
