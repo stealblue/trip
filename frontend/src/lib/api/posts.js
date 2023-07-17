@@ -2,13 +2,11 @@ import client from "./client";
 
 // 게시판 목록
 export const listPosts = (page) => {
-  console.log("APIssssssssssssssssssssssss");
   return client.get(`/board`, { params: { page } });
 };
 
 // 글쓰기
 export const writePost = ({ title, content, id }) => {
-  console.log("writePostAPIssssssssssssssssssssssss");
   return client.post("/board/write", { title, content, id });
 };
 
@@ -34,13 +32,11 @@ export const likePost = ({ id, no }) => {
 
 //댓글쓰기
 export const replyPost = ({ content, id, bno }) => {
-  return client.post(`/board/write/reply/${bno}}`, { content, id, bno });
+  return client.post(`/board/write/reply/${bno}`, { content, id, bno });
 };
 
 //댓글읽기
 export const replyReadPosts = (bno) => {
-  console.log("api replyreadPosts");
-  console.log("bno : ", bno);
   return client.get(`/board/read/reply/${bno.bno}`);
 };
 
