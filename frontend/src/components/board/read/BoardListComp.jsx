@@ -93,6 +93,7 @@ const BoardListItem = ({ post }) => {
   }
 
   const { no, id, title, content, createAt, like, cnt, user } = post;
+  console.log('content : ', content);
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -102,7 +103,7 @@ const BoardListItem = ({ post }) => {
             <h3 className="title">{title}</h3>
             <p className="content">{content}</p>
             <p className="write-id">{id}</p>
-            <p className="createat">작성일자 : {createAt}</p>
+            <p className="createat">작성일자 : {createAt.substr(0, 10)}</p>
           </div>
         </div>
       </Link>

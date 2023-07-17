@@ -105,7 +105,8 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
           </div>
         </ReadContainer>
         <Content>
-          <p>{post.content}</p>
+          {/* <p>{post.content}</p> */}
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </Content>
         {actionButtons}
       </Responsive>

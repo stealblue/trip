@@ -94,7 +94,9 @@ const sanitizeOption = {
 exports.boardListPage = async (req, res, next) => {
   console.log("boardLitpage들어옴");
   try {
-    const boards = await board.findAll();
+    const boards = await board.findAll({
+      order: [['no', 'DESC']]
+    });
     // console.log(boards);
     return res.json(boards);
     // /board/105 get
@@ -152,7 +154,8 @@ exports.boardAdd = async (req, res) => {
       id,
       img,
       title,
-      content: removeHtml(req.body.content),
+      // content: removeHtml(req.body.content),
+      content,
       like,
       cnt,
     });
