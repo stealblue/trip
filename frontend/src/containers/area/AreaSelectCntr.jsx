@@ -1,7 +1,7 @@
 import AreaSelectComp from "../../components/area/AreaSelectComp";
 import { showAreaCode, showContentTypeId, showPageNo, unloadPage } from "../../modules/area/AreaMod"
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const areas = [
   { "name": "서울", "code": 1 }, { "name": "인천", "code": 2 }, { "name": "대전", "code": 3 }, { "name": "대구", "code": 4 },
@@ -18,6 +18,10 @@ const contentTypes = [
 const AreaSelectCntr = () => {
   const dispatch = useDispatch();
 
+  const { areaCode, contentTypeId } = useSelector(({ AreaMod }) => ({
+    areaCode: AreaMod.areaCode,
+    contentTypeId: AreaMod.contentTypeId
+  }));
 
   const onClickArea = (e) => {
     console.log('value : ', e.target.value);
@@ -36,7 +40,7 @@ const AreaSelectCntr = () => {
     dispatch(showPageNo(page));
   }
 
-  return <AreaSelectComp onClickArea={onClickArea} onClickType={onClickType} areas={areas} contentTypes={contentTypes} />;
+  return <AreaSelectComp onClickArea={onClickArea} onClickType={onClickType} areas={areas} contentTypes={contentTypes} areaCode={areaCode} contentTypeId={contentTypeId} />;
 };
 
 export default AreaSelectCntr;
