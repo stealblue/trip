@@ -96,14 +96,15 @@ exports.deleteBoard = async (req, res) => {
 };
 
 exports.getReplyList = async (req, res) => {
-	const { id } = req.body;
+	const { id } = req.params;
 
 	try {
 		const replyList = await reply.findAll({
 			where: {
 				id,
-			}
+			},
 		});
+
 		const totalReply = replyList.length;
 
 		if (replyList) {
@@ -136,7 +137,7 @@ exports.deleteReply = async (req, res) => {
 };
 
 exports.getLikeList = async (req, res) => {
-	const { id } = req.body;
+	const { id } = req.params;
 
 	try {
 		const likeList = await like.findAll({
