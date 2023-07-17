@@ -8,6 +8,7 @@ const wishList = require('./wishListRouter');
 const traffic = require('./trafficRouter');
 const admin = require("./adminRouter");
 const profile = require("./profileRouter");
+const like = require('./likeRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -20,5 +21,6 @@ router.use('/area', area);
 router.use('/profile', profile);
 router.use('/wishList', wishList);
 router.use('/traffic', traffic);
+router.use('/like', like);
 
 module.exports = router;

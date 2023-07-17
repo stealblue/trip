@@ -51,3 +51,7 @@ export const replyModifyPost = ({ no, content }) => {
 export const replyRemovePost = async ({ bno, no }) => {
   return await client.post(`/board/read/reply/remove`, { bno, no });
 };
+
+export const isLike = async ({ bno, id }) => {
+  return await client.get(`/board/like/${bno}?id=${id}`);
+}

@@ -1,5 +1,17 @@
 const express = require("express");
-const { boardListPage, boardDetailPage, boardAdd, boardModify, boardRemove, boardLike, replyAdd, replyRead, replyModify, replyRemove } = require("../controllers/boardController");
+const {
+  boardListPage,
+  boardDetailPage,
+  boardAdd,
+  boardModify,
+  boardRemove,
+  boardLike,
+  replyAdd,
+  replyRead,
+  replyModify,
+  replyRemove,
+  isLike
+} = require("../controllers/boardController");
 
 const app = express();
 const board = express.Router();
@@ -15,5 +27,6 @@ board.get("/read/reply/:bno", replyRead);
 board.post("/read/reply/modify", replyModify);
 // board.post("/read/reply/remove/:bno", replyRemove);
 board.post("/read/reply/remove", replyRemove);
+board.get('/like/:bno', isLike);
 
 module.exports = board;

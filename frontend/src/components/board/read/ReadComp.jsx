@@ -51,25 +51,19 @@ const Content = styled.div`
 const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
   console.log("post.like ==========================================>", post);
   console.log("user =====<>", user);
-  // const test = post.like;
   const [isLlike, setIsLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
   const dispatch = useDispatch();
 
   const likeButton = (e) => {
-    // setLike(like + 1);
-    // console.log("like00000000000000", e.target);
     if (!isLlike) {
       setLikeCount(parseInt(e.target.dataset.cnt) + 1);
       setIsLike(true);
-      console.log("setLikeCount===>", e.target.dataset.cnt);
     } else {
       setLikeCount(parseInt(e.target.dataset.cnt) - 1);
       setIsLike(false);
     }
-    // const id = user.id;
-    // const no = post.no;
     likePost({ id: user.id, no: post.no });
   };
 
@@ -97,6 +91,7 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
             <p>
               <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} />
               {likeCount === 0 ? parseInt(post.like) : likeCount}
+              {/* <FontAwesomeIcon icon={faHeart} /> */}
             </p>
             <p>
               <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} />

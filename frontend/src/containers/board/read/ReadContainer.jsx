@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { readPost, unloadPost, likePost } from "../../../modules/board/ReadMod";
+import { readPost, unloadPost, likePost, isLike } from "../../../modules/board/ReadMod";
 import ReadComp from "../../../components/board/read/ReadComp";
 import ListActionButtonsComp from "../../../components/board/read/ListActionButtonsComp";
 import { setOriginPost } from "../../../modules/board/WriteMod";
@@ -12,10 +12,11 @@ const ReadContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { post, error, loading, user } = useSelector(({ ReadMod, loading, UserMod }) => ({
+  const { post, error, loading, user, like } = useSelector(({ ReadMod, loading, UserMod }) => ({
     post: ReadMod.post,
     error: ReadMod.error,
     user: UserMod.user,
+    like: ReadMod.like
     // loading: loading["post/READ_POST"],
   }));
   // console.log("아아아아아ㅏ아아", post);
@@ -29,9 +30,12 @@ const ReadContainer = () => {
 
   useEffect(() => {
     dispatch(readPost(readNo), likePost(readNo, user));
-    // return () => {
-    //   dispatch(unloadPost());
-    // };
+    // if (user && post) {
+    //   const id = user.id;
+    //   const bno = post.no;
+    //   dispatch(isLike({ id, bno }));
+    // }
+
   }, [dispatch, readNo, user]);
 
   const onEdit = () => {
@@ -51,7 +55,7 @@ const ReadContainer = () => {
 
   // console.log("setOriginpost---->", setOriginPost(post));
   console.log("user====================================>", user);
-  return <ReadComp post={post} loading={loading} error={error} user={user} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
+  return <ReadComp like={like} post={post} loading={loading} error={error} user={user} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
 };
 
 export default ReadContainer;
