@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp2 from "../common/PageNavComp2";
+import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
   /* background: #3ff; */
@@ -12,6 +13,7 @@ const AreaItemBlock = styled.div`
     width: 400px;
     height: 360px;
     border-radius: 20px;
+    background: ${ThemeComp.smoke};
   }
   .title {
     margin-top: 10px;
@@ -38,7 +40,7 @@ const AreaItem = ({ area, itemKey, onClick }) => {
   // console.log('area : ', area);
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
-      <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/noImage.png"} alt="이미지없음" loading="lazy" />
+      <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo.png"} alt="이미지없음" loading="lazy" />
 
       <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
         <p className="title">{area.title}</p>

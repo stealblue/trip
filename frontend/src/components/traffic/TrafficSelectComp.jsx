@@ -9,7 +9,7 @@ const TrafficContainer = styled.div`
   .traffic-btn {
     display: flex;
     justify-content: space-around;
-    width: 20%;
+    width: 15%;
   }
   button {
     background: none;
@@ -25,14 +25,39 @@ const TrafficContainer = styled.div`
     display: block;
     margin-top: 10px;
   }
-`;
 
-const SelectCheckList = styled.div`
-  display: flex;
-  text-align: center;
+  .select-option {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+    width: 55%;
 
-  .check-list {
-    border: 1px solid #333;
+    .select-area {
+      width: 200px;
+      padding: 15px 20px;
+      background: ${ThemeComp.smoke};
+      border-radius: 30px;
+      border: 1px solid #333;
+
+      span {
+        margin-left: 30px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+    input {
+      border-radius: 30px;
+      padding: 0 30px;
+      background: ${ThemeComp.smoke};
+    }
+
+    select {
+      width: 100px;
+      height: 40px;
+      background: ${ThemeComp.smoke};
+    }
   }
 `;
 
@@ -117,25 +142,20 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
           </button>
         </div>
         <div className="select-option">
-          <div>출발지</div>
-          <div>도착지</div>
+          <div className="select-area">
+            출발지<span>화명</span>
+          </div>
+          <div className="select-area">
+            도착지<span>서대구</span>
+          </div>
 
           <input type="date" onChange={onChangeDate} />
           <select>
             <option>종류</option>
           </select>
+          <button>검색</button>
         </div>
       </TrafficContainer>
-      <SelectCheckList>
-        <div className="check-list">
-          <div>출발지</div>
-          <p>선택출발지</p>
-        </div>
-        <div className="check-list">
-          <div>도착지</div>
-          <p>선택도착지</p>
-        </div>
-      </SelectCheckList>
 
       <SelectListContainer>
         <div className="list">

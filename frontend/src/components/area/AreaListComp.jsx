@@ -62,7 +62,7 @@ const AreaItem = ({ area, onClick, addWish }) => {
       {/* <LazyLoad> */}
       <div>
         <div>
-          <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/noImage.png"} alt="이미지없음" loading="lazy" />
+          <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo.png"} alt="이미지없음" loading="lazy" />
         </div>
         {/* </LazyLoad> */}
         <div className="des" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-addr={area.addr1 || area.addr2}>
