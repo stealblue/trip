@@ -40,7 +40,7 @@ const ProfileCntr = () => {
     user: ProfileMod.user,
     nick: ProfileMod.nick,
     nickAuth: ProfileMod.nickAuth,
-    nickError: ProfileMod.NickError,
+    nickError: ProfileMod.nickError,
     boardList: ProfileMod.boardList,
     totalBoard: ProfileMod.totalBoard,
     deleteBoardError: ProfileMod.deleteBoardError,

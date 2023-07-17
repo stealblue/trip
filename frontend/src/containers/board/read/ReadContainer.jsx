@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { readPost, unloadPost, likePost, isLike } from "../../../modules/board/ReadMod";
@@ -11,16 +11,15 @@ const ReadContainer = () => {
   const { readNo } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLlike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   const { post, error, loading, user, like } = useSelector(({ ReadMod, loading, UserMod }) => ({
     post: ReadMod.post,
     error: ReadMod.error,
     user: UserMod.user,
     like: ReadMod.like
-    // loading: loading["post/READ_POST"],
   }));
-  // console.log("아아아아아ㅏ아아", post);
-
 
   useEffect(() => {
     return () => {
@@ -52,10 +51,27 @@ const ReadContainer = () => {
       console.log(error);
     }
   };
+  const likeButton = (e) => {
+    if (!isLlike) {
+      setLikeCount(parseInt(e.target.dataset.cnt) + 1);
+      setIsLike(true);
+    } else {
+      setLikeCount(parseInt(e.target.dataset.cnt) - 1);
+      setIsLike(false);
+    }
+    likePost({ id: user.id, no: post.no });
+  };
 
-  // console.log("setOriginpost---->", setOriginPost(post));
-  console.log("user====================================>", user);
-  return <ReadComp like={like} post={post} loading={loading} error={error} user={user} actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />}></ReadComp>;
+  return <ReadComp
+    likeCount={likeCount}
+    isLike={isLike}
+    likeButton={likeButton}
+    like={like}
+    post={post}
+    loading={loading}
+    error={error}
+    user={user}
+    actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />} />;
 };
 
 export default ReadContainer;

@@ -48,27 +48,7 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
-  console.log("post.like ==========================================>", post);
-  console.log("user =====<>", user);
-  const [isLlike, setIsLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-
-  const dispatch = useDispatch();
-
-  const likeButton = (e) => {
-    if (!isLlike) {
-      setLikeCount(parseInt(e.target.dataset.cnt) + 1);
-      setIsLike(true);
-    } else {
-      setLikeCount(parseInt(e.target.dataset.cnt) - 1);
-      setIsLike(false);
-    }
-    likePost({ id: user.id, no: post.no });
-  };
-
-  // console.log(like);
-
+const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButton, isLike, likeCount }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <div>존재하지않는포스트입니다</div>;
@@ -80,7 +60,6 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user }) => {
     return null;
   }
 
-  // console.log("BoardRead====>", post.title);
   return (
     <>
       <Responsive>
