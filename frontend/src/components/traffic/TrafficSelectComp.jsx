@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   display: flex;
@@ -9,11 +10,47 @@ const TrafficContainer = styled.div`
   button {
     background: none;
     padding: 10px;
+    text-align: center;
   }
   .icon {
     width: 30px;
     margin-right: 10px;
     display: block;
+  }
+`;
+
+const SelectListContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: 0 auto;
+
+  .list {
+    display: flex;
+    justify-content: space-around;
+  }
+`;
+
+const SelectListBlock = styled.div`
+  width: 200px;
+  height: auto;
+  border: 1px solid #333;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-left: 10px;
+  .title {
+    background: ${ThemeComp.lightblack};
+    color: ${ThemeComp.white};
+    padding: 10px 0;
+  }
+
+  li {
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+  }
+  li:hover {
+    background: gray;
   }
 `;
 
@@ -58,26 +95,32 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         </button>
         <button onClick={onClickCategory} value="bus">
           <img src="/assets/bus.png" alt="bus" className="icon" />
-          시외버스
+          시외버스 <p>출발지</p>
         </button>
         <input type="date" onChange={onChangeDate} />
         <select>
           <option>종류</option>
         </select>
       </TrafficContainer>
-      <div>
-        <p>출발지</p>
-        <ul>
-          {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
-          {terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
-        </ul>
-        <ul>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</ul>
-      </div>
-      <div>
-        <p>도착지</p>
-        <ul>{stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}</ul>
-        <ul>{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</ul>
-      </div>
+
+      <SelectListContainer>
+        <div className="list">
+          <SelectListBlock>
+            <p className="title">출발지</p>
+            {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+            {terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+          </SelectListBlock>
+          <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+        </div>
+
+        <div className="list">
+          <SelectListBlock>
+            <p className="title">도착지</p>
+            {stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+          </SelectListBlock>
+          <SelectListBlock>{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+        </div>
+      </SelectListContainer>
       <div></div>
     </div>
   );

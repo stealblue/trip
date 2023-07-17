@@ -59,15 +59,17 @@ const ThemeListItem = styled.button`
     color: ${ThemeComp.white};
   }
 
-  &.selectItem{
+  &.selectItem {
     background-color: steelblue;
+    color: ${ThemeComp.smoke};
+    font-weight: 600;
   }
 `;
 
 const SelectArea = ({ onClick, area, areaCode }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? 'selectItem' : null}>
+      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
         {area.name}
       </ThemeListItem>
     </>
@@ -77,7 +79,7 @@ const SelectArea = ({ onClick, area, areaCode }) => {
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? 'selectItem' : null}>
+      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? "selectItem" : null}>
         {type.name}
       </ThemeListItem>
     </>
