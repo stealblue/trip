@@ -1,14 +1,14 @@
-import React from 'react';
-import { styled } from 'styled-components';
+import React from "react";
+import { styled } from "styled-components";
 
 const TrafficHeader = styled.div`
-span{
-  width: 20%;
-  background-color: steelblue;
-  display: inline-block;
-  text-align: center;
-  color: whitesmoke;
-}
+  span {
+    width: 20%;
+    background-color: steelblue;
+    display: inline-block;
+    text-align: center;
+    color: whitesmoke;
+  }
 `;
 
 const TrafficItem = ({ item }) => {
@@ -20,11 +20,11 @@ const TrafficItem = ({ item }) => {
       <span>{item.depplandtime}</span>
       <span>{item.traingradename}</span>
     </TrafficHeader>
-  )
-}
+  );
+};
 
 const TrafficListComp = ({ resultTrains }) => {
-  console.log('resultTrains : ', resultTrains);
+  console.log("resultTrains : ", resultTrains);
   const result = resultTrains?.response.body.items?.item;
   return (
     <div>

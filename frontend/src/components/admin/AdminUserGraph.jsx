@@ -44,8 +44,7 @@ const AdminUserGraph = ({ totalItem, type }) => {
         xaxis: {
           categories: weekday,
         },
-      }}
-    ></ApexCharts>
+      }}></ApexCharts>
   );
 };
 

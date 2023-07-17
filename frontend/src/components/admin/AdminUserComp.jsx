@@ -1,19 +1,36 @@
 import { styled } from "styled-components";
+import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartSimple, faUser } from "@fortawesome/free-solid-svg-icons";
+
+const AdminUserWrap = styled.div`
+  width: 1600px;
+  margin: 0 auto;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  padding: 20px;
+`;
+
 const BoardContainer = styled.div`
-  background: skyblue;
-  height: 600px;
-  width: 800px;
-  margin: 20px;
+  background: ${ThemeComp.smoke};
+  width: 1200px;
+  margin: 10px auto;
 `;
 
 const BoardName = styled.div`
-  background: yellow;
-  color: green;
+  background: ${ThemeComp.dark};
+
   font-size: 20px;
-  padding: 10px 0;
+  padding: 10px 20px;
+  span {
+    color: ${ThemeComp.smoke};
+    margin-left: 10px;
+  }
 `;
 
 const Board = styled.div`
@@ -60,24 +77,21 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminUserComp = ({
-  getUserInform,
-  deleteUserInform,
-  userList,
-  totalUser,
-  user,
-  modal,
-  switchModal,
-}) => {
+const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
   return (
-    <div>
+    <AdminUserWrap>
       <BoardContainer>
-        <BoardName>아이콘 / 가입자수</BoardName>
+        <BoardName>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>가입자수</span>
+        </BoardName>
         <AdminUserGraph totalItem={totalUser} type={"user"} />
       </BoardContainer>
 
       <BoardContainer>
-        <BoardName>아이콘 / 회원관리 / 총 가입자 수({totalUser}명)</BoardName>
+        <BoardName>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>회원관리</span>
+          <span> / 총 가입자 수({totalUser}명)</span>
+        </BoardName>
         <Board>
           {userList.map((user) => (
             <UserInfoContainer key={user.id}>
@@ -86,9 +100,7 @@ const AdminUserComp = ({
                 <Detail>닉네임 : {user.nick}</Detail>
                 <Detail>phone : {user.phone}</Detail>
               </UserInfo>
-              <ControlButton onClick={() => deleteUserInform(user.id)}>
-                탈퇴
-              </ControlButton>
+              <ControlButton onClick={() => deleteUserInform(user.id)}>탈퇴</ControlButton>
             </UserInfoContainer>
           ))}
           {modal && user && (
@@ -111,7 +123,7 @@ const AdminUserComp = ({
           )}
         </Board>
       </BoardContainer>
-    </div>
+    </AdminUserWrap>
   );
 };
 
