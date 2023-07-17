@@ -58,36 +58,40 @@ const ThemeListItem = styled.button`
     background: ${ThemeComp.subcolor};
     color: ${ThemeComp.white};
   }
+
+  &.selectItem{
+    background-color: steelblue;
+  }
 `;
 
-const SelectArea = ({ onClick, area }) => {
+const SelectArea = ({ onClick, area, areaCode }) => {
   return (
     <>
-      <button onClick={onClick} value={area.code}>
+      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? 'selectItem' : null}>
         {area.name}
-      </button>
+      </ThemeListItem>
     </>
   );
 };
 
-const SelectType = ({ onClick, type }) => {
+const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={type.code}>
+      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? 'selectItem' : null}>
         {type.name}
       </ThemeListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes }) => {
+const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId }) => {
   return (
     <>
       <MapContainer>
         <img className="map" src="/assets/map.jpeg" alt="지도샘플" />
         <div>
           {areas.map((area) => (
-            <SelectArea area={area} key={area.code} onClick={onClickArea} />
+            <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
           ))}
           AreaName
         </div>
@@ -96,7 +100,7 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes }) => {
           <ThemeList>
             <div className="theme">
               {contentTypes.map((type) => (
-                <SelectType type={type} key={type.code} onClick={onClickType} />
+                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
               ))}
             </div>
           </ThemeList>
