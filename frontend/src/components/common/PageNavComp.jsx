@@ -6,6 +6,9 @@ import { showPageNo } from '../../modules/area/AreaMod';
 const LiBlock = styled.li`
   display: inline-block;
   margin: 10px;
+  &.checkPage{
+    color:steelblue;
+  }
 `;
 
 const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
@@ -29,7 +32,7 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
       <p>
         {(pageNavStartNum !== 1 && pageNavStartNum > 10) ? <LiBlock onClick={onClickPage} value={pageNavStartNum - 1} data-page={pageNavStartNum - 1}>prev</LiBlock> : null}
         {resArray.map((r) => (
-          <LiBlock onClick={onClickPage} key={r} value={r}>{r}</LiBlock>
+          <LiBlock onClick={onClickPage} key={r} value={r} className={page === r ? 'checkPage' : null}>{r}</LiBlock>
         ))}
         {pageNavEndNum < res ? <LiBlock onClick={onClickPage} value={pageNavEndNum + 1} data-page={pageNavEndNum + 1}>next</LiBlock> : null}
       </p>
