@@ -17,6 +17,7 @@ const Button = styled.button`
   background: black;
   color: white;
   font-size: 1rem;
+  margin-top: 20px;
 
   &:hover {
     background: tomato;

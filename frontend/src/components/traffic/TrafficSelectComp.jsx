@@ -4,18 +4,60 @@ import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 25%;
-  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  .traffic-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 15%;
+  }
   button {
     background: none;
-    padding: 10px;
+    padding: 10px 30px;
     text-align: center;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
   }
   .icon {
     width: 30px;
-    margin-right: 10px;
     display: block;
+    margin-top: 10px;
+  }
+
+  .select-option {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+    width: 55%;
+
+    .select-area {
+      width: 200px;
+      padding: 15px 20px;
+      background: ${ThemeComp.smoke};
+      border-radius: 30px;
+      border: 1px solid #333;
+
+      span {
+        margin-left: 30px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+    input {
+      border-radius: 30px;
+      padding: 0 30px;
+      background: ${ThemeComp.smoke};
+    }
+
+    select {
+      width: 100px;
+      height: 40px;
+      background: ${ThemeComp.smoke};
+    }
   }
 `;
 
@@ -89,18 +131,30 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
   return (
     <div>
       <TrafficContainer>
-        <button onClick={onClickCategory} value="train">
-          <img src="/assets/train.png" alt="train" className="icon" />
-          기차
-        </button>
-        <button onClick={onClickCategory} value="bus">
-          <img src="/assets/bus.png" alt="bus" className="icon" />
-          시외버스 <p>출발지</p>
-        </button>
-        <input type="date" onChange={onChangeDate} />
-        <select>
-          <option>종류</option>
-        </select>
+        <div className="traffic-btn">
+          <button onClick={onClickCategory} value="train">
+            <img src="/assets/train.png" alt="train" className="icon" />
+            기차
+          </button>
+          <button onClick={onClickCategory} value="bus">
+            <img src="/assets/bus.png" alt="bus" className="icon" />
+            버스
+          </button>
+        </div>
+        <div className="select-option">
+          <div className="select-area">
+            출발지<span>화명</span>
+          </div>
+          <div className="select-area">
+            도착지<span>서대구</span>
+          </div>
+
+          <input type="date" onChange={onChangeDate} />
+          <select>
+            <option>종류</option>
+          </select>
+          <button>검색</button>
+        </div>
       </TrafficContainer>
 
       <SelectListContainer>

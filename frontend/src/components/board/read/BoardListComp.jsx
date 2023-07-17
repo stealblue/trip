@@ -93,7 +93,7 @@ const BoardListItem = ({ post }) => {
   }
 
   const { no, id, title, content, createAt, like, cnt, user } = post;
-  console.log('content : ', content);
+  console.log("content : ", content);
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -122,14 +122,10 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
         {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
-        {posts && posts.slice(offset, offset + limit).map((post, index) => (
-          <BoardListItem key={post.no} post={post} />
-        ))}
-        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
+        {posts && posts.slice(offset, offset + limit).map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
+        <footer className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</footer>
       </WrapperComp>
-      <footer>
-        {posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}
-      </footer>
     </>
   );
 };

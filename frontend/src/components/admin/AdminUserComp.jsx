@@ -103,14 +103,23 @@ const ControlButton = styled.button`
 
 const StyledModal = Modal.styled`
   background: white;
-  height: 450px;
-  width: 500px;
+  height: 500px;
+  width: 600px;
 
   div{
     display: flex;
     padding: 5px;
     justify-contents: space-between;
   }
+
+    table,
+  td,
+  th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px ;
+  }
+
 `;
 
 const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
@@ -160,14 +169,51 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
               onEscapeKeydown={switchModal} //esc키 눌렀을경우 함수 실행
               onBackgroundClick={switchModal} //esc키 or 오버레이부분 클릭시 함수 실행
             >
-              <div>아이디 : {user.id}</div>
+              <h3>회원 상세 정보</h3>
+              <table border="1">
+                <caption>Lorem</caption>
+                {/* <thead>
+                  <tr>
+                    <th></th>
+                    <th>Ipsum</th>
+                    <th>Ipsum</th>
+                    <th>Ipsum</th>
+                  </tr>
+                </thead> */}
+                <tbody>
+                  <tr>
+                    <th>아이디</th>
+                    <td> {user.id}</td>
+                    <td>닉네임</td>
+                    <td>{user.nick}</td>
+                  </tr>
+                  <tr>
+                    <th>전화번호</th>
+                    <td>{user.phone}</td>
+                    <td>성별</td>
+                    <td>{user.gender ? "여자" : "남자"}</td>
+                  </tr>
+                  <tr>
+                    <th>주소</th>
+                    <td colSpan="3">{user.addr1 + user?.addr2}</td>
+                  </tr>
+                  <tr>
+                    <th>등급</th>
+                    <td>{user.grade}</td>
+                    <td>가입날짜</td>
+                    <td>{user.reg}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              {/* <div>아이디 : {user.id}</div>
               <div>닉네임 : {user.nick}</div>
               <div>phone : {user.phone}</div>
               <div>주소 : {user.addr1 + user?.addr2}</div>
               <div>우편번호 : {user.zipcode}</div>
               <div>성별 : {user.gender ? "여자" : "남자"}</div>
               <div>등급 : {user.grade}</div>
-              <div>가입날짜 : {user.reg}</div>
+              <div>가입날짜 : {user.reg}</div> */}
               <ControlButton onClick={switchModal}>닫기</ControlButton>
             </StyledModal>
           )}
