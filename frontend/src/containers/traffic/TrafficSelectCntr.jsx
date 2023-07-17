@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listTerminals } from "../../modules/traffic/BusMod";
 import { listStations, startStations, selectStart, endStations, selectEnd, listTrains } from "../../modules/traffic/TrainMod";
-import TrafficListComp from '../../components/traffic/TrafficSelectComp';
+import TrafficSelectComp from '../../components/traffic/TrafficSelectComp';
 
-const TrafficListCntr = ({ target, date }) => {
+const TrafficSelectCntr = () => {
+  const [target, setTarget] = useState(null);
+  const [date, setDate] = useState(null);
+
   const dispatch = useDispatch();
+
+
   const { terminals, stations, stationStartDetails, startStation, stationEndDetails, endStation } = useSelector(({ BusMod, TrainMod }) => ({
     terminals: BusMod?.terminals,
     stations: TrainMod?.stations,
@@ -15,8 +20,7 @@ const TrafficListCntr = ({ target, date }) => {
     endStation: TrainMod?.endStation
   }))
 
-  const onClick = (e) => {
-    console.log('click Target : ', e.target);
+  const onClickArea = (e) => {
     const cityCode = e.target.value;
     if (e.target.dataset.type === 'start') {
       dispatch(startStations({ cityCode }));
@@ -26,7 +30,8 @@ const TrafficListCntr = ({ target, date }) => {
     }
 
   }
-  const onClick2 = (e) => {
+
+  const onClickPlace = (e) => {
     const stationId = e.target.dataset.value;
     if (e.target.dataset.type === 'start') {
       dispatch(selectStart({ stationId }));
@@ -37,12 +42,22 @@ const TrafficListCntr = ({ target, date }) => {
   }
 
 
+
+  const onClickCategory = (e) => {
+    console.log('기차 또는 버스');
+    setTarget(e.target.value);
+  }
+
+  const onChangeDate = (e) => {
+    const targetDate = e.target.value;
+    const originDate = new Date(targetDate);
+    setDate(originDate);
+  }
+
   useEffect(() => {
     if (target === 'train') { dispatch(listStations()) }
-    else { dispatch(listTerminals()) }
-    console.log('cont')
+    else if (target === 'bus') { dispatch(listTerminals()) }
     if (startStation && endStation && date) {
-      console.log('메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수메밀국수')
       const startValue = startStation.stationId;
       const endValue = endStation.stationId;
       console.log('date : ', date);
@@ -51,11 +66,20 @@ const TrafficListCntr = ({ target, date }) => {
   }, [dispatch, target, startStation, endStation, date])
   return (
     <div>
-      {stations &&
-        <TrafficListComp terminals={terminals} stations={stations} onClick={onClick} stationStartDetails={stationStartDetails} onClick2={onClick2} stationEndDetails={stationEndDetails} />
+      {
+        <TrafficSelectComp
+          terminals={terminals}
+          stations={stations}
+          stationStartDetails={stationStartDetails}
+          stationEndDetails={stationEndDetails}
+          onClickCategory={onClickCategory}
+          onClickArea={onClickArea}
+          onClickPlace={onClickPlace}
+          onChangeDate={onChangeDate} />
       }
     </div>
   );
 };
 
-export default TrafficListCntr;
+export default TrafficSelectCntr;
+

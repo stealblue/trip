@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
+import ThemeComp from "../common/ThemeComp";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const HeaderContainer = styled.div`
   left: 50%;
   transform: translate(-50%);
   z-index: 10000;
-  padding: 20px;
+  padding: 10px;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   transition: 0.8s;
@@ -20,7 +21,14 @@ const HeaderContainer = styled.div`
   }
 
   &.change_header {
-    background: #fff;
+    background: ${ThemeComp.white};
+  }
+
+  .welecome {
+    font-size: 20px;
+    margin-left: 40px;
+    margin-bottom: 8px;
+    font-weight: 600;
   }
 `;
 
@@ -29,6 +37,10 @@ const Logo = styled.div`
   font-weight: 600;
   font-family: "TTWanjudaedunsancheB";
   text-align: center;
+  img {
+    width: 200px;
+    margin-top: 20px;
+  }
 `;
 
 const Nav = styled.ul`
@@ -49,16 +61,17 @@ const NavList = styled.li`
 
 const LoginCategory = styled.span`
   margin-left: 20px;
-  /* background: #fff; */
+  /* background: ${ThemeComp.lightblack}; */
+  padding: 5px 15px;
+  border-radius: 20px;
+  .logout {
+    font-size: 16px;
+    cursor: pointer;
+  }
 `;
 
 const Spacer = styled.div`
   height: 10rem;
-`;
-
-const Button = styled.button`
-  background: none;
-  border: none;
 `;
 
 const HeaderComp = ({ nick, onLogout }) => {
@@ -71,14 +84,13 @@ const HeaderComp = ({ nick, onLogout }) => {
   });
   return (
     <>
-      <HeaderContainer
-        className={scrollPosition < 100 ? "original_header" : "change_header"}
-      >
+      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo>
           <Link to="/">
-            TRIPPER
+            {/* TRIPPER
             <br />
-            MAKER
+            MAKER */}
+            <img src="/assets/triplogo8.png" />
           </Link>
         </Logo>
         <Nav>
@@ -100,12 +112,14 @@ const HeaderComp = ({ nick, onLogout }) => {
         </Nav>
         {nick ? (
           <div>
-            <h2>{nick}님 환영합니다!</h2>
+            <div className="welecome">{nick}님 환영합니다!</div>
             <LoginCategory>
               <Link to={`/profile/${nick}`}>마이페이지</Link>
             </LoginCategory>
             <LoginCategory>
-              <Button onClick={onLogout}>로그아웃</Button>
+              <span className="logout" onClick={onLogout}>
+                로그아웃
+              </span>
             </LoginCategory>
           </div>
         ) : (

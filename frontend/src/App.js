@@ -20,9 +20,7 @@ import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
-
 import { useSelector } from "react-redux";
-
 import { AnimatePresence } from "framer-motion";
 
 function App() {
@@ -30,6 +28,8 @@ function App() {
   const { user } = useSelector(({ UserMod }) => ({
     user: UserMod.user
   }));
+
+  const location = useLocation();
 
   return (
     <>

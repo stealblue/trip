@@ -6,6 +6,9 @@ import { showPageNo } from '../../modules/area/AreaMod';
 const LiBlock = styled.li`
   display: inline-block;
   margin: 10px;
+  &.checkPage{
+    color:steelblue;
+  }
 `;
 
 const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
@@ -24,43 +27,16 @@ const PageNavComp = ({ totalCount, pageNo, numOfRows }) => {
     dispatch(showPageNo(page));
   }
   const resArray = Array.from({ length: (pageNavEndNum - pageNavStartNum) + 1 }, (_, index) => index + pageNavStartNum);
-  console.log(`전체 페이지수  =====> totalCount : ${totalCount}`);
-  console.log('현재 페이지 =====> pageNo : ', pageNo);
-  console.log('numOfRows : ', numOfRows);
-  console.log('10개 덩어리 페이지 =====> res :', res);
-  console.log(`시작 페이지 =====> start : ${pageNavStartNum} / 마지막 페이지 =====> end : ${pageNavEndNum}`);
-  console.log('resArray : ', resArray);
-  // const offset = 0 + parseInt((pageNo ? pageNo : 1) - 1) * numOfRows;
-
-  // const checkNum = (pageNo ? pageNo : 1);
-  // const checkNav = (Math.ceil(totalCount / numOfRows) * numOfRows) / numOfRows;
-  // const nav = [];
-  // for (let i = checkNum; i < checkNum + numOfRows; i++) {
-  //   if (i < checkNav) {
-  //     nav.push(i);
-  //   }
-  // }
-  // console.log('offset : ', offset);
-  // console.log('checkNum : ', checkNum);
-  // console.log('checkNav : ', checkNav);
-  // console.log('nav : ', nav);
   return (
     <div>
       <p>
         {(pageNavStartNum !== 1 && pageNavStartNum > 10) ? <LiBlock onClick={onClickPage} value={pageNavStartNum - 1} data-page={pageNavStartNum - 1}>prev</LiBlock> : null}
         {resArray.map((r) => (
-          <LiBlock onClick={onClickPage} key={r} value={r}>{r}</LiBlock>
+          <LiBlock onClick={onClickPage} key={r} value={r} className={page === r ? 'checkPage' : null}>{r}</LiBlock>
         ))}
         {pageNavEndNum < res ? <LiBlock onClick={onClickPage} value={pageNavEndNum + 1} data-page={pageNavEndNum + 1}>next</LiBlock> : null}
       </p>
     </div>
-    // <div>
-    //   {nav[0] > 10 ? <LiBlock onClick={onClickPage} value={checkNum - 9}>prev</LiBlock> : null}
-    //   {nav.map((page) => (
-    //     <LiBlock onClick={onClickPage} value={page} key={page}>{page}</LiBlock>
-    //   ))}
-    //   {((pageNo + numOfRows < totalCount) && (nav.length === 10)) ? <LiBlock onClick={onClickPage} value={checkNum + 10}>next</LiBlock> : null}
-    // </div>
   );
 };
 

@@ -23,7 +23,7 @@ const StyledModal = Modal.styled`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  color: red;
+  color: ${ThemeComp.red};
   margin-left: 400px;
   background: none;
   text-align: center;
@@ -45,8 +45,8 @@ const RegisterContainer = styled.div`
 
   .join-text {
     font-size: 20px;
-    color: #fff;
-    border-bottom: 2px solid ${ThemeComp.bgcolor};
+    color: ${ThemeComp.softblack};
+    border-bottom: 2px solid ${ThemeComp.softblack};
     padding: 6px 0;
     display: inline-block;
     text-align: center;
@@ -54,7 +54,7 @@ const RegisterContainer = styled.div`
   }
 
   .logo {
-    color: #fff;
+    color: ${ThemeComp.white};
     text-align: center;
     font-size: 30px;
   }
@@ -62,14 +62,14 @@ const RegisterContainer = styled.div`
   button {
     padding: 10px;
     margin: 5px 10px;
-    background: ${ThemeComp.bgcolor};
-    color: #fff;
+    background: ${ThemeComp.lightblack};
+    color: ${ThemeComp.white};
     border: none;
     cursor: pointer;
     transition: 0.3s;
+    /* color: ${ThemeComp.softblack}; */
     &:hover {
-      background: ${ThemeComp.subcolor};
-      color: #333;
+      background: ${ThemeComp.softblack};
     }
     &.join-btn {
       background: ${ThemeComp.bgcolor};
@@ -80,16 +80,21 @@ const RegisterContainer = styled.div`
       font-size: 16px;
       text-align: center;
       display: block;
-      box-shadow: 2px 3px 3px 3px rgba(0, 0, 0, 0.3);
+      background: ${ThemeComp.softblack};
+      box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.3);
     }
     &.join-btn:hover {
-      background: ${ThemeComp.gre};
+      background: ${ThemeComp.subcolor};
+    }
+    &.addr-btn {
+      display: inline-block;
+      margin-left: 0;
     }
   }
 
   .gender {
     margin-top: 20px;
-    color: #fff;
+    color: ${ThemeComp.softblack};
     input[type="radio"] {
       margin-left: 10px;
       width: 30px;
@@ -101,43 +106,38 @@ const RegisterFormBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-color: #fff;
+  border-color: ${ThemeComp.white};
   margin-top: 30px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
   padding: 50px;
   .emailat {
-    color: #fff;
+    color: ${ThemeComp.softblack};
     margin-right: 5px;
   }
 `;
 
 const RegisterInput = styled.input`
-  border: none;
-  border-bottom: 1px solid black;
   height: 27px;
   margin-top: 10px;
   padding: 7px 10px;
-  border-radius: 10px;
-  border: 2px solid #999;
-  background: none;
-  /* color: #fff; */
-  color:black;
+  /* border-radius: 10px; */
+  border: 1px solid ${ThemeComp.lightblack};
+  background: ${ThemeComp.white};
+  color: ${ThemeComp.softblack};
   margin-right: 5px;
   width: 200px;
 `;
 
 const SubIdInput = styled.input`
-  border: none;
-  border-bottom: 1px solid black;
   height: 27px;
   margin-top: 10px;
   padding: 7px 10px;
-  border-radius: 10px;
-  border: 2px solid #999;
-  background: none;
-  color: #fff;
+  /* border-radius: 10px; */
+  border: 1px solid ${ThemeComp.lightblack};
+  background: ${ThemeComp.white};
+  color: ${ThemeComp.softblack};
   margin-right: 5px;
   width: 200px;
 
@@ -150,45 +150,47 @@ const SubIdInput = styled.input`
 `;
 
 const SelectDomain = styled.select`
-  border: none;
-  border-bottom: 1px solid black;
+  border: 1px solid ${ThemeComp.softblack};
   padding: 10px 20px;
+  background: ${ThemeComp.white};
 `;
 
 const NameTag = styled.span`
-  /* display: flex;
-  align-items: start;
-  text-align: center;
-  justify-content: center;
-  font-size: 18px;
-  margin-top: 45px;
-  text-align: left; */
   width: 100px;
-  text-align: left;
+  text-align: right;
   display: inline-block;
-  color: #777;
-  font-weight: 600;
-  margin-left: 10px;
-  /* background:#333; */
+  color: ${ThemeComp.softblack};
+  font-weight: 500;
+  margin-right: 10px;
+  /* background: #232345; */
 `;
 
 const ConfirmMessage = styled.div`
   /* background: skyblue; */
+  width: 600px;
+  margin-left: 100px;
+  margin-top: 5px;
   font-size: 15px;
   height: 20px;
-  /* 상세주소 */
   ${(props) =>
     props.authok &&
     css`
-      /* background: #92b8b1; */
-      color: color;
+      color: ${ThemeComp.subcolor};
     `}
   ${(props) =>
     props.autherror &&
     css`
-      /* background: pink; */
-      color: #ff3300;
+      color: ${ThemeComp.red};
     `}
+
+    &:nth-child(1) {
+    margin-left: -0px;
+  }
+
+  .count {
+    font-weight: 600;
+    margin-left: 10px;
+  }
 `;
 
 // const items = ["이메일", "비밀번호", "비밀번호 확인", "닉네임", "전화번호", "주소", "상세주소", "성별"];
@@ -228,7 +230,7 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNi
               <button name="emailChk" onClick={onCheck}>
                 중복확인
               </button>
-              <ConfirmMessage>{onIdChk === "empty" ? <ConfirmMessage></ConfirmMessage> : onIdChk === false ? <ConfirmMessage autherror="true">이미 사용중인 닉네임입니다.</ConfirmMessage> : <ConfirmMessage authok="true">사용가능한 닉네임입니다.</ConfirmMessage>}</ConfirmMessage>
+              <ConfirmMessage>{onIdChk === "empty" ? <ConfirmMessage></ConfirmMessage> : onIdChk === false ? <ConfirmMessage autherror="true">이미 사용중인 이메일입니다.</ConfirmMessage> : <ConfirmMessage authok="true">사용가능한 닉네임입니다.</ConfirmMessage>}</ConfirmMessage>
             </div>
             <NameTag>비밀번호</NameTag>
             <RegisterInput placeholder="비밀번호" name="pwd" type="password" onChange={onChange} />
@@ -251,22 +253,26 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNi
             </button>
             <ConfirmMessage>
               {<span>{phoneMsg}</span>}
-              {count === 60 || authNum === true ? "" : count !== 0 && phoneAuth ? <span>인증 유효시간 {count}초</span> : ""}
+              {count === 60 || authNum === true ? "" : count !== 0 && phoneAuth ? <span className="count">인증 유효시간 {count}초</span> : ""}
             </ConfirmMessage>
+            <NameTag>주소</NameTag>
+            <button className="addr-btn" onClick={openSearchAddress}>
+              주소찾기
+            </button>
             {addr1 ? (
-              <div>
+              <span>
                 <SubIdInput placeholder="우편번호" name="zipcode" ref={zipcode1} disabled={true} />
                 <SubIdInput placeholder="주소" name="addr1" type="text" ref={address1} disabled={true} />
-              </div>
+              </span>
             ) : (
-              <div>
-                <NameTag>주소</NameTag>
+              <span>
                 <SubIdInput placeholder="우편번호" name="zipcode" ref={zipcode1} />
                 <SubIdInput placeholder="주소" name="addr1" type="text" ref={address1} />
-                <button onClick={openSearchAddress}>주소찾기</button>
-              </div>
+              </span>
             )}
-            <NameTag>상세주소</NameTag> <RegisterInput placeholder="상세주소" name="addr2" type="text" onChange={onChange} />
+            <div>
+              <NameTag>상세주소</NameTag> <RegisterInput placeholder="상세주소" name="addr2" type="text" onChange={onChange} />
+            </div>
             <div className="gender">
               <NameTag>성별</NameTag>
               <input type="radio" name="gender" value="0" onChange={onChange} />

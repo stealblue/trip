@@ -54,7 +54,7 @@ exports.listTrains = async (req, res) => {
     const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=1&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${wantDate}`);
     console.log('만들어졌니???')
     const resultTrains = originData.data;
-    console.log('data : ', originData);
+    // console.log('data : ', originData);
     console.log('result : ', resultTrains);
     return res.json(resultTrains);
     // return resultTrains;

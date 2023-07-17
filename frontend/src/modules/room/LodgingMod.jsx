@@ -25,7 +25,7 @@ export function* lodgingSaga() {
 
 const initialState = {
   areaCode: null,
-  pageNo: null,
+  pageNo: 1,
   contentTypeId: null,
   areas: null,
   error: null,

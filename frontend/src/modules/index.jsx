@@ -19,6 +19,7 @@ import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
 
+
 const rootReducer = combineReducers({
   LoginMod,
   RegisterMod,
