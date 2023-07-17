@@ -286,8 +286,21 @@ exports.isLike = async (req, res) => {
   try {
     const { bno } = req.params;
     const { id } = req.query;
-    const checkLike = await like.find({ where: { bno, id } });
-    return res.json({ like: checkLike });
+    console.log(`isLike ===> bno : ${bno}  / id : ${id}`);
+    const checkLike = await like.findOne({ where: { bno, id } });
+    if (!checkLike || checkLike === {}) {
+      // return res.json({ like: null });
+      console.log('insert like!!!');
+      await like.create({
+        bno,
+        id
+      });
+      return res.json({ like: 'create' });
+    }
+    else {
+      await like.destroy({ where: { bno, id } });
+      return res.json({ like: 'delete' });
+    }
   } catch (error) {
     console.error(error);
     return res.json(error);

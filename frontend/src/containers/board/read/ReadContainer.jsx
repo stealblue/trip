@@ -59,7 +59,13 @@ const ReadContainer = () => {
       setLikeCount(parseInt(e.target.dataset.cnt) - 1);
       setIsLike(false);
     }
-    likePost({ id: user.id, no: post.no });
+    // likePost({ id: user.id, no: post.no });
+    dispatch(isLike({ bno: post.no, id: user.id }))
+    if (like) {
+      alert('1111', like);
+    } else {
+      alert('2222', like);
+    }
   };
 
   return <ReadComp

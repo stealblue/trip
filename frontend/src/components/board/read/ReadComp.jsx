@@ -70,7 +70,7 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButto
             <p>
               <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} />
               {likeCount === 0 ? parseInt(post.like) : likeCount}
-              {/* <FontAwesomeIcon icon={faHeart} /> */}
+              {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
             </p>
             <p>
               <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} />
