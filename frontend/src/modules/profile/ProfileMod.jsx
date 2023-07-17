@@ -7,10 +7,30 @@ import * as profileAPI from "../../lib/api/profile";
 
 const [GET_PROFILE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE] =
   createRequestActionTypes("profile/GET_PROFILE");
+const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
+  createRequestActionTypes("profile/CHANGE_PROFILE");
+const CHANGE_VALUE = "profile/CHANGE_VALUE";
+const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILURE] =
+  createRequestActionTypes("profile/NICK_CHECK");
 
 export const getProfile = createAction(GET_PROFILE);
+export const changeProfile = createAction(CHANGE_PROFILE, ({ id, nick }) => ({
+  id,
+  nick,
+}));
+export const changeValue = createAction(CHANGE_VALUE, ({ value }) => ({
+  value,
+}));
+export const nickChk = createAction(NICK_CHECK, ({ nick }) => ({
+  nick,
+}));
 
 const getProfileProcess = createRequestSaga(GET_PROFILE, profileAPI.getProfile);
+const changeProfileProcess = createRequestSaga(
+  CHANGE_PROFILE,
+  profileAPI.changeProfile
+);
+export const nickChkProcess = createRequestSaga(NICK_CHECK, profileAPI.nickChk);
 
 //게시물
 const [GET_BOARD_LIST, GET_BOARD_LIST_SUCCESS, GET_BOARD_LIST_FAILURE] =
@@ -95,6 +115,8 @@ const deleteWishProcess = createRequestSaga(DELETE_WISH, profileAPI.deleteWish);
 
 export function* ProfileSaga() {
   yield takeLatest(GET_PROFILE, getProfileProcess);
+  yield takeLatest(CHANGE_PROFILE, changeProfileProcess);
+  yield takeLatest(NICK_CHECK, nickChkProcess);
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
   yield takeLatest(GET_REPLY_LIST, getReplyListProcess);
@@ -110,6 +132,10 @@ export function* ProfileSaga() {
 const initialState = {
   user: null,
   userError: null,
+
+  nick: null,
+  nickAuth: null,
+  nickError: null,
 
   boardList: [],
   totalBoard: null,
@@ -145,6 +171,33 @@ const ProfileMod = handleActions(
       ...state,
       user: null,
       userError,
+    }),
+    //changeProfile
+    [CHANGE_PROFILE_SUCCESS]: (state, { payload: { nick, nickAuth } }) => ({
+      ...state,
+      nick,
+      nickAuth,
+      nickError: null,
+    }),
+    [CHANGE_PROFILE_FAILURE]: (state, { payload: { nickError } }) => ({
+      ...state,
+      nick: null,
+      nickAuth: null,
+      nickError,
+    }),
+    [CHANGE_VALUE]: (state, { payload: { value } }) => ({
+      ...state,
+      nick: value,
+    }),
+    [NICK_CHECK_SUCCESS]: (state, { payload: { nickAuth } }) => ({
+      ...state,
+      nickAuth,
+      nickError: null,
+    }),
+    [NICK_CHECK_FAILURE]: (state, { payload: { nickError } }) => ({
+      ...state,
+      nickAuth: null,
+      nickError,
     }),
     ////boardList
     [GET_BOARD_LIST_SUCCESS]: (

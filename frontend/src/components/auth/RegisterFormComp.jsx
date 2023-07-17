@@ -193,14 +193,35 @@ const ConfirmMessage = styled.div`
   }
 `;
 
-// const items = ["이메일", "비밀번호", "비밀번호 확인", "닉네임", "전화번호", "주소", "상세주소", "성별"];
-
-const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNickChk, changeDomain, chooseDomain, disabledDomain, phoneAuth, phoneMsg, authNum, count, openSearchAddress, modal, onCompletePost, addr1, address1, zipcode1 }) => {
-  const aaa = () => {
-    console.log("asdasd");
-  };
+const RegisterFormComp = ({
+  onChange,
+  onSubmit,
+  onCheck,
+  onIdChk,
+  onPwdChk,
+  onNickChk,
+  changeDomain,
+  chooseDomain,
+  disabledDomain,
+  phoneAuth,
+  phoneMsg,
+  authNum,
+  count,
+  openSearchAddress,
+  modal,
+  onCompletePost,
+  addr1,
+  address1,
+  zipcode1,
+}) => {
   return (
-    <motion.div key="modal" initial={{ opacity: 0.6, scale: 1.3 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+    <motion.div
+      key="modal"
+      initial={{ opacity: 0.6, scale: 1.3 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       <RegisterContainer>
         <Link to="/">
           <div className="home">
@@ -210,17 +231,33 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNi
         <h2 className="logo">TRIPPER MAKER</h2>
         <div className="join-text">JOIN</div>
         <RegisterFormBlock>
-          {/* <div className="nametag-title">
-            {items.map((item) => (
-              <NameTag key={item}>{item}</NameTag>
-            ))}
-          </div> */}
           <div>
             <div>
               <NameTag>이메일</NameTag>
-              <RegisterInput placeholder="E-MAIL" name="id" type="text" onChange={onChange} />
+              <RegisterInput
+                placeholder="E-MAIL"
+                name="id"
+                type="text"
+                onChange={onChange}
+              />
               <span className="emailat">@</span>
-              {disabledDomain ? <SubIdInput name="domain" type="text" onChange={onChange} ref={chooseDomain} disabled={true} /> : <SubIdInput placeholder="직접입력" name="domain" type="text" onChange={onChange} ref={chooseDomain} />}
+              {disabledDomain ? (
+                <SubIdInput
+                  name="domain"
+                  type="text"
+                  onChange={onChange}
+                  ref={chooseDomain}
+                  disabled={true}
+                />
+              ) : (
+                <SubIdInput
+                  placeholder="직접입력"
+                  name="domain"
+                  type="text"
+                  onChange={onChange}
+                  ref={chooseDomain}
+                />
+              )}
               <SelectDomain name="SelectDomain" onChange={changeDomain}>
                 <option value="directInput">직접입력</option>
                 <option value="gmail.com">gmail.com</option>
@@ -230,30 +267,93 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNi
               <button name="emailChk" onClick={onCheck}>
                 중복확인
               </button>
-              <ConfirmMessage>{onIdChk === "empty" ? <ConfirmMessage></ConfirmMessage> : onIdChk === false ? <ConfirmMessage autherror="true">이미 사용중인 이메일입니다.</ConfirmMessage> : <ConfirmMessage authok="true">사용가능한 닉네임입니다.</ConfirmMessage>}</ConfirmMessage>
+              <ConfirmMessage>
+                {onIdChk === "empty" ? (
+                  <ConfirmMessage></ConfirmMessage>
+                ) : onIdChk === false ? (
+                  <ConfirmMessage autherror="true">
+                    이미 사용중인 이메일입니다.
+                  </ConfirmMessage>
+                ) : (
+                  <ConfirmMessage authok="true">
+                    사용가능한 닉네임입니다.
+                  </ConfirmMessage>
+                )}
+              </ConfirmMessage>
             </div>
             <NameTag>비밀번호</NameTag>
-            <RegisterInput placeholder="비밀번호" name="pwd" type="password" onChange={onChange} />
+            <RegisterInput
+              placeholder="비밀번호"
+              name="pwd"
+              type="password"
+              onChange={onChange}
+            />
             <NameTag>비밀번호 확인</NameTag>
-            <RegisterInput placeholder="비밀번호 확인" name="pwdConfirm" type="password" onChange={onChange} />
-            {onPwdChk === false ? <ConfirmMessage autherror="true">비밀번호를 확인해주세요.</ConfirmMessage> : <ConfirmMessage></ConfirmMessage>}
-            <NameTag>닉네임</NameTag> <RegisterInput placeholder="닉네임" name="nick" type="text" onChange={onChange} />
+            <RegisterInput
+              placeholder="비밀번호 확인"
+              name="pwdConfirm"
+              type="password"
+              onChange={onChange}
+            />
+            {onPwdChk === false ? (
+              <ConfirmMessage autherror="true">
+                비밀번호를 확인해주세요.
+              </ConfirmMessage>
+            ) : (
+              <ConfirmMessage></ConfirmMessage>
+            )}
+            <NameTag>닉네임</NameTag>{" "}
+            <RegisterInput
+              placeholder="닉네임"
+              name="nick"
+              type="text"
+              onChange={onChange}
+            />
             <button name="nickChk" onClick={onCheck}>
               중복확인
             </button>
-            {onNickChk === "empty" ? <ConfirmMessage></ConfirmMessage> : onNickChk === false ? <ConfirmMessage autherror="true">이미 사용중인 닉네임입니다.</ConfirmMessage> : <ConfirmMessage authok="true">사용가능한 닉네임입니다.</ConfirmMessage>}
+            {onNickChk === "empty" ? (
+              <ConfirmMessage></ConfirmMessage>
+            ) : onNickChk === false ? (
+              <ConfirmMessage autherror="true">
+                이미 사용중인 닉네임입니다.
+              </ConfirmMessage>
+            ) : (
+              <ConfirmMessage authok="true">
+                사용가능한 닉네임입니다.
+              </ConfirmMessage>
+            )}
             <NameTag>전화번호</NameTag>
-            <RegisterInput placeholder="'-' 없이 입력하세요." name="phone" type="text" onChange={onChange} />
+            <RegisterInput
+              placeholder="'-' 없이 입력하세요."
+              name="phone"
+              type="text"
+              onChange={onChange}
+            />
             <button name="phoneChk" onClick={onCheck}>
               인증번호 받기
             </button>
-            {authNum === true ? <SubIdInput name="authNum" onChange={onCheck} disabled={true} /> : <SubIdInput placeholder="인증번호를 입력해주세요" name="authNum" onChange={onCheck} />}
+            {authNum === true ? (
+              <SubIdInput name="authNum" onChange={onCheck} disabled={true} />
+            ) : (
+              <SubIdInput
+                placeholder="인증번호를 입력해주세요"
+                name="authNum"
+                onChange={onCheck}
+              />
+            )}
             <button name="phoneAuthChk" onClick={onCheck}>
               인증확인
             </button>
             <ConfirmMessage>
               {<span>{phoneMsg}</span>}
-              {count === 60 || authNum === true ? "" : count !== 0 && phoneAuth ? <span className="count">인증 유효시간 {count}초</span> : ""}
+              {count === 60 || authNum === true ? (
+                ""
+              ) : count !== 0 && phoneAuth ? (
+                <span className="count">인증 유효시간 {count}초</span>
+              ) : (
+                ""
+              )}
             </ConfirmMessage>
             <NameTag>주소</NameTag>
             <button className="addr-btn" onClick={openSearchAddress}>
@@ -261,17 +361,43 @@ const RegisterFormComp = ({ onChange, onSubmit, onCheck, onIdChk, onPwdChk, onNi
             </button>
             {addr1 ? (
               <span>
-                <SubIdInput placeholder="우편번호" name="zipcode" ref={zipcode1} disabled={true} />
-                <SubIdInput placeholder="주소" name="addr1" type="text" ref={address1} disabled={true} />
+                <SubIdInput
+                  placeholder="우편번호"
+                  name="zipcode"
+                  ref={zipcode1}
+                  disabled={true}
+                />
+                <SubIdInput
+                  placeholder="주소"
+                  name="addr1"
+                  type="text"
+                  ref={address1}
+                  disabled={true}
+                />
               </span>
             ) : (
               <span>
-                <SubIdInput placeholder="우편번호" name="zipcode" ref={zipcode1} />
-                <SubIdInput placeholder="주소" name="addr1" type="text" ref={address1} />
+                <SubIdInput
+                  placeholder="우편번호"
+                  name="zipcode"
+                  ref={zipcode1}
+                />
+                <SubIdInput
+                  placeholder="주소"
+                  name="addr1"
+                  type="text"
+                  ref={address1}
+                />
               </span>
             )}
             <div>
-              <NameTag>상세주소</NameTag> <RegisterInput placeholder="상세주소" name="addr2" type="text" onChange={onChange} />
+              <NameTag>상세주소</NameTag>{" "}
+              <RegisterInput
+                placeholder="상세주소"
+                name="addr2"
+                type="text"
+                onChange={onChange}
+              />
             </div>
             <div className="gender">
               <NameTag>성별</NameTag>

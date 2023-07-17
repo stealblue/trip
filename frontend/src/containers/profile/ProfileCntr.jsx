@@ -3,6 +3,8 @@ import ProfileComp from "../../components/profile/ProfileComp";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileMod, {
+  changeProfile,
+  changeValue,
   deleteBoard,
   deleteLike,
   deleteReply,
@@ -10,14 +12,20 @@ import ProfileMod, {
   getLikeList,
   getProfile,
   getReplyList,
+  nickChk,
 } from "../../modules/profile/ProfileMod";
 
 const ProfileCntr = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [changeInform, setChangeInform] = useState(false);
+  const [modal, setModal] = useState(false);
   const {
     id,
     user,
+    nick,
+    nickAuth,
+    nickError,
     boardList,
     totalBoard,
     deleteBoardError,
@@ -30,6 +38,9 @@ const ProfileCntr = () => {
   } = useSelector(({ UserMod, ProfileMod }) => ({
     id: UserMod.user.id,
     user: ProfileMod.user,
+    nick: ProfileMod.nick,
+    nickAuth: ProfileMod.nickAuth,
+    nickError: ProfileMod.NickError,
     boardList: ProfileMod.boardList,
     totalBoard: ProfileMod.totalBoard,
     deleteBoardError: ProfileMod.deleteBoardError,
@@ -40,7 +51,6 @@ const ProfileCntr = () => {
     totalLike: ProfileMod.totalLike,
     deleteLikeError: ProfileMod.deleteLikeError,
   }));
-  const modal = "modal";
   const [boardType, setBoardType] = useState();
   const wishList = [16, 17, 18, 19, 20];
 
@@ -103,8 +113,51 @@ const ProfileCntr = () => {
     setBoardType("SCHEDULER");
   };
 
-  const onModify = () => {
-    console.log("정보수정");
+  const onChange = (e) => {
+    const { value } = e.target;
+    dispatch(
+      changeValue({
+        value,
+      })
+    );
+  };
+
+  const onChangePhoto = () => {
+    console.log("사진바꾸기");
+  };
+
+  const onChangeProfile = () => {
+    if (!changeInform) {
+      return setChangeInform(!changeInform);
+    }
+    if (changeInform && !nickAuth) {
+      return alert("닉네임을 확인하여 주세요.");
+    } else if (changeInform && nickAuth) {
+      setChangeInform(!changeInform);
+      dispatch(
+        changeProfile({
+          id,
+          nick,
+        })
+      );
+    }
+  };
+
+  const onNickCheck = () => {
+    const valid = (nick) => {
+      return /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/.test(nick);
+    };
+    if (valid(nick)) {
+      dispatch(
+        nickChk({
+          nick,
+        })
+      );
+    } else {
+      return alert(
+        "닉네임은 2자 이상, 10자 이하 한글, 영어, 숫자 조합이어야 합니다."
+      );
+    }
   };
 
   const onWithdraw = () => {
@@ -149,12 +202,16 @@ const ProfileCntr = () => {
       })
     );
   }, [deleteLikeError]);
-
+  console.log(nickError, "컨테이너");
   return (
     <div>
       <ProfileComp
         user={user}
+        nick={nick}
+        nickAuth={nickAuth}
+        nickError={nickError}
         modal={modal}
+        changeInform={changeInform}
         boardType={boardType}
         boardList={boardList}
         totalBoard={totalBoard}
@@ -173,7 +230,10 @@ const ProfileCntr = () => {
         onGetLikeDetail={onGetLikeDetail}
         onDeleteLike={onDeleteLike}
         onGetWishList={onGetWishList}
-        onModify={onModify}
+        onChangePhoto={onChangePhoto}
+        onChange={onChange}
+        onNickCheck={onNickCheck}
+        onChangeProfile={onChangeProfile}
         onWithdraw={onWithdraw}
       />
     </div>

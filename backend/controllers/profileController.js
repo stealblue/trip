@@ -32,18 +32,50 @@ exports.getProfile = async (req, res) => {
 
 // 		res.status(200).json({ changeImage });
 //   } catch (e) {
-// 		console.log
+// 		console.error(e);
+// return res.status(400).json({});
 //   }
 // };
 
-// exports.onModify = async (req, res) => {
+exports.changeProfile = async (req, res) => {
+	const { id, nick } = req.body;
+	console.log(id, nick);
+	try {
+		await user.update(
+			{
+				nick
+			},
+			{where: {
+				id,
+			}}
+		)
 
-// 	try {
+		return res.status(200).json({ nick, nickAuth: true });
+  } catch (e) {
+		console.error(e);
+		return res.status(400).json({ nickError: true });
+  }
+};
 
-//   } catch (e) {
+exports.nickChk = async (req, res) => {
+	const { nick } = req.body;
 
-//   }
-// };
+	try {
+		const exUser = await user.findOne({
+			where: {
+				nick,
+			}
+		});
+
+		if (!exUser) {
+			return res.status(200).json({ nickAuth: true });
+		}
+		return res.status(400).json({ nickError: "이미 존재하는 닉네임입니다." });
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ nickError: true });
+	} 
+}
 
 // exports.onWithdraw = async (req, res) => {
 
@@ -143,7 +175,12 @@ exports.getLikeList = async (req, res) => {
 		const likeList = await like.findAll({
 			where: {
 				id,
-			}
+			},
+			include: {
+                model: board,
+                required: true,
+                as: 'bno_board'
+            }
 		});
 		const totalLike = likeList.length;
 
