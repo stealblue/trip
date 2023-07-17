@@ -101,7 +101,7 @@ const BoardListItem = ({ post }) => {
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
-            <p className="content">{content}</p>
+            {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
             <p className="createat">작성일자 : {createAt.substr(0, 10)}</p>
           </div>
@@ -122,13 +122,13 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
         {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
-        {posts.slice(offset, offset + limit).map((post, index) => (
+        {posts && posts.slice(offset, offset + limit).map((post, index) => (
           <BoardListItem key={post.no} post={post} />
         ))}
         {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
       </WrapperComp>
       <footer>
-        <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />
+        {posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}
       </footer>
     </>
   );
