@@ -37,6 +37,10 @@ const Logo = styled.div`
   font-weight: 600;
   font-family: "TTWanjudaedunsancheB";
   text-align: center;
+  img {
+    width: 200px;
+    margin-top: 20px;
+  }
 `;
 
 const Nav = styled.ul`
@@ -80,14 +84,13 @@ const HeaderComp = ({ nick, onLogout }) => {
   });
   return (
     <>
-      <HeaderContainer
-        className={scrollPosition < 100 ? "original_header" : "change_header"}
-      >
+      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo>
           <Link to="/">
-            TRIPPER
+            {/* TRIPPER
             <br />
-            MAKER
+            MAKER */}
+            <img src="/assets/triplogo8.png" />
           </Link>
         </Logo>
         <Nav>

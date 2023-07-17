@@ -54,14 +54,15 @@ const LoginWrapper = styled.div`
   }
 
   .logo {
-    color: ${ThemeComp.white};
     text-align: center;
-    margin-top: 200px;
-    font-size: 50px;
+    margin-top: 20px;
+    img {
+      width: 250px;
+    }
   }
 
   .logintext {
-    margin: 34px 0;
+    margin: 24px 0;
     font-size: 20px;
     color: ${ThemeComp.lightblack};
     border-bottom: 2px solid ${ThemeComp.lightblack};
@@ -192,7 +193,9 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
             </div>
           </Link>
 
-          <h2 className="logo">TRIPPER MAKER</h2>
+          <h2 className="logo">
+            <img src="/assets/triplogo.png" alt="" />
+          </h2>
           <div className="logintext">LOGIN</div>
           <form onSubmit={onSubmit}>
             <div className="input">
