@@ -38,7 +38,7 @@ const AreaItemBlock = styled.div`
     }
 
     .add-btn {
-      padding: 7px 9px;ight;
+      padding: 7px 9px;
       background: ${ThemeComp.lightblack};
       width: 50px;
       text-align: center;
