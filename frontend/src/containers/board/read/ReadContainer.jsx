@@ -6,6 +6,7 @@ import ReadComp from "../../../components/board/read/ReadComp";
 import ListActionButtonsComp from "../../../components/board/read/ListActionButtonsComp";
 import { setOriginPost } from "../../../modules/board/WriteMod";
 import { removePost } from "../../../lib/api/posts";
+import Swal from 'sweetalert2';
 
 const ReadContainer = () => {
   const { readNo } = useParams();
@@ -29,12 +30,6 @@ const ReadContainer = () => {
 
   useEffect(() => {
     dispatch(readPost(readNo), likePost(readNo, user));
-    // if (user && post) {
-    //   const id = user.id;
-    //   const bno = post.no;
-    //   dispatch(isLike({ id, bno }));
-    // }
-
   }, [dispatch, readNo, user]);
 
   const onEdit = () => {
@@ -62,9 +57,23 @@ const ReadContainer = () => {
     // likePost({ id: user.id, no: post.no });
     dispatch(isLike({ bno: post.no, id: user.id }))
     if (like) {
-      alert('1111', like);
+      Swal.fire({
+        toast: true,
+        position: 'bottom-right',
+        timer: 1500,
+        text: '좋아요 취소!',
+        showConfirmButton: false,
+        icon: 'success'
+      })
     } else {
-      alert('2222', like);
+      Swal.fire({
+        toast: true,
+        position: 'bottom-right',
+        timer: 1500,
+        text: "좋아요 성공!",
+        showConfirmButton: false,
+        icon: 'success'
+      })
     }
   };
 

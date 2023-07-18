@@ -16,13 +16,14 @@ const ReplyItemWarrap = styled.div`
   }
 `;
 
-const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit }) => {
+const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user }) => {
   return (
     <ReplyItemWarrap>
       <p className="id">{reply.id}</p>
       <p>{reply.content}</p>
       {/* {ReplyActionButtons} */}
-      <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} />
+      {user.id === reply.id ?
+        <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} /> : null}
     </ReplyItemWarrap>
   );
 };
@@ -34,7 +35,7 @@ const ReplyReadComp = ({ content, replys, user, replyactionbuttons, onRemove, on
     <div>
       {/* <div>{content}</div>
       <div>내용</div> */}
-      {replys && replys.map((reply) => <ReplyItem reply={reply} key={reply.no} onRemove={onRemove} onEdit={onEdit} />)}
+      {replys && replys.map((reply) => <ReplyItem reply={reply} key={reply.no} onRemove={onRemove} onEdit={onEdit} user={user} />)}
     </div>
   );
 };

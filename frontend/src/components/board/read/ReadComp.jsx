@@ -82,7 +82,7 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButto
           {/* <p>{post.content}</p> */}
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </Content>
-        {actionButtons}
+        {post.id === user.id ? { actionButtons } : null}
       </Responsive>
     </>
   );
