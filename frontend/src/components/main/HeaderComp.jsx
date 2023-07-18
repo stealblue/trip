@@ -59,7 +59,7 @@ const NavList = styled.li`
   }
   span{
     &.click{
-      color:gold;
+      color:${ThemeComp.subcolor};
     }
   }
 `;
@@ -87,11 +87,14 @@ const HeaderComp = ({ nick, onLogout }) => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   const onClick = (e) => {
-    if (e.target.className === '') {
-      e.target.classList.add('click');
-    } else {
-      e.target.classList.remove('click');
-    }
+    const navItems = Array.from(document.getElementsByClassName('nav-item'));
+    navItems.forEach((item) => {
+      if (item === e.target) {
+        item.classList.add('click');
+      } else {
+        item.classList.remove('click');
+      }
+    });
   }
 
   useEffect(() => {
@@ -110,9 +113,7 @@ const HeaderComp = ({ nick, onLogout }) => {
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/area">
-              <span className="nav-item">
-                테마/지역별
-              </span>
+              <span className="nav-item">테마/지역별</span>
             </Link>
           </NavList>
           <NavList onClick={onClick}>
