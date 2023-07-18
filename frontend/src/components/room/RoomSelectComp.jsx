@@ -18,6 +18,11 @@ const RoomListItem = styled.button`
     background: ${ThemeComp.subcolor};
     color: ${ThemeComp.white};
   }
+  &.selectItem {
+    background-color: steelblue;
+    color: ${ThemeComp.smoke};
+    font-weight: 600;
+  }
 `;
 
 const RoomList = styled.div`
@@ -29,24 +34,24 @@ const RoomList = styled.div`
   justify-content: center;
 `;
 
-const SelectArea = ({ onClick, area }) => {
-  // console.log('selectItem : ', area);
+const SelectArea = ({ onClick, area, areaCode }) => {
+  console.log('selectItem : ', areaCode);
   return (
     <>
-      <RoomListItem onClick={onClick} value={area.code}>
+      <RoomListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
         {area.name}
       </RoomListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({ onClickArea, areas }) => {
+const AreaSelectComp = ({ onClickArea, areas, areaCode }) => {
   // console.log('codes : ', areas);
   return (
     <>
       <RoomList>
         {areas.map((area) => (
-          <SelectArea area={area} key={area.code} onClick={onClickArea} />
+          <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
         ))}
       </RoomList>
     </>

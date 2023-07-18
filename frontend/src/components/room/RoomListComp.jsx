@@ -37,14 +37,12 @@ const RoomList = styled.div`
 `;
 
 const AreaItem = ({ area, itemKey, onClick }) => {
-  // console.log('area : ', area);
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
       <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo.png"} alt="이미지없음" loading="lazy" />
-
-      <p onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
+      <p>
         <p className="title">{area.title}</p>
-        <p className="addr">{area.addr1}</p>
+        <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>{area.addr1}</p>
       </p>
     </AreaItemBlock>
   );

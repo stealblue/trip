@@ -1,7 +1,7 @@
 import RoomSelectComp from "../../components/room/RoomSelectComp";
 import { showAreaCode, showContentTypeId, showPageNo } from "../../modules/room/LodgingMod"
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const areas = [
   { "name": "서울", "code": 1 }, { "name": "인천", "code": 2 }, { "name": "대전", "code": 3 }, { "name": "대구", "code": 4 },
@@ -13,6 +13,9 @@ const areas = [
 
 const RoomSelectCntr = () => {
   const dispatch = useDispatch();
+  const { areaCode } = useSelector(({ LodgingMod }) => ({
+    areaCode: LodgingMod.areaCode
+  }));
 
   const onClickArea = (e) => {
     console.log('value : ', e.target.value);
@@ -23,7 +26,7 @@ const RoomSelectCntr = () => {
     dispatch(showContentTypeId(32));
   };
 
-  return <RoomSelectComp onClickArea={onClickArea} areas={areas} />;
+  return <RoomSelectComp onClickArea={onClickArea} areas={areas} areaCode={areaCode} />;
 };
 
 export default RoomSelectCntr;

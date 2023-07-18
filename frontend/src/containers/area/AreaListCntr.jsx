@@ -19,6 +19,7 @@ const AreaListCntr = memo(({ onClickTest }) => {
     // console.log('data : ', e.target.dataset);
     setModalOpen(true);
     console.log('addr ===============<>', e.target.dataset);
+    console.log(`title : ${e.target.dataset.title}`);
     setMapData({
       title: e.target.dataset.title,
       mapx: e.target.dataset.mapx,
