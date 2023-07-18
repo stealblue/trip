@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { TitleComp } from "../../common/TitleComp";
 import Responsive from "../../common/ResponsiceComp";
-import ReplyWriteComp from "../reply/ReplyWriteComp";
-import ReplyReadComp from "../reply/ReplyReadComp";
-import { likePost } from "../../../lib/api/posts";
-import { useDispatch } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
@@ -79,10 +75,9 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButto
           </div>
         </ReadContainer>
         <Content>
-          {/* <p>{post.content}</p> */}
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </Content>
-        {post.id === user.id ? { actionButtons } : null}
+        {post.id === user.id && actionButtons} {/* Uncaught Error: Objects are not valid as a React child (found: object with keys {actionButtons}). If you meant to render a collection of children, use an array instead. */}
       </Responsive>
     </>
   );
