@@ -60,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id",
+        name: "board_ibfk_1",
         using: "BTREE",
         fields: [
           { name: "id" },

@@ -57,6 +57,11 @@ const NavList = styled.li`
     transform: scale(1.1);
     font-weight: 500;
   }
+  span{
+    &.click{
+      color:gold;
+    }
+  }
 `;
 
 const LoginCategory = styled.span`
@@ -75,10 +80,20 @@ const Spacer = styled.div`
 `;
 
 const HeaderComp = ({ nick, onLogout }) => {
+  // const [color, setColor] = useState('#111');
   const [scrollPosition, setScrollPosition] = useState(0);
+
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
+  const onClick = (e) => {
+    if (e.target.className === '') {
+      e.target.classList.add('click');
+    } else {
+      e.target.classList.remove('click');
+    }
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
@@ -89,27 +104,36 @@ const HeaderComp = ({ nick, onLogout }) => {
       >
         <Logo>
           <Link to="/">
-            {/* TRIPPER
-            <br />
-            MAKER */}
             <img src="/assets/triplogo8.png" alt="img" />
           </Link>
         </Logo>
         <Nav>
-          <NavList>
-            <Link to="/area">테마/지역별</Link>
+          <NavList onClick={onClick}>
+            <Link to="/area">
+              <span className="nav-item">
+                테마/지역별
+              </span>
+            </Link>
           </NavList>
-          <NavList>
-            <Link to="/room">숙소</Link>
+          <NavList onClick={onClick}>
+            <Link to="/room">
+              <span className="nav-item">숙소</span>
+            </Link>
           </NavList>
-          <NavList>
-            <Link to="/traffic">교통수단</Link>
+          <NavList onClick={onClick}>
+            <Link to="/traffic">
+              <span className="nav-item">교통수단</span>
+            </Link>
           </NavList>
-          <NavList>
-            <Link to="/chat">여행MATE</Link>
+          <NavList onClick={onClick}>
+            <Link to="/chat">
+              <span className="nav-item">여행MATE</span>
+            </Link>
           </NavList>
-          <NavList>
-            <Link to="/board">여행후기</Link>
+          <NavList onClick={onClick}>
+            <Link to="/board">
+              <span className="nav-item">여행후기</span>
+            </Link>
           </NavList>
         </Nav>
         {nick ? (

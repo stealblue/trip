@@ -21,12 +21,16 @@ module.exports = function(sequelize, DataTypes) {
     },
     contentId: {
       type: DataTypes.STRING(30),
-      allowNull: false
+      allowNull: true
     },
     createAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    routeId: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     }
   }, {
     sequelize,
@@ -42,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id",
+        name: "wishList_ibfk_1",
         using: "BTREE",
         fields: [
           { name: "id" },
