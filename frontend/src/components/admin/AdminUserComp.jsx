@@ -95,21 +95,24 @@ const ControlButton = styled.button`
   color: ${ThemeComp.smoke};
   cursor: pointer;
   padding: 7px 12px;
-
+  margin-top: 20px;
   &:hover {
     background: ${ThemeComp.softblack};
   }
 `;
 
 const StyledModal = Modal.styled`
-  background: white;
-  height: 500px;
+  background: ${ThemeComp.smoke};
+  height: 400px;
   width: 600px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction :column;
+  align-items:center;
+  justify-content:center;
 
-  div{
-    display: flex;
-    padding: 5px;
-    justify-contents: space-between;
+  table{
+    width :90%;
   }
 
     table,
@@ -117,9 +120,18 @@ const StyledModal = Modal.styled`
   th {
     border: 1px solid black;
     border-collapse: collapse;
-    padding: 10px ;
+    padding: 15px;
+    margin:0 auto;
+    margin-top : 20px;
   }
 
+  th{
+    background : #e7e7e7;
+  }
+
+  h3{
+    text-align:center;
+  }
 `;
 
 const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
@@ -149,7 +161,7 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
           </ul>
 
           {userList.slice(offset, offset + limit).map((user) => (
-            <UserInfoContainer key={user.id}>
+            <UserInfoContainer key={user.colSpanid}>
               <UserInfo id={user.id} onClick={getUserInform}>
                 <Detail>{user.id}</Detail>
                 <Detail> {user.nick}</Detail>
@@ -170,8 +182,7 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
               onBackgroundClick={switchModal} //esc키 or 오버레이부분 클릭시 함수 실행
             >
               <h3>회원 상세 정보</h3>
-              <table border="1">
-                <caption>Lorem</caption>
+              <table>
                 {/* <thead>
                   <tr>
                     <th></th>
@@ -184,13 +195,13 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
                   <tr>
                     <th>아이디</th>
                     <td> {user.id}</td>
-                    <td>닉네임</td>
+                    <th>닉네임</th>
                     <td>{user.nick}</td>
                   </tr>
                   <tr>
                     <th>전화번호</th>
                     <td>{user.phone}</td>
-                    <td>성별</td>
+                    <th>성별</th>
                     <td>{user.gender ? "여자" : "남자"}</td>
                   </tr>
                   <tr>
@@ -198,22 +209,17 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
                     <td colSpan="3">{user.addr1 + user?.addr2}</td>
                   </tr>
                   <tr>
+                    <th>우편번호</th>
+                    <td>{user.zipcode}</td>
                     <th>등급</th>
                     <td>{user.grade}</td>
-                    <td>가입날짜</td>
-                    <td>{user.reg}</td>
+                  </tr>
+                  <tr>
+                    <th>가입날짜</th>
+                    <td colSpan="3">{user.reg}</td>
                   </tr>
                 </tbody>
               </table>
-
-              {/* <div>아이디 : {user.id}</div>
-              <div>닉네임 : {user.nick}</div>
-              <div>phone : {user.phone}</div>
-              <div>주소 : {user.addr1 + user?.addr2}</div>
-              <div>우편번호 : {user.zipcode}</div>
-              <div>성별 : {user.gender ? "여자" : "남자"}</div>
-              <div>등급 : {user.grade}</div>
-              <div>가입날짜 : {user.reg}</div> */}
               <ControlButton onClick={switchModal}>닫기</ControlButton>
             </StyledModal>
           )}

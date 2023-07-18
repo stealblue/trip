@@ -2,13 +2,7 @@ import React, { useEffect } from "react";
 import { styled } from "styled-components";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Mousewheel,
-  Keyboard,
-  Autoplay,
-} from "swiper/modules";
+import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
 import { motion } from "framer-motion";
@@ -25,7 +19,8 @@ import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
 import MainBoardComp from "../components/main/MainBoardComp";
 import WrapperComp from "../components/common/WrapperComp";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import SideMenuComp from "../components/main/SideMenuComp";
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -77,37 +72,24 @@ const MainBoardListContainer = styled.div`
 `;
 
 const FadeInLeft = ({ children }) => (
-  <Tween
-    from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }}
-    ease="back.out(1.4)"
-  >
+  <Tween from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }} ease="back.out(1.4)">
     {children}
   </Tween>
 );
 
 const onSearchArea = (e) => {
-  if (e.key === 'Enter') {
+  if (e.key === "Enter") {
     Swal.fire({
-      text: `${e.target.value}`
-    })
+      text: `${e.target.value}`,
+    });
   }
-}
+};
 
 const Main = () => {
   return (
     <>
       <SlideWarraper>
-        <Swiper
-          cssMode={true}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          navigation={true}
-          pagination={true}
-          mousewheel={true}
-          keyboard={true}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="mySwiper"
-        >
+        <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
           <SwiperSlide>
             <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
 
@@ -175,11 +157,12 @@ const Main = () => {
       <WrapperComp>
         <MainSearchComp onSearchArea={onSearchArea} />
         <MaincontentComp />
-        <MaincontentComp />
+        {/* <MaincontentComp /> */}
         <MainBoardListContainer>
           <MainChatComp />
           <MainBoardComp />
         </MainBoardListContainer>
+        <SideMenuComp />
       </WrapperComp>
     </>
   );

@@ -112,6 +112,7 @@ const ControlButton = styled.button`
   color: ${ThemeComp.smoke};
   cursor: pointer;
   padding: 7px 12px;
+  margin-top: 20px;
 
   &:hover {
     background: ${ThemeComp.softblack};
@@ -119,19 +120,59 @@ const ControlButton = styled.button`
 `;
 
 const StyledModal = Modal.styled`
-  background: white;
-  height: 450px;
-  width: 500px;
+background: ${ThemeComp.smoke};
+height: 800px;
+width: 800px;
+margin: 0 auto;
+display:flex;
+flex-direction :column;
+align-items:center;
+justify-content:center;
 
-  div{
-    display: flex;
-    padding: 5px;
-    justify-contents: space-between;
-  }
+table{
+  width :90%;
+  table-layout: fixed;
+}
+
+  table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+  margin:0 auto;
+  margin-top : 20px;
+}
+
+th{
+  background : #e7e7e7;
+  width : 100px;
+}
+
+h3{
+  text-align:center;
+}
+
+.content-title{
+  margin-top : 20px;
+  font-size: 20px;
+  font-weight : 600;
+}
+
+.content{
+height : 300px;
+width : 85%;
+overflow:auto;
+margin-top : 20px;
+border : 1px solid ${ThemeComp.lightblack};
+padding: 20px;
+line-height : 20px;
+}
+
 `;
 
 const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal }) => {
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   return (
@@ -181,14 +222,57 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
               onEscapeKeydown={switchModal} //esc키 눌렀을경우 함수 실행
               onBackgroundClick={switchModal} //esc키 or 오버레이부분 클릭시 함수 실행
             >
-              <div>게시물 번호 : {board.no}</div>
+              <h3>게시글 상세 정보</h3>
+              <table>
+                {/* <thead>
+                  <tr>
+                    <th></th>
+                    <th>Ipsum</th>
+                    <th>Ipsum</th>
+                    <th>Ipsum</th>
+                  </tr>
+                </thead> */}
+                <tbody>
+                  <tr>
+                    <th>게시물번호</th>
+                    <td> {board.no}</td>
+                    <th>작성자</th>
+                    <td> {board.id}</td>
+                  </tr>
+                  <tr>
+                    <th>제목</th>
+                    <td colSpan="3">{board.title}</td>
+                  </tr>
+                  {/* <tr>
+                    <th>내용</th>
+                    <td colSpan="3" className="content">
+                      {board.content}
+                    </td>
+                  </tr> */}
+
+                  <tr>
+                    <th>좋아요</th>
+                    <td>{board.like}</td>
+                    <th>조회수</th>
+                    <td> {board.cnt}</td>
+                  </tr>
+                  <tr>
+                    <th>작성일</th>
+                    <td colSpan="3"> {board.createAt}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p className="content-title">내용</p>
+              <div className="content">{board.content}</div>
+
+              {/* <div>게시물 번호 : {board.no}</div>
               <div>작성자 : {board.id}</div>
               <div>제목 : {board.title}</div>
               <div>사진 : {board.img}</div>
               <div>내용 : {board.content}</div>
               <div>좋아요 : {board.like}</div>
               <div>조회수 : {board.cnt}</div>
-              <div>작성일 : {board.createAt}</div>
+              <div>작성일 : {board.createAt}</div> */}
               <ControlButton onClick={switchModal}>닫기</ControlButton>
             </StyledModal>
           )}
