@@ -115,7 +115,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  console.log("posts : ", posts);
+  // console.log("posts : ", posts);
   return (
     <>
       <WrapperComp>
