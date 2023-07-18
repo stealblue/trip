@@ -53,9 +53,11 @@ const TrafficSelectCntr = () => {
     const targetDate = e.target.value;
     const originDate = new Date(targetDate);
     setDate(originDate);
-    // Swal.fire({
-    //   input:""
-    // })
+  }
+
+  const onToggle = (e) => {
+    console.log("e.target : ", e.target);
+    // const targetList = document.querySelector('')
   }
 
   useEffect(() => {
@@ -79,7 +81,9 @@ const TrafficSelectCntr = () => {
           onClickCategory={onClickCategory}
           onClickArea={onClickArea}
           onClickPlace={onClickPlace}
-          onChangeDate={onChangeDate} />
+          onChangeDate={onChangeDate}
+          onToggle={onToggle}
+        />
       }
     </div>
   );

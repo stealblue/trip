@@ -94,6 +94,9 @@ const SelectListBlock = styled.div`
   li:hover {
     background: gray;
   }
+  &.flag{
+    display: none;
+  }
 `;
 
 const StartItem = ({ station, onClick }) => {
@@ -126,7 +129,7 @@ const EndDetailItem = ({ station, onClick }) => {
   );
 };
 
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate }) => {
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle }) => {
   console.log("stations : ", stations);
   return (
     <div>
@@ -143,36 +146,32 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         </div>
         <div className="select-option">
           <div className="select-area">
-            출발지<span>화명</span>
+            <span onClick={onToggle}>출발지</span><span>화명</span>
           </div>
           <div className="select-area">
-            도착지<span>서대구</span>
+            <span>도착지</span><span>서대구</span>
           </div>
-
           <input type="date" onChange={onChangeDate} />
-          <select>
+          {/* <select>
             <option>종류</option>
-          </select>
+          </select> */}
           <button>검색</button>
         </div>
       </TrafficContainer>
-
       <SelectListContainer>
         <div className="list">
-          <SelectListBlock>
-            <p className="title">출발지</p>
+          <SelectListBlock className="flag">
             {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
             {terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock className="flag">{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>
 
         <div className="list">
-          <SelectListBlock>
-            <p className="title">도착지</p>
+          <SelectListBlock className="flag">
             {stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock>{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock className="flag">{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>
       </SelectListContainer>
       <div></div>
