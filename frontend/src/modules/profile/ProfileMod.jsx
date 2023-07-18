@@ -2,9 +2,10 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../../lib/createRequestSaga";
-import { takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import * as profileAPI from "../../lib/api/profile";
 
+const INITIALIZE_PROFILE = "profile/INITIALIZE_PROFILE";
 const [GET_PROFILE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE] =
   createRequestActionTypes("profile/GET_PROFILE");
 const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
@@ -12,7 +13,10 @@ const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
 const CHANGE_VALUE = "profile/CHANGE_VALUE";
 const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILURE] =
   createRequestActionTypes("profile/NICK_CHECK");
+const [WITHDRAW, WITHDRAW_SUCCESS, WITHDRAW_FAILURE] =
+  createRequestActionTypes("profile/WITHDRAW");
 
+export const initializeProfile = createAction(INITIALIZE_PROFILE);
 export const getProfile = createAction(GET_PROFILE);
 export const changeProfile = createAction(CHANGE_PROFILE, ({ id, nick }) => ({
   id,
@@ -24,6 +28,7 @@ export const changeValue = createAction(CHANGE_VALUE, ({ value }) => ({
 export const nickChk = createAction(NICK_CHECK, ({ nick }) => ({
   nick,
 }));
+export const withdraw = createAction(WITHDRAW, ({ id }) => ({ id }));
 
 const getProfileProcess = createRequestSaga(GET_PROFILE, profileAPI.getProfile);
 const changeProfileProcess = createRequestSaga(
@@ -31,6 +36,22 @@ const changeProfileProcess = createRequestSaga(
   profileAPI.changeProfile
 );
 export const nickChkProcess = createRequestSaga(NICK_CHECK, profileAPI.nickChk);
+function* withdrawProcess(action) {
+  try {
+    const response = yield call(profileAPI.withdraw, action.payload);
+    yield put({
+      type: WITHDRAW_SUCCESS,
+      payload: response?.data,
+    });
+    localStorage.removeItem("USER");
+  } catch (e) {
+    yield put({
+      type: WITHDRAW_FAILURE,
+      payload: e?.response?.data,
+      error: true,
+    });
+  }
+}
 
 //게시물
 const [GET_BOARD_LIST, GET_BOARD_LIST_SUCCESS, GET_BOARD_LIST_FAILURE] =
@@ -49,6 +70,7 @@ const deleteBoardProcess = createRequestSaga(
   DELETE_BOARD,
   profileAPI.deleteBoard
 );
+
 //댓글
 const [GET_REPLY_LIST, GET_REPLY_LIST_SUCCESS, GET_REPLY_LIST_FAILURE] =
   createRequestActionTypes("profile/GET_REPLY_LIST");
@@ -69,25 +91,16 @@ const deleteReplyProcess = createRequestSaga(
 //좋아요
 const [GET_LIKE_LIST, GET_LIKE_LIST_SUCCESS, GET_LIKE_LIST_FAILURE] =
   createRequestActionTypes("profile/GET_LIKE_LIST");
-// const [GET_LIKE_DETAIL, GET_LIKE_DETAIL_SUCCESS, GET_LIKE_DETAIL_FAILURE] =
-//   createRequestActionTypes("profile/GET_LIKE_DETAIL");
 const [DELETE_LIKE, DELETE_LIKE_SUCCESS, DELETE_LIKE_FAILURE] =
   createRequestActionTypes("profile/DELETE_LIKE");
 
 export const getLikeList = createAction(GET_LIKE_LIST);
-// export const getLikeDetail = createAction(GET_LIKE_DETAIL, ({ id }) => ({
-//   id,
-// }));
 export const deleteLike = createAction(DELETE_LIKE, ({ no }) => ({ no }));
 
 const getLikeListProcess = createRequestSaga(
   GET_LIKE_LIST,
   profileAPI.getLikeList
 );
-// const getLikeDetailProcess = createRequestSaga(
-//   GET_LIKE_DETAIL,
-//   profileAPI.getLikeDetail
-// );
 const deleteLikeProcess = createRequestSaga(DELETE_LIKE, profileAPI.deleteLike);
 //wishlist
 const [GET_WISH_LIST, GET_WISH_LIST_SUCCESS, GET_WISH_LIST_FAILURE] =
@@ -117,12 +130,12 @@ export function* ProfileSaga() {
   yield takeLatest(GET_PROFILE, getProfileProcess);
   yield takeLatest(CHANGE_PROFILE, changeProfileProcess);
   yield takeLatest(NICK_CHECK, nickChkProcess);
+  yield takeLatest(WITHDRAW, withdrawProcess);
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
   yield takeLatest(GET_REPLY_LIST, getReplyListProcess);
   yield takeLatest(DELETE_REPLY, deleteReplyProcess);
   yield takeLatest(GET_LIKE_LIST, getLikeListProcess);
-  //   yield takeLatest(GET_LIKE_DETAIL, getLikeDetailProcess);
   yield takeLatest(DELETE_LIKE, deleteLikeProcess);
   yield takeLatest(GET_WISH_LIST, getWishListProcess);
   //   yield takeLatest(GET_WISH_DETAIL, getWishDetailProcess);
@@ -136,6 +149,9 @@ const initialState = {
   nick: null,
   nickAuth: null,
   nickError: null,
+
+  withdrawAuth: null,
+  withdrawError: null,
 
   boardList: [],
   totalBoard: null,
@@ -162,21 +178,24 @@ const initialState = {
 
 const ProfileMod = handleActions(
   {
+    [INITIALIZE_PROFILE]: (state) => initialState,
     [GET_PROFILE_SUCCESS]: (state, { payload: { user } }) => ({
       ...state,
       user,
       userError: null,
+      nickAuth: null,
     }),
     [GET_PROFILE_FAILURE]: (state, { payload: { userError } }) => ({
       ...state,
       user: null,
       userError,
+      nickAuth: null,
     }),
     //changeProfile
-    [CHANGE_PROFILE_SUCCESS]: (state, { payload: { nick, nickAuth } }) => ({
+    [CHANGE_PROFILE_SUCCESS]: (state, { payload: { nick } }) => ({
       ...state,
       nick,
-      nickAuth,
+      nickAuth: null,
       nickError: null,
     }),
     [CHANGE_PROFILE_FAILURE]: (state, { payload: { nickError } }) => ({
@@ -198,6 +217,16 @@ const ProfileMod = handleActions(
       ...state,
       nickAuth: null,
       nickError,
+    }),
+    [WITHDRAW_SUCCESS]: (state, { payload: { withdrawAuth } }) => ({
+      ...state,
+      withdrawAuth,
+      withdrawError: null,
+    }),
+    [WITHDRAW_FAILURE]: (state, { payload: { withdrawError } }) => ({
+      ...state,
+      withdrawAuth: null,
+      withdrawError,
     }),
     ////boardList
     [GET_BOARD_LIST_SUCCESS]: (
@@ -266,16 +295,6 @@ const ProfileMod = handleActions(
       likeListError,
       deleteLikeError: null,
     }),
-    // [GET_LIKE_DETAIL_SUCCESS]: (state, { payload: { like } }) => ({
-    //   ...state,
-    //   like,
-    //   likeError: null,
-    // }),
-    // [GET_LIKE_DETAIL_FAILURE]: (state, { payload: { likeError } }) => ({
-    //   ...state,
-    //   like: null,
-    //   likeError,
-    // }),
     [DELETE_LIKE_SUCCESS]: (state, { payload: { deleteLikeError } }) => ({
       ...state,
       deleteLikeError,

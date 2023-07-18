@@ -5,11 +5,13 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from "../../lib/createRequestSaga";
 
+const INITIALIZE_USER = "user/INITIALIZE_USER";
 const TEMP_SET_USER = "user/TEMP_SET_USER";
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] =
   createRequestActionTypes("user/CHECK");
 const LOGOUT = "login/LOGOUT";
 
+export const initializeUser = createAction(INITIALIZE_USER);
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
@@ -46,6 +48,7 @@ const initialState = {
 
 const UserMod = handleActions(
   {
+    [INITIALIZE_USER]: (state) => initialState,
     [TEMP_SET_USER]: (state, { payload: user }) => ({
       ...state,
       user,

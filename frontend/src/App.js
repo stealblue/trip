@@ -45,7 +45,7 @@ function App() {
             <Route path="/board/write" element={<WritePage />} />
             <Route path="/board/read/:readNo" element={<ReadPage />} />
             <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
-            <Route path="/profile/:id" element={user ? <ProfilePage /> : <Navigate to="/" />} />
+            <Route path="/profile/:nick" element={user ? <ProfilePage /> : <Navigate to="/" />} />
             <Route path="/traffic" element={<TrafficListPage />} />
             <Route path="/room" element={<Roompage />} />
           </Route>

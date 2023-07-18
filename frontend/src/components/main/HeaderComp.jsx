@@ -84,13 +84,15 @@ const HeaderComp = ({ nick, onLogout }) => {
   });
   return (
     <>
-      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
+      <HeaderContainer
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+      >
         <Logo>
           <Link to="/">
             {/* TRIPPER
             <br />
             MAKER */}
-            <img src="/assets/triplogo8.png" alt='img' />
+            <img src="/assets/triplogo8.png" alt="img" />
           </Link>
         </Logo>
         <Nav>

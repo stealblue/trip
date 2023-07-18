@@ -1,5 +1,5 @@
 const express = require("express");
-const { getProfile, changeImage, changeProfile, onWithdraw, getBoardList, deleteBoard, getReplyList, deleteReply, getLikeList, deleteLike, getWishList, deleteWish, nickChk} = require("../controllers/profileController");
+const { getProfile, changeImage, changeProfile, withdraw, getBoardList, deleteBoard, getReplyList, deleteReply, getLikeList, deleteLike, getWishList, deleteWish, nickChk} = require("../controllers/profileController");
 const app = express();
 const profile = express.Router();
 
@@ -7,7 +7,7 @@ profile.get("/:id", getProfile);
 // profile.post("/changeImage/:id", changeImage);
 profile.post("/changeProfile/:id", changeProfile);
 profile.post("/nickChk/:nick", nickChk);
-// profile.delete("/onWithdraw/:id", onWithdraw);
+profile.delete("/withdraw/:id", withdraw);
 
 profile.get("/getBoardList/:id", getBoardList);
 profile.delete("/deleteBoard/:no", deleteBoard);

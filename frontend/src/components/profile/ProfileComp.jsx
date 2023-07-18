@@ -133,7 +133,6 @@ const ProfileComp = ({
   onDeleteLike,
   onGetWishList,
 }) => {
-  console.log(nickError, "123123123");
   return (
     <>
       <ProfileBlock>
@@ -173,8 +172,12 @@ const ProfileComp = ({
                 <InputBox placeholder={"ID"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
               </UserInform>
-              {nickError && (
+              {nickError ? (
                 <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
+              ) : nickAuth ? (
+                <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
+              ) : (
+                ""
               )}
               <UserInform>
                 <NameTag>전화번호</NameTag>
