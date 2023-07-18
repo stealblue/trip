@@ -50,7 +50,7 @@ exports.changeProfile = async (req, res) => {
 			}}
 		)
 
-		return res.status(200).json({ nick, nickAuth: true });
+		return res.status(200).json({ nick });
   } catch (e) {
 		console.error(e);
 		return res.status(400).json({ nickError: true });
@@ -77,14 +77,26 @@ exports.nickChk = async (req, res) => {
 	} 
 }
 
-// exports.onWithdraw = async (req, res) => {
+exports.withdraw = async (req, res) => {
+	const { id } = req.params;
+	console.log(id);
+	try {
+		const exUser = await user.findOne({
+			where: {
+				id,
+			}
+		});
+		if (exUser) {
+			exUser.destroy();
+			res.clearCookie("access_token");
+			return res.status(200).json({ withdrawAuth: true });
+		}
 
-// 	try {
-
-//   } catch (e) {
-
-//   }
-// };
+  } catch (e) {
+		console.error(e);
+		return res.status(400).json({ withdrawError: true });
+  }
+};
 
 exports.getBoardList = async (req, res) => {
 	const { id } = req.params;

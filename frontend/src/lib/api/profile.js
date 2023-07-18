@@ -17,8 +17,8 @@ export const changeProfile = async ({ id, nick }) => {
   return await client.post("/profile/changeProfile/:id", {id, nick});
 }
 
-export const onWithdraw = async ({id}) => {
-    return await client.delete("/profile/onWithdraw/:id", {id});
+export const withdraw = async ({ id }) => {
+  return await client.delete(`/profile/withdraw/${id}`);
 }
 
 ///board

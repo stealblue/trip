@@ -12,8 +12,11 @@ import ProfileMod, {
   getLikeList,
   getProfile,
   getReplyList,
+  initializeProfile,
   nickChk,
+  withdraw,
 } from "../../modules/profile/ProfileMod";
+import { initializeUser } from "../../modules/auth/UserMod";
 
 const ProfileCntr = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ const ProfileCntr = () => {
     nick,
     nickAuth,
     nickError,
+    withdrawAuth,
+    withdrawError,
     boardList,
     totalBoard,
     deleteBoardError,
@@ -41,6 +46,8 @@ const ProfileCntr = () => {
     nick: ProfileMod.nick,
     nickAuth: ProfileMod.nickAuth,
     nickError: ProfileMod.nickError,
+    withdrawAuth: ProfileMod.withdrawAuth,
+    withdrawError: ProfileMod.withdrawError,
     boardList: ProfileMod.boardList,
     totalBoard: ProfileMod.totalBoard,
     deleteBoardError: ProfileMod.deleteBoardError,
@@ -147,6 +154,9 @@ const ProfileCntr = () => {
     const valid = (nick) => {
       return /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/.test(nick);
     };
+    if (nick === "" || nick === null) {
+      return alert("닉네임을 입력해주세요.");
+    }
     if (valid(nick)) {
       dispatch(
         nickChk({
@@ -161,7 +171,13 @@ const ProfileCntr = () => {
   };
 
   const onWithdraw = () => {
-    console.log("회원탈퇴");
+    if (window.confirm("정말로 Tripper Maker를 탈퇴하시겠습니까?")) {
+      dispatch(
+        withdraw({
+          id,
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -202,7 +218,29 @@ const ProfileCntr = () => {
       })
     );
   }, [deleteLikeError]);
-  console.log(nickError, "컨테이너");
+
+  useEffect(() => {
+    if (withdrawAuth) {
+      alert("회원탈퇴가 완료되었습니다.");
+      dispatch(initializeUser());
+      dispatch(initializeProfile());
+      return navigate("/");
+    }
+    if (withdrawError) {
+      return alert("다시 시도하여 주십시오.");
+    }
+  }, [withdrawAuth, withdrawError]);
+
+  useEffect(() => {
+    if (nickAuth === null) {
+      dispatch(
+        getProfile({
+          id,
+        })
+      );
+    }
+  }, [nickAuth]);
+
   return (
     <div>
       <ProfileComp
