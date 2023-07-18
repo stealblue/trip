@@ -22,7 +22,7 @@ const ListContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  margin-top: 7.8rem;
+
   flex-wrap: wrap;
   background: ${ThemeComp.white};
   overflow: scroll;
