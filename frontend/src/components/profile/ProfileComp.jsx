@@ -366,7 +366,9 @@ const ProfileComp = ({
                     <span>{board.cnt}</span>
                   </li>
 
-                  <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
+                  <li>
+                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
+                  </li>
                 </BoardInfo>
               </Item>
             ))}
