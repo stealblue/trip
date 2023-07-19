@@ -30,6 +30,13 @@ const HeaderContainer = styled.div`
     margin-bottom: 8px;
     font-weight: 600;
   }
+
+  @media (max-width: 1200px) {
+    .welecome {
+      margin-left: 16px;
+      font-size: 18px;
+    }
+  }
 `;
 
 const Logo = styled.div`
@@ -40,6 +47,12 @@ const Logo = styled.div`
   img {
     width: 200px;
     margin-top: 20px;
+  }
+
+  @media (max-width: 1200px) {
+    img {
+      width: 150px;
+    }
   }
 `;
 
@@ -57,10 +70,15 @@ const NavList = styled.li`
     transform: scale(1.1);
     font-weight: 500;
   }
-  span{
-    &.click{
-      color:${ThemeComp.subcolor};
+  span {
+    &.click {
+      color: ${ThemeComp.subcolor};
     }
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    margin-left: 30px;
   }
 `;
 
@@ -72,6 +90,15 @@ const LoginCategory = styled.span`
   .logout {
     font-size: 16px;
     cursor: pointer;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    margin-left: 1px;
+    .logout {
+      font-size: 14px;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -87,24 +114,22 @@ const HeaderComp = ({ nick, onLogout }) => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   const onClick = (e) => {
-    const navItems = Array.from(document.getElementsByClassName('nav-item'));
+    const navItems = Array.from(document.getElementsByClassName("nav-item"));
     navItems.forEach((item) => {
       if (item === e.target) {
-        item.classList.add('click');
+        item.classList.add("click");
       } else {
-        item.classList.remove('click');
+        item.classList.remove("click");
       }
     });
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
   return (
     <>
-      <HeaderContainer
-        className={scrollPosition < 100 ? "original_header" : "change_header"}
-      >
+      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo>
           <Link to="/">
             <img src="/assets/triplogo8.png" alt="img" />

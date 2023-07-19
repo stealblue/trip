@@ -20,7 +20,7 @@ const ListContainer = styled.div`
   width: 700px;
   height: 100vh;
   position: absolute;
-  top: 0;
+  top: 7.8rem;
   left: 0;
 
   flex-wrap: wrap;

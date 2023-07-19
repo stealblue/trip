@@ -77,7 +77,7 @@ const LoginWrapper = styled.div`
     align-items: center;
 
     .label {
-      width: 80px;
+      width: 100px;
       text-align: right;
       color: ${ThemeComp.softblack};
     }
