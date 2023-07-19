@@ -422,8 +422,8 @@ const ProfileComp = ({
               </StyledModal>
             </WishListBox>
             <SchedulerBox>
-              <BeforeBox>1</BeforeBox>
-              <AfterBox>22</AfterBox>
+              <BeforeBox>dnd 추가</BeforeBox>
+              <AfterBox>dnd 정리</AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}
