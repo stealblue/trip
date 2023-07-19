@@ -18,10 +18,12 @@ import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
+import LoadingMod from "./loadingMod";
 
 
 const rootReducer = combineReducers({
   LoginMod,
+  LoadingMod,
   RegisterMod,
   UserMod,
   WriteMod,

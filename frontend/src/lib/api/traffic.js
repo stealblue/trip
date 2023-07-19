@@ -8,9 +8,12 @@ export const detailStations = ({ cityCode }) => {
   return client.get(`/traffic/train/info/${cityCode}`, ({ cityCode }));
 };
 
-export const listTrains = async ({ startStation, endStation, date }) => {
-  console.log(`start ===> ${startStation} / end ===> ${endStation}`)
-  return await client.get(`/traffic/train/result?startStation=${startStation}&endStation=${endStation}&date=${date}`);
+export const listTrains = async ({ startStation, endStation, date, pageNo }) => {
+  // console.log(`start ===> ${startStation} / end ===> ${endStation}`)
+  // console.log('date : ', date);
+  // console.log('date.date : ', date.date);
+  const dateStr = date.date;
+  return await client.get(`/traffic/train/result?startStation=${startStation}&endStation=${endStation}&date=${dateStr}&pageNo=${pageNo}`);
 };
 
 export const listTerminals = () => {

@@ -1,18 +1,16 @@
 import React, { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas, unloadPage } from "../../modules/area/AreaMod";
 import ModalBasic from "../../components/common/ModalBasic";
 import Swal from 'sweetalert2';
 import { addWishList } from '../../modules/wishList/WishListMod'
 
-const AreaListCntr = memo(({ onClickTest }) => {
+const AreaListCntr = memo(() => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // 모달창 노출
   const onClick = (e) => {

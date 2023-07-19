@@ -71,6 +71,11 @@ const SelectListContainer = styled.div`
     display: flex;
     justify-content: space-around;
   }
+  div{
+    &.flag{
+      display: none;
+    }
+  }
 `;
 
 const SelectListBlock = styled.div`
@@ -94,9 +99,7 @@ const SelectListBlock = styled.div`
   li:hover {
     background: gray;
   }
-  &.flag{
-    display: none;
-  }
+
 `;
 
 const StartItem = ({ station, onClick }) => {
@@ -109,7 +112,7 @@ const StartItem = ({ station, onClick }) => {
 
 const StartDetailItem = ({ station, onClick }) => {
   return (
-    <li data-value={station.stationId} onClick={onClick} data-type="start">
+    <li data-value={station.stationId} onClick={onClick} data-type="start" data-name={station.stationName}>
       {station.stationName}
     </li>
   );
@@ -123,13 +126,13 @@ const EndItem = ({ station, onClick }) => {
 };
 const EndDetailItem = ({ station, onClick }) => {
   return (
-    <li data-value={station.stationId} onClick={onClick} data-type="end">
+    <li data-value={station.stationId} onClick={onClick} data-type="end" data-name={station.stationName}>
       {station.stationName}
     </li>
   );
 };
 
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle }) => {
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end }) => {
   console.log("stations : ", stations);
   return (
     <div>
@@ -146,10 +149,10 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         </div>
         <div className="select-option">
           <div className="select-area">
-            <span onClick={onToggle}>출발지</span><span>화명</span>
+            <span onClick={onToggle} data-id='start'>출발지</span><span>{start}</span>
           </div>
           <div className="select-area">
-            <span>도착지</span><span>서대구</span>
+            <span onClick={onToggle} data-id='end'>도착지</span><span>{end}</span>
           </div>
           <input type="date" onChange={onChangeDate} />
           {/* <select>
@@ -159,19 +162,21 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         </div>
       </TrafficContainer>
       <SelectListContainer>
-        <div className="list">
-          <SelectListBlock className="flag">
+        <div className="list flag" id='start-container'>
+          <SelectListBlock>
+            <p className="title">출발지</p>
             {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
             {terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock className="flag">{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>
 
-        <div className="list">
-          <SelectListBlock className="flag">
+        <div className="list flag" id='end-container'>
+          <SelectListBlock>
+            <p className="title">도착지</p>
             {stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock className="flag">{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock>{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>
       </SelectListContainer>
       <div></div>
