@@ -1,5 +1,6 @@
 const { user, board, reply, like, wishList } = require("../models/mysql");
-
+const jwt = require("jsonwebtoken");
+const { generateToken } = require("./authController");
 
 exports.getProfile = async (req, res) => {
 	const { id } = req.params;
@@ -20,35 +21,50 @@ exports.getProfile = async (req, res) => {
 	}
 };
 
-// exports.changeImage = async (req, res) => {
-// 	const { id } = req.body;
-
+// exports.changePhoto = async (req, res) => {
+// 	const { id } = req.params;
+// 	const {img} = req.body;
+// 	console.log("=======================", id);
+// 	console.log("=======================", req.body);
 // 	try {
-// 		const changeImage = await user.update({
-// 			where: {
-// 				id,
+// 		const Img = await user.update(
+// 			{
+// 				img
+// 			},
+// 			{
+// 				where: {
+// 					id,
+// 				}
 // 			}
-// 		})
+// 		)
 
-// 		res.status(200).json({ changeImage });
+// 		res.status(200).json({ Img });
 //   } catch (e) {
 // 		console.error(e);
-// return res.status(400).json({});
+// return res.status(400).json({imgError: true});
 //   }
 // };
 
 exports.changeProfile = async (req, res) => {
 	const { id, nick } = req.body;
-	console.log(id, nick);
+
 	try {
 		await user.update(
 			{
 				nick
 			},
-			{where: {
-				id,
-			}}
-		)
+			{
+				where: {
+					id,
+				}
+			}
+		);
+		//토큰 재발행하여 layoutcntr의 닉네임도 갱신해야한다.
+		const token = generateToken(id, nick); //jwt token 발행
+    res.cookie("access_token", token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
 
 		return res.status(200).json({ nick });
   } catch (e) {

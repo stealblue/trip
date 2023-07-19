@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import ProfileComp from "../../components/profile/ProfileComp";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { changePhoto } from "../../lib/api/profile";
 import ProfileMod, {
+  // changePhoto,
   changeProfile,
   changeValue,
   deleteBoard,
@@ -16,7 +18,7 @@ import ProfileMod, {
   nickChk,
   withdraw,
 } from "../../modules/profile/ProfileMod";
-import { initializeUser } from "../../modules/auth/UserMod";
+import { check, initializeUser } from "../../modules/auth/UserMod";
 
 const ProfileCntr = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const ProfileCntr = () => {
   const [modal, setModal] = useState(false);
   const {
     id,
+    User,
     user,
     nick,
     nickAuth,
@@ -59,6 +62,7 @@ const ProfileCntr = () => {
     deleteLikeError: ProfileMod.deleteLikeError,
   }));
   const [boardType, setBoardType] = useState();
+  const [content, setContent] = useState();
   const wishList = [16, 17, 18, 19, 20];
 
   const onGetBoardList = () => {
@@ -129,8 +133,15 @@ const ProfileCntr = () => {
     );
   };
 
-  const onChangePhoto = () => {
-    console.log("사진바꾸기");
+  const onUploadPhoto = (e) => {
+    setContent(e.target.files[0]);
+  };
+
+  const onChangePhoto = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("img", content);
+    await changePhoto({ id, img: formData });
   };
 
   const onChangeProfile = () => {
@@ -238,6 +249,7 @@ const ProfileCntr = () => {
           id,
         })
       );
+      dispatch(check()); //닉네임 변경시 check해줌으로써 UserMod.user 값 갱신해줌
     }
   }, [nickAuth]);
 
@@ -268,6 +280,7 @@ const ProfileCntr = () => {
         onGetLikeDetail={onGetLikeDetail}
         onDeleteLike={onDeleteLike}
         onGetWishList={onGetWishList}
+        onUploadPhoto={onUploadPhoto}
         onChangePhoto={onChangePhoto}
         onChange={onChange}
         onNickCheck={onNickCheck}

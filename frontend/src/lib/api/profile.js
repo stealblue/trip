@@ -2,11 +2,12 @@ import client from "./client"
 
 ///user profile
 export const getProfile = async ({id}) => {
-    return await client.get(`/profile/${id}`);
+  return await client.get(`/profile/${id}`);
 }
 
-export const changeImage = async ({id}) => {
-    return await client.post("/profile/changeImage/:id", {id});
+export const changePhoto = async ({ id, img }) => {
+  console.log(img.get("img"),"===========");
+  return await client.post(`/profile/changePhoto/${id}`, {img});
 }
 
 export const nickChk = async ({ nick }) => {

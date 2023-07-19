@@ -6,12 +6,16 @@ const ProfileBlock = styled.div`
   height: 250px;
 `;
 
-const ImageBox = styled.img`
+const ImageBox = styled.div`
   cursor: pointer;
   height: 150px;
   width: 150px;
   border-radius: 25px;
   background: black;
+`;
+
+const ImgInput = styled.input`
+  display: none;
 `;
 
 const InputBox = styled.input`
@@ -117,6 +121,7 @@ const ProfileComp = ({
   likeList,
   totalLike,
   wishList,
+  onUploadPhoto,
   onChangePhoto,
   onChange,
   onChangeProfile,
@@ -136,7 +141,13 @@ const ProfileComp = ({
   return (
     <>
       <ProfileBlock>
-        <ImageBox onClick={onChangePhoto} />
+        <form encType="multipart/form-data">
+          <label>
+            <ImageBox></ImageBox>
+            <ImgInput type="file" onChange={onUploadPhoto} name="myPhoto" />
+          </label>
+          <button onClick={onChangePhoto}>바꾸기</button>
+        </form>
         <UserInformBox>
           {user && !changeInform ? (
             <>
