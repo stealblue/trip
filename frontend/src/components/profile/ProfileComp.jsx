@@ -6,12 +6,12 @@ const ProfileBlock = styled.div`
   height: 250px;
 `;
 
-const ImageBox = styled.div`
+const ImageBox = styled.img`
   cursor: pointer;
   height: 150px;
   width: 150px;
   border-radius: 25px;
-  background: black;
+  border: 1px solid black;
 `;
 
 const ImgInput = styled.input`
@@ -143,8 +143,12 @@ const ProfileComp = ({
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            <ImageBox></ImageBox>
-            <ImgInput type="file" onChange={onUploadPhoto} name="myPhoto" />
+            {user?.img ? (
+              <ImageBox src={`/assets/${user.img}`} alt="img" />
+            ) : (
+              <ImageBox src={"/assets/triplogo.png"} alt="img" />
+            )}
+            <ImgInput type="file" onChange={onUploadPhoto} name="img" />
           </label>
           <button onClick={onChangePhoto}>바꾸기</button>
         </form>
