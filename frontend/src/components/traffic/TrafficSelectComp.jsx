@@ -19,6 +19,12 @@ const TrafficContainer = styled.div`
     font-size: 18px;
     line-height: 30px;
     cursor: pointer;
+    &.select-btn {
+      border-radius: 30px;
+      background: ${ThemeComp.softblack};
+      border: none;
+      color: ${ThemeComp.smoke};
+    }
   }
   .icon {
     width: 30px;
@@ -30,7 +36,7 @@ const TrafficContainer = styled.div`
     display: flex;
     margin-top: 20px;
     justify-content: space-around;
-    width: 55%;
+    width: 50%;
 
     .select-area {
       width: 200px;
@@ -38,6 +44,7 @@ const TrafficContainer = styled.div`
       background: ${ThemeComp.smoke};
       border-radius: 30px;
       border: 1px solid #333;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
       span {
         margin-left: 30px;
@@ -71,8 +78,8 @@ const SelectListContainer = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  div{
-    &.flag{
+  div {
+    &.flag {
       display: none;
     }
   }
@@ -99,7 +106,6 @@ const SelectListBlock = styled.div`
   li:hover {
     background: gray;
   }
-
 `;
 
 const StartItem = ({ station, onClick }) => {
@@ -148,21 +154,23 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
           </button>
         </div>
         <div className="select-option">
-          <div className="select-area">
-            <span onClick={onToggle} data-id='start'>출발지</span><span>{start}</span>
+          <div className="select-area" onClick={onToggle} data-id="start">
+            <span>출발지</span>
+            <span>{start}</span>
           </div>
-          <div className="select-area">
-            <span onClick={onToggle} data-id='end'>도착지</span><span>{end}</span>
+          <div className="select-area" onClick={onToggle} data-id="end">
+            <span>도착지</span>
+            <span>{end}</span>
           </div>
           <input type="date" onChange={onChangeDate} />
           {/* <select>
             <option>종류</option>
           </select> */}
-          <button>검색</button>
+          <button className="select-btn">검색</button>
         </div>
       </TrafficContainer>
       <SelectListContainer>
-        <div className="list flag" id='start-container'>
+        <div className="list flag" id="start-container">
           <SelectListBlock>
             <p className="title">출발지</p>
             {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
@@ -171,7 +179,7 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
           <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>
 
-        <div className="list flag" id='end-container'>
+        <div className="list flag" id="end-container">
           <SelectListBlock>
             <p className="title">도착지</p>
             {stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}

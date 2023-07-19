@@ -5,19 +5,22 @@ import { TitleComp, SubTitleComp } from "../../../components/common/TitleComp";
 import WrapperComp from "../../../components/common/WrapperComp";
 import ButtonComp from "../../../components/common/ButtonComp";
 import PaginationComp from "../../common/PaginationComp";
+import { addWishList } from "../../../lib/api/wishList";
+import ThemeComp from "../../common/ThemeComp";
 const ListContainer = styled.div`
   margin-top: 50px;
   .board-list {
     display: flex;
-    padding: 10px 0px;
-    border-bottom: 1px solid #999;
-    padding: 40px 10px;
+    background: ${ThemeComp.smoke};
+    border-radius: 20px;
+    padding: 40px;
     transition: 0.3s;
     cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 
   .board-list:hover {
-    opacity: 0.8;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.22), 0 8px 8px rgba(0, 0, 0, 0.22);
   }
 
   .title {
