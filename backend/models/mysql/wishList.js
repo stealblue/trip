@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     routeId: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    contentTypeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
