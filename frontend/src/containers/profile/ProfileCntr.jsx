@@ -15,9 +15,12 @@ import ProfileMod, {
   getLikeList,
   getProfile,
   getReplyList,
+  getWishList,
   initializeProfile,
   nickChk,
   withdraw,
+  deleteWish,
+  getWishDetail,
 } from "../../modules/profile/ProfileMod";
 import { check, initializeUser } from "../../modules/auth/UserMod";
 
@@ -43,6 +46,11 @@ const ProfileCntr = () => {
     likeList,
     totalLike,
     deleteLikeError,
+    wishList,
+    totalWish,
+    wish,
+    wishError,
+    deleteWishError,
   } = useSelector(({ UserMod, ProfileMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -61,12 +69,16 @@ const ProfileCntr = () => {
     likeList: ProfileMod.likeList,
     totalLike: ProfileMod.totalLike,
     deleteLikeError: ProfileMod.deleteLikeError,
+    wishList: ProfileMod.wishList,
+    totalWish: ProfileMod.totalWish,
+    wish: ProfileMod.wish,
+    wishError: ProfileMod.wishError,
+    deleteWishError: ProfileMod.deleteWishError,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
   const [userImg, setUserImg] = useState();
-  const wishList = [16, 17, 18, 19, 20];
 
   const onGetBoardList = () => {
     setBoardType("BOARD");
@@ -122,11 +134,36 @@ const ProfileCntr = () => {
       })
     );
   };
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////작업중
   const onGetWishList = () => {
     setBoardType("SCHEDULER");
+    dispatch(
+      getWishList({
+        id,
+      })
+    );
   };
 
+  const onGetWishDetail = (contentId) => {
+    setModal(!modal);
+    if (!wish) {
+      dispatch(
+        getWishDetail({
+          contentId,
+        })
+      );
+    }
+  };
+
+  const onDeleteWish = (no) => {
+    dispatch(
+      deleteWish({
+        no,
+      })
+    );
+  };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////작업중
   const onChange = (e) => {
     const { value } = e.target;
     dispatch(
@@ -251,6 +288,14 @@ const ProfileCntr = () => {
   }, [deleteLikeError]);
 
   useEffect(() => {
+    dispatch(
+      getWishList({
+        id,
+      })
+    );
+  }, [deleteWishError]);
+
+  useEffect(() => {
     if (withdrawAuth) {
       alert("회원탈퇴가 완료되었습니다.");
       dispatch(initializeUser());
@@ -290,6 +335,9 @@ const ProfileCntr = () => {
         likeList={likeList}
         totalLike={totalLike}
         wishList={wishList}
+        totalWish={totalWish}
+        wish={wish}
+        wishError={wishError}
         onGetBoardList={onGetBoardList}
         onGetBoardDetail={onGetBoardDetail}
         onDeleteBoard={onDeleteBoard}
@@ -299,6 +347,8 @@ const ProfileCntr = () => {
         onGetLikeList={onGetLikeList}
         onGetLikeDetail={onGetLikeDetail}
         onDeleteLike={onDeleteLike}
+        onGetWishDetail={onGetWishDetail}
+        onDeleteWish={onDeleteWish}
         onGetWishList={onGetWishList}
         onUploadPhoto={onUploadPhoto}
         onChangePhoto={onChangePhoto}

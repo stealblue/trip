@@ -21,30 +21,6 @@ exports.getProfile = async (req, res) => {
 	}
 };
 
-// exports.changePhoto = async (req, res) => {
-// 	const { id } = req.params;
-// 	const {img} = req.body;
-// 	console.log("=======================", id);
-// 	console.log("=======================", req.body);
-// 	try {
-// 		const Img = await user.update(
-// 			{
-// 				img
-// 			},
-// 			{
-// 				where: {
-// 					id,
-// 				}
-// 			}
-// 		)
-
-// 		res.status(200).json({ Img });
-//   } catch (e) {
-// 		console.error(e);
-// return res.status(400).json({imgError: true});
-//   }
-// };
-
 exports.changeProfile = async (req, res) => {
 	const { id, nick } = req.body;
 
@@ -242,24 +218,41 @@ exports.deleteLike = async (req, res) => {
 };
 
 exports.getWishList = async (req, res) => {
-	const { id } = req.body;
+	const { id } = req.params;
 
 	try {
-		const wishList = await wishList.findAll({
+		const WishList = await wishList.findAll({
 			where: {
 				id,
 			}
 		});
-		const totalWish = wishList.length;
+		const totalWish = WishList.length;
 
 		if (wishList) {
-			return res.status(200).json({ wishList, totalWish });
+			return res.status(200).json({ wishList: WishList, totalWish });
 		}
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ wishListError: true });
 	}
 };
+
+exports.getWishDetail = async (req, res) => {
+	const { contentId } = req.params;
+
+	try {
+		const exWish = await wishList.findOne({
+			where: {
+				contentId,
+			}
+		});
+
+		return res.status(200).json({ wish: exWish });
+	} catch (e) {
+		console.error(e);
+		res.status(400).json({wishError: true});
+	}
+}
 
 exports.deleteWish = async (req, res) => {
 	const { no } = req.params;

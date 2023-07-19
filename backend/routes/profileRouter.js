@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-const { getProfile, changePhoto, changeProfile, withdraw, getBoardList, deleteBoard, getReplyList, deleteReply, getLikeList, deleteLike, getWishList, deleteWish, nickChk} = require("../controllers/profileController");
+const { getProfile, changeProfile, withdraw, getBoardList, deleteBoard, getReplyList, deleteReply, getLikeList, deleteLike, getWishList, getWishDetail, deleteWish, nickChk} = require("../controllers/profileController");
 const { user } = require("../models/mysql");
 const app = express();
 const profile = express.Router();
@@ -63,6 +63,7 @@ profile.get("/getLikeList/:id", getLikeList);
 profile.delete("/deleteLike/:no", deleteLike);
 
 profile.get("/getWishList/:id", getWishList);
+profile.get("/getWishDetail/:contentId", getWishDetail);
 profile.delete("/deleteWish/:no", deleteWish);
 
 module.exports = profile;

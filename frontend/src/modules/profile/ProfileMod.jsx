@@ -120,25 +120,25 @@ const deleteLikeProcess = createRequestSaga(DELETE_LIKE, profileAPI.deleteLike);
 //wishlist
 const [GET_WISH_LIST, GET_WISH_LIST_SUCCESS, GET_WISH_LIST_FAILURE] =
   createRequestActionTypes("profile/GET_WISH_LIST");
-// const [GET_WISH_DETAIL, GET_WISH_DETAIL_SUCCESS, GET_WISH_DETAIL_FAILURE] =
-//   createRequestActionTypes("profile/GET_WISH_DETAIL");
+const [GET_WISH_DETAIL, GET_WISH_DETAIL_SUCCESS, GET_WISH_DETAIL_FAILURE] =
+  createRequestActionTypes("profile/GET_WISH_DETAIL");
 const [DELETE_WISH, DELETE_WISH_SUCCESS, DELETE_WISH_FAILURE] =
   createRequestActionTypes("profile/DELETE_WISH");
 
 export const getWishList = createAction(GET_WISH_LIST);
-// export const getWishDetail = createAction(GET_WISH_DETAIL, ({ id }) => ({
-//   id,
-// }));
-export const deleteWish = createAction(DELETE_WISH, ({ id }) => ({ id }));
+export const getWishDetail = createAction(GET_WISH_DETAIL, ({ contentId }) => ({
+  contentId,
+}));
+export const deleteWish = createAction(DELETE_WISH, ({ no }) => ({ no }));
 
 const getWishListProcess = createRequestSaga(
   GET_WISH_LIST,
   profileAPI.getWishList
 );
-// const getWishDetailProcess = createRequestSaga(
-//   GET_WISH_DETAIL,
-//   profileAPI.getWishDetail
-// );
+const getWishDetailProcess = createRequestSaga(
+  GET_WISH_DETAIL,
+  profileAPI.getWishDetail
+);
 const deleteWishProcess = createRequestSaga(DELETE_WISH, profileAPI.deleteWish);
 
 export function* ProfileSaga() {
@@ -153,7 +153,7 @@ export function* ProfileSaga() {
   yield takeLatest(GET_LIKE_LIST, getLikeListProcess);
   yield takeLatest(DELETE_LIKE, deleteLikeProcess);
   yield takeLatest(GET_WISH_LIST, getWishListProcess);
-  //   yield takeLatest(GET_WISH_DETAIL, getWishDetailProcess);
+  yield takeLatest(GET_WISH_DETAIL, getWishDetailProcess);
   yield takeLatest(DELETE_WISH, deleteWishProcess);
 }
 
@@ -189,8 +189,8 @@ const initialState = {
   wishList: [],
   totalWish: null,
   wishListError: null,
-  //   wish: null,
-  //   wishError: null,
+  wish: null,
+  wishError: null,
   deleteWishError: null,
 };
 
@@ -336,24 +336,26 @@ const ProfileMod = handleActions(
       ...state,
       wishList,
       totalWish,
-      likeEwishListErrorrror: null,
+      wishListError: null,
+      deleteWishError: null,
     }),
     [GET_WISH_LIST_FAILURE]: (state, { payload: { wishListError } }) => ({
       ...state,
       wishList: null,
       totalWish: null,
       wishListError,
+      deleteWishError: null,
     }),
-    // [GET_WISH_DETAIL_SUCCESS]: (state, { payload: { wish } }) => ({
-    //   ...state,
-    //   wish,
-    //   wishError: null,
-    // }),
-    // [GET_WISH_DETAIL_FAILURE]: (state, { payload: { wishError } }) => ({
-    //   ...state,
-    //   wish: null,
-    //   wishError,
-    // }),
+    [GET_WISH_DETAIL_SUCCESS]: (state, { payload: { wish } }) => ({
+      ...state,
+      wish,
+      wishError: null,
+    }),
+    [GET_WISH_DETAIL_FAILURE]: (state, { payload: { wishError } }) => ({
+      ...state,
+      wish: null,
+      wishError,
+    }),
     [DELETE_WISH_SUCCESS]: (state, { payload: { deleteWishError } }) => ({
       ...state,
       deleteWishError,
