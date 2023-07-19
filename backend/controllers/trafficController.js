@@ -34,24 +34,28 @@ exports.detailStations = async (req, res) => {
 };
 
 exports.listTrains = async (req, res) => {
-  console.log('listTrains');
-  console.log('request : ', req.body);
-  console.log('request : ', req.params);
-  console.log('request : ', req.query);
-  const { startStation, endStation, date } = req.query;
-  const targetDate = new Date(date);
-  const fullYear = targetDate.getFullYear();
-  const month = (targetDate.getMonth() > 10 ? targetDate.getMonth() : "0" + targetDate.getMonth());
-  const todate = (targetDate.getDate() > 10 ? targetDate.getDate() : "0" + targetDate.getDate());
-  const wantDate = `${fullYear}${month}${todate}`;
-  console.log(typeof wantDate);
-  console.log('wantDate : ', wantDate);
+  // console.log('listTrains');
+  // console.log('request : ', req.body);
+  // console.log('request : ', req.params);
+  // console.log('request : ', req.query);
+  const { startStation, endStation, date, pageNo } = req.query;
+  // console.log('date =====> ', typeof date, date);
+  // console.log('date.date : ', date.toString());
+  // const targetDate = new Date(date.date);
+  // console.log('targetDate : ', targetDate);
+  // const fullYear = targetDate.getFullYear();
+  // const month = (targetDate.getMonth() > 10 ? targetDate.getMonth() : "0" + targetDate.getMonth());
+  // const todate = (targetDate.getDate() > 10 ? targetDate.getDate() : "0" + targetDate.getDate());
+  // const wantDate = `${fullYear}${month}${todate}`;
+  // console.log(typeof wantDate);
+  // console.log('wantDate : ', wantDate);
   try {
     console.log('startStation : ', startStation);
     console.log('endStation : ', endStation);
     console.log('date : ', date);
+    console.log('date.date : ', date.date);
     console.log('TAGO_TRAIN_KEY : ', TAGO_TRAIN_KEY);
-    const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=1&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${wantDate}`);
+    const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=1&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${date}`);
     console.log('만들어졌니???')
     const resultTrains = originData.data;
     // console.log('data : ', originData);

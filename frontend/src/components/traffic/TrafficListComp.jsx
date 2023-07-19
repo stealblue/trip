@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
+import PageNavComp3 from "../common/PageNavComp3";
 
 const TrafficHeader = styled.div`
   span {
@@ -28,15 +29,16 @@ const TrafficListComp = ({ resultTrains }) => {
   const result = resultTrains?.response.body.items?.item;
   return (
     <div>
-      <TrafficHeader>
-        <span>출발역</span>
-        <span>시간</span>
-        <span>도착역</span>
-        <span>시간</span>
-        <span>종류</span>
-      </TrafficHeader>
+      {resultTrains && result &&
+        <TrafficHeader>
+          <span>출발역</span>
+          <span>시간</span>
+          <span>도착역</span>
+          <span>시간</span>
+          <span>종류</span>
+        </TrafficHeader>}
       {resultTrains && result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
-      {/* <PageNavComp3 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} /> */}
+      {resultTrains && result && <PageNavComp3 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />}
     </div>
   );
 };
