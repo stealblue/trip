@@ -22,6 +22,7 @@ import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
+import KoreaMap from "./components/area/KoreaMap";
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/admin/user" element={<AdminUserPage />} />
             <Route path="/admin/board" element={<AdminBoardPage />} />
           </Route>
+          <Route path="map" element={<KoreaMap />} />
         </Routes>
       </AnimatePresence>
     </>
