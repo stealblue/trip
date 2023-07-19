@@ -37,10 +37,10 @@ const upload = multer({
 profile.get("/:id", getProfile);
 profile.post("/changeProfile/:id", changeProfile);
 profile.post("/nickChk/:nick", nickChk);
-profile.post("/changePhoto/:id", upload.single("myPhoto"), async (req, res) => {
+profile.post("/changePhoto/:id", upload.single("img"), async (req, res) => {
 	const { id } = req.params;
 	const img = res.data;
-	console.log(img);
+	console.log(req.file);
 	// const img  = res;
 	// console.log(img)
 	try{
