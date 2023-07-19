@@ -13,8 +13,9 @@ const areas = [
 
 const RoomSelectCntr = () => {
   const dispatch = useDispatch();
-  const { areaCode } = useSelector(({ LodgingMod }) => ({
-    areaCode: LodgingMod.areaCode
+  const { areaCode, loading } = useSelector(({ LodgingMod, LoadingMod }) => ({
+    areaCode: LodgingMod.areaCode,
+    loading: LoadingMod
   }));
 
   const onClickArea = (e) => {
@@ -26,7 +27,7 @@ const RoomSelectCntr = () => {
     dispatch(showContentTypeId(32));
   };
 
-  return <RoomSelectComp onClickArea={onClickArea} areas={areas} areaCode={areaCode} />;
+  return <RoomSelectComp onClickArea={onClickArea} areas={areas} areaCode={areaCode} loading={loading} />;
 };
 
 export default RoomSelectCntr;

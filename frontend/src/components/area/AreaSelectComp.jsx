@@ -86,7 +86,7 @@ const SelectType = ({ onClick, type, contentTypeId }) => {
   );
 };
 
-const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId }) => {
+const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
   return (
     <>
       <MapContainer>
@@ -95,7 +95,6 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
           {areas.map((area) => (
             <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
           ))}
-          AreaName
         </div>
 
         <ListContainer>

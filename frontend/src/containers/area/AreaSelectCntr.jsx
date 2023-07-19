@@ -13,14 +13,15 @@ const areas = [
 
 const contentTypes = [
   { "name": "관광지", "code": 12 }, { "name": "문화시설", "code": 14 }, { "name": "축제공연행사", "code": 15 },
-  { "name": "레포츠", "code": 28 }, { "name": "숙박", "code": 32 }, { "name": "쇼핑", "code": 38 }, { "name": "음식점", "code": 39 }];
+  { "name": "레포츠", "code": 28 }, { "name": "쇼핑", "code": 38 }, { "name": "음식점", "code": 39 }];
 
 const AreaSelectCntr = () => {
   const dispatch = useDispatch();
 
-  const { areaCode, contentTypeId } = useSelector(({ AreaMod }) => ({
+  const { areaCode, contentTypeId, loading } = useSelector(({ AreaMod, LoadingMod }) => ({
     areaCode: AreaMod.areaCode,
-    contentTypeId: AreaMod.contentTypeId
+    contentTypeId: AreaMod.contentTypeId,
+    loading: LoadingMod
   }));
 
   const onClickArea = (e) => {
@@ -40,7 +41,7 @@ const AreaSelectCntr = () => {
     dispatch(showPageNo(page));
   }
 
-  return <AreaSelectComp onClickArea={onClickArea} onClickType={onClickType} areas={areas} contentTypes={contentTypes} areaCode={areaCode} contentTypeId={contentTypeId} />;
+  return <AreaSelectComp onClickArea={onClickArea} onClickType={onClickType} areas={areas} contentTypes={contentTypes} areaCode={areaCode} contentTypeId={contentTypeId} loading={loading} />;
 };
 
 export default AreaSelectCntr;

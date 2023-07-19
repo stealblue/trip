@@ -34,7 +34,7 @@ const RoomList = styled.div`
   justify-content: center;
 `;
 
-const SelectArea = ({ onClick, area, areaCode }) => {
+const SelectArea = ({ onClick, area, areaCode, loading }) => {
   console.log('selectItem : ', areaCode);
   return (
     <>
@@ -45,7 +45,7 @@ const SelectArea = ({ onClick, area, areaCode }) => {
   );
 };
 
-const AreaSelectComp = ({ onClickArea, areas, areaCode }) => {
+const AreaSelectComp = ({ onClickArea, areas, areaCode, loading }) => {
   // console.log('codes : ', areas);
   return (
     <>

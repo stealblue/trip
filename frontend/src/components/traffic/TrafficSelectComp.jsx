@@ -155,9 +155,6 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
             <span onClick={onToggle} data-id='end'>도착지</span><span>{end}</span>
           </div>
           <input type="date" onChange={onChangeDate} />
-          {/* <select>
-            <option>종류</option>
-          </select> */}
           <button>검색</button>
         </div>
       </TrafficContainer>
