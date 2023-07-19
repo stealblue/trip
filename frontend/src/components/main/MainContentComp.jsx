@@ -25,7 +25,7 @@ const TravelList = styled.div`
     .title {
       position: absolute;
       bottom: 120px;
-      left: 3rem;
+      left: 30px;
       font-size: 40px;
       color: ${ThemeComp.white};
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);

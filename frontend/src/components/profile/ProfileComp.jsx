@@ -1,9 +1,13 @@
 import { styled } from "styled-components";
+import ThemeComp from "../common/ThemeComp";
 
 const ProfileBlock = styled.div`
   display: flex;
-  background: gray;
+  /* background: gray; */
   height: 250px;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
 `;
 
 const ImageBox = styled.div`
@@ -23,13 +27,11 @@ const InputBox = styled.input`
 `;
 
 const UserInformBox = styled.div`
-  background: skyblue;
   height: 240px;
+  margin-left: 12px;
 `;
 
 const UserInform = styled.div`
-  display: flex;
-  background: yellow;
   border-bottom: 1px solid black;
 `;
 
@@ -39,15 +41,16 @@ const BoardInfo = styled.div`
   cursor: pointer;
 `;
 
-const Detail = styled.div`
-  background: green;
+const Detail = styled.span`
   margin: 5px;
+  padding: 0 10px;
 `;
 
-const NameTag = styled.div`
-  background: orange;
+const NameTag = styled.span`s
   margin-right: 20px;
   width: 70px;
+  padding: 0 10px;
+  display: inline-block;
 `;
 
 const ErrorMessage = styled.span`
@@ -61,6 +64,12 @@ const Button = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
+  padding: 5px 10px;
+  margin: 10px auto;
+  background: ${ThemeComp.bgcolor};
+  border: none;
+  border-radius: 10px;
+  margin-left: 10px;
 `;
 
 const SelectButton = styled.button`
@@ -145,8 +154,10 @@ const ProfileComp = ({
           <label>
             <ImageBox></ImageBox>
             <ImgInput type="file" onChange={onUploadPhoto} name="myPhoto" />
+            <Button className="change-btn" onClick={onChangePhoto}>
+              바꾸기
+            </Button>
           </label>
-          <button onClick={onChangePhoto}>바꾸기</button>
         </form>
         <UserInformBox>
           {user && !changeInform ? (
@@ -183,13 +194,7 @@ const ProfileComp = ({
                 <InputBox placeholder={"ID"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
               </UserInform>
-              {nickError ? (
-                <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
-              ) : nickAuth ? (
-                <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
-              ) : (
-                ""
-              )}
+              {nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}
               <UserInform>
                 <NameTag>전화번호</NameTag>
                 <Detail>{user.phone}</Detail>
@@ -206,22 +211,16 @@ const ProfileComp = ({
           ) : (
             ""
           )}
+          <div>
+            <Button onClick={onChangeProfile}>정보수정</Button>
+            <Button onClick={onWithdraw}>회원탈퇴</Button>
+          </div>
         </UserInformBox>
-        <div>
-          <Button onClick={onChangeProfile}>정보수정</Button>
-          <Button onClick={onWithdraw}>회원탈퇴</Button>
-        </div>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>
-          게시물 ({totalBoard})
-        </SelectButton>
-        <SelectButton onClick={onGetReplyList}>
-          댓글 ({totalReply})
-        </SelectButton>
-        <SelectButton onClick={onGetLikeList}>
-          좋아요 ({totalLike})
-        </SelectButton>
+        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
+        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
+        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
         <SelectButton onClick={onGetWishList}>wishList</SelectButton>
       </ButtonBox>
       <ListBox>
@@ -261,9 +260,7 @@ const ProfileComp = ({
                   <Detail>{like.bno_board.id}</Detail>
                   <Detail>{like.bno_board.title}</Detail>
                 </BoardInfo>
-                <Button onClick={() => onDeleteLike(like.no)}>
-                  좋아요버튼
-                </Button>
+                <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
               </Item>
             ))}
           </WishListBox>
