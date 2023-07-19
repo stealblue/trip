@@ -20,12 +20,13 @@ const RoomListCntr = ({ onClickTest }) => {
 
   const dispatch = useDispatch();
 
-  const { areas, error, loading, areaCode, pageNo, contentTypeId } = useSelector(({ LodgingMod }) => ({
+  const { areas, error, loading, areaCode, pageNo, contentTypeId } = useSelector(({ LodgingMod, LoadingMod }) => ({
     areas: LodgingMod?.areas,
     error: LodgingMod?.error,
     areaCode: LodgingMod?.areaCode,
     pageNo: LodgingMod?.pageNo,
-    contentTypeId: LodgingMod?.contentTypeId
+    contentTypeId: LodgingMod?.contentTypeId,
+    loading: LoadingMod['room/LIST_AREAS']
   }));
 
   useEffect(() => {

@@ -5,12 +5,13 @@ import { listTrains, selectPage } from '../../modules/traffic/TrainMod';
 
 const TrafficListCntr = () => {
   const dispatch = useDispatch();
-  const { resultTrains, pageNo, date, startStation, endStation } = useSelector(({ BusMod, TrainMod }) => ({
+  const { resultTrains, pageNo, date, startStation, endStation, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
     resultTrains: TrainMod?.resultTrains,
     pageNo: TrainMod?.pageNo,
     date: TrainMod.date,
     startStation: TrainMod.startStation,
-    endStation: TrainMod.endStation
+    endStation: TrainMod.endStation,
+    loading: LoadingMod['train/LIST_TRAINS']
   }));
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const TrafficListCntr = () => {
 
   return (
     <div>
-      <TrafficListComp resultTrains={resultTrains} />
+      <TrafficListComp resultTrains={resultTrains} loading={loading} />
     </div>
   );
 };

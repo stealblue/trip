@@ -132,7 +132,7 @@ const EndDetailItem = ({ station, onClick }) => {
   );
 };
 
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end }) => {
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, loading }) => {
   console.log("stations : ", stations);
   return (
     <div>
@@ -165,8 +165,8 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         <div className="list flag" id='start-container'>
           <SelectListBlock>
             <p className="title">출발지</p>
-            {stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
-            {terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+            {!loading && stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+            {!loading && terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
           <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
         </div>

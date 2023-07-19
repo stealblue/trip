@@ -77,14 +77,14 @@ const AreaItem = ({ area, onClick, addWish }) => {
   );
 };
 
-const AreaListComp = ({ areas, error, onClick, addWish }) => {
+const AreaListComp = ({ areas, error, onClick, addWish, loading }) => {
   if (!areas.response.body) return null;
   const result = areas.response?.body;
   let target;
   if (areas) target = result.items.item;
   return (
     <div>
-      {areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}
+      {!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}
       <PageNavComp pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} />
     </div>
   );

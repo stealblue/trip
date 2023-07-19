@@ -48,7 +48,7 @@ const AreaItem = ({ area, itemKey, onClick }) => {
   );
 };
 
-const RoomListComp = ({ areas, error, onClick }) => {
+const RoomListComp = ({ areas, error, onClick, loading }) => {
   let result;
   let target;
   if (areas && areas.response && areas.response.body) {
@@ -57,7 +57,7 @@ const RoomListComp = ({ areas, error, onClick }) => {
   }
   return (
     <div>
-      <RoomList>{areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} />)}</RoomList>
+      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} />)}</RoomList>
       <PageNavComp2 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />
     </div>
   );

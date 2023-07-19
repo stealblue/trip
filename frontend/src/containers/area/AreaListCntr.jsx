@@ -42,17 +42,9 @@ const AreaListCntr = memo(() => {
           Swal.fire({
             icon: 'success',
             text: `추가했습니다., ${e.target.dataset.contentid}`,
-            // confirmButtonText: "찜목록"
-
           })
         }
       })
-      // .then(result => {
-      //   const nick = user?.nick;
-      //   if (result.isConfirmed && nick) {
-      //     navigate(`/auth/${nick}`);
-      //   }
-      // })
       .catch(error => {
         Swal.fire({
           icon: 'error',
@@ -64,13 +56,14 @@ const AreaListCntr = memo(() => {
 
 
 
-  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ AreaMod, UserMod }) => ({
+  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ AreaMod, UserMod, LoadingMod }) => ({
     areas: AreaMod?.areas,
     error: AreaMod?.error,
     areaCode: AreaMod?.areaCode,
     pageNo: AreaMod?.pageNo,
     contentTypeId: AreaMod?.contentTypeId,
-    user: UserMod.user
+    user: UserMod.user,
+    loading: LoadingMod['area/LIST_AREAS']
   }));
 
   useEffect(() => {

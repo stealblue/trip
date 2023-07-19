@@ -10,11 +10,12 @@ const TrafficSelectCntr = () => {
   const [end, setEnd] = useState('');
   const dispatch = useDispatch();
 
-  const { terminals, stations, stationStartDetails, stationEndDetails } = useSelector(({ BusMod, TrainMod }) => ({
+  const { terminals, stations, stationStartDetails, stationEndDetails, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
     terminals: BusMod?.terminals,
     stations: TrainMod?.stations,
     stationStartDetails: TrainMod?.stationStartDetails,
     stationEndDetails: TrainMod?.stationEndDetails,
+    loading: LoadingMod[`train/LIST_STATIONS`]
   }))
 
   const onClickArea = (e) => {
@@ -107,6 +108,7 @@ const TrafficSelectCntr = () => {
           onToggle={onToggle}
           start={start}
           end={end}
+          loading={loading}
         />
       }
     </div>
