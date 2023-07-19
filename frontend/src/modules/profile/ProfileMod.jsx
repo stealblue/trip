@@ -13,8 +13,8 @@ const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
 const CHANGE_VALUE = "profile/CHANGE_VALUE";
 const [NICK_CHECK, NICK_CHECK_SUCCESS, NICK_CHECK_FAILURE] =
   createRequestActionTypes("profile/NICK_CHECK");
-const [CHANGE_PHOTO, CHANGE_PHOTO_SUCCESS, CHANGE_PHOTO_FAILURE] =
-  createRequestActionTypes("profile/CHANGE_PHOTO");
+const CHANGE_PHOTO_SUCCESS = "profile/CHANGE_PHOTO_SUCCESS";
+const CHANGE_PHOTO_FAILURE = "profile/CHANGE_PHOTO_FAILURE";
 const [WITHDRAW, WITHDRAW_SUCCESS, WITHDRAW_FAILURE] =
   createRequestActionTypes("profile/WITHDRAW");
 
@@ -30,10 +30,18 @@ export const changeValue = createAction(CHANGE_VALUE, ({ value }) => ({
 export const nickChk = createAction(NICK_CHECK, ({ nick }) => ({
   nick,
 }));
-export const changePhoto = createAction(CHANGE_PHOTO, ({ id, img }) => ({
-  id,
-  img,
-}));
+export const changePhotoSuccess = createAction(
+  CHANGE_PHOTO_SUCCESS,
+  ({ img }) => ({
+    img,
+  })
+);
+export const changePhotoFailure = createAction(
+  CHANGE_PHOTO_FAILURE,
+  ({ imgError }) => ({
+    imgError,
+  })
+);
 export const withdraw = createAction(WITHDRAW, ({ id }) => ({ id }));
 
 const getProfileProcess = createRequestSaga(GET_PROFILE, profileAPI.getProfile);
@@ -42,10 +50,7 @@ const changeProfileProcess = createRequestSaga(
   profileAPI.changeProfile
 );
 export const nickChkProcess = createRequestSaga(NICK_CHECK, profileAPI.nickChk);
-export const changePhotoProcess = createRequestSaga(
-  CHANGE_PHOTO,
-  profileAPI.changePhoto
-);
+
 function* withdrawProcess(action) {
   try {
     const response = yield call(profileAPI.withdraw, action.payload);
@@ -140,7 +145,6 @@ export function* ProfileSaga() {
   yield takeLatest(GET_PROFILE, getProfileProcess);
   yield takeLatest(CHANGE_PROFILE, changeProfileProcess);
   yield takeLatest(NICK_CHECK, nickChkProcess);
-  yield takeLatest(CHANGE_PHOTO, changePhotoProcess);
   yield takeLatest(WITHDRAW, withdrawProcess);
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
