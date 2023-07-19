@@ -51,6 +51,11 @@ export const getWishList = async ({id}) => {
   return await client.get(`/profile/getWishList/${id}`);
 }
 
-export const deleteWish = async ({no}) => {
+export const getWishDetail = async ({ contentId }) => {
+  return await client.get(`/profile/getWishDetail/${contentId}`);
+}
+
+export const deleteWish = async ({ no }) => {
+  console.log(no);
     return await client.delete(`/profile/deleteWish/${no}`);
 }

@@ -1,9 +1,21 @@
 import { styled } from "styled-components";
+import Modal from "styled-react-modal";
 import ThemeComp from "../common/ThemeComp";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+
+const StyledModal = Modal.styled`
+  background: white;
+  height: 450px;
+  width: 500px;
+
+  div{
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+  }
+`;
 
 const ProfileBlock = styled.div`
   display: flex;
@@ -170,11 +182,35 @@ const BoardBox = styled.div`
 const ReplyBox = styled.div`
   background: skyblue;
 `;
+
+const LikeBox = styled.div`
+  background: purple;
+`;
+
+const AllScheduleBox = styled.div`
+  background: red;
+  display: flex;
+`;
+
+const SchedulerBox = styled.div`
+  background: pink;
+  display: flex;
+  width: 70%;
+`;
+
 const WishListBox = styled.div`
   background: yellow;
+  width: 30%;
 `;
-const SchedulerBox = styled.div`
-  background: green;
+
+const BeforeBox = styled.div`
+  background: white;
+  width: 300px;
+`;
+
+const AfterBox = styled.div`
+  background: skyblue;
+  width: 300px;
 `;
 
 const Item = styled.div`
@@ -199,6 +235,9 @@ const ProfileComp = ({
   likeList,
   totalLike,
   wishList,
+  totalWish,
+  wish,
+  wishError,
   onUploadPhoto,
   onChangePhoto,
   onChange,
@@ -215,6 +254,8 @@ const ProfileComp = ({
   onGetLikeDetail,
   onDeleteLike,
   onGetWishList,
+  onGetWishDetail,
+  onDeleteWish,
 }) => {
   return (
     <>
@@ -287,10 +328,18 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
-        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
-        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
-        <SelectButton onClick={onGetWishList}>wishList</SelectButton>
+        <SelectButton onClick={onGetBoardList}>
+          게시물 ({totalBoard})
+        </SelectButton>
+        <SelectButton onClick={onGetReplyList}>
+          댓글 ({totalReply})
+        </SelectButton>
+        <SelectButton onClick={onGetLikeList}>
+          좋아요 ({totalLike})
+        </SelectButton>
+        <SelectButton onClick={onGetWishList}>
+          wishList ({totalWish})
+        </SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -336,7 +385,7 @@ const ProfileComp = ({
             ))}
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
-          <WishListBox>
+          <LikeBox>
             {likeList.map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
@@ -346,15 +395,35 @@ const ProfileComp = ({
                 <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
               </Item>
             ))}
-          </WishListBox>
-        ) : boardType === "WISHLIST" ? (
-          <SchedulerBox>
-            {wishList.map((wish) => (
-              <Item key={wish.id}>{wish}</Item>
-            ))}
-          </SchedulerBox>
+          </LikeBox>
         ) : (
-          ""
+          <AllScheduleBox>
+            <WishListBox>
+              {wishList.map((Wish) => (
+                <Item key={Wish.no}>
+                  <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
+                    <Detail>{Wish.title}</Detail>
+                  </BoardInfo>
+                  <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
+                </Item>
+              ))}
+              <StyledModal
+                isOpen={modal} //true = 열림 / false = 닫힘
+                ariahideapp={"false"} //에러 안뜨게하기
+                onEscapeKeydown={onGetWishDetail} //esc키 눌렀을경우 함수 실행
+                onBackgroundClick={onGetWishDetail} //esc키 or 오버레이부분 클릭시 함수 실행
+              >
+                <div>{wish?.title ? wish.title : "준비중"}</div>
+                <div>{wish?.img ? wish.img : "준비중"}</div>
+                <div>{wish?.location ? wish.location : "준비중"}</div>
+                <button onClick={onGetWishDetail}>x</button>
+              </StyledModal>
+            </WishListBox>
+            <SchedulerBox>
+              <BeforeBox>1</BeforeBox>
+              <AfterBox>22</AfterBox>
+            </SchedulerBox>
+          </AllScheduleBox>
         )}
       </ListBox>
     </>
