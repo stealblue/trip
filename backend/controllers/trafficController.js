@@ -50,12 +50,13 @@ exports.listTrains = async (req, res) => {
   // console.log(typeof wantDate);
   // console.log('wantDate : ', wantDate);
   try {
-    console.log('startStation : ', startStation);
-    console.log('endStation : ', endStation);
-    console.log('date : ', date);
-    console.log('date.date : ', date.date);
+    // console.log('startStation : ', startStation);
+    // console.log('endStation : ', endStation);
+    // console.log('date : ', date);
+    // console.log('date.date : ', date.date);
+    console.log('page : ', pageNo);
     console.log('TAGO_TRAIN_KEY : ', TAGO_TRAIN_KEY);
-    const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=1&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${date}`);
+    const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=${pageNo}&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${date}`);
     console.log('만들어졌니???')
     const resultTrains = originData.data;
     // console.log('data : ', originData);
