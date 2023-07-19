@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'like',
+    hasTrigger: true,
     timestamps: false,
     indexes: [
       {
@@ -37,17 +38,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id",
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
         name: "bno",
         using: "BTREE",
         fields: [
           { name: "bno" },
+        ]
+      },
+      {
+        name: "like_ibfk_1",
+        using: "BTREE",
+        fields: [
+          { name: "id" },
         ]
       },
     ]

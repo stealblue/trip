@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePhoto } from "../../lib/api/profile";
 import ProfileMod, {
-  // changePhoto,
   changeProfile,
   changeValue,
+  changePhotoSuccess,
+  changePhotoFailure,
   deleteBoard,
   deleteLike,
   deleteReply,
@@ -27,7 +28,7 @@ const ProfileCntr = () => {
   const [modal, setModal] = useState(false);
   const {
     id,
-    User,
+    img,
     user,
     nick,
     nickAuth,
@@ -45,6 +46,7 @@ const ProfileCntr = () => {
     deleteLikeError,
   } = useSelector(({ UserMod, ProfileMod }) => ({
     id: UserMod.user.id,
+    img_: ProfileMod.img,
     user: ProfileMod.user,
     nick: ProfileMod.nick,
     nickAuth: ProfileMod.nickAuth,
@@ -63,6 +65,7 @@ const ProfileCntr = () => {
   }));
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
+  const [userImg, setUserImg] = useState();
   const wishList = [16, 17, 18, 19, 20];
 
   const onGetBoardList = () => {
@@ -141,7 +144,27 @@ const ProfileCntr = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("img", content);
-    await changePhoto({ id, img: formData });
+    await changePhoto({
+      id,
+      formData, //formData를 그대로 넘겨줘야 함. img:{formData} 이런식으로 넘기면 안됨
+    }).then((res) => {
+      if (res.status === 200) {
+        const { img } = res.data;
+        setUserImg(img);
+        dispatch(
+          changePhotoSuccess({
+            img,
+          })
+        );
+      } else {
+        const { imgError } = res.data;
+        dispatch(
+          changePhotoFailure({
+            imgError,
+          })
+        );
+      }
+    });
   };
 
   const onChangeProfile = () => {
@@ -197,14 +220,8 @@ const ProfileCntr = () => {
         id,
       })
     );
-    //total length만 불러오는 action 따로 만들기
-    dispatch(
-      getReplyList({
-        id,
-      })
-    );
     setBoardType("BOARD"); //처음 렌더링 될 때 먼저 보여질 리스트
-  }, [dispatch]);
+  }, [dispatch, userImg]);
 
   useEffect(() => {
     dispatch(
