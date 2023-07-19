@@ -20,7 +20,7 @@ export const endStations = createAction(END_STATIONS, ({ cityCode }) => ({ cityC
 export const selectStart = createAction(SELECT_START, ({ stationId }) => ({ stationId }));
 export const selectEnd = createAction(SELECT_END, ({ stationId }) => ({ stationId }));
 export const selectDate = createAction(SELECT_DATE, ({ date }) => ({ date }));
-export const selectPage = createAction(SELECT_PAGE, ({ pageNo }) => ({ pageNo }));
+export const selectPage = createAction(SELECT_PAGE, (pageNo) => (pageNo));
 export const listTrains = createAction(List_TRAINS, ({ startStation, endStation, date, pageNo }) => ({ startStation, endStation, date, pageNo }));
 
 const listStationsSaga = createRequestSaga(LIST_STATIONS, trafficAPI.listStations);

@@ -11,20 +11,26 @@ const LiBlock = styled.li`
   }
 `;
 const PageNavComp3 = ({ totalCount, pageNo, numOfRows }) => {
-  const res = parseInt(Math.ceil(totalCount / 10)); // 전체 페이지를 10개씩 나눴을 때 갯 수
-  const page = pageNo || 1; // 현재 페이지
+  const res = parseInt(Math.ceil(totalCount / 10));
+  const page = pageNo || 1;
   let pageNavEndNum = (Math.ceil(page / 10) * 10);
-  pageNavEndNum = (res <= pageNavEndNum ? res : (Math.ceil(page / 10) * 10)); // 현재 페이지가 속하는 페이지 네비게이션의 마지막 페이지
-  let pageNavStartNum = (Math.floor((page - 1) / 10) * 10) + 1; // 현재 페이지가 속하는 페이지 네비게이션의 시작 페이지
+  pageNavEndNum = (res <= pageNavEndNum ? res : (Math.ceil(page / 10) * 10));
+  let pageNavStartNum = (Math.floor((page - 1) / 10) * 10) + 1;
   if ((page / 10) === 1) pageNavStartNum = Math.floor((page - 1) / 10) * 10;
   pageNavStartNum = (pageNavStartNum > 1 ? pageNavStartNum : 1);
 
   const dispatch = useDispatch();
 
   const onClickPage = (e) => {
+    console.log('page : ', e.target)
     const page = e.target.value || e.target.dataset.page;
-    dispatch(selectPage({ page }));
+    console.log('page : ', page);
+    dispatch(selectPage(page));
   }
+  console.log('totalCount : ', totalCount);
+  console.log('pageNo : ', pageNo);
+  console.log('res : ', res);
+  console.log('pageNavEndNum : ', pageNavEndNum);
   const resArray = Array.from({ length: (pageNavEndNum - pageNavStartNum) + 1 }, (_, index) => index + pageNavStartNum);
   return (
     <div>

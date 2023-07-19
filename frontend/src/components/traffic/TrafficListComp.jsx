@@ -27,6 +27,8 @@ const TrafficItem = ({ item }) => {
 const TrafficListComp = ({ resultTrains }) => {
   console.log("resultTrains : ", resultTrains);
   const result = resultTrains?.response.body.items?.item;
+  console.log('result : ', result);
+  const result2 = resultTrains?.response.body;
   return (
     <div>
       {resultTrains && result &&
@@ -38,7 +40,7 @@ const TrafficListComp = ({ resultTrains }) => {
           <span>종류</span>
         </TrafficHeader>}
       {resultTrains && result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
-      {resultTrains && result && <PageNavComp3 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />}
+      {resultTrains && result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
     </div>
   );
 };

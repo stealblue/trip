@@ -9,10 +9,10 @@ const profile = express.Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      done(null, "public/images/");
+      done(null, "../frontend/public/assets"); //파일 저장경로, 없는 경로 입력할 경우 500 에러 발생
     },
     filename(req, file, done) {
-      const ext = path.extname(file.originalname);
+			const ext = path.extname(file.originalname);
       done(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
   }),
@@ -39,20 +39,15 @@ profile.post("/changeProfile/:id", changeProfile);
 profile.post("/nickChk/:nick", nickChk);
 profile.post("/changePhoto/:id", upload.single("img"), async (req, res) => {
 	const { id } = req.params;
-	const img = res.data;
-	console.log(req.file);
-	// const img  = res;
-	// console.log(img)
-	try{
-		await user.findOne({
-			where: {
-				id,
-			}
-		});
-		return res.status(200).json({});
+	const img = req.file.filename;
+
+	try {
+		await user.update({img: img},{ where: {id}});
+    
+		return res.status(200).json({img});
   }catch(e){
     console.error(e);
-		return res.status(400).json({imgError: "사진 업로드 실패"});
+		return res.status(400).json({imgError: true});
   }
 });
 
