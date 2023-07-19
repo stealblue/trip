@@ -24,7 +24,6 @@ import { check, initializeUser } from "../../modules/auth/UserMod";
 const ProfileCntr = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [changeInform, setChangeInform] = useState(false);
   const [modal, setModal] = useState(false);
   const {
     id,
@@ -63,6 +62,7 @@ const ProfileCntr = () => {
     totalLike: ProfileMod.totalLike,
     deleteLikeError: ProfileMod.deleteLikeError,
   }));
+  const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
   const [userImg, setUserImg] = useState();
@@ -142,6 +142,9 @@ const ProfileCntr = () => {
 
   const onChangePhoto = async (e) => {
     e.preventDefault();
+    if (!content) {
+      return alert("사진을 먼저 선택해주세요.");
+    }
     const formData = new FormData();
     formData.append("img", content);
     await changePhoto({
