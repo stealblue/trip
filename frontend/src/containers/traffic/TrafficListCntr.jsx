@@ -6,7 +6,7 @@ import { listBuses } from '../../modules/traffic/BusMod';
 
 const TrafficListCntr = () => {
   const dispatch = useDispatch();
-  const { resultTrains, resultBuses, pageNoTrain, pageNoBus, dateTrain, dateBus, startStation, startTerminal, endStation, endTerminal, loadingTrain, loadingBus } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
+  const { resultTrains, resultBuses, pageNoTrain, pageNoBus, dateTrain, dateBus, startStation, startTerminal, endStation, endTerminal, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
     resultTrains: TrainMod?.resultTrains,
     resultBuses: BusMod?.resultBuses,
     pageNoTrain: TrainMod?.pageNoTrain,
@@ -17,26 +17,32 @@ const TrafficListCntr = () => {
     startTerminal: BusMod.startTerminal,
     endStation: TrainMod.endStation,
     endTerminal: BusMod.endTerminal,
-    loadingTrain: LoadingMod['train/LIST_TRAINS'],
-    loadingBus: LoadingMod['bus/LIST_BUSES']
+    loading: LoadingMod
   }));
 
   useEffect(() => {
-    if (!loadingTrain && startStation && endStation && dateTrain) {
+    if (startStation && endStation && (dateTrain !== '' && dateTrain)) {
+      console.log('check======================================================')
       const startValue = startStation.stationId;
       const endValue = endStation.stationId;
-      dispatch(listTrains({ startStation: startValue, endStation: endValue, dateTrain, pageNoTrain }));
+      const date = dateTrain.dateTrain;
+      dispatch(listTrains({ startStation: startValue, endStation: endValue, dateTrain: date, pageNoTrain }));
     }
-    else if (!loadingBus && startTerminal && endTerminal && dateBus) {
+
+  }, [dispatch, pageNoTrain, startStation, endStation, dateTrain])
+
+  useEffect(() => {
+    if (startTerminal && endTerminal && (dateBus !== '' && dateBus)) {
       const startValue = startTerminal.terminalId;
       const endValue = endTerminal.terminalId;
       dispatch(listBuses({ startTerminal: startValue, endTerminal: endValue, dateBus, pageNoBus }))
     }
-  }, [dispatch, pageNoTrain, startStation, endStation, dateTrain, pageNoBus, startTerminal, endTerminal, dateBus, loadingBus, loadingTrain])
+  }, [dispatch, startTerminal, endTerminal, dateBus, pageNoBus])
 
   return (
     <div>
-      <TrafficListComp resultTrains={resultTrains} loadingTrain={loadingTrain} resultBuses={resultBuses} loadingBus={loadingBus} />
+      {pageNoTrain && startStation && endStation && dateTrain && <TrafficListComp resultTrains={resultTrains} loading={loading} />}
+      {pageNoBus && startTerminal && endTerminal && dateBus && <TrafficListComp resultBuses={resultBuses} loading={loading} />}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const TrafficItem = ({ item }) => {
   );
 };
 
-const TrafficListComp = ({ resultTrains, loadingTrain, resultBuses, loadingBus }) => {
+const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
   console.log("resultTrains : ", resultTrains);
   console.log('resultBuses : ', resultBuses);
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
@@ -32,7 +32,7 @@ const TrafficListComp = ({ resultTrains, loadingTrain, resultBuses, loadingBus }
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
   return (
     <div>
-      {!loadingTrain && resultTrains && result &&
+      {result &&
         <TrafficHeader>
           <span>출발장소</span>
           <span>시간</span>
@@ -40,8 +40,8 @@ const TrafficListComp = ({ resultTrains, loadingTrain, resultBuses, loadingBus }
           <span>시간</span>
           <span>종류</span>
         </TrafficHeader>}
-      {!loadingTrain && result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
-      {!loadingTrain && result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
+      {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
+      {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
     </div>
   );
 };

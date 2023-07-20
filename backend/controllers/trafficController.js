@@ -36,6 +36,8 @@ exports.detailStations = async (req, res) => {
 exports.listTrains = async (req, res) => {
   const { startStation, endStation, date, pageNo } = req.query;
   try {
+    console.log(`req.params : ${req.params}`);
+    console.log(`startStation : ${startStation} / endStation : ${endStation} / date : ${date} / pageNo : ${pageNo}`);
     const originData = await axios.get(`https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=${TAGO_TRAIN_KEY}&pageNo=${pageNo}&numOfRows=10&_type=json&depPlaceId=${startStation}&arrPlaceId=${endStation}&depPlandTime=${date}`);
     const resultTrains = originData.data;
     return res.json(resultTrains);

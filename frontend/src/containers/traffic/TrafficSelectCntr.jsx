@@ -8,6 +8,8 @@ const TrafficSelectCntr = () => {
   const [target, setTarget] = useState(null);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+  const [date, setDate] = useState('');
+
   const dispatch = useDispatch();
 
   const { terminals, stations, stationStartDetails, stationEndDetails, terminalStartDetails, terminalEndDetails, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
@@ -75,12 +77,21 @@ const TrafficSelectCntr = () => {
 
   const onClickCategory = (e) => {
     setTarget(e.target.value);
+    setEnd('');
+    setStart('');
+    setDate('');
   }
 
   const onChangeDate = (e) => {
     const targetDate = e.target.value;
     const date = targetDate.replace(/-/g, '');
-    dispatch(selectDateTrain({ date }));
+    setDate(targetDate);
+    if (target === 'train') {
+      console.log('dateTrain : ', date);
+      dispatch(selectDateTrain({ dateTrain: date }));
+    } else {
+      dispatch(selectDateBus({ dateBus: date }));
+    }
   }
 
   const onToggle = (e) => { // 출발지, 도착지를 보여주고 숨겨주기 위해 만든 function
@@ -124,6 +135,7 @@ const TrafficSelectCntr = () => {
           onToggle={onToggle}
           start={start}
           end={end}
+          date={date}
           loading={loading}
         />
       }

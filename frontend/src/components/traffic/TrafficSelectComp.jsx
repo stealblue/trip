@@ -87,8 +87,10 @@ const SelectListContainer = styled.div`
 
 const SelectListBlock = styled.div`
   width: 200px;
-  height: auto;
-  border: 1px solid #333;
+  /* height: auto; */
+  max-height: 810px;
+  overflow: auto;
+  /* border: 1px solid #333; */
   text-align: center;
   margin: 0 auto;
   margin-top: 50px;
@@ -142,7 +144,23 @@ const EndDetailItem = ({ item, onClick }) => {
   );
 };
 
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, loading }) => {
+const TrafficSelectComp = ({
+  stations,
+  terminals,
+  stationStartDetails,
+  terminalStartDetails,
+  stationEndDetails,
+  terminalEndDetails,
+  onClickArea,
+  onClickPlace,
+  onClickCategory,
+  onChangeDate,
+  onToggle,
+  start,
+  end,
+  date,
+  loading
+}) => {
   return (
     <div>
       <TrafficContainer>
@@ -165,7 +183,7 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
             <span>도착지</span>
             <span>{end}</span>
           </div>
-          <input type="date" onChange={onChangeDate} />
+          <input type="date" onChange={onChangeDate} value={date} />
           <button>검색</button>
         </div>
       </TrafficContainer>
@@ -177,8 +195,8 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
             {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
           <SelectListBlock>
-            {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.index} />)}
-            {terminalStartDetails && terminalStartDetails.map((terminal) => <StartDetailItem item={terminal} onClick={onClickPlace} key={terminal.index} />)}
+            {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
+            {terminalStartDetails && terminalStartDetails.map((terminal) => <StartDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}
           </SelectListBlock>
         </div>
 
@@ -189,8 +207,8 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
             {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
           <SelectListBlock>
-            {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} />)}
-            {terminalEndDetails && terminalEndDetails.map((terminal) => <EndDetailItem item={terminal} onClick={onClickPlace} />)}
+            {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
+            {terminalEndDetails && terminalEndDetails.map((terminal) => <EndDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}
           </SelectListBlock>
         </div>
       </SelectListContainer>

@@ -9,10 +9,10 @@ const [LIST_STATIONS, LIST_STATIONS_SUCCESS, LIST_STATIONS_FAILURE] = createRequ
 const [START_STATIONS, START_STATIONS_SUCCESS, START_STATIONS_FAILURE] = createRequestActionTypes("train/START_STATIONS");
 const [END_STATIONS, END_STATIONS_SUCCESS, END_STATIONS_FAILURE] = createRequestActionTypes("train/END_STATIONS");
 const [LIST_TRAINS, LIST_TRAINS_SUCCESS, LIST_TRAINS_FAILURE] = createRequestActionTypes('train/List_TRAINS');
-const SELECT_START_STATION = createRequestActionTypes('train/SELECT_START');
-const SELECT_END_STATION = createRequestActionTypes('train/SELECT_END');
-const SELECT_DATE_TRAIN = createRequestActionTypes('train/SELECT_DATE');
-const SELECT_PAGE_TRAIN = createRequestActionTypes('train/SELECT_PAGE');
+const SELECT_START_STATION = createRequestActionTypes('train/SELECT_START_STATION');
+const SELECT_END_STATION = createRequestActionTypes('train/SELECT_END_STATION');
+const SELECT_DATE_TRAIN = createRequestActionTypes('train/SELECT_DATE_TRAIN');
+const SELECT_PAGE_TRAIN = createRequestActionTypes('train/SELECT_PAGE_TRAIN');
 const UNLOAD_TRAIN = 'train/UNLOAD_TRAIN';
 
 export const listStations = createAction(LIST_STATIONS);
