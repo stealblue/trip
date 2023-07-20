@@ -35,7 +35,8 @@ const TrafficListCntr = () => {
     if (startTerminal && endTerminal && (dateBus !== '' && dateBus)) {
       const startValue = startTerminal.terminalId;
       const endValue = endTerminal.terminalId;
-      dispatch(listBuses({ startTerminal: startValue, endTerminal: endValue, dateBus, pageNoBus }))
+      const date = dateBus.dateBus;
+      dispatch(listBuses({ startTerminal: startValue, endTerminal: endValue, dateBus: date, pageNoBus }))
     }
   }, [dispatch, startTerminal, endTerminal, dateBus, pageNoBus])
 

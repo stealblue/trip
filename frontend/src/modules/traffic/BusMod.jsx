@@ -86,11 +86,11 @@ const BusMod = handleActions(
       }),
     [SELECT_START_TERMINAL]: (state, { payload: terminalId }) =>
       produce(state, (draft) => {
-        draft.terminalId = terminalId;
+        draft.startTerminal = terminalId;
       }),
     [SELECT_END_TERMINAL]: (state, { payload: terminalId }) =>
       produce(state, (draft) => {
-        draft.terminalId = terminalId;
+        draft.endTerminal = terminalId;
       }),
     [SELECT_DATE_BUS]: (state, { payload: dateBus }) =>
       produce(state, (draft) => {

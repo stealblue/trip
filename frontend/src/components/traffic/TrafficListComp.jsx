@@ -15,10 +15,10 @@ const TrafficHeader = styled.div`
 const TrafficItem = ({ item }) => {
   return (
     <TrafficHeader>
-      <span>{item.arrplacename || item.arrplaceNm}</span>
-      <span>{item.arrplandtime || item.arrplandTime}</span>
-      <span>{item.depplacename || item.depplaceNm}</span>
-      <span>{item.depplandtime || item.depplandTime}</span>
+      <span>{item.arrplacename || item.arrPlaceNm}</span>
+      <span>{item.arrplandtime || item.arrPlandTime}</span>
+      <span>{item.depplacename || item.depPlaceNm}</span>
+      <span>{item.depplandtime || item.depPlandTime}</span>
       <span>{item.traingradename || item.gradeNm}</span>
     </TrafficHeader>
   );

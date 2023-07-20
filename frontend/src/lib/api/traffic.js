@@ -22,9 +22,7 @@ export const detailTerminals = ({ cityCode }) => {
 };
 
 export const listBuses = async ({ startTerminal, endTerminal, dateBus, pageNoBus }) => {
-  const dateStr = dateBus.date;
-  console.log('========================================================================================================')
-  console.log(`listBuses : /traffic/bus/result?startTerminal=${startTerminal}&endTerminal=${endTerminal}&date=${dateStr}&pageNo=${pageNoBus}`)
-  return await client.get(`/traffic/bus/result?startTerminal=${startTerminal}&endTerminal=${endTerminal}&date=${dateStr}&pageNo=${pageNoBus}`);
+  console.log(`startTerminal : ${startTerminal} / endTerminal : ${endTerminal} / dateBus : ${dateBus} / pageNo : ${pageNoBus}`)
+  return await client.get(`/traffic/bus/result?startTerminal=${startTerminal}&endTerminal=${endTerminal}&date=${dateBus}&pageNo=${pageNoBus}`);
 };
 
