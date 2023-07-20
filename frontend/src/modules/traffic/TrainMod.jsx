@@ -8,31 +8,33 @@ const INITIALIZE = createRequestActionTypes('train/INITIALIZE');
 const [LIST_STATIONS, LIST_STATIONS_SUCCESS, LIST_STATIONS_FAILURE] = createRequestActionTypes("train/LIST_STATIONS");
 const [START_STATIONS, START_STATIONS_SUCCESS, START_STATIONS_FAILURE] = createRequestActionTypes("train/START_STATIONS");
 const [END_STATIONS, END_STATIONS_SUCCESS, END_STATIONS_FAILURE] = createRequestActionTypes("train/END_STATIONS");
-const [List_TRAINS, List_TRAINS_SUCCESS, List_TRAINS_FAILURE] = createRequestActionTypes('train/List_TRAINS');
-const SELECT_START = createRequestActionTypes('train/SELECT_START');
-const SELECT_END = createRequestActionTypes('train/SELECT_END');
-const SELECT_DATE = createRequestActionTypes('train/SELECT_DATE');
-const SELECT_PAGE = createRequestActionTypes('train/SELECT_PAGE');
+const [LIST_TRAINS, LIST_TRAINS_SUCCESS, LIST_TRAINS_FAILURE] = createRequestActionTypes('train/List_TRAINS');
+const SELECT_START_STATION = createRequestActionTypes('train/SELECT_START');
+const SELECT_END_STATION = createRequestActionTypes('train/SELECT_END');
+const SELECT_DATE_TRAIN = createRequestActionTypes('train/SELECT_DATE');
+const SELECT_PAGE_TRAIN = createRequestActionTypes('train/SELECT_PAGE');
+const UNLOAD_TRAIN = 'train/UNLOAD_TRAIN';
 
 export const listStations = createAction(LIST_STATIONS);
 export const startStations = createAction(START_STATIONS, ({ cityCode }) => ({ cityCode }));
 export const endStations = createAction(END_STATIONS, ({ cityCode }) => ({ cityCode }));
-export const selectStart = createAction(SELECT_START, ({ stationId }) => ({ stationId }));
-export const selectEnd = createAction(SELECT_END, ({ stationId }) => ({ stationId }));
-export const selectDate = createAction(SELECT_DATE, ({ date }) => ({ date }));
-export const selectPage = createAction(SELECT_PAGE, (pageNo) => (pageNo));
-export const listTrains = createAction(List_TRAINS, ({ startStation, endStation, date, pageNo }) => ({ startStation, endStation, date, pageNo }));
+export const selectStartStation = createAction(SELECT_START_STATION, ({ stationId }) => ({ stationId }));
+export const selectEndStation = createAction(SELECT_END_STATION, ({ stationId }) => ({ stationId }));
+export const selectDateTrain = createAction(SELECT_DATE_TRAIN, ({ dateTrain }) => ({ dateTrain }));
+export const selectPageTrain = createAction(SELECT_PAGE_TRAIN, (pageNoTrain) => (pageNoTrain));
+export const listTrains = createAction(LIST_TRAINS, ({ startStation, endStation, dateTrain, pageNoTrain }) => ({ startStation, endStation, dateTrain, pageNoTrain }));
+export const unloadTrain = createAction(UNLOAD_TRAIN);
 
 const listStationsSaga = createRequestSaga(LIST_STATIONS, trafficAPI.listStations);
 const startStationsSaga = createRequestSaga(START_STATIONS, trafficAPI.detailStations);
 const endStationsSaga = createRequestSaga(END_STATIONS, trafficAPI.detailStations);
-const listTrainsSaga = createRequestSaga(List_TRAINS, trafficAPI.listTrains);
+const listTrainsSaga = createRequestSaga(LIST_TRAINS, trafficAPI.listTrains);
 
 export function* trainSaga() {
   yield takeLatest(LIST_STATIONS, listStationsSaga);
   yield takeLatest(START_STATIONS, startStationsSaga);
   yield takeLatest(END_STATIONS, endStationsSaga);
-  yield takeLatest(List_TRAINS, listTrainsSaga);
+  yield takeLatest(LIST_TRAINS, listTrainsSaga);
 }
 
 const initialState = {
@@ -43,8 +45,8 @@ const initialState = {
   endStation: null,
   resultTrains: null,
   error: null,
-  date: null,
-  pageNo: 1
+  dateTrain: null,
+  pageNoTrain: 1
 };
 
 const TrainMod = handleActions(
@@ -74,30 +76,31 @@ const TrainMod = handleActions(
       produce(state, (draft) => {
         draft.error = error;
       }),
-    [List_TRAINS_SUCCESS]: (state, { payload: resultTrains }) =>
+    [LIST_TRAINS_SUCCESS]: (state, { payload: resultTrains }) =>
       produce(state, (draft) => {
         draft.resultTrains = resultTrains;
       }),
-    [List_TRAINS_FAILURE]: (state, { payload: error }) =>
+    [LIST_TRAINS_FAILURE]: (state, { payload: error }) =>
       produce(state, (draft) => {
         draft.error = error;
       }),
-    [SELECT_START]: (state, { payload: stationId }) =>
+    [SELECT_START_STATION]: (state, { payload: stationId }) =>
       produce(state, (draft) => {
         draft.startStation = stationId;
       }),
-    [SELECT_END]: (state, { payload: stationId }) =>
+    [SELECT_END_STATION]: (state, { payload: stationId }) =>
       produce(state, (draft) => {
         draft.endStation = stationId;
       }),
-    [SELECT_DATE]: (state, { payload: date }) =>
+    [SELECT_DATE_TRAIN]: (state, { payload: dateTrain }) =>
       produce(state, (draft) => {
-        draft.date = date;
+        draft.dateTrain = dateTrain;
       }),
-    [SELECT_PAGE]: (state, { payload: pageNo }) =>
+    [SELECT_PAGE_TRAIN]: (state, { payload: pageNoTrain }) =>
       produce(state, (draft) => {
-        draft.pageNo = pageNo;
-      })
+        draft.pageNoTrain = pageNoTrain;
+      }),
+    [UNLOAD_TRAIN]: () => initialState
   },
   initialState
 );

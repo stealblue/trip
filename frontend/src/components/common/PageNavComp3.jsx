@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-import { selectPage } from '../../modules/traffic/TrainMod';
+import { selectPageTrain } from '../../modules/traffic/TrainMod';
 
 const LiBlock = styled.li`
   display: inline-block;
@@ -25,7 +25,7 @@ const PageNavComp3 = ({ totalCount, pageNo, numOfRows }) => {
     console.log('page : ', e.target)
     const page = e.target.value || e.target.dataset.page;
     console.log('page : ', page);
-    dispatch(selectPage(page));
+    dispatch(selectPageTrain(page));
   }
   console.log('totalCount : ', totalCount);
   console.log('pageNo : ', pageNo);

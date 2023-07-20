@@ -95,7 +95,7 @@ const BoardListItem = ({ post }) => {
     return <div>오류</div>;
   }
 
-  const { no, id, title, content, createAt, like, cnt, user } = post;
+  const { no, id, title, content, createAt } = post;
   console.log("content : ", content);
   return (
     <ListContainer>

@@ -108,38 +108,41 @@ const SelectListBlock = styled.div`
   }
 `;
 
-const StartItem = ({ station, onClick }) => {
+const StartItem = ({ item, onClick }) => {
   return (
-    <li value={station.cityCode} onClick={onClick} data-type="start">
-      {station.cityName}
+    <li value={item.cityCode} onClick={onClick} data-type="start">{item.cityName}</li>
+  );
+};
+
+const StartDetailItem = ({ item, onClick }) => {
+  return (
+    <li
+      onClick={onClick} data-type="start"
+      data-value={item.stationId || item.terminalId}
+      data-name={item.stationName || item.terminalName}
+    >
+      {item.stationName || item.terminalName}
+    </li>
+  );
+};
+const EndItem = ({ item, onClick }) => {
+  return (
+    <li value={item.cityCode} onClick={onClick} data-type="end">{item.cityName}</li>
+  );
+};
+const EndDetailItem = ({ item, onClick }) => {
+  return (
+    <li
+      onClick={onClick} data-type="end"
+      data-value={item.stationId || item.terminalId}
+      data-name={item.stationName || item.terminalName}
+    >
+      {item.stationName || item.terminalName}
     </li>
   );
 };
 
-const StartDetailItem = ({ station, onClick }) => {
-  return (
-    <li data-value={station.stationId} onClick={onClick} data-type="start" data-name={station.stationName}>
-      {station.stationName}
-    </li>
-  );
-};
-const EndItem = ({ station, onClick }) => {
-  return (
-    <li value={station.cityCode} onClick={onClick} data-type="end">
-      {station.cityName}
-    </li>
-  );
-};
-const EndDetailItem = ({ station, onClick }) => {
-  return (
-    <li data-value={station.stationId} onClick={onClick} data-type="end" data-name={station.stationName}>
-      {station.stationName}
-    </li>
-  );
-};
-
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2, stationEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, loading }) => {
-  console.log("stations : ", stations);
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, loading }) => {
   return (
     <div>
       <TrafficContainer>
@@ -170,18 +173,25 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, onClick2,
         <div className="list flag" id="start-container">
           <SelectListBlock>
             <p className="title">출발지</p>
-            {!loading && stations && stations.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
-            {!loading && terminals && terminals.map((station) => <StartItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+            {stations && stations.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
+            {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock>{stationStartDetails && stationStartDetails.map((station) => <StartDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock>
+            {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.index} />)}
+            {terminalStartDetails && terminalStartDetails.map((terminal) => <StartDetailItem item={terminal} onClick={onClickPlace} key={terminal.index} />)}
+          </SelectListBlock>
         </div>
 
         <div className="list flag" id="end-container">
           <SelectListBlock>
             <p className="title">도착지</p>
-            {stations && stations.map((station) => <EndItem station={station} key={station.cityCode} onClick={onClickArea} className="test" />)}
+            {stations && stations.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
+            {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
           </SelectListBlock>
-          <SelectListBlock>{stationEndDetails && stationEndDetails.map((station) => <EndDetailItem station={station} onClick={onClickPlace} />)}</SelectListBlock>
+          <SelectListBlock>
+            {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} />)}
+            {terminalEndDetails && terminalEndDetails.map((terminal) => <EndDetailItem item={terminal} onClick={onClickPlace} />)}
+          </SelectListBlock>
         </div>
       </SelectListContainer>
       <div></div>

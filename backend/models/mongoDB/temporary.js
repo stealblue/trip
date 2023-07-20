@@ -11,7 +11,7 @@ const temporarySchema = new mongoose.Schema({
   },
   expire: {
     type: Date,
-    expires: 60, // TTL 5s
+    expires: 60, // TTL 60s
     default: Date.now,
   },
   ok: {

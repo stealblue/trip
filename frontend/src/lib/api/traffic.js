@@ -9,19 +9,20 @@ export const detailStations = ({ cityCode }) => {
 };
 
 export const listTrains = async ({ startStation, endStation, date, pageNo }) => {
-  // console.log(`start ===> ${startStation} / end ===> ${endStation}`)
-  // console.log('date : ', date);
-  // console.log('date.date : ', date.date);
   const dateStr = date.date;
   return await client.get(`/traffic/train/result?startStation=${startStation}&endStation=${endStation}&date=${dateStr}&pageNo=${pageNo}`);
 };
 
 export const listTerminals = () => {
-  return client.get(`/traffic/bus`);
+  return client.get(`/traffic/bus/info`);
 };
 
 export const detailTerminals = ({ cityCode }) => {
-  return client.get(`/traffic/bus/${cityCode}`, ({ cityCode }));
+  return client.get(`/traffic/bus/info/${cityCode}`, ({ cityCode }));
 };
 
+export const listBuses = async ({ startTerminal, endTerminal, date, pageNo }) => {
+  const dateStr = date.date;
+  return await client.get(`/traffic/bus/result?startTerminal=${startTerminal}&endTerminal=${endTerminal}&date=${dateStr}&pageNo=${pageNo}`);
+};
 

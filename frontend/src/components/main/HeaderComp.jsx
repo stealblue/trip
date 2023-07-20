@@ -130,7 +130,7 @@ const HeaderComp = ({ nick, onLogout }) => {
   return (
     <>
       <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
-        <Logo>
+        <Logo onClick={onClick}>
           <Link to="/">
             <img src="/assets/triplogo8.png" alt="img" />
           </Link>

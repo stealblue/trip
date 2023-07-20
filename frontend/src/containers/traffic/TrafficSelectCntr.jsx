@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listTerminals } from "../../modules/traffic/BusMod";
-import { listStations, startStations, selectStart, endStations, selectEnd, selectDate } from "../../modules/traffic/TrainMod";
+import { listTerminals, startTerminals, selectStartTerminal, endTerminals, selectEndTerminal, selectDateBus, unloadBus } from "../../modules/traffic/BusMod";
+import { listStations, startStations, selectStartStation, endStations, selectEndStation, selectDateTrain, unloadTrain } from "../../modules/traffic/TrainMod";
 import TrafficSelectComp from '../../components/traffic/TrafficSelectComp';
 
 const TrafficSelectCntr = () => {
@@ -10,38 +10,61 @@ const TrafficSelectCntr = () => {
   const [end, setEnd] = useState('');
   const dispatch = useDispatch();
 
-  const { terminals, stations, stationStartDetails, stationEndDetails, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
+  const { terminals, stations, stationStartDetails, stationEndDetails, terminalStartDetails, terminalEndDetails, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
     terminals: BusMod?.terminals,
     stations: TrainMod?.stations,
     stationStartDetails: TrainMod?.stationStartDetails,
     stationEndDetails: TrainMod?.stationEndDetails,
-    loading: LoadingMod[`train/LIST_STATIONS`]
+    terminalStartDetails: BusMod?.terminalStartDetails,
+    terminalEndDetails: BusMod?.terminalEndDetails,
+    loading: LoadingMod
   }))
 
   const onClickArea = (e) => {
     const cityCode = e.target.value;
-    if (e.target.dataset.type === 'start') {
-      dispatch(startStations({ cityCode }));
+    if (target === 'train') {
+      if (e.target.dataset.type === 'start') {
+        dispatch(startStations({ cityCode }));
+      }
+      else {
+        dispatch(endStations({ cityCode }));
+      }
+    } else {
+      if (e.target.dataset.type === 'start') {
+        dispatch(startTerminals({ cityCode }));
+      }
+      else {
+        dispatch(endTerminals({ cityCode }));
+      }
     }
-    else {
-      dispatch(endStations({ cityCode }));
-    }
-
   }
 
   const onClickPlace = (e) => {
-    const stationId = e.target.dataset.value;
-    const stationName = e.target.dataset.name;
+    const placeId = e.target.dataset.value;
+    const placeName = e.target.dataset.name;
     let container;
-    if (e.target.dataset.type === 'start') {
-      dispatch(selectStart({ stationId }));
-      setStart(stationName);
-      container = document.querySelector('#start-container');
-    }
-    else {
-      dispatch(selectEnd({ stationId }));
-      setEnd(stationName);
-      container = document.querySelector('#end-container');
+    if (target === 'train') {
+      if (e.target.dataset.type === 'start') {
+        dispatch(selectStartStation({ stationId: placeId }));
+        setStart(placeName);
+        container = document.querySelector('#start-container');
+      }
+      else {
+        dispatch(selectEndStation({ stationId: placeId }));
+        setEnd(placeName);
+        container = document.querySelector('#end-container');
+      }
+    } else {
+      if (e.target.dataset.type === 'start') {
+        dispatch(selectStartTerminal({ terminalId: placeId }));
+        setStart(placeName);
+        container = document.querySelector('#start-container');
+      }
+      else {
+        dispatch(selectEndTerminal({ terminalId: placeId }));
+        setEnd(placeName);
+        container = document.querySelector('#end-container');
+      }
     }
     if (container.className === 'list') {
       container.classList.add('flag');
@@ -50,23 +73,17 @@ const TrafficSelectCntr = () => {
     }
   }
 
-
-
   const onClickCategory = (e) => {
-    console.log('기차 또는 버스');
     setTarget(e.target.value);
   }
 
   const onChangeDate = (e) => {
     const targetDate = e.target.value;
     const date = targetDate.replace(/-/g, '');
-    dispatch(selectDate({ date }));
+    dispatch(selectDateTrain({ date }));
   }
 
-  const onToggle = (e) => {
-    // console.log("e.target : ", e.target);
-    // console.log(e.target.dataset.id);
-    // const targetList = document.querySelector('')
+  const onToggle = (e) => { // 출발지, 도착지를 보여주고 숨겨주기 위해 만든 function
     let container;
     if (e.target.dataset.id === 'start') {
       container = document.querySelector('#start-container');
@@ -82,17 +99,14 @@ const TrafficSelectCntr = () => {
 
   useEffect(() => {
     if (target === 'train') {
+      dispatch(unloadBus())
       dispatch(listStations())
     } else {
+      dispatch(unloadTrain())
       dispatch(listTerminals())
     }
-    // if (startStation && endStation && date) {
-    //   const startValue = startStation.stationId;
-    //   const endValue = endStation.stationId;
-    //   console.log('date : ', date);
-    //   dispatch(listTrains({ startStation: startValue, endStation: endValue, date, pageNo }))
-    // }
   }, [dispatch, target])
+
   return (
     <div>
       {
@@ -101,6 +115,8 @@ const TrafficSelectCntr = () => {
           stations={stations}
           stationStartDetails={stationStartDetails}
           stationEndDetails={stationEndDetails}
+          terminalStartDetails={terminalStartDetails}
+          terminalEndDetails={terminalEndDetails}
           onClickCategory={onClickCategory}
           onClickArea={onClickArea}
           onClickPlace={onClickPlace}
