@@ -25,6 +25,9 @@ const TrafficContainer = styled.div`
       border: none;
       color: ${ThemeComp.smoke};
     }
+    &.traffic-category{
+      background-color: steelblue;
+    }
   }
   .icon {
     width: 30px;
@@ -104,6 +107,9 @@ const SelectListBlock = styled.div`
   li {
     border-bottom: 1px solid #333;
     padding: 10px 0;
+    &.clicked{
+      background-color: steelblue;
+    }
   }
   li:hover {
     background: gray;
@@ -112,7 +118,7 @@ const SelectListBlock = styled.div`
 
 const StartItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="start">{item.cityName}</li>
+    <li value={item.cityCode} onClick={onClick} data-type="start" className="start-area">{item.cityName}</li>
   );
 };
 
@@ -122,6 +128,7 @@ const StartDetailItem = ({ item, onClick }) => {
       onClick={onClick} data-type="start"
       data-value={item.stationId || item.terminalId}
       data-name={item.stationName || item.terminalName}
+      className="start-detail"
     >
       {item.stationName || item.terminalName}
     </li>
@@ -129,7 +136,7 @@ const StartDetailItem = ({ item, onClick }) => {
 };
 const EndItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="end">{item.cityName}</li>
+    <li value={item.cityCode} onClick={onClick} data-type="end" className="end-area">{item.cityName}</li>
   );
 };
 const EndDetailItem = ({ item, onClick }) => {
@@ -138,6 +145,7 @@ const EndDetailItem = ({ item, onClick }) => {
       onClick={onClick} data-type="end"
       data-value={item.stationId || item.terminalId}
       data-name={item.stationName || item.terminalName}
+      className="end-detail"
     >
       {item.stationName || item.terminalName}
     </li>
@@ -165,11 +173,11 @@ const TrafficSelectComp = ({
     <div>
       <TrafficContainer>
         <div className="traffic-btn">
-          <button onClick={onClickCategory} value="train">
+          <button onClick={onClickCategory} value="train" className="category">
             <img src="/assets/train.png" alt="train" className="icon" />
             기차
           </button>
-          <button onClick={onClickCategory} value="bus">
+          <button onClick={onClickCategory} value="bus" className="category">
             <img src="/assets/bus.png" alt="bus" className="icon" />
             버스
           </button>
@@ -191,8 +199,8 @@ const TrafficSelectComp = ({
         <div className="list flag" id="start-container">
           <SelectListBlock>
             <p className="title">출발지</p>
-            {stations && stations.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
-            {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
+            {stations && stations.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
+            {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
           </SelectListBlock>
           <SelectListBlock>
             {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
@@ -203,8 +211,8 @@ const TrafficSelectComp = ({
         <div className="list flag" id="end-container">
           <SelectListBlock>
             <p className="title">도착지</p>
-            {stations && stations.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
-            {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} className="test" />)}
+            {stations && stations.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
+            {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
           </SelectListBlock>
           <SelectListBlock>
             {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}

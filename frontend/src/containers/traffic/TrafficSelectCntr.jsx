@@ -27,16 +27,20 @@ const TrafficSelectCntr = () => {
     if (target === 'train') {
       if (e.target.dataset.type === 'start') {
         dispatch(startStations({ cityCode }));
+        onClickedItem(e, 'start-area', 'clicked');
       }
       else {
         dispatch(endStations({ cityCode }));
+        onClickedItem(e, 'end-area', 'clicked');
       }
     } else {
       if (e.target.dataset.type === 'start') {
         dispatch(startTerminals({ cityCode }));
+        onClickedItem(e, 'start-area', 'clicked');
       }
       else {
         dispatch(endTerminals({ cityCode }));
+        onClickedItem(e, 'end-area', 'clicked');
       }
     }
   }
@@ -49,22 +53,26 @@ const TrafficSelectCntr = () => {
       if (e.target.dataset.type === 'start') {
         dispatch(selectStartStation({ stationId: placeId }));
         setStart(placeName);
+        onClickedItem(e, 'start-detail', 'clicked');
         container = document.querySelector('#start-container');
       }
       else {
         dispatch(selectEndStation({ stationId: placeId }));
         setEnd(placeName);
+        onClickedItem(e, 'end-detail', 'clicked');
         container = document.querySelector('#end-container');
       }
     } else {
       if (e.target.dataset.type === 'start') {
         dispatch(selectStartTerminal({ terminalId: placeId }));
         setStart(placeName);
+        onClickedItem(e, 'start-detail', 'clicked');
         container = document.querySelector('#start-container');
       }
       else {
         dispatch(selectEndTerminal({ terminalId: placeId }));
         setEnd(placeName);
+        onClickedItem(e, 'end-detail', 'clicked');
         container = document.querySelector('#end-container');
       }
     }
@@ -80,6 +88,15 @@ const TrafficSelectCntr = () => {
     setEnd('');
     setStart('');
     setDate('');
+    // const trafficCategory = Array.from(document.getElementsByClassName('category'));
+    // trafficCategory.forEach((item) => {
+    //   if (item === e.target) {
+    //     item.classList.add('traffic-category');
+    //   } else {
+    //     item.classList.remove('traffic-category');
+    //   }
+    // })
+    onClickedItem(e, 'category', 'traffic-category')
   }
 
   const onChangeDate = (e) => {
@@ -87,7 +104,6 @@ const TrafficSelectCntr = () => {
     const date = targetDate.replace(/-/g, '');
     setDate(targetDate);
     if (target === 'train') {
-      console.log('dateTrain : ', date);
       dispatch(selectDateTrain({ dateTrain: date }));
     } else {
       dispatch(selectDateBus({ dateBus: date }));
@@ -106,6 +122,17 @@ const TrafficSelectCntr = () => {
     } else {
       container.classList.remove('flag');
     }
+  }
+
+  const onClickedItem = (e, className, addClassName) => { // clicked된 대상에게 클릭 표시를 주기 위함
+    const items = Array.from(document.getElementsByClassName(`${className}`));
+    items.forEach((item) => {
+      if (item === e.target) {
+        item.classList.add(`${addClassName}`);
+      } else {
+        item.classList.remove(`${addClassName}`);
+      }
+    })
   }
 
   useEffect(() => {
