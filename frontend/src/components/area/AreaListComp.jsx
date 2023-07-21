@@ -68,7 +68,7 @@ const AreaItem = ({ area, onClick, addWish }) => {
         <div className="des">
           <p className="title">{area.title}</p>
           <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-addr={area.addr1 || area.addr2}>{area.addr1}</p>
-          <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title}>
+          <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
             + 추가
           </span>
         </div>

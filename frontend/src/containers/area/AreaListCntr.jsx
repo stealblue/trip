@@ -14,10 +14,7 @@ const AreaListCntr = memo(() => {
 
   // 모달창 노출
   const onClick = (e) => {
-    // console.log('data : ', e.target.dataset);
     setModalOpen(true);
-    console.log('addr ===============<>', e.target.dataset);
-    console.log(`title : ${e.target.dataset.title}`);
     setMapData({
       title: e.target.dataset.title,
       mapx: e.target.dataset.mapx,
@@ -37,11 +34,12 @@ const AreaListCntr = memo(() => {
         const id = user.id;
         const contentid = e.target.dataset.contentid;
         const title = e.target.dataset.title;
+        const contenttypeid = e.target.dataset.contenttypeid;
         if (result.isConfirmed) {
-          dispatch(addWishList({ id, contentid, title }));
+          dispatch(addWishList({ id, contentid, title, contenttypeid }));
           Swal.fire({
             icon: 'success',
-            text: `추가했습니다., ${e.target.dataset.contentid}`,
+            text: `추가했습니다.`,
           })
         }
       })

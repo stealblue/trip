@@ -2,7 +2,7 @@ const axios = require('axios');
 const { wishList } = require("../models/mysql/index");
 
 exports.addWishList = async (req, res) => {
-  const { contentid, id, title } = req.body;
+  const { contentid, id, title, contenttypeid } = req.body;
   // console.log('wishListController');
   // console.log(req.body);
   // console.log(`contentid : ${contentid} , id : ${id} , title : ${title}`);
@@ -10,7 +10,8 @@ exports.addWishList = async (req, res) => {
     const newWishList = await wishList.create({
       id,
       title,
-      contentId: contentid
+      contentId: contentid,
+      contentTypeId: parseInt(contenttypeid)
     });
     console.log('wishList Success!');
     return res.json({ wishList: newWishList });

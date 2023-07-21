@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import RoomListComp from "../../components/room/RoomListComp";
 import { listAreas, unloadPage } from "../../modules/room/LodgingMod";
 import ModalBasic from "../../components/common/ModalBasic";
+import Swal from 'sweetalert2';
+import { addWishList } from '../../modules/wishList/WishListMod'
 
 const RoomListCntr = ({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,14 +20,45 @@ const RoomListCntr = ({ onClickTest }) => {
     });
   };
 
+  const addWish = (e) => {
+    Swal.fire({
+      text: '추가할까요?',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Add'
+    })
+      .then(result => {
+        const id = user.id;
+        const contentid = e.target.dataset.contentid;
+        const title = e.target.dataset.title;
+        const contenttypeid = e.target.dataset.contenttypeid;
+        if (result.isConfirmed) {
+          dispatch(addWishList({ id, contentid, title, contenttypeid }));
+          Swal.fire({
+            icon: 'success',
+            text: `추가했습니다.`,
+          })
+        }
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          text: '추가실패'
+        })
+      })
+
+  }
+
+
   const dispatch = useDispatch();
 
-  const { areas, error, loading, areaCode, pageNo, contentTypeId } = useSelector(({ LodgingMod, LoadingMod }) => ({
+  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ LodgingMod, LoadingMod, UserMod }) => ({
     areas: LodgingMod?.areas,
     error: LodgingMod?.error,
     areaCode: LodgingMod?.areaCode,
     pageNo: LodgingMod?.pageNo,
     contentTypeId: LodgingMod?.contentTypeId,
+    user: UserMod.user,
     loading: LoadingMod['room/LIST_AREAS']
   }));
 
@@ -59,6 +92,7 @@ const RoomListCntr = ({ onClickTest }) => {
         loading={loading}
         onClick={onClick}
         onClickTest={onClickTest}
+        addWish={addWish}
       />
 
     </>
