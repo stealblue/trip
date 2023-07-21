@@ -25,10 +25,7 @@ const TrafficItem = ({ item }) => {
 };
 
 const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
-  console.log("resultTrains : ", resultTrains);
-  console.log('resultBuses : ', resultBuses);
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
-  console.log('result : ', result);
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
   return (
     <div>
@@ -46,4 +43,4 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
   );
 };
 
-export default TrafficListComp;
+export default React.memo(TrafficListComp);
