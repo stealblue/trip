@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ThemeComp from "../common/ThemeComp";
+import KoreaMap from '../area/KoreaMap';
 
 const RoomListItem = styled.button`
   display: flex;
@@ -34,25 +35,28 @@ const RoomList = styled.div`
   justify-content: center;
 `;
 
-const SelectArea = ({ onClick, area, areaCode, loading }) => {
-  console.log('selectItem : ', areaCode);
-  return (
-    <>
-      <RoomListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
-        {area.name}
-      </RoomListItem>
-    </>
-  );
-};
+// const SelectArea = ({ onClick, area, areaCode, loading }) => {
+//   console.log('selectItem : ', areaCode);
+//   return (
+//     <>
+//       <RoomListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
+//         {area.name}
+//       </RoomListItem>
+//     </>
+//   );
+// };
 
 const AreaSelectComp = ({ onClickArea, areas, areaCode, loading }) => {
   // console.log('codes : ', areas);
   return (
     <>
-      <RoomList>
+      {/* <RoomList>
         {areas.map((area) => (
           <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
         ))}
+      </RoomList> */}
+      <RoomList>
+        <KoreaMap areas={areas} onClick={onClickArea} areaCode={areaCode} />
       </RoomList>
     </>
   );

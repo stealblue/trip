@@ -4,10 +4,10 @@ import RoomListCntr from "../../containers/room/RoomListCntr";
 import RoomSelectCntr from "../../containers/room/RoomSelectCntr";
 
 const RoomPageBlock = styled.div`
-  background-color: pink;
+  /* background-color: pink; */
   display: flex;
   color: whitesmoke;
-  .left {
+  /* .left {
     background-color: green;
   }
   .right {
@@ -17,15 +17,16 @@ const RoomPageBlock = styled.div`
     :nth-child(2) {
       background-color: steelblue;
     }
-  }
+  } */
 `;
 
 const Roompage = () => {
   return (
     <>
-      <RoomPageBlock />
-      <RoomSelectCntr className="left" />
-      <RoomListCntr className="right" />
+      <RoomPageBlock >
+        <RoomListCntr className="right" />
+        <RoomSelectCntr className="left" />
+      </RoomPageBlock>
     </>
   );
 };
