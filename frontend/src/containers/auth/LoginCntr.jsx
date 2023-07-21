@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import LoginComp from "../../components/auth/LoginComp";
-import { changeValue, initializeLoginForm, login, onSearchId, onSearchPwd } from "../../modules/auth/LoginMod";
+import {
+  changeValue,
+  initializeLoginForm,
+  login,
+  onSearchId,
+  onSearchPwd,
+} from "../../modules/auth/LoginMod";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { check } from "../../modules/auth/UserMod";
@@ -11,7 +17,19 @@ const LoginCntr = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const { id, pwd, email, phone, auth, authError, user, searchId, searchPwd } = useSelector(({ LoginMod, UserMod }) => ({
+  const {
+    id,
+    pwd,
+    email,
+    phone,
+    auth,
+    authError,
+    user,
+    searchId,
+    searchPwd,
+    searchIdError,
+    searchPwdError,
+  } = useSelector(({ LoginMod, UserMod }) => ({
     id: LoginMod.id,
     pwd: LoginMod.pwd,
     email: LoginMod.email,
@@ -21,6 +39,8 @@ const LoginCntr = () => {
     user: UserMod.user,
     searchId: LoginMod.searchId,
     searchPwd: LoginMod.searchPwd,
+    searchIdError: LoginMod.searchIdError,
+    searchPwdError: LoginMod.searchPwdError,
   }));
   const USER_KEY = "USER";
 
@@ -112,7 +132,22 @@ const LoginCntr = () => {
     }
   }, [searchPwd]);
 
-  return <LoginComp error={error} onChange={onChange} onSubmit={onSubmit} changeInform={changeInform} searchName={searchName} findId={searchId} onFindId={onFindId} onFindPwd={onFindPwd} modal={modal} switchModal={switchModal} />;
+  return (
+    <LoginComp
+      error={error}
+      onChange={onChange}
+      onSubmit={onSubmit}
+      changeInform={changeInform}
+      searchName={searchName}
+      findId={searchId}
+      onFindId={onFindId}
+      onFindPwd={onFindPwd}
+      modal={modal}
+      switchModal={switchModal}
+      searchIdError={searchIdError}
+      searchPwdError={searchPwdError}
+    />
+  );
 };
 
 export default LoginCntr;

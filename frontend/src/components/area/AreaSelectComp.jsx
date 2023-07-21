@@ -69,7 +69,11 @@ const ThemeListItem = styled.button`
 const SelectArea = ({ onClick, area, areaCode }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
+      <ThemeListItem
+        onClick={onClick}
+        value={area.code}
+        className={areaCode === `${area.code}` ? "selectItem" : null}
+      >
         {area.name}
       </ThemeListItem>
     </>
@@ -79,21 +83,38 @@ const SelectArea = ({ onClick, area, areaCode }) => {
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? "selectItem" : null}>
+      <ThemeListItem
+        onClick={onClick}
+        value={type.code}
+        className={contentTypeId === `${type.code}` ? "selectItem" : null}
+      >
         {type.name}
       </ThemeListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
+const AreaSelectComp = ({
+  onClickArea,
+  onClickType,
+  areas,
+  contentTypes,
+  areaCode,
+  contentTypeId,
+  loading,
+}) => {
   return (
     <>
       <MapContainer>
         <img className="map" src="/assets/map.jpeg" alt="지도샘플" />
         <div>
           {areas.map((area) => (
-            <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
+            <SelectArea
+              area={area}
+              key={area.code}
+              onClick={onClickArea}
+              areaCode={areaCode}
+            />
           ))}
         </div>
 
@@ -101,7 +122,12 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
           <ThemeList>
             <div className="theme">
               {contentTypes.map((type) => (
-                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
+                <SelectType
+                  type={type}
+                  key={type.code}
+                  onClick={onClickType}
+                  contentTypeId={contentTypeId}
+                />
               ))}
             </div>
           </ThemeList>
