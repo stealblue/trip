@@ -7,13 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Mousewheel,
-  Keyboard,
-  Autoplay,
-} from "swiper/modules";
+import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 
 import { motion } from "framer-motion";
 
@@ -151,7 +145,7 @@ const StyledModal = Modal.styled`
   }
 
   .label{
-    width :56px;
+    width :60px;
     display:inline-block;
     text-align:right;
     margin-right:10px;
@@ -187,28 +181,9 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const LoginComp = ({
-  error,
-  onChange,
-  onSubmit,
-  changeInform,
-  searchName,
-  findId,
-  onFindId,
-  onFindPwd,
-  modal,
-  switchModal,
-  searchIdError,
-  searchPwdError,
-}) => {
+const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId, onFindId, onFindPwd, modal, switchModal, searchIdError, searchPwdError }) => {
   return (
-    <motion.div
-      key="modal"
-      initial={{ x: "-100%" }}
-      animate={{ x: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-    >
+    <motion.div key="modal" initial={{ opacity: 0.6, scale: 1.3 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <LoginPageContainer>
         <LoginLeftPic />
         <LoginWrapper>
@@ -225,21 +200,11 @@ const LoginComp = ({
           <form onSubmit={onSubmit}>
             <div className="input">
               <div className="label">이메일</div>
-              <LoginInput
-                placeholder="E-MAIL"
-                name="id"
-                type="text"
-                onChange={onChange}
-              />
+              <LoginInput placeholder="E-MAIL" name="id" type="text" onChange={onChange} />
             </div>
             <div className="input">
               <div className="label">비밀번호</div>
-              <LoginInput
-                placeholder="비밀번호"
-                name="pwd"
-                type="password"
-                onChange={onChange}
-              />
+              <LoginInput placeholder="비밀번호" name="pwd" type="password" onChange={onChange} />
             </div>
             {error && <ErrorText>{error}</ErrorText>}
             <button className="login-btn">LOGIN</button>
@@ -263,9 +228,7 @@ const LoginComp = ({
                 전화번호
                 <input name="phone" onChange={onChange} />
                 <button onClick={onFindId}>{searchName}찾기</button>
-                {searchIdError && (
-                  <ErrorText>해당 번호로 가입된 계정이 없습니다.</ErrorText>
-                )}
+                {searchIdError && <ErrorText>해당 번호로 가입된 계정이 없습니다.</ErrorText>}
                 <StyledModal
                   isOpen={findId} //true = 열림 / false = 닫힘
                   ariahideapp={"false"} //에러 안뜨게하기

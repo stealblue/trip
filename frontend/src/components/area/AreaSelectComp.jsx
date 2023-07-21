@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ThemeComp from "../common/ThemeComp";
 import AreaListCntr from "../../containers/area/AreaListCntr";
-import KoreaMap from './KoreaMap';
+import KoreaMap from "./KoreaMap";
 
 const MapContainer = styled.div`
   width: 100%;
-  /* height: 100vh; */
+  height: 100%;
   margin-top: -35px;
-display: flex;
+  display: flex;
   .map {
     width: 100%;
     height: 100vh;
@@ -19,16 +19,16 @@ display: flex;
 
 const ListContainer = styled.div`
   width: 700px;
-  height: 100vh;
-  /* position: absolute; */
-  /* display: flex;
-  flex-direction: column; */
-  top: 7.8rem;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 8rem;
   left: 0;
-  
+
   flex-wrap: wrap;
   background: ${ThemeComp.white};
-  /* overflow: scroll; */
+  overflow: auto;
   /* display: none; */
   .theme {
     /* position: fixed; */
@@ -95,6 +95,34 @@ const AreaSelectComp = ({
 }) => {
   return (
     <>
+<<<<<<< HEAD
+      {/* <MapContainer>
+        
+        <div>
+          {areas.map((area) => (
+            <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
+          ))}
+        </div>
+
+        <ListContainer>
+          <ThemeList>
+            <div className="theme">
+              {contentTypes.map((type) => (
+                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
+              ))}
+            </div>
+          </ThemeList>
+
+          <div className="select-list">
+            <AreaListCntr className="select" />
+          </div>
+        </ListContainer>
+        <div>
+          <KoreaMap />
+        </div>
+      </MapContainer> */}
+=======
+>>>>>>> 4d3d9478bff3864df179e7dab477587279690456
       <MapContainer>
         <ListContainer>
           <ThemeList>
@@ -108,8 +136,8 @@ const AreaSelectComp = ({
             </div>
           </ThemeList>
         </ListContainer>
-        <div>
-          <KoreaMap areas={areas} onClick={onClickArea} areaCode={areaCode} />
+        <div className="map-box">
+          <KoreaMap className="korea-map" areas={areas} onClick={onClickArea} areaCode={areaCode} />
         </div>
       </MapContainer>
     </>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp from "../common/PageNavComp";
-import LazyLoad from 'react-lazyload';
+import LazyLoad from "react-lazyload";
 import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
@@ -13,7 +13,7 @@ const AreaItemBlock = styled.div`
 
   div {
     display: flex;
-    margin-left: 30px;
+    margin-left: 15px;
   }
   img {
     width: 10rem;
@@ -67,7 +67,9 @@ const AreaItem = ({ area, onClick, addWish }) => {
         </div>
         <div className="des">
           <p className="title">{area.title}</p>
-          <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-addr={area.addr1 || area.addr2}>{area.addr1}</p>
+          <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-addr={area.addr1 || area.addr2}>
+            {area.addr1}
+          </p>
           <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
             + 추가
           </span>
