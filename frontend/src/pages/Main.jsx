@@ -82,6 +82,10 @@ const onSearchArea = (e) => {
     Swal.fire({
       text: `${e.target.value}`,
     });
+  } else if (e.button === 0) {
+    Swal.fire({
+      text: `${e.target.dataset.keyword}`,
+    });
   }
 };
 

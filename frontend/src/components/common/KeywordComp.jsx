@@ -23,8 +23,8 @@ const KeywordBox = styled.div`
   }
 `;
 
-const KeywordComp = () => {
-  return <KeywordBox># 키워드</KeywordBox>;
+const KeywordComp = ({ keyword, onClick }) => {
+  return <KeywordBox onClick={onClick} data-keyword={keyword}>{keyword}</KeywordBox>;
 };
 
 export default KeywordComp;
