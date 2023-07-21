@@ -36,6 +36,10 @@ const TrafficHeader = styled.table`
 `;
 
 const TrafficItem = ({ item }) => {
+  const arrPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
+  const depPlandTime = (item.depplandtime || item.depPlandTime).toString();
+  const startTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
+  const endTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
   return (
     <TrafficHeader>
       <td>{item.arrplacename || item.arrPlaceNm}</td>

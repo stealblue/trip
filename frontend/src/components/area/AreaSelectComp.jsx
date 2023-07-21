@@ -70,29 +70,32 @@ const ThemeListItem = styled.button`
   }
 `;
 
-// const SelectArea = ({ onClick, area, areaCode }) => {
-//   return (
-//     <>
-//       <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
-//         {area.name}
-//       </ThemeListItem>
-//     </>
-//   );
-// };
-
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? "selectItem" : null}>
+      <ThemeListItem
+        onClick={onClick}
+        value={type.code}
+        className={contentTypeId === `${type.code}` ? "selectItem" : null}
+      >
         {type.name}
       </ThemeListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
+const AreaSelectComp = ({
+  onClickArea,
+  onClickType,
+  areas,
+  contentTypes,
+  areaCode,
+  contentTypeId,
+  loading,
+}) => {
   return (
     <>
+<<<<<<< HEAD
       {/* <MapContainer>
         
         <div>
@@ -118,6 +121,8 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
           <KoreaMap />
         </div>
       </MapContainer> */}
+=======
+>>>>>>> 4d3d9478bff3864df179e7dab477587279690456
       <MapContainer>
         <ListContainer>
           <ThemeList>

@@ -75,7 +75,7 @@ exports.searchId = async (req, res) => {
     const { id } = exUser;
 
     if (!exUser) {
-      return res.status(401).json({ searchIdError: "해당 정보로 가입된 계정이 없습니다." });
+      return res.status(200).json({ searchIdError: "해당 정보로 가입된 계정이 없습니다." });
     }
 
     return res.status(200).json({ searchId: id });

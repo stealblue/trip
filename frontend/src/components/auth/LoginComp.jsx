@@ -181,7 +181,7 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId, onFindId, onFindPwd, modal, switchModal }) => {
+const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId, onFindId, onFindPwd, modal, switchModal, searchIdError, searchPwdError }) => {
   return (
     <motion.div key="modal" initial={{ opacity: 0.6, scale: 1.3 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <LoginPageContainer>
@@ -228,6 +228,7 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
                 전화번호
                 <input name="phone" onChange={onChange} />
                 <button onClick={onFindId}>{searchName}찾기</button>
+                {searchIdError && <ErrorText>해당 번호로 가입된 계정이 없습니다.</ErrorText>}
                 <StyledModal
                   isOpen={findId} //true = 열림 / false = 닫힘
                   ariahideapp={"false"} //에러 안뜨게하기
@@ -257,6 +258,7 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
                   <button onClick={onFindPwd}>{searchName}찾기</button>
                   <button onClick={switchModal}>확인</button>
                 </div>
+                {searchPwdError && <ErrorText>{searchPwdError}</ErrorText>}
               </div>
             )}
           </StyledModal>
