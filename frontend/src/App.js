@@ -25,9 +25,8 @@ import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
 
 function App() {
-
   const { user } = useSelector(({ UserMod }) => ({
-    user: UserMod.user
+    user: UserMod.user,
   }));
 
   const location = useLocation();
@@ -45,7 +44,6 @@ function App() {
             <Route path="/area" element={<AreaListPage />} />
             <Route path="/board/write" element={<WritePage />} />
             <Route path="/board/read/:readNo" element={<ReadPage />} />
-            <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
             <Route path="/profile/:nick" element={user ? <ProfilePage /> : <Navigate to="/" />} />
             <Route path="/traffic" element={<TrafficListPage />} />
             <Route path="/room" element={<Roompage />} />
@@ -53,6 +51,7 @@ function App() {
           <Route>
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
+            <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           </Route>
           <Route element={<AdminLayoutCntr />}>
             <Route path="/admin/user" element={<AdminUserPage />} />

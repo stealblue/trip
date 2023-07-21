@@ -145,7 +145,7 @@ const StyledModal = Modal.styled`
   }
 
   .label{
-    width :56px;
+    width :60px;
     display:inline-block;
     text-align:right;
     margin-right:10px;
@@ -183,7 +183,7 @@ const StyledModal = Modal.styled`
 
 const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId, onFindId, onFindPwd, modal, switchModal }) => {
   return (
-    <motion.div key="modal" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+    <motion.div key="modal" initial={{ opacity: 0.6, scale: 1.3 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <LoginPageContainer>
         <LoginLeftPic />
         <LoginWrapper>

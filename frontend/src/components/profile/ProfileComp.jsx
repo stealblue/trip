@@ -4,6 +4,7 @@ import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { TitleComp } from "../common/TitleComp";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -23,7 +24,7 @@ const ProfileBlock = styled.div`
   height: 250px;
   justify-content: center;
   width: 50%;
-  margin: 0 auto;
+  margin: 60px auto;
 `;
 
 const ImageBox = styled.img`
@@ -89,27 +90,41 @@ const BoardInfo = styled.ul`
   justify-content: space-around;
   box-sizing: border-box;
   text-align: center;
-  li:first-child {
+  line-height: 50px;
+  li.board-li:first-child {
     width: 20%;
   }
-  li:nth-child(2) {
+  li.board-li:nth-child(2) {
     width: 50%;
     overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
   }
-  li:nth-child(3) {
+  li.board-li:nth-child(3) {
     width: 15%;
   }
-  li:nth-child(4),
-  li:nth-child(5) {
+  li.board-li:nth-child(4),
+  li.board-li:nth-child(5) {
     width: 5%;
   }
 
   span {
     margin-left: 10px;
+  }
+`;
+
+const ListTitle = styled.ul`
+  display: flex;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #000;
+  justify-content: space-around;
+
+  li:first-child,
+  li:nth-child(3) {
+    width: 15%;
   }
 `;
 
@@ -142,6 +157,12 @@ const Button = styled.button`
   background: ${ThemeComp.bgcolor};
   border: none;
   border-radius: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    background: ${ThemeComp.subcolor};
+    color: #fff;
+  }
 
   &.change-btn {
     display: block;
@@ -160,31 +181,45 @@ const SelectButton = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
+  border: 1px solid ${ThemeComp.softblack};
+  padding: 10px 20px;
+  transition: 0.3s;
 
   &:focus {
-    background: orange;
+    background: ${ThemeComp.softblack};
+    color: ${ThemeComp.white};
+  }
+
+  &:hover {
+    background: ${ThemeComp.softblack};
+    color: ${ThemeComp.white};
   }
 `;
 
 const ButtonBox = styled.div`
-  background: orange;
   margin-top: 20px;
+  margin: 0 auto;
+  text-align: center;
 `;
 
 const ListBox = styled.div`
-  /* background: gray; */
+  width: 90%;
+  margin: 0 auto;
   height: 600px;
+  margin-top: 20px;
+  background: ${ThemeComp.smoke};
+  padding: 50px;
 `;
 
 const BoardBox = styled.div`
   /* background: red; */
 `;
 const ReplyBox = styled.div`
-  background: skyblue;
+  /* background: skyblue; */
 `;
 
 const LikeBox = styled.div`
-  background: purple;
+  /* background: purple; */
 `;
 
 const AllScheduleBox = styled.div`
@@ -209,7 +244,7 @@ const BeforeBox = styled.div`
 `;
 
 const AfterBox = styled.div`
-  background: skyblue;
+  /* background: skyblue; */
   width: 300px;
 `;
 
@@ -259,12 +294,16 @@ const ProfileComp = ({
 }) => {
   return (
     <>
+      <TitleComp>MY PAGE</TitleComp>
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            <ImageBox></ImageBox>
+            {/* <ImageBox></ImageBox> */}
             {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
+            <Button onClick={onUploadPhoto} className="change-btn">
+              사진변경
+            </Button>
           </label>
         </form>
         <UserInformBox>
@@ -328,18 +367,10 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>
-          게시물 ({totalBoard})
-        </SelectButton>
-        <SelectButton onClick={onGetReplyList}>
-          댓글 ({totalReply})
-        </SelectButton>
-        <SelectButton onClick={onGetLikeList}>
-          좋아요 ({totalLike})
-        </SelectButton>
-        <SelectButton onClick={onGetWishList}>
-          wishList ({totalWish})
-        </SelectButton>
+        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
+        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
+        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
+        <SelectButton onClick={onGetWishList}>wishList ({totalWish})</SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -354,10 +385,10 @@ const ProfileComp = ({
             {boardList?.map((board) => (
               <Item key={board.no}>
                 <BoardInfo onClick={() => onGetBoardDetail(board.no)}>
-                  <li className="title">{board.title}</li>
-                  <li className="content">{board.content}</li>
-                  <li>{board.createAt}</li>
-                  <li>
+                  <li className="board-li title">{board.title}</li>
+                  <li className="board-li content">{board.content}</li>
+                  <li className="board-li">{board.createAt}</li>
+                  <li className="board-li">
                     <FontAwesomeIcon className="icon" icon={faHeart} />
                     <span>{board.like}</span>
                   </li>
@@ -375,26 +406,41 @@ const ProfileComp = ({
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
+            <ListTitle>
+              <li>이메일</li>
+              <li>내용</li>
+              <li>작성일자</li>
+              <li>삭제버튼</li>
+            </ListTitle>
             {replyList.map((reply) => (
               <Item key={reply.no}>
                 <BoardInfo onClick={() => onGetReplyDetail(reply.bno)}>
-                  <Detail>{reply.id}</Detail>
-                  <Detail>{reply.content}</Detail>
-                  <Detail>{reply.createAt.substr(0, 10)}</Detail>
+                  <li>{reply.id}</li>
+                  <li>{reply.content}</li>
+                  <li>{reply.createAt.substr(0, 10)}</li>
+                  <li>
+                    <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
+                  </li>
                 </BoardInfo>
-                <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
               </Item>
             ))}
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
+            <ListTitle>
+              <li>이메일</li>
+              <li>글 제목</li>
+              <li>좋아요버튼</li>
+            </ListTitle>
             {likeList.map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
-                  <Detail>{like.bno_board.id}</Detail>
-                  <Detail>{like.bno_board.title}</Detail>
+                  <li>{like.bno_board.id}</li>
+                  <li>{like.bno_board.title}</li>
+                  <li>
+                    <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
+                  </li>
                 </BoardInfo>
-                <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
               </Item>
             ))}
           </LikeBox>

@@ -1,8 +1,16 @@
 import React from "react";
 import { styled } from "styled-components";
 import PageNavComp3 from "../common/PageNavComp3";
+import ThemeComp from "../common/ThemeComp";
 
-const TrafficHeader = styled.div`
+const TrafficContainer = styled.div`
+  margin: 30px auto;
+`;
+
+const TrafficHeader = styled.table`
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 90%;
   span {
     width: 20%;
     background-color: steelblue;
@@ -10,16 +18,31 @@ const TrafficHeader = styled.div`
     text-align: center;
     color: whitesmoke;
   }
+
+  td,
+  th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    margin: 0 auto;
+    width: 20%;
+    text-align: center;
+  }
+
+  th {
+    background: ${ThemeComp.lightblack};
+    color: #fff;
+  }
 `;
 
 const TrafficItem = ({ item }) => {
   return (
     <TrafficHeader>
-      <span>{item.arrplacename || item.arrPlaceNm}</span>
-      <span>{item.arrplandtime || item.arrPlandTime}</span>
-      <span>{item.depplacename || item.depPlaceNm}</span>
-      <span>{item.depplandtime || item.depPlandTime}</span>
-      <span>{item.traingradename || item.gradeNm}</span>
+      <td>{item.arrplacename || item.arrPlaceNm}</td>
+      <td>{item.arrplandtime || item.arrPlandTime}</td>
+      <td>{item.depplacename || item.depPlaceNm}</td>
+      <td>{item.depplandtime || item.depPlandTime}</td>
+      <td>{item.traingradename || item.gradeNm}</td>
     </TrafficHeader>
   );
 };
@@ -28,18 +51,19 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
   return (
-    <div>
-      {result &&
+    <TrafficContainer>
+      {result && (
         <TrafficHeader>
-          <span>출발장소</span>
-          <span>시간</span>
-          <span>도착장소</span>
-          <span>시간</span>
-          <span>종류</span>
-        </TrafficHeader>}
+          <th>출발장소</th>
+          <th>시간</th>
+          <th>도착장소</th>
+          <th>시간</th>
+          <th>종류</th>
+        </TrafficHeader>
+      )}
       {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
       {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
-    </div>
+    </TrafficContainer>
   );
 };
 
