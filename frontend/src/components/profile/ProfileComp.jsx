@@ -257,6 +257,7 @@ const ProfileComp = ({
   onDeleteLike,
   onGetWishList,
   onGetWishDetail,
+  onAddSchedule,
   onDeleteWish,
 }) => {
   const [someDragging, setSomeDragging] = useState();
@@ -431,6 +432,11 @@ const ProfileComp = ({
                       setSomeDragging={setSomeDragging}
                     />
                   </BoardInfo>
+                  <Button
+                    onClick={() => onAddSchedule(Wish.id, Wish.contentId)}
+                  >
+                    +
+                  </Button>
                   <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
                 </Item>
               ))}

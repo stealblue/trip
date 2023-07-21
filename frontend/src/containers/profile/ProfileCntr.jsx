@@ -24,6 +24,10 @@ import ProfileMod, {
   getWishDetail,
 } from "../../modules/profile/ProfileMod";
 import { check, initializeUser } from "../../modules/auth/UserMod";
+import ScheduleMod, {
+  addSchedule,
+  getSchedule,
+} from "../../modules/schedule/ScheduleMod";
 
 const ProfileCntr = () => {
   const dispatch = useDispatch();
@@ -52,6 +56,8 @@ const ProfileCntr = () => {
     wish,
     wishError,
     deleteWishError,
+    schedule,
+    addToSchedule,
   } = useSelector(({ UserMod, ProfileMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -75,6 +81,8 @@ const ProfileCntr = () => {
     wish: ProfileMod.wish,
     wishError: ProfileMod.wishError,
     deleteWishError: ProfileMod.deleteWishError,
+    schedule: ScheduleMod.schedule,
+    addToSchedule: ScheduleMod.addToSchedule,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
@@ -154,6 +162,15 @@ const ProfileCntr = () => {
         })
       );
     }
+  };
+
+  const onAddSchedule = (id, contentId) => {
+    dispatch(
+      addSchedule({
+        id,
+        contentId,
+      })
+    );
   };
 
   const onDeleteWish = (no) => {
@@ -319,6 +336,14 @@ const ProfileCntr = () => {
     }
   }, [nickAuth]);
 
+  useEffect(() => {
+    dispatch(
+      getSchedule({
+        id,
+      })
+    );
+  }, [schedule, addToSchedule]);
+
   return (
     <div>
       <ProfileComp
@@ -349,6 +374,7 @@ const ProfileCntr = () => {
         onGetLikeDetail={onGetLikeDetail}
         onDeleteLike={onDeleteLike}
         onGetWishDetail={onGetWishDetail}
+        onAddSchedule={onAddSchedule}
         onDeleteWish={onDeleteWish}
         onGetWishList={onGetWishList}
         onUploadPhoto={onUploadPhoto}

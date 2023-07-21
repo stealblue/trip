@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { MdCheck } from "react-icons/md";
 
 const StyledSeoul = styled.path`
   stroke: white;
@@ -221,12 +222,6 @@ const TextJejudo = styled.text`
   fill: black;
 `;
 
-// const onClick = (e) => {
-//   alert(`테스트 : ${e.target.dataset.value}`);
-// }
-
-
-
 const KoreaMap = ({ areas, onClick, areaCode }) => {
   const korea = () => (
     <svg height="1107" width="800">
@@ -245,7 +240,9 @@ const KoreaMap = ({ areas, onClick, areaCode }) => {
           onClick={onClick}
           data-value='1'
           d=" M 178 231 l -4 2 -4 3 -1 0 0 1 -3 1 -4 -5 -4 0 -6 1 -4 3 -2 -1 -1 -1 -3 2 -3 -3 -1 -3 -2 -3 0 0 -1 -2 -3 2 -3 1 -2 -4 0 -8 -3 -1 0 0 0 0 0 0 -2 -1 -3 -2 2 -4 3 -3 0 -1 0 0 0 0 0 -1 1 0 4 2 7 1 2 -2 0 1 2 0 1 -4 2 -8 7 -1 4 2 0 -3 1 -1 2 -4 3 -4 2 0 3 2 7 2 2 8 1 4 1 1 0 0 0 2 0 2 0 1 0 0 -1 6 3 0 8 -1 0 5 -4 3 -1 5 z "
-        ></StyledSeoul>
+        >
+          <img src="../../../public/assets/mapMarker.svg" />
+        </StyledSeoul>
         <StyledBusan
           onClick={onClick}
           data-value='6'

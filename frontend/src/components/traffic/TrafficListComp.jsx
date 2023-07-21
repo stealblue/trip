@@ -13,12 +13,16 @@ const TrafficHeader = styled.div`
 `;
 
 const TrafficItem = ({ item }) => {
+  const arrPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
+  const depPlandTime = (item.depplandtime || item.depPlandTime).toString();
+  const startTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
+  const endTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
   return (
     <TrafficHeader>
       <span>{item.arrplacename || item.arrPlaceNm}</span>
-      <span>{item.arrplandtime || item.arrPlandTime}</span>
+      <span>{startTime}</span>
       <span>{item.depplacename || item.depPlaceNm}</span>
-      <span>{item.depplandtime || item.depPlandTime}</span>
+      <span>{endTime}</span>
       <span>{item.traingradename || item.gradeNm}</span>
     </TrafficHeader>
   );
@@ -32,9 +36,9 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
       {result &&
         <TrafficHeader>
           <span>출발장소</span>
-          <span>시간</span>
+          <span>출발시간</span>
           <span>도착장소</span>
-          <span>시간</span>
+          <span>도착시간</span>
           <span>종류</span>
         </TrafficHeader>}
       {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
