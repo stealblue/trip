@@ -3,6 +3,7 @@ import WrapperComp from "../common/WrapperComp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
+import Swal from 'sweetalert2';
 
 // Import Swiper styles
 import "swiper/css";
@@ -92,6 +93,14 @@ const TravelListItem = styled.div`
 `;
 
 const MaincontentComp = () => {
+
+  const onSwal = () => {
+    Swal.fire({
+      icon: 'error',
+      title: '구현 중...'
+    })
+  }
+
   return (
     <WrapperComp>
       <TravelListTitle>
@@ -101,33 +110,32 @@ const MaincontentComp = () => {
       </TravelListTitle>
 
       <TravelList>
-        <Swiper slidesPerView={3} spaceBetween={30} slidesPerView={4} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} modules={[Navigation, Pagination, Autoplay]} className="mySwiper">
-          <SwiperSlide className="bg bg1">
+        <Swiper slidesPerView={4} spaceBetween={30} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} modules={[Navigation, Pagination, Autoplay]} className="mySwiper">
+          <SwiperSlide className="bg bg1" onClick={onSwal}>
             <p className="title">제주도</p>
             <p className="place">무지개 해안도로</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg2">
+          <SwiperSlide className="bg bg2" onClick={onSwal}>
             <p className="title">부산</p>
             <p className="place">엑스더스카이 전망대</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg3">
+          <SwiperSlide className="bg bg3" onClick={onSwal}>
             <p className="title">울산</p>
             <p className="place">간월재</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg4">
+          <SwiperSlide className="bg bg4" onClick={onSwal}>
             <p className="title">충북</p>
             <p className="place">갈론계곡</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg5">
+          <SwiperSlide className="bg bg5" onClick={onSwal}>
             <p className="title">경주</p>
             <p className="place">안압지</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg6">
+          <SwiperSlide className="bg bg6" onClick={onSwal}>
             <p className="title">남해</p>
             <p className="place">상상양떼목장&편백숲</p>
           </SwiperSlide>
-          <SwiperSlide className="bg bg7">
-            {" "}
+          <SwiperSlide className="bg bg7" onClick={onSwal}>
             <p className="title">전주</p>
             <p className="place">전주 한옥 마을</p>
           </SwiperSlide>

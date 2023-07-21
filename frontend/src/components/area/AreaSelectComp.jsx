@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ThemeComp from "../common/ThemeComp";
 import AreaListCntr from "../../containers/area/AreaListCntr";
+import KoreaMap from './KoreaMap';
 
 const MapContainer = styled.div`
   width: 100%;
   /* height: 100vh; */
   margin-top: -35px;
-
+display: flex;
   .map {
     width: 100%;
     height: 100vh;
@@ -19,13 +20,15 @@ const MapContainer = styled.div`
 const ListContainer = styled.div`
   width: 700px;
   height: 100vh;
-  position: absolute;
+  /* position: absolute; */
+  /* display: flex;
+  flex-direction: column; */
   top: 7.8rem;
   left: 0;
-
+  
   flex-wrap: wrap;
   background: ${ThemeComp.white};
-  overflow: scroll;
+  /* overflow: scroll; */
   /* display: none; */
   .theme {
     /* position: fixed; */
@@ -43,6 +46,7 @@ const ListContainer = styled.div`
 
 const ThemeList = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 const ThemeListItem = styled.button`
   background: ${ThemeComp.bgcolor};
@@ -66,15 +70,15 @@ const ThemeListItem = styled.button`
   }
 `;
 
-const SelectArea = ({ onClick, area, areaCode }) => {
-  return (
-    <>
-      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
-        {area.name}
-      </ThemeListItem>
-    </>
-  );
-};
+// const SelectArea = ({ onClick, area, areaCode }) => {
+//   return (
+//     <>
+//       <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
+//         {area.name}
+//       </ThemeListItem>
+//     </>
+//   );
+// };
 
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
@@ -89,8 +93,8 @@ const SelectType = ({ onClick, type, contentTypeId }) => {
 const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
   return (
     <>
-      <MapContainer>
-        <img className="map" src="/assets/map.jpeg" alt="지도샘플" />
+      {/* <MapContainer>
+        
         <div>
           {areas.map((area) => (
             <SelectArea area={area} key={area.code} onClick={onClickArea} areaCode={areaCode} />
@@ -110,6 +114,26 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
             <AreaListCntr className="select" />
           </div>
         </ListContainer>
+        <div>`
+          <KoreaMap />
+        </div>
+      </MapContainer> */}
+      <MapContainer>
+        <ListContainer>
+          <ThemeList>
+            <div className="theme">
+              {contentTypes.map((type) => (
+                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
+              ))}
+            </div>
+            <div className="select-list">
+              <AreaListCntr className="select" />
+            </div>
+          </ThemeList>
+        </ListContainer>
+        <div>
+          <KoreaMap areas={areas} onClick={onClickArea} areaCode={areaCode} />
+        </div>
       </MapContainer>
     </>
   );
