@@ -85,14 +85,20 @@ const onSearchArea = (e) => {
   }
 };
 
+const onSwal = () => {
+  Swal.fire({
+    icon: 'info',
+    title: "구현 중"
+  })
+}
+
 const Main = () => {
   return (
     <>
       <SlideWarraper>
         <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
-          <SwiperSlide>
+          <SwiperSlide onClick={onSwal}>
             <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
-
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
                 <FadeInLeft>
@@ -105,7 +111,7 @@ const Main = () => {
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide onClick={onSwal}>
             <img src="/assets/mainslide2.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
@@ -121,7 +127,7 @@ const Main = () => {
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide onClick={onSwal}>
             <img src="/assets/mainslide3.jpg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
@@ -135,7 +141,7 @@ const Main = () => {
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide onClick={onSwal}>
             <img src="/assets/mainslide4.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>

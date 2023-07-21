@@ -19,8 +19,8 @@ const RoomSelectCntr = () => {
   }));
 
   const onClickArea = (e) => {
-    console.log('value : ', e.target.value);
-    const areaCode = e.target.value;
+    console.log('value : ', e.target.dataset.value);
+    const areaCode = e.target.dataset.value;
     const page = 1;
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));

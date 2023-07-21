@@ -3,6 +3,7 @@ import ProfileComp from "../../components/profile/ProfileComp";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePhoto } from "../../lib/api/profile";
+
 import ProfileMod, {
   changeProfile,
   changeValue,

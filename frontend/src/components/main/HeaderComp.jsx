@@ -138,7 +138,7 @@ const HeaderComp = ({ nick, onLogout }) => {
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/area">
-              <span className="nav-item">테마/지역별</span>
+              <span className="nav-item">지역</span>
             </Link>
           </NavList>
           <NavList onClick={onClick}>
