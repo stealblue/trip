@@ -8,8 +8,8 @@ const wishList = require('./wishListRouter');
 const traffic = require('./trafficRouter');
 const admin = require("./adminRouter");
 const profile = require("./profileRouter");
-const schedule = require("./scheduleRouter");
 const like = require('./likeRouter');
+const schedule = require('./scheduleRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -20,9 +20,9 @@ router.use("/chat", chat);
 router.use("/room", room);
 router.use('/area', area);
 router.use('/profile', profile);
-router.use('/schedule', schedule);
 router.use('/wishList', wishList);
 router.use('/traffic', traffic);
 router.use('/like', like);
+router.use('/schedule', schedule);
 
 module.exports = router;

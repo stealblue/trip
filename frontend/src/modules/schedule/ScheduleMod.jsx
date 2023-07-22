@@ -8,32 +8,22 @@ import { takeLatest } from "redux-saga/effects";
 const INITIALIZE = createRequestActionTypes("schedule/INITIALIZE");
 const [ADD_SCHEDULE, ADD_SCHEDULE_SUCCESS, ADD_SCHEDULE_FAILURE] =
   createRequestActionTypes("schedule/ADD_SCHEDULE");
-const [GET_SCHEDULE, GET_SCHEDULE_SUCCESS, GET_SCHEDULE_FAILURE] =
-  createRequestActionTypes("schedule/GET_SCHEDULE");
-const [CHANGE_SCHEDULE, CHANGE_SCHEDULE_SUCCESS, CHANGE_SCHEDULE_FAILURE] =
-  createRequestActionTypes("schedule/CHANGE_SCHEDULE");
-const [CREATE_SCHEDULE, CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAILURE] =
-  createRequestActionTypes("schedule/CREATE_SCHEDULE");
 const [
-  GET_COMPLETED_LIST,
-  GET_COMPLETED_LIST_SUCCESS,
-  GET_COMPLETED_LIST_FAILURE,
-] = createRequestActionTypes("schedule/GET_COMPLETED_LIST");
+  GET_SCHEDULE_LIST,
+  GET_SCHEDULE_LIST_SUCCESS,
+  GET_SCHEDULE_LIST_FAILURE,
+] = createRequestActionTypes("schedule/GET_SCHEDULE_LIST");
 
-export const addSchedule = createAction(ADD_SCHEDULE, ({ id, contentId }) => ({
-  id,
-  contentId,
-}));
-export const getSchedule = createAction(GET_SCHEDULE, ({ id }) => ({
-  id,
-}));
-export const changeSchedule = createAction(CHANGE_SCHEDULE, ({ id }) => ({
-  id,
-}));
-export const createSchedule = createAction(CREATE_SCHEDULE, ({ id }) => ({
-  id,
-}));
-export const getCompletedList = createAction(GET_COMPLETED_LIST, ({ id }) => ({
+export const addSchedule = createAction(
+  ADD_SCHEDULE,
+  ({ id, contentId, title, contentTypeId }) => ({
+    id,
+    contentId,
+    title,
+    contentTypeId,
+  })
+);
+export const getScheduleList = createAction(GET_SCHEDULE_LIST, ({ id }) => ({
   id,
 }));
 
@@ -41,97 +31,48 @@ const addScheduleSaga = createRequestSaga(
   ADD_SCHEDULE,
   scheduleAPI.addSchedule
 );
-const getScheduleSaga = createRequestSaga(
-  GET_SCHEDULE,
-  scheduleAPI.getSchedule
-);
-const changeScheduleSaga = createRequestSaga(
-  CHANGE_SCHEDULE,
-  scheduleAPI.changeSchedule
-);
-const createScheduleSaga = createRequestSaga(
-  CREATE_SCHEDULE,
-  scheduleAPI.createSchedule
-);
-const getCompletedListSaga = createRequestSaga(
-  GET_COMPLETED_LIST,
-  scheduleAPI.getCompletedList
+const getScheduleListSaga = createRequestSaga(
+  GET_SCHEDULE_LIST,
+  scheduleAPI.getScheduleList
 );
 
-export function* ScheduleSaga() {
+export function* scheduleSaga() {
   yield takeLatest(ADD_SCHEDULE, addScheduleSaga);
-  yield takeLatest(GET_SCHEDULE, getScheduleSaga);
-  yield takeLatest(CHANGE_SCHEDULE, changeScheduleSaga);
-  yield takeLatest(CREATE_SCHEDULE, createScheduleSaga);
-  yield takeLatest(GET_COMPLETED_LIST, getCompletedListSaga);
+  yield takeLatest(GET_SCHEDULE_LIST, getScheduleListSaga);
 }
 
 const initialState = {
-  addToSchedule: null,
-  addToScheduleError: null,
-  schedule: [],
-  scheduleError: null,
-  createList: null,
-  createListError: null,
-  completedList: null,
-  completedListError: null,
+  addSchedule: null,
+  addScheduleError: null,
+  scheduleList: null,
+  scheduleListError: null,
 };
 
 const ScheduleMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addToSchedule } }) => ({
+    [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addSchedule } }) => ({
       ...state,
-      addToSchedule,
-      addToScheduleError: null,
+      addSchedule,
+      addScheduleError: null,
     }),
-    [ADD_SCHEDULE_FAILURE]: (state, { payload: { addToScheduleError } }) => ({
+    [ADD_SCHEDULE_FAILURE]: (state, { payload: { addScheduleError } }) => ({
       ...state,
-      addToSchedule: null,
-      addToScheduleError,
+      addSchedule: null,
+      addScheduleError,
     }),
-    [GET_SCHEDULE_SUCCESS]: (state, { payload: { schedule } }) => ({
+    [GET_SCHEDULE_LIST_SUCCESS]: (state, { payload: { scheduleList } }) => ({
       ...state,
-      schedule,
-      scheduleError: null,
+      scheduleList,
+      scheduleListError: null,
     }),
-    [GET_SCHEDULE_FAILURE]: (state, { payload: { scheduleError } }) => ({
-      ...state,
-      schedule: null,
-      scheduleError,
-    }),
-    [CHANGE_SCHEDULE_SUCCESS]: (state, { payload: { schedule } }) => ({
-      ...state,
-      schedule,
-      scheduleError: null,
-    }),
-    [CHANGE_SCHEDULE_FAILURE]: (state, { payload: { scheduleError } }) => ({
-      ...state,
-      schedule: null,
-      scheduleError,
-    }),
-    [CREATE_SCHEDULE_SUCCESS]: (state, { payload: { createList } }) => ({
-      ...state,
-      createList,
-      createListError: null,
-    }),
-    [CREATE_SCHEDULE_FAILURE]: (state, { payload: { createListError } }) => ({
-      ...state,
-      createList: null,
-      createListError,
-    }),
-    [GET_COMPLETED_LIST_SUCCESS]: (state, { payload: { completedList } }) => ({
-      ...state,
-      completedList,
-      completedListError: null,
-    }),
-    [GET_COMPLETED_LIST_FAILURE]: (
+    [GET_SCHEDULE_LIST_FAILURE]: (
       state,
-      { payload: { completedListError } }
+      { payload: { scheduleListError } }
     ) => ({
       ...state,
-      completedList: null,
-      completedListError,
+      scheduleList: null,
+      scheduleListError,
     }),
   },
   initialState

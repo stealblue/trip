@@ -18,8 +18,8 @@ import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
-import ScheduleMod, { ScheduleSaga } from "./schedule/ScheduleMod";
 import LoadingMod from "./loadingMod";
+import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
 
 const rootReducer = combineReducers({
   LoginMod,
@@ -64,7 +64,7 @@ export function* rootSaga() {
     busSaga(),
     trainSaga(),
     ProfileSaga(),
-    ScheduleSaga(),
+    scheduleSaga(),
   ]);
 }
 

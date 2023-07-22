@@ -257,8 +257,9 @@ const ProfileComp = ({
   onDeleteLike,
   onGetWishList,
   onGetWishDetail,
-  onAddSchedule,
   onDeleteWish,
+  onAddSchedule,
+  scheduleList,
 }) => {
   const [someDragging, setSomeDragging] = useState();
 
@@ -433,7 +434,14 @@ const ProfileComp = ({
                     />
                   </BoardInfo>
                   <Button
-                    onClick={() => onAddSchedule(Wish.id, Wish.contentId)}
+                    onClick={() =>
+                      onAddSchedule({
+                        id: user.id,
+                        contentId: Wish.contentId,
+                        title: Wish.title,
+                        contentTypeId: Wish.contentTypeId,
+                      })
+                    }
                   >
                     +
                   </Button>
@@ -453,8 +461,21 @@ const ProfileComp = ({
               </StyledModal>
             </WishListBox>
             <SchedulerBox>
-              <BeforeBox>dnd 추가</BeforeBox>
-              <AfterBox>dnd 정리</AfterBox>
+              <BeforeBox>
+                <div>
+                  <input type="text" />
+                  <button>저장</button>
+                </div>
+                {scheduleList?.map((schedule) => (
+                  <div key={schedule._id}>
+                    <div>{schedule.items[0].title}</div>
+                  </div>
+                ))}
+              </BeforeBox>
+              <AfterBox>
+                <div>부산여행</div>
+                <div>서울여행</div>
+              </AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}
