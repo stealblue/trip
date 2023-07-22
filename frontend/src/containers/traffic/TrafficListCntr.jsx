@@ -40,6 +40,8 @@ const TrafficListCntr = () => {
     }
   }, [dispatch, startTerminal, endTerminal, dateBus, pageNoBus])
 
+
+
   return (
     <div>
       {pageNoTrain && startStation && endStation && dateTrain && <TrafficListComp resultTrains={resultTrains} loading={loading} />}
