@@ -84,7 +84,6 @@ const BoardListTitle = styled.li`
 
 const BoardInfo = styled.ul`
   /* background: gray; */
-  cursor: pointer;
   width: 100%;
   padding: 10px;
   display: flex;
@@ -261,8 +260,8 @@ const ProfileComp = ({
   onAddSchedule,
   scheduleList,
 }) => {
-  const [someDragging, setSomeDragging] = useState();
-
+  const [someDragging, setSomeDragging] = useState(null);
+  const [cnt, setCnt] = useState(0);
   return (
     <>
       <ProfileBlock>
@@ -424,14 +423,7 @@ const ProfileComp = ({
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
                   <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
-                    {/* <Detail>{Wish.title}</Detail> */}
-                    <WishComp
-                      id={Wish.no}
-                      index={Wish.contentId}
-                      wish={Wish}
-                      someDragging={someDragging}
-                      setSomeDragging={setSomeDragging}
-                    />
+                    <div key={Wish.no}>{Wish.title}</div>
                   </BoardInfo>
                   <Button
                     onClick={() =>
@@ -467,9 +459,14 @@ const ProfileComp = ({
                   <button>저장</button>
                 </div>
                 {scheduleList?.map((schedule) => (
-                  <div key={schedule._id}>
-                    <div>{schedule.items[0].title}</div>
-                  </div>
+                  <WishComp
+                    id={schedule.items[0].title}
+                    index={scheduleList.indexOf(schedule)}
+                    userId={schedule.items[0].id}
+                    scheduleList={scheduleList}
+                    someDragging={someDragging}
+                    setSomeDragging={setSomeDragging}
+                  />
                 ))}
               </BeforeBox>
               <AfterBox>

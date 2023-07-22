@@ -38,3 +38,16 @@ exports.getScheduleList = async (req, res) => {
         res.status(400).json({scheduleListError: true});
     }
 }
+
+exports.changeProcedure = async (req, res) => {
+    const { id, scheduleList } = req.body;
+    console.log("========================",id, scheduleList);
+    try {
+        // const List = await wishListArray.updateMany
+
+        res.status(200).json({scheduleList})
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({ scheduleListError: true });
+    }
+}

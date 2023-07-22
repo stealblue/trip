@@ -13,6 +13,8 @@ const [
   GET_SCHEDULE_LIST_SUCCESS,
   GET_SCHEDULE_LIST_FAILURE,
 ] = createRequestActionTypes("schedule/GET_SCHEDULE_LIST");
+const [CHANGE_PROCEDURE, CHANGE_PROCEDURE_SUCCESS, CHANGE_PROCEDURE_FAILURE] =
+  createRequestActionTypes("schedule/CHANGE_PROCEDURE");
 
 export const addSchedule = createAction(
   ADD_SCHEDULE,
@@ -26,6 +28,13 @@ export const addSchedule = createAction(
 export const getScheduleList = createAction(GET_SCHEDULE_LIST, ({ id }) => ({
   id,
 }));
+export const changeProcedure = createAction(
+  CHANGE_PROCEDURE,
+  ({ id, scheduleList }) => ({
+    id,
+    scheduleList,
+  })
+);
 
 const addScheduleSaga = createRequestSaga(
   ADD_SCHEDULE,
@@ -35,10 +44,15 @@ const getScheduleListSaga = createRequestSaga(
   GET_SCHEDULE_LIST,
   scheduleAPI.getScheduleList
 );
+const changeProcedureSaga = createRequestSaga(
+  CHANGE_PROCEDURE,
+  scheduleAPI.changeProcedure
+);
 
 export function* scheduleSaga() {
   yield takeLatest(ADD_SCHEDULE, addScheduleSaga);
   yield takeLatest(GET_SCHEDULE_LIST, getScheduleListSaga);
+  yield takeLatest(CHANGE_PROCEDURE, changeProcedureSaga);
 }
 
 const initialState = {
@@ -67,6 +81,19 @@ const ScheduleMod = handleActions(
       scheduleListError: null,
     }),
     [GET_SCHEDULE_LIST_FAILURE]: (
+      state,
+      { payload: { scheduleListError } }
+    ) => ({
+      ...state,
+      scheduleList: null,
+      scheduleListError,
+    }),
+    [CHANGE_PROCEDURE_SUCCESS]: (state, { payload: { scheduleList } }) => ({
+      ...state,
+      scheduleList,
+      scheduleListError: null,
+    }),
+    [CHANGE_PROCEDURE_FAILURE]: (
       state,
       { payload: { scheduleListError } }
     ) => ({
