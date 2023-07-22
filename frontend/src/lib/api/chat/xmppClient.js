@@ -1,7 +1,9 @@
-import * as XMPP from 'stanza'
-import { store } from '../redux/store'
+import * as XMPP from 'stanza';
+import { store } from '../../../modules/store';
 
-import { setClient, setJid, setCredentials } from '../redux/xmpp/xmpp.actions'
+import { setClient, setJid, setCredentials } from '../../../modules/chat/XmppMod';
+// import { setClient, setJid, setCredentials } from '../redux/xmpp/xmpp.actions'
+
 
 const createXmppClient = data => {
   let { user: local, password, jid } = data
