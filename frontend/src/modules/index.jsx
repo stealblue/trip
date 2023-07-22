@@ -18,10 +18,10 @@ import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
+import ScheduleMod, { ScheduleSaga } from "./schedule/ScheduleMod";
 // import XmppMod, { XmppSaga } from "./chat/XmppMod";
 import XmppMod, { XmppSaga } from './chat/XmppMod';
 import LoadingMod from "./loadingMod";
-
 
 const rootReducer = combineReducers({
   LoginMod,
@@ -43,6 +43,7 @@ const rootReducer = combineReducers({
   AdminUserMod,
   AdminBoardMod,
   ProfileMod,
+  ScheduleMod,
   XmppMod
 });
 
@@ -66,6 +67,7 @@ export function* rootSaga() {
     busSaga(),
     trainSaga(),
     ProfileSaga(),
+    ScheduleSaga(),
     XmppSaga()
   ]);
 }

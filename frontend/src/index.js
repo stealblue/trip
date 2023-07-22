@@ -11,6 +11,8 @@ import { tempSetUser, check } from "./modules/auth/UserMod";
 import { ModalProvider } from 'styled-react-modal';
 // import { persistStore } from 'redux-persist'
 import { createLogger } from 'redux-logger'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
@@ -52,9 +54,11 @@ const rootNode = document.getElementById("root");
 ReactDOM.createRoot(rootNode).render(
   <Provider store={store}>
     <BrowserRouter>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
+      <DndProvider backend={HTML5Backend}>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </DndProvider>
     </BrowserRouter>
   </Provider>
 );
