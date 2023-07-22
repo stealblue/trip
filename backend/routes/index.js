@@ -10,6 +10,7 @@ const admin = require("./adminRouter");
 const profile = require("./profileRouter");
 const schedule = require("./scheduleRouter");
 const like = require('./likeRouter');
+const theme = require('./themeRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -24,5 +25,6 @@ router.use('/schedule', schedule);
 router.use('/wishList', wishList);
 router.use('/traffic', traffic);
 router.use('/like', like);
+router.use('/theme', theme);
 
 module.exports = router;

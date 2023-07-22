@@ -15,3 +15,15 @@ exports.areaList = async (req, res) => {
     return res.status(400).json(e);
   }
 };
+
+exports.areaSearch = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const { pageNo, contentTypeId, areaCode } = req.query;
+    const originalData = await axios.get(`https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${KNTO_TOUR_KEY}&numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword=${keyword}&areaCode=${areaCode}&contentTypeId=${contentTypeId}`);
+    const areas = originalData.data;
+    return res.json(areas);
+  } catch (error) {
+    return re.status(400).json(error);
+  }
+}

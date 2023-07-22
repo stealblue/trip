@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchCntr from '../../containers/search/SearchCntr';
+import SearchResultCntr from '../../containers/search/SearchResultCntr';
 
 const SearchPage = () => {
   const location = useLocation();
@@ -8,6 +9,7 @@ const SearchPage = () => {
   return (
     <div>
       <SearchCntr keyword={keyword} />
+      <SearchResultCntr />
     </div>
   );
 };

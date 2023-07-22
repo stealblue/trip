@@ -34,7 +34,7 @@ const initialState = {
   error: null,
 };
 
-const LodgingMod = handleActions(
+const SearchMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
     [LIST_AREAS_SUCCESS]: (state, { payload: areas }) =>
@@ -66,4 +66,4 @@ const LodgingMod = handleActions(
   initialState
 );
 
-export default LodgingMod;
+export default SearchMod;
