@@ -26,7 +26,7 @@ import ProfileMod, {
 import { check, initializeUser } from "../../modules/auth/UserMod";
 import ScheduleMod, {
   addSchedule,
-  getSchedule,
+  getScheduleList,
 } from "../../modules/schedule/ScheduleMod";
 
 const ProfileCntr = () => {
@@ -56,9 +56,9 @@ const ProfileCntr = () => {
     wish,
     wishError,
     deleteWishError,
-    schedule,
-    addToSchedule,
-  } = useSelector(({ UserMod, ProfileMod }) => ({
+    scheduleList,
+    scheduleListError,
+  } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
     user: ProfileMod.user,
@@ -81,13 +81,14 @@ const ProfileCntr = () => {
     wish: ProfileMod.wish,
     wishError: ProfileMod.wishError,
     deleteWishError: ProfileMod.deleteWishError,
-    schedule: ScheduleMod.schedule,
-    addToSchedule: ScheduleMod.addToSchedule,
+    scheduleList: ScheduleMod.scheduleList,
+    scheduleListError: ScheduleMod.scheduleListError,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
   const [userImg, setUserImg] = useState();
+  const [newSchedule, setNewSchedule] = useState();
 
   const onGetBoardList = () => {
     setBoardType("BOARD");
@@ -164,19 +165,22 @@ const ProfileCntr = () => {
     }
   };
 
-  const onAddSchedule = (id, contentId) => {
-    dispatch(
-      addSchedule({
-        id,
-        contentId,
-      })
-    );
-  };
-
   const onDeleteWish = (no) => {
     dispatch(
       deleteWish({
         no,
+      })
+    );
+  };
+
+  const onAddSchedule = ({ id, contentId, title, contentTypeId }) => {
+    setNewSchedule(contentId);
+    dispatch(
+      addSchedule({
+        id,
+        contentId,
+        title,
+        contentTypeId,
       })
     );
   };
@@ -338,11 +342,19 @@ const ProfileCntr = () => {
 
   useEffect(() => {
     dispatch(
-      getSchedule({
+      getScheduleList({
         id,
       })
     );
-  }, [schedule, addToSchedule]);
+  }, [newSchedule]);
+  //바로 위의 useEffect에 getWishList 액션을 넣으면 제대로 작동이 안됨 ..
+  useEffect(() => {
+    dispatch(
+      getWishList({
+        id,
+      })
+    );
+  }, [newSchedule]);
 
   return (
     <div>
@@ -374,7 +386,6 @@ const ProfileCntr = () => {
         onGetLikeDetail={onGetLikeDetail}
         onDeleteLike={onDeleteLike}
         onGetWishDetail={onGetWishDetail}
-        onAddSchedule={onAddSchedule}
         onDeleteWish={onDeleteWish}
         onGetWishList={onGetWishList}
         onUploadPhoto={onUploadPhoto}
@@ -383,6 +394,8 @@ const ProfileCntr = () => {
         onNickCheck={onNickCheck}
         onChangeProfile={onChangeProfile}
         onWithdraw={onWithdraw}
+        onAddSchedule={onAddSchedule}
+        scheduleList={scheduleList}
       />
     </div>
   );

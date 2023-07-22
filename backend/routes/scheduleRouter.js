@@ -1,13 +1,11 @@
 const express = require("express");
-const {addSchedule, getSchedule, changeSchedule, createSchedule, getCompletedList} = require("../controllers/scheduleController");
+const {addSchedule, getScheduleList, changeProcedure} = require("../controllers/scheduleController");
 const app = express();
 const schedule = express.Router();
 
-schedule.post("/changeProfile/:id/:contentId", addSchedule);
-schedule.get("/getSchedule/:id", getSchedule);
-schedule.post("/changeSchedule/:id", changeSchedule);
-schedule.post("/createSchedule:id", createSchedule);
-schedule.get("/completedList/:id", getCompletedList);
+schedule.post("/addSchedule/:id", addSchedule);
+schedule.get("/getScheduleList/:id", getScheduleList);
+schedule.post("/changeProcedure/:id", changeProcedure);
 
 
 

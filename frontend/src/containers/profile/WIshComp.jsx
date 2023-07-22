@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { css, styled } from "styled-components";
+import { changeProcedure } from "../../modules/schedule/ScheduleMod";
+import { useDispatch } from "react-redux";
 
 const StyledRight = styled.div`
   background: red;
@@ -25,8 +27,16 @@ const StyledLeft = styled.div`
     `}
 `;
 
-const WishComp = ({ id, index, wish, someDragging, setSomeDragging }) => {
-  const [order, setOrder] = useState([14, 19, 20, 21]);
+const WishComp = ({
+  id,
+  index,
+  userId,
+  scheduleList,
+  someDragging,
+  setSomeDragging,
+}) => {
+  const [order, setOrder] = useState(scheduleList);
+  const dispatch = useDispatch();
 
   const ItemTypes = {
     WISH: "wish",
@@ -39,7 +49,7 @@ const WishComp = ({ id, index, wish, someDragging, setSomeDragging }) => {
     newOrder.splice(toIndex, 0, wishId);
     setOrder(newOrder);
     console.log(wishId, toIndex); /////////
-    console.log("order: ", order); ///////////
+    console.log("order: ", newOrder); ///////////
   };
 
   const [{ isDragging }, dragRef, previewRef] = useDrag(
@@ -90,6 +100,17 @@ const WishComp = ({ id, index, wish, someDragging, setSomeDragging }) => {
     isDragging ? setSomeDragging(true) : setSomeDragging(false);
   }, [isDragging, setSomeDragging]);
 
+  useEffect(() => {
+    // if (!isDragging && userId && order) {
+    // dispatch(
+    //   changeProcedure({
+    //     id: userId,
+    //     scheduleList: order,
+    //   })
+    // );
+    // }
+  }, [isDragging]);
+
   return (
     <div ref={previewRef} style={{ opacity: isDragging ? "0.3" : "1" }}>
       <>
@@ -97,7 +118,7 @@ const WishComp = ({ id, index, wish, someDragging, setSomeDragging }) => {
           ref={dragRef}
           title="다른 카드 옆으로 드래그해서 위치를 변경합니다."
         >
-          {wish.title}
+          {id}
         </div>
         {/* <div className={styles.imgs} /> */}
         <StyledLeft

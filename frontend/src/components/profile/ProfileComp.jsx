@@ -84,7 +84,6 @@ const BoardListTitle = styled.li`
 
 const BoardInfo = styled.ul`
   /* background: gray; */
-  cursor: pointer;
   width: 100%;
   padding: 10px;
   display: flex;
@@ -291,11 +290,12 @@ const ProfileComp = ({
   onDeleteLike,
   onGetWishList,
   onGetWishDetail,
-  onAddSchedule,
   onDeleteWish,
+  onAddSchedule,
+  scheduleList,
 }) => {
-  const [someDragging, setSomeDragging] = useState();
-
+  const [someDragging, setSomeDragging] = useState(null);
+  const [cnt, setCnt] = useState(0);
   return (
     <>
 
@@ -469,17 +469,17 @@ const ProfileComp = ({
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
                   <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
-                    {/* <Detail>{Wish.title}</Detail> */}
-                    <WishComp
-                      id={Wish.no}
-                      index={Wish.contentId}
-                      wish={Wish}
-                      someDragging={someDragging}
-                      setSomeDragging={setSomeDragging}
-                    />
+                    <div key={Wish.no}>{Wish.title}</div>
                   </BoardInfo>
                   <Button
-                    onClick={() => onAddSchedule(Wish.id, Wish.contentId)}
+                    onClick={() =>
+                      onAddSchedule({
+                        id: user.id,
+                        contentId: Wish.contentId,
+                        title: Wish.title,
+                        contentTypeId: Wish.contentTypeId,
+                      })
+                    }
                   >
                     +
                   </Button>
@@ -499,8 +499,26 @@ const ProfileComp = ({
               </StyledModal>
             </WishListBox>
             <SchedulerBox>
-              <BeforeBox>dnd 추가</BeforeBox>
-              <AfterBox>dnd 정리</AfterBox>
+              <BeforeBox>
+                <div>
+                  <input type="text" />
+                  <button>저장</button>
+                </div>
+                {scheduleList?.map((schedule) => (
+                  <WishComp
+                    id={schedule.items[0].title}
+                    index={scheduleList.indexOf(schedule)}
+                    userId={schedule.items[0].id}
+                    scheduleList={scheduleList}
+                    someDragging={someDragging}
+                    setSomeDragging={setSomeDragging}
+                  />
+                ))}
+              </BeforeBox>
+              <AfterBox>
+                <div>부산여행</div>
+                <div>서울여행</div>
+              </AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}

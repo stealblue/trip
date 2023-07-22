@@ -56,6 +56,5 @@ export const getWishDetail = async ({ contentId }) => {
 }
 
 export const deleteWish = async ({ no }) => {
-  console.log(no);
     return await client.delete(`/profile/deleteWish/${no}`);
 }
