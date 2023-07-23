@@ -100,7 +100,7 @@ const ProfileCntr = () => {
   const [newSchedule, setNewSchedule] = useState();
   const [cards, setCards] = useState(scheduleList);
   const subjectRef = useRef("");
-  console.log(savedList, "123123123");
+
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     setCards((prevCards) =>
       update(prevCards, {

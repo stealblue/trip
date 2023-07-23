@@ -60,12 +60,12 @@ exports.saveList = async (req, res) => {
 
 exports.getSavedList = async (req, res) => {
     const { id } = req.params;
-    
+
     try {
         const savedList = await wishListArray.find({
         "name.id": id
         }).exec();
-        console.log(savedList,"++++++++++++++++");
+
         res.status(200).json({ savedList });
     } catch (e) {
         console.error(e);

@@ -126,9 +126,13 @@ const [DELETE_WISH, DELETE_WISH_SUCCESS, DELETE_WISH_FAILURE] =
   createRequestActionTypes("profile/DELETE_WISH");
 
 export const getWishList = createAction(GET_WISH_LIST);
-export const getWishDetail = createAction(GET_WISH_DETAIL, ({ contentId }) => ({
-  contentId,
-}));
+export const getWishDetail = createAction(
+  GET_WISH_DETAIL,
+  ({ contentId, contentTypeId }) => ({
+    contentId,
+    contentTypeId,
+  })
+);
 export const deleteWish = createAction(DELETE_WISH, ({ no }) => ({ no }));
 
 const getWishListProcess = createRequestSaga(
