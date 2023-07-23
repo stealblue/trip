@@ -167,7 +167,7 @@ exports.boardModify = async (req, res) => {
     await board.update(
       {
         title,
-        content: removeHtml(req.body.content),
+        content: req.body.content,
         updateAt: Sequelize.Sequelize.literal("now()"),
       },
       {
