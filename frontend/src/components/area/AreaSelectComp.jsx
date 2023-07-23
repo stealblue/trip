@@ -73,11 +73,7 @@ const ThemeListItem = styled.button`
 const SelectArea = ({ onClick, area, areaCode }) => {
   return (
     <>
-      <ThemeListItem
-        onClick={onClick}
-        value={area.code}
-        className={areaCode === `${area.code}` ? "selectItem" : null}
-      >
+      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
         {area.name}
       </ThemeListItem>
     </>
@@ -97,7 +93,6 @@ const SelectType = ({ onClick, type, contentTypeId }) => {
 const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
   return (
     <>
-
       <AreaSelectWrapper>
         <MapContainer>
           <div>
@@ -108,12 +103,7 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
           <ThemeList>
             <div className="theme">
               {contentTypes.map((type) => (
-                <SelectType
-                  type={type}
-                  key={type.code}
-                  onClick={onClickType}
-                  contentTypeId={contentTypeId}
-                />
+                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
               ))}
             </div>
             <div className="select-list">

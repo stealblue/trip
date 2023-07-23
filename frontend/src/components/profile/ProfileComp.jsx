@@ -10,7 +10,6 @@ import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
 import { Container } from "../../containers/profile/Container";
 
-
 const StyledModal = Modal.styled`
   background: white;
   height: 450px;
@@ -303,14 +302,11 @@ const ProfileComp = ({
   subjectRef,
   savedList,
 }) => {
-
   const [someDragging, setSomeDragging] = useState(null);
   const [cnt, setCnt] = useState(0);
-
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-
 
   return (
     <>
