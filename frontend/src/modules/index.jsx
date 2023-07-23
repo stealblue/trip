@@ -20,6 +20,7 @@ import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
 import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
 import XmppMod, { XmppSaga } from './chat/XmppMod';
+import SearchMod, { searchSaga } from './search/SearchMod';
 import LoadingMod from "./loadingMod";
 
 
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   AdminBoardMod,
   ProfileMod,
   ScheduleMod,
-  XmppMod
+  XmppMod,
+  SearchMod
 });
 
 export function* rootSaga() {
@@ -68,7 +70,8 @@ export function* rootSaga() {
     trainSaga(),
     ProfileSaga(),
     scheduleSaga(),
-    XmppSaga()
+    XmppSaga(),
+    searchSaga()
   ]);
 }
 

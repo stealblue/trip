@@ -22,27 +22,37 @@ const SearchCntr = () => {
 
   const dispatch = useDispatch();
 
-  const { areaCode, contentTypeId, keyword, loading } = useSelector(({ SearchMod, LoadingMod }) => ({
+  const { areaCode, contentTypeId, keyword, page, loading } = useSelector(({ SearchMod, LoadingMod }) => ({
     areaCode: SearchMod.areaCode,
     contentTypeId: SearchMod.contentTypeId,
     keyword: SearchMod.keyword,
+    page: SearchMod.page,
     loading: LoadingMod
   }));
 
   const onClickArea = (e) => {
-    console.log('value : ', e.target.value);
+    // console.log('value : ', e.target.value);
     const areaCode = e.target.dataset.value;
     const page = 1;
-    dispatch(unloadPage());
+    // dispatch(unloadPage());
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));
     dispatch(showContentTypeId(null));
   };
 
+  const onSelectedContentType = (e) => {
+    // console.log(`${e.target.dataset.code}`);
+    dispatch(unloadPage());
+    const contentTypeId = e.target.value;
+    console.log(contentTypeId);
+    // dispatch(showAreaCode(areaCode));
+    // dispatch(showPageNo(page));
+    dispatch(showContentTypeId(contentTypeId));
+  }
 
   return (
     <div>
-      <SearchComp onClickArea={onClickArea} areaCode={areaCode} />
+      <SearchComp onClickArea={onClickArea} areaCode={areaCode} contentTypes={contentTypes} onSelectedContentType={onSelectedContentType} />
     </div>
   );
 };

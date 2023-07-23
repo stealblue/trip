@@ -6,6 +6,14 @@ export const listAreas = async ({ pageNo, areaCode, contentTypeId, numOfRows }) 
 };
 
 export const listSearch = async ({ pageNo, areaCode, contentTypeId, keyword }) => {
-  console.log(`backend ====>  pageNo : ${pageNo} / areaCode : ${areaCode}`);
-  return client.get(`/theme/${keyword}?pageNo=${pageNo}&contentTypeId=${contentTypeId}&areaCode=${areaCode}`);
+  console.log(`listSearch ==>  pageNo : ${pageNo} / areaCode : ${areaCode} / contentTypeId : ${contentTypeId} / keyword :${keyword}`);
+  let searchUrl = `/theme/${keyword}?pageNo=${pageNo}`;
+  if (areaCode) {
+    searchUrl = searchUrl + `&areaCode=${areaCode}`;
+  }
+  if (contentTypeId) {
+    searchUrl = searchUrl + `&contentTypeId=${contentTypeId}`;
+  }
+  // return client.get(`/theme/${keyword}?pageNo=${pageNo}&contentTypeId=${contentTypeId}&areaCode=${areaCode}`);
+  return client.get(searchUrl);
 };
