@@ -14,6 +14,10 @@ export const getScheduleList = async ({ id }) => {
     return await client.get(`/schedule/getScheduleList/${id}`);
 }
 
-export const changeProcedure = async ({ id, scheduleList }) => {
-    return await client.post(`/schedule/changeProcedure/${id}`, {scheduleList});
+export const saveList = async ({ id, subject, scheduleList }) => {
+    return await client.post(`/schedule/saveList/${id}`, {id, subject, scheduleList});
+}
+
+export const getSavedList = async ({ id }) => {
+    return await client.get(`/schedule/getSavedList/${id}`);
 }

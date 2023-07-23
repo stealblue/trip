@@ -8,6 +8,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import WishComp from "../../containers/profile/WIshComp";
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
+import { Container } from "../../containers/profile/Container";
 
 
 const StyledModal = Modal.styled`
@@ -296,13 +297,20 @@ const ProfileComp = ({
   onDeleteWish,
   onAddSchedule,
   scheduleList,
+  onSaveScheduleList,
+  cards,
+  moveCard,
+  subjectRef,
+  savedList,
 }) => {
+
   const [someDragging, setSomeDragging] = useState(null);
   const [cnt, setCnt] = useState(0);
 
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+
 
   return (
     <>
@@ -512,24 +520,12 @@ const ProfileComp = ({
             <SchedulerBox>
               <BeforeBox>
                 <div>
-                  <input type="text" />
-                  <button>저장</button>
+                  <input type="text" ref={subjectRef} />
+                  <button onClick={onSaveScheduleList}>저장</button>
                 </div>
-                {scheduleList?.map((schedule) => (
-                  <WishComp
-                    id={schedule.items[0].title}
-                    index={scheduleList.indexOf(schedule)}
-                    userId={schedule.items[0].id}
-                    scheduleList={scheduleList}
-                    someDragging={someDragging}
-                    setSomeDragging={setSomeDragging}
-                  />
-                ))}
+                {cards && <Container cards={cards} moveCard={moveCard} />}
               </BeforeBox>
-              <AfterBox>
-                <div>부산여행</div>
-                <div>서울여행</div>
-              </AfterBox>
+              <AfterBox>{savedList?.map((list) => console.log(list))}</AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}

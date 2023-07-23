@@ -13,8 +13,10 @@ const [
   GET_SCHEDULE_LIST_SUCCESS,
   GET_SCHEDULE_LIST_FAILURE,
 ] = createRequestActionTypes("schedule/GET_SCHEDULE_LIST");
-const [CHANGE_PROCEDURE, CHANGE_PROCEDURE_SUCCESS, CHANGE_PROCEDURE_FAILURE] =
-  createRequestActionTypes("schedule/CHANGE_PROCEDURE");
+const [SAVE_LIST, SAVE_LIST_SUCCESS, SAVE_LIST_FAILURE] =
+  createRequestActionTypes("schedule/SAVE_LIST");
+const [GET_SAVED_LIST, GET_SAVED_LIST_SUCCESS, GET_SAVED_LIST_FAILURE] =
+  createRequestActionTypes("schedule/GET_SAVED_LIST");
 
 export const addSchedule = createAction(
   ADD_SCHEDULE,
@@ -28,13 +30,17 @@ export const addSchedule = createAction(
 export const getScheduleList = createAction(GET_SCHEDULE_LIST, ({ id }) => ({
   id,
 }));
-export const changeProcedure = createAction(
-  CHANGE_PROCEDURE,
-  ({ id, scheduleList }) => ({
+export const saveList = createAction(
+  SAVE_LIST,
+  ({ id, subject, scheduleList }) => ({
     id,
+    subject,
     scheduleList,
   })
 );
+export const getSavedList = createAction(GET_SAVED_LIST, ({ id }) => ({
+  id,
+}));
 
 const addScheduleSaga = createRequestSaga(
   ADD_SCHEDULE,
@@ -44,15 +50,17 @@ const getScheduleListSaga = createRequestSaga(
   GET_SCHEDULE_LIST,
   scheduleAPI.getScheduleList
 );
-const changeProcedureSaga = createRequestSaga(
-  CHANGE_PROCEDURE,
-  scheduleAPI.changeProcedure
+const saveListSaga = createRequestSaga(SAVE_LIST, scheduleAPI.saveList);
+const getSavedListSaga = createRequestSaga(
+  GET_SAVED_LIST,
+  scheduleAPI.getSavedList
 );
 
 export function* scheduleSaga() {
   yield takeLatest(ADD_SCHEDULE, addScheduleSaga);
   yield takeLatest(GET_SCHEDULE_LIST, getScheduleListSaga);
-  yield takeLatest(CHANGE_PROCEDURE, changeProcedureSaga);
+  yield takeLatest(SAVE_LIST, saveListSaga);
+  yield takeLatest(GET_SAVED_LIST, getSavedListSaga);
 }
 
 const initialState = {
@@ -60,6 +68,10 @@ const initialState = {
   addScheduleError: null,
   scheduleList: null,
   scheduleListError: null,
+  saveScheduleList: null,
+  saveScheduleListError: null,
+  savedList: null,
+  savedListError: null,
 };
 
 const ScheduleMod = handleActions(
@@ -88,18 +100,25 @@ const ScheduleMod = handleActions(
       scheduleList: null,
       scheduleListError,
     }),
-    [CHANGE_PROCEDURE_SUCCESS]: (state, { payload: { scheduleList } }) => ({
+    [SAVE_LIST_SUCCESS]: (state, { payload: { saveScheduleList } }) => ({
       ...state,
-      scheduleList,
-      scheduleListError: null,
+      saveScheduleList,
+      saveScheduleListError: null,
     }),
-    [CHANGE_PROCEDURE_FAILURE]: (
-      state,
-      { payload: { scheduleListError } }
-    ) => ({
+    [SAVE_LIST_FAILURE]: (state, { payload: { saveScheduleListError } }) => ({
       ...state,
-      scheduleList: null,
-      scheduleListError,
+      saveScheduleList: null,
+      saveScheduleListError,
+    }),
+    [GET_SAVED_LIST_SUCCESS]: (state, { payload: { savedList } }) => ({
+      ...state,
+      savedList,
+      savedListError: null,
+    }),
+    [GET_SAVED_LIST_FAILURE]: (state, { payload: { savedListError } }) => ({
+      ...state,
+      savedList: null,
+      savedListError,
     }),
   },
   initialState
