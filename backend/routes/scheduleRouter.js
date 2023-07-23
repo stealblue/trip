@@ -8,6 +8,4 @@ schedule.get("/getScheduleList/:id", getScheduleList);
 schedule.post("/saveList/:id", saveList);
 schedule.get("/getSavedList/:id", getSavedList);
 
-
-
 module.exports = schedule;

@@ -4,7 +4,6 @@ import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { Container } from "../../containers/profile/Container";
 
 const StyledModal = Modal.styled`
@@ -210,7 +209,8 @@ const BeforeBox = styled.div`
 `;
 
 const AfterBox = styled.div`
-  background: skyblue;
+  display: flex;
+  flex-direction: column;
   width: 300px;
 `;
 
@@ -219,6 +219,11 @@ const Item = styled.div`
   background: none;
   border-bottom: 1px solid black;
   justify-content: space-between;
+`;
+
+const SavedListBox = styled.div`
+  border: 2px dashed black;
+  margin: 2px 0;
 `;
 
 const ProfileComp = ({
@@ -463,7 +468,13 @@ const ProfileComp = ({
                 </div>
                 {cards && <Container cards={cards} moveCard={moveCard} />}
               </BeforeBox>
-              <AfterBox>{savedList?.map((list) => console.log(list))}</AfterBox>
+              <AfterBox>
+                {savedList?.map((list) => (
+                  <SavedListBox key={list.name[0].subject}>
+                    {list.name[0].subject}
+                  </SavedListBox>
+                ))}
+              </AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}

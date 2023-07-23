@@ -236,11 +236,10 @@ exports.getWishList = async (req, res) => {
 		return res.status(400).json({ wishListError: true });
 	}
 };
-const axios = require("axios");
-const { KNTO_TOUR_KEY } = process.env;
-exports.getWishDetail = async (req, res) => {
-	const { contentId } = req.params;
 
+exports.getWishDetail = async (req, res) => {
+	const { contentId, contentTypeId } = req.params;
+	console.log(contentId, contentTypeId);
 	try {
 		//////contentTypeID 받아서 검색하기
 		const exWish = await wishList.findOne({
