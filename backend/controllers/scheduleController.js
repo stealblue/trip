@@ -30,7 +30,7 @@ exports.getScheduleList = async (req, res) => {
     try {
         const scheduleList = await wishListArray.find({
             "items.id": id,
-        });
+        }).exec();
 
         res.status(200).json({scheduleList});
     } catch (e) {
@@ -39,15 +39,36 @@ exports.getScheduleList = async (req, res) => {
     }
 }
 
-exports.changeProcedure = async (req, res) => {
-    const { id, scheduleList } = req.body;
-    console.log("========================",id, scheduleList);
-    try {
-        // const List = await wishListArray.updateMany
+exports.saveList = async (req, res) => {
+    const { id, subject, scheduleList } = req.body;
 
-        res.status(200).json({scheduleList})
+    try {
+        await wishListArray.deleteMany({
+            "items.id": id
+        });
+
+        await wishListArray.create({
+            name: { subject, id, scheduleList }
+        }, {where: {_id: id}});
+
+        res.status(200).json({ saveList: true });
     } catch (e) {
         console.error(e);
-        res.status(400).json({ scheduleListError: true });
+        res.status(400).json({ saveListError: true });
+    }
+}
+
+exports.getSavedList = async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        const savedList = await wishListArray.find({
+        "name.id": id
+        }).exec();
+        console.log(savedList,"++++++++++++++++");
+        res.status(200).json({ savedList });
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({savedListError: true})
     }
 }

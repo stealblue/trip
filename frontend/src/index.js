@@ -34,11 +34,11 @@ const rootNode = document.getElementById("root");
 ReactDOM.createRoot(rootNode).render(
   <Provider store={store}>
     <BrowserRouter>
-      <DndProvider backend={HTML5Backend}>
       <ModalProvider>
+      <DndProvider backend={HTML5Backend}>
         <App />
-      </ModalProvider>
       </DndProvider>
+      </ModalProvider>
     </BrowserRouter>
   </Provider>
 );
