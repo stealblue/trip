@@ -2,8 +2,9 @@ import styled from "styled-components";
 import ThemeComp from "../common/ThemeComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCalendarDays, faUser, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import BoardListContainer from "../../containers/board/read/BoardListContainer";
 
 const SideMenuBox = styled.div`
   width: 100px;
@@ -17,6 +18,18 @@ const SideMenuBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
+
+  .tri-box {
+    width: 40px;
+    height: 70px;
+    background: #333;
+    position: absolute;
+    top: 50%;
+    left: -40px;
+    transform: translate(0, -50%);
+    border: none;
+    cursor: pointer;
+  }
 
   div {
     height: 25%;
@@ -43,6 +56,10 @@ const SideMenuComp = () => {
   return (
     <>
       <SideMenuBox>
+        <div class="tri-box">
+          <FontAwesomeIcon icon={faCaretRight} size="xl" />
+        </div>
+
         <div>
           <p>
             <FontAwesomeIcon icon={faHeart} size="2xl" style={{ color: "#ffffff" }} />
@@ -51,7 +68,6 @@ const SideMenuComp = () => {
         </div>
         <div>
           <p>
-            {" "}
             <FontAwesomeIcon className="icon" icon={faEye} size="2xl" style={{ color: "#000000" }} />
           </p>
           <span>최근 본 글</span>{" "}

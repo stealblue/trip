@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import Modal from "styled-react-modal";
 import ThemeComp from "../common/ThemeComp";
@@ -5,7 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import WishComp from "../../containers/profile/WIshComp";
-import { useState } from "react";
+import { TitleComp } from "../common/TitleComp";
+import PaginationComp from "../common/PaginationComp";
+
 
 const StyledModal = Modal.styled`
   background: white;
@@ -296,6 +299,11 @@ const ProfileComp = ({
 }) => {
   const [someDragging, setSomeDragging] = useState(null);
   const [cnt, setCnt] = useState(0);
+
+  const [limit, setLimit] = useState(7);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+
   return (
     <>
 
@@ -309,7 +317,7 @@ const ProfileComp = ({
               <ImageBox src={"/assets/triplogo.png"} alt="img" />
             )}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
-            <Button onClick={onUploadPhoto} className="change-btn">
+            <Button onClick={onChangePhoto} className="change-btn">
               사진변경
             </Button>
           </label>
@@ -396,7 +404,7 @@ const ProfileComp = ({
               <li></li>
               <li></li>
             </BoardListTitle>
-            {boardList?.map((board) => (
+            {boardList?.slice(offset, offset + limit).map((board) => (
               <Item key={board.no}>
                 <BoardInfo onClick={() => onGetBoardDetail(board.no)}>
                   <li className="board-li title">{board.title}</li>
@@ -419,6 +427,7 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
+            <div className="pagin">{boardList && <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
@@ -428,7 +437,7 @@ const ProfileComp = ({
               <li>작성일자</li>
               <li>삭제버튼</li>
             </ListTitle>
-            {replyList.map((reply) => (
+            {replyList.slice(offset, offset + limit).map((reply) => (
               <Item key={reply.no}>
                 <BoardInfo onClick={() => onGetReplyDetail(reply.bno)}>
                   <li>{reply.id}</li>
@@ -440,6 +449,7 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
+            <div className="pagin">{replyList && <PaginationComp total={replyList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
@@ -448,7 +458,7 @@ const ProfileComp = ({
               <li>글 제목</li>
               <li>좋아요버튼</li>
             </ListTitle>
-            {likeList.map((like) => (
+            {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
                   <li>{like.bno_board.id}</li>
@@ -462,6 +472,7 @@ const ProfileComp = ({
                 </Button>
               </Item>
             ))}
+            <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </LikeBox>
         ) : (
           <AllScheduleBox>

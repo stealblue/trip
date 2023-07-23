@@ -78,8 +78,6 @@ const FadeInLeft = ({ children }) => (
   </Tween>
 );
 
-
-
 const Main = () => {
   const navigate = useNavigate();
 
@@ -176,7 +174,6 @@ const Main = () => {
           <MainChatComp />
           <MainBoardComp />
         </MainBoardListContainer>
-        <SideMenuComp />
       </WrapperComp>
     </>
   );

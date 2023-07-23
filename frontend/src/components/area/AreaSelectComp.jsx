@@ -4,26 +4,25 @@ import ThemeComp from "../common/ThemeComp";
 import AreaListCntr from "../../containers/area/AreaListCntr";
 import KoreaMap from "./KoreaMap";
 
+const AreaSelectWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
+
 const MapContainer = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100vh; */
   margin-top: -35px;
   display: flex;
-  .map {
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    object-fit: cover;
-  }
 `;
 
 const ListContainer = styled.div`
-  width: 700px;
-  height: 100%;
+  width: 800px;
+  height: 1150px;
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 8rem;
+  top: 7.8rem;
   left: 0;
 
   flex-wrap: wrap;
@@ -47,6 +46,7 @@ const ListContainer = styled.div`
 const ThemeList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 65px;
 `;
 const ThemeListItem = styled.button`
   background: ${ThemeComp.bgcolor};
@@ -87,64 +87,23 @@ const SelectArea = ({ onClick, area, areaCode }) => {
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem
-        onClick={onClick}
-        value={type.code}
-        className={contentTypeId === `${type.code}` ? "selectItem" : null}
-      >
+      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? "selectItem" : null}>
         {type.name}
       </ThemeListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({
-  onClickArea,
-  onClickType,
-  areas,
-  contentTypes,
-  areaCode,
-  contentTypeId,
-  loading,
-}) => {
+const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
   return (
     <>
-      {/* <MapContainer>
-        
-        <div>
-          {areas.map((area) => (
-            <SelectArea
-              area={area}
-              key={area.code}
-              onClick={onClickArea}
-              areaCode={areaCode}
-            />
-          ))}
-        </div>
 
-        <ListContainer>
-          <ThemeList>
-            <div className="theme">
-              {contentTypes.map((type) => (
-                <SelectType
-                  type={type}
-                  key={type.code}
-                  onClick={onClickType}
-                  contentTypeId={contentTypeId}
-                />
-              ))}
-            </div>
-          </ThemeList>
-
-          <div className="select-list">
-            <AreaListCntr className="select" />
+      <AreaSelectWrapper>
+        <MapContainer>
+          <div>
+            <KoreaMap areas={areas} onClick={onClickArea} areaCode={areaCode} />
           </div>
-        </ListContainer>
-        <div>`
-          <KoreaMap />
-        </div>
-      </MapContainer> */}
-      <MapContainer>
+        </MapContainer>
         <ListContainer>
           <ThemeList>
             <div className="theme">
@@ -162,10 +121,7 @@ const AreaSelectComp = ({
             </div>
           </ThemeList>
         </ListContainer>
-        <div className="map-box">
-          <KoreaMap className="korea-map" areas={areas} onClick={onClickArea} areaCode={areaCode} />
-        </div>
-      </MapContainer>
+      </AreaSelectWrapper>
     </>
   );
 };

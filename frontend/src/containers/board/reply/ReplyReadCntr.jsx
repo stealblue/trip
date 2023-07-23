@@ -7,19 +7,21 @@ import ReplyActionButtonsComp from "../../../components/board/reply/ReplyActionB
 import { replysetOriginPost, replyupdatePost } from "../../../modules/board/ReplyWriteMod";
 
 import Swal from "sweetalert2";
+import { getProfile } from "../../../modules/profile/ProfileMod";
 
 const ReplyReadCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
-  const { replys, content, user, reply, bno } = useSelector(({ ReplyWriteMod, ReplyReadMod, UserMod, ReadMod }) => ({
+  const { replys, content, user, reply, bno, profile } = useSelector(({ ReplyWriteMod, ReplyReadMod, UserMod, ReadMod, ProfileMod }) => ({
     reply: ReplyWriteMod.reply,
     replys: ReplyReadMod.replys,
     content: ReplyReadMod.content,
     user: UserMod.user,
-    bno: ReadMod.post?.no
+    profile: ProfileMod.user,
+    bno: ReadMod.post?.no,
   }));
 
-  console.log("replyReadcntr ====> originpost :", replys);
+  // console.log("replyReadcntr ====> originpost :", profile.img);
 
   useEffect(() => {
     console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd");
@@ -61,9 +63,17 @@ const ReplyReadCntr = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    dispatch(
+      getProfile({
+        id: user.id,
+      })
+    );
+  }, [dispatch]);
   return (
     <>
-      <ReplyReadComp content={content} replys={replys} user={user} onEdit={onEdit} onRemove={onRemove} />;
+      <ReplyReadComp content={content} replys={replys} user={user} onEdit={onEdit} onRemove={onRemove} profile={profile} />;
     </>
   );
 };

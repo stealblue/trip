@@ -20,7 +20,7 @@ const Button = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background: tomato;
+    background: ${ThemeComp.bgcolor};
     cursor: pointer;
     transform: translateY(-2px);
   }
@@ -32,7 +32,7 @@ const Button = styled.button`
   }
 
   &[aria-current] {
-    background: deeppink;
+    background: ${ThemeComp.subcolor};
     font-weight: bold;
     cursor: revert;
     transform: revert;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeField, replywritePost, initialize } from "../../../modules/board/ReplyWriteMod";
 import { useNavigate, useParams } from "react-router-dom";
 import ReplyWriteComp from "../../../components/board/reply/ReplyWriteComp";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const ReplyWriteCntr = () => {
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ const ReplyWriteCntr = () => {
       );
     } else {
       Swal.fire({
-        text: '로그인해주세요'
+        text: "로그인해주세요",
       });
-      navigate('/auth/login');
+      navigate("/auth/login");
     }
   };
 
@@ -57,13 +57,7 @@ const ReplyWriteCntr = () => {
 
   return (
     <>
-      <ReplyWriteComp
-        onReset={onReset}
-        onPublish={onPublish}
-        onChangeField={onChangeField}
-        emptyReply={emptyReply}
-        isEdit={!!originreplyId}
-      />
+      <ReplyWriteComp onReset={onReset} onPublish={onPublish} onChangeField={onChangeField} emptyReply={emptyReply} isEdit={!!originreplyId} />
     </>
   );
 };
