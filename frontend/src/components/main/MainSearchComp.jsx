@@ -33,14 +33,13 @@ const MainSearchComp = ({ onSearchArea }) => {
       <SearchForm>
         <span>검색</span>
         <input placeholder="장소,지역,테마 등을 입력하세요" onKeyUp={onSearchArea} />
-        {/* <input placeholder="장소,지역,테마 등을 입력하세요" onKeyDown={window.event.key === 'Enter' ? onSearchArea : null} /> */}
         <div className="search-keyword">
-          <KeywordComp />
-          <KeywordComp />
-          <KeywordComp />
-          <KeywordComp />
-          <KeywordComp />
-          <KeywordComp />
+          {/* <KeywordComp keyword='바다' onClick={onSearchArea} /> */}
+          <KeywordComp keyword='반려동물' onClick={onSearchArea} />
+          <KeywordComp keyword='스파' onClick={onSearchArea} />
+          <KeywordComp keyword='산림욕' onClick={onSearchArea} />
+          {/* <KeywordComp  keyword='바다' onClick={onSearch}/>
+          <KeywordComp  keyword='바다' onClick={onSearch}/> */}
         </div>
       </SearchForm>
     </Responsive>

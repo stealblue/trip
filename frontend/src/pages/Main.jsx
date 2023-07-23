@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
@@ -77,14 +78,6 @@ const FadeInLeft = ({ children }) => (
   </Tween>
 );
 
-const onSearchArea = (e) => {
-  if (e.key === "Enter") {
-    Swal.fire({
-      text: `${e.target.value}`,
-    });
-  }
-};
-
 const onSwal = () => {
   Swal.fire({
     icon: "info",
@@ -93,6 +86,25 @@ const onSwal = () => {
 };
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const onSearchArea = (e) => {
+    if (e.key === "Enter") {
+      const keyword = `${e.target.value}`;
+      navigate("/search", { state: { keyword } });
+    } else if (e.button === 0) {
+      const keyword = `${e.target.dataset.keyword}`;
+      navigate("/search", { state: { keyword } });
+    }
+  };
+
+  const onSwal = () => {
+    Swal.fire({
+      icon: "info",
+      title: "구현 중",
+    });
+  };
+
   return (
     <>
       <SlideWarraper>

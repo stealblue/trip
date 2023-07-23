@@ -16,6 +16,7 @@ import ReadPage from "./pages/board/ReadPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
 import Roompage from "./pages/room/RoomPage";
+import SearchPage from './pages/search/SearchPage';
 import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
@@ -30,6 +31,7 @@ function App() {
   }));
 
   const location = useLocation();
+  // const client = 
 
   return (
     <>
@@ -47,6 +49,7 @@ function App() {
             <Route path="/profile/:nick" element={user ? <ProfilePage /> : <Navigate to="/" />} />
             <Route path="/traffic" element={<TrafficListPage />} />
             <Route path="/room" element={<Roompage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Route>
           <Route>
             <Route path="/auth/login" element={<LoginPage />} />

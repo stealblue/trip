@@ -13,6 +13,7 @@ const StyledSeoul = styled.path`
   stroke: white;
   fill: #99ccff;
   cursor: pointer;
+
   &:hover {
     opacity: 1;
   }
@@ -295,10 +296,6 @@ const TextGyengsangnamdo = styled.text`
 const TextJejudo = styled.text`
   fill: black;
 `;
-
-// const onClick = (e) => {
-//   alert(`테스트 : ${e.target.dataset.value}`);
-// }
 
 const KoreaMap = ({ areas, onClick, areaCode }) => {
   const korea = () => (

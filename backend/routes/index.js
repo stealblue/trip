@@ -9,6 +9,8 @@ const traffic = require('./trafficRouter');
 const admin = require("./adminRouter");
 const profile = require("./profileRouter");
 const like = require('./likeRouter');
+const schedule = require('./scheduleRouter');
+const theme = require('./themeRouter');
 const router = express.Router();
 
 router.get("/", function (req, res) { return res.json({ msg: "main" }); });
@@ -22,5 +24,7 @@ router.use('/profile', profile);
 router.use('/wishList', wishList);
 router.use('/traffic', traffic);
 router.use('/like', like);
+router.use('/schedule', schedule);
+router.use('/theme', theme);
 
 module.exports = router;

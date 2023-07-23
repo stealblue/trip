@@ -171,10 +171,10 @@ const HeaderComp = ({ nick, onLogout }) => {
         {nick ? (
           <div>
             <div className="welecome">{nick}님 환영합니다!</div>
-            <LoginCategory>
+            <LoginCategory onClick={onClick}>
               <Link to={`/profile/${nick}`}>마이페이지</Link>
             </LoginCategory>
-            <LoginCategory>
+            <LoginCategory onClick={onClick}>
               <span className="logout" onClick={onLogout}>
                 로그아웃
               </span>
@@ -182,10 +182,10 @@ const HeaderComp = ({ nick, onLogout }) => {
           </div>
         ) : (
           <div>
-            <LoginCategory>
+            <LoginCategory onClick={onClick}>
               <Link to="/auth/login">로그인</Link>
             </LoginCategory>
-            <LoginCategory>
+            <LoginCategory onClick={onClick}>
               <Link to="/auth/register">회원가입</Link>
             </LoginCategory>
           </div>

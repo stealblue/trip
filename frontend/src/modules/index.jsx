@@ -4,7 +4,7 @@ import RegisterMod, { registerSaga } from "./auth/RegisterMod";
 import LoginMod, { loginSaga } from "./auth/LoginMod";
 import WriteMod, { writeSaga } from "./board/WriteMod";
 import BoardListMod, { postsSaga } from "./board/BoardListMod";
-import RoomMod, { roomSaga } from "./chat/RoomMod";
+import RoomMod, { RoomSaga } from "./chat/RoomMod";
 import ReadMod, { postSaga } from "./board/ReadMod";
 import ChatMod, { chatSaga } from "./chat/ChatMod";
 import UserMod, { userSaga } from "./auth/UserMod";
@@ -18,6 +18,9 @@ import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
+import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
+import XmppMod, { XmppSaga } from './chat/XmppMod';
+import SearchMod, { searchSaga } from './search/SearchMod';
 import LoadingMod from "./loadingMod";
 
 
@@ -41,6 +44,9 @@ const rootReducer = combineReducers({
   AdminUserMod,
   AdminBoardMod,
   ProfileMod,
+  ScheduleMod,
+  XmppMod,
+  SearchMod
 });
 
 export function* rootSaga() {
@@ -53,7 +59,7 @@ export function* rootSaga() {
     postsSaga(),
     userSaga(),
     chatSaga(),
-    roomSaga(),
+    RoomSaga(),
     postSaga(),
     areaSaga(),
     replySaga(),
@@ -63,6 +69,9 @@ export function* rootSaga() {
     busSaga(),
     trainSaga(),
     ProfileSaga(),
+    scheduleSaga(),
+    XmppSaga(),
+    searchSaga()
   ]);
 }
 

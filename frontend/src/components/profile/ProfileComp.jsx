@@ -5,8 +5,13 @@ import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+<<<<<<< HEAD
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
+=======
+import WishComp from "../../containers/profile/WIshComp";
+import { useState } from "react";
+>>>>>>> 1f4baaeedef9c9fbe6b68e8033dbefa8140f9c27
 
 const StyledModal = Modal.styled`
   background: white;
@@ -85,7 +90,6 @@ const BoardListTitle = styled.li`
 
 const BoardInfo = styled.ul`
   /* background: gray; */
-  cursor: pointer;
   width: 100%;
   padding: 10px;
   display: flex;
@@ -293,18 +297,25 @@ const ProfileComp = ({
   onGetWishList,
   onGetWishDetail,
   onDeleteWish,
+  onAddSchedule,
+  scheduleList,
 }) => {
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+
   return (
     <>
-      <TitleComp>MY PAGE</TitleComp>
+
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            {/* <ImageBox></ImageBox> */}
-            {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
+            <ImageBox></ImageBox>
+            {user?.img ? (
+              <ImageBox src={`/assets/${user.img}`} alt="img" />
+            ) : (
+              <ImageBox src={"/assets/triplogo.png"} alt="img" />
+            )}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
             <Button onClick={onChangePhoto} className="change-btn">
               사진변경
@@ -346,7 +357,13 @@ const ProfileComp = ({
                 <InputBox placeholder={"ID"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
               </UserInform>
-              {nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}
+              {nickError ? (
+                <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
+              ) : nickAuth ? (
+                <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
+              ) : (
+                ""
+              )}
               <UserInform>
                 <NameTag>전화번호</NameTag>
                 <Detail>{user.phone}</Detail>
@@ -403,7 +420,9 @@ const ProfileComp = ({
                   </li>
 
                   <li>
-                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
+                    <Button onClick={() => onDeleteBoard(board.no)}>
+                      삭제
+                    </Button>
                   </li>
                 </BoardInfo>
               </Item>
@@ -448,6 +467,9 @@ const ProfileComp = ({
                     <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
                   </li>
                 </BoardInfo>
+                <Button onClick={() => onDeleteLike(like.no)}>
+                  좋아요버튼
+                </Button>
               </Item>
             ))}
             <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
@@ -458,8 +480,20 @@ const ProfileComp = ({
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
                   <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
-                    <Detail>{Wish.title}</Detail>
+                    <div key={Wish.no}>{Wish.title}</div>
                   </BoardInfo>
+                  <Button
+                    onClick={() =>
+                      onAddSchedule({
+                        id: user.id,
+                        contentId: Wish.contentId,
+                        title: Wish.title,
+                        contentTypeId: Wish.contentTypeId,
+                      })
+                    }
+                  >
+                    +
+                  </Button>
                   <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
                 </Item>
               ))}
@@ -476,8 +510,26 @@ const ProfileComp = ({
               </StyledModal>
             </WishListBox>
             <SchedulerBox>
-              <BeforeBox>dnd 추가</BeforeBox>
-              <AfterBox>dnd 정리</AfterBox>
+              <BeforeBox>
+                <div>
+                  <input type="text" />
+                  <button>저장</button>
+                </div>
+                {scheduleList?.map((schedule) => (
+                  <WishComp
+                    id={schedule.items[0].title}
+                    index={scheduleList.indexOf(schedule)}
+                    userId={schedule.items[0].id}
+                    scheduleList={scheduleList}
+                    someDragging={someDragging}
+                    setSomeDragging={setSomeDragging}
+                  />
+                ))}
+              </BeforeBox>
+              <AfterBox>
+                <div>부산여행</div>
+                <div>서울여행</div>
+              </AfterBox>
             </SchedulerBox>
           </AllScheduleBox>
         )}

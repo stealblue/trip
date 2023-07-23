@@ -55,6 +55,12 @@ const TrafficItem = ({ item }) => {
 const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
+
+  if ((!resultTrains) && (!resultBuses)) {
+    console.log('내용 없음');
+    return <div>내용 없음</div>;
+  }
+
   return (
     <TrafficContainer>
       {result && (
