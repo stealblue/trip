@@ -8,7 +8,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 // import WishComp from "../../containers/profile/WIshComp";
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
-import { Container } from "../../containers/profile/Container";
+// import { Container } from "../../containers/profile/Container";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -525,7 +525,7 @@ const ProfileComp = ({
                   <input type="text" ref={subjectRef} />
                   <button onClick={onSaveScheduleList}>저장</button>
                 </div>
-                {cards && <Container cards={cards} moveCard={moveCard} />}
+                {/* {cards && <Container cards={cards} moveCard={moveCard} />} */}
               </BeforeBox>
               <AfterBox>
                 {savedList?.map((list) => (
