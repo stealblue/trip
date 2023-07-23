@@ -68,11 +68,12 @@ const NavList = styled.li`
   transition: 0.5s;
   &:hover {
     transform: scale(1.1);
-    font-weight: 500;
+    font-weight: 600;
   }
   span {
     &.click {
       color: ${ThemeComp.subcolor};
+      font-weight: 600;
     }
   }
 
@@ -136,6 +137,11 @@ const HeaderComp = ({ nick, onLogout }) => {
           </Link>
         </Logo>
         <Nav>
+          <NavList onClick={onClick}>
+            <Link to="/area">
+              <span className="nav-item">통합검색</span>
+            </Link>
+          </NavList>
           <NavList onClick={onClick}>
             <Link to="/area">
               <span className="nav-item">지역</span>

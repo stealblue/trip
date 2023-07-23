@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { check, logout } from "../modules/auth/UserMod";
 import { initializeLoginForm } from "../modules/auth/LoginMod";
 import { useEffect } from "react";
+import SideMenuComp from "../components/main/SideMenuComp";
 
 const LayoutCntr = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const LayoutCntr = () => {
   return (
     <>
       <HeaderComp nick={nick} onLogout={onLogout} />
+      {/* <SideMenuComp /> */}
       <Outlet />
       <Footer />
     </>

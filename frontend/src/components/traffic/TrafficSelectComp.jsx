@@ -25,8 +25,8 @@ const TrafficContainer = styled.div`
       border: none;
       color: ${ThemeComp.smoke};
     }
-    &.traffic-category{
-      background-color: steelblue;
+    &.traffic-category {
+      background-color: ${ThemeComp.bgcolor};
     }
   }
   .icon {
@@ -43,7 +43,7 @@ const TrafficContainer = styled.div`
 
     .select-area {
       width: 200px;
-      padding: 15px 20px;
+      padding: 15px 10px;
       background: ${ThemeComp.smoke};
       border-radius: 30px;
       border: 1px solid #333;
@@ -90,10 +90,8 @@ const SelectListContainer = styled.div`
 
 const SelectListBlock = styled.div`
   width: 200px;
-  /* height: auto; */
   max-height: 810px;
   overflow: auto;
-  /* border: 1px solid #333; */
   text-align: center;
   margin: 0 auto;
   margin-top: 50px;
@@ -107,8 +105,9 @@ const SelectListBlock = styled.div`
   li {
     border-bottom: 1px solid #333;
     padding: 10px 0;
-    &.clicked{
-      background-color: steelblue;
+    &.clicked {
+      background-color: ${ThemeComp.lightblack};
+      color: ${ThemeComp.smoke};
     }
   }
   li:hover {
@@ -118,57 +117,35 @@ const SelectListBlock = styled.div`
 
 const StartItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="start" className="start-area">{item.cityName}</li>
+    <li value={item.cityCode} onClick={onClick} data-type="start" className="start-area">
+      {item.cityName}
+    </li>
   );
 };
 
 const StartDetailItem = ({ item, onClick }) => {
   return (
-    <li
-      onClick={onClick} data-type="start"
-      data-value={item.stationId || item.terminalId}
-      data-name={item.stationName || item.terminalName}
-      className="start-detail"
-    >
+    <li onClick={onClick} data-type="start" data-value={item.stationId || item.terminalId} data-name={item.stationName || item.terminalName} className="start-detail">
       {item.stationName || item.terminalName}
     </li>
   );
 };
 const EndItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="end" className="end-area">{item.cityName}</li>
+    <li value={item.cityCode} onClick={onClick} data-type="end" className="end-area">
+      {item.cityName}
+    </li>
   );
 };
 const EndDetailItem = ({ item, onClick }) => {
   return (
-    <li
-      onClick={onClick} data-type="end"
-      data-value={item.stationId || item.terminalId}
-      data-name={item.stationName || item.terminalName}
-      className="end-detail"
-    >
+    <li onClick={onClick} data-type="end" data-value={item.stationId || item.terminalId} data-name={item.stationName || item.terminalName} className="end-detail">
       {item.stationName || item.terminalName}
     </li>
   );
 };
 
-const TrafficSelectComp = ({
-  stations,
-  terminals,
-  stationStartDetails,
-  terminalStartDetails,
-  stationEndDetails,
-  terminalEndDetails,
-  onClickArea,
-  onClickPlace,
-  onClickCategory,
-  onChangeDate,
-  onToggle,
-  start,
-  end,
-  date,
-  loading
-}) => {
+const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, date, loading }) => {
   return (
     <div>
       <TrafficContainer>
@@ -192,7 +169,7 @@ const TrafficSelectComp = ({
             <span>{end}</span>
           </div>
           <input type="date" onChange={onChangeDate} value={date} />
-          <button>검색</button>
+          {/* <button>검색</button> */}
         </div>
       </TrafficContainer>
       <SelectListContainer>

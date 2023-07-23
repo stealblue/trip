@@ -3,7 +3,7 @@ import WrapperComp from "../common/WrapperComp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 // Import Swiper styles
 import "swiper/css";
@@ -33,6 +33,7 @@ const TravelList = styled.div`
       padding: 10px 0;
       border-bottom: 5px solid ${ThemeComp.red};
       font-family: "TheJamsil5light";
+      font-weight: 600;
     }
 
     .place {
@@ -93,13 +94,12 @@ const TravelListItem = styled.div`
 `;
 
 const MaincontentComp = () => {
-
   const onSwal = () => {
     Swal.fire({
-      icon: 'error',
-      title: '구현 중...'
-    })
-  }
+      icon: "error",
+      title: "구현 중...",
+    });
+  };
 
   return (
     <WrapperComp>

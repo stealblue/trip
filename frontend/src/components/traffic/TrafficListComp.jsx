@@ -5,6 +5,7 @@ import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   margin: 30px auto;
+  text-align: center;
 `;
 
 const TrafficHeader = styled.table`

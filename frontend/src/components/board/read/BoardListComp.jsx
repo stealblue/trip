@@ -12,8 +12,7 @@ const ListContainer = styled.div`
   .board-list {
     display: flex;
     background: ${ThemeComp.smoke};
-    border-radius: 20px;
-    padding: 40px;
+    padding: 20px;
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -25,7 +24,7 @@ const ListContainer = styled.div`
 
   .title {
     margin-top: 0px;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 600;
 
     width: 100%;
@@ -50,7 +49,7 @@ const ListContainer = styled.div`
 
   .date {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .content {
     width: 100%;
@@ -68,7 +67,7 @@ const ListContainer = styled.div`
   }
 
   .createat {
-    font-size: 12px;
+    font-size: 16px;
     color: #7b7b7b;
     margin-top: 1rem;
   }
@@ -87,7 +86,7 @@ const BoardListTitle = styled(TitleComp)`
 `;
 
 const BoardListImg = styled.img`
-  width: 300px;
+  width: 500px;
 `;
 
 const BoardListItem = ({ post }) => {
@@ -127,7 +126,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
         {posts && posts.slice(offset, offset + limit).map((post, index) => <BoardListItem key={post.no} post={post} />)}
         {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
-        <footer className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</footer>
+        <div className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</div>
       </WrapperComp>
     </>
   );

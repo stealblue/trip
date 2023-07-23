@@ -7,17 +7,17 @@ import ThemeComp from "../common/ThemeComp";
 const AreaItemBlock = styled.div`
   /* background: #ff3f; */
   margin: 0 auto;
-  padding: 0 0 30px 0;
+  padding: 0 0 50px 0;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  text-align: center;
 
   div {
     display: flex;
-    margin-left: 15px;
   }
   img {
-    width: 10rem;
-    height: 10rem;
+    width: 230px;
+    height: 200px;
     border: 1px solid #333;
     border-radius: 10px;
   }

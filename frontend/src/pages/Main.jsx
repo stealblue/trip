@@ -87,10 +87,10 @@ const onSearchArea = (e) => {
 
 const onSwal = () => {
   Swal.fire({
-    icon: 'info',
-    title: "구현 중"
-  })
-}
+    icon: "info",
+    title: "구현 중",
+  });
+};
 
 const Main = () => {
   return (
@@ -168,7 +168,6 @@ const Main = () => {
           <MainChatComp />
           <MainBoardComp />
         </MainBoardListContainer>
-        <SideMenuComp />
       </WrapperComp>
     </>
   );

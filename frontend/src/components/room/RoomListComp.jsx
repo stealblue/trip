@@ -3,17 +3,33 @@ import styled from "styled-components";
 import PageNavComp2 from "../common/PageNavComp2";
 import ThemeComp from "../common/ThemeComp";
 
+const RoomListContainer = styled.div`
+  width: 800px;
+  height: 1235px;
+  /* background: #333; */
+  position: absolute;
+  left: 0;
+  top: 130px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;
+
 const AreaItemBlock = styled.div`
-  /* background: #3ff; */
-  margin-top: 20px;
-  border-radius: 20px;
-  /* border: 1px solid #333; */
-  margin-top: 100px;
+  display: flex;
+  width: 85%;
+  padding: 30px;
+  margin-left: 27px;
+  border-bottom: 1px solid #333;
   img {
-    width: 400px;
-    height: 360px;
+    width: 300px;
+    height: 240px;
     border-radius: 20px;
     background: ${ThemeComp.smoke};
+  }
+
+  .room-text {
+    margin-left: 20px;
   }
   .title {
     margin-top: 10px;
@@ -25,27 +41,40 @@ const AreaItemBlock = styled.div`
     margin-top: 10px;
     font-size: 18px;
   }
+
+  .add-btn {
+    padding: 7px 9px;
+    background: ${ThemeComp.lightblack};
+    width: 50px;
+    text-align: center;
+    color: ${ThemeComp.white};
+    border-radius: 15px;
+    margin-top: 50px;
+    margin-left: 260px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+
+    &:hover {
+      background: ${ThemeComp.subcolor};
+    }
+  }
 `;
 
 const RoomList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 90%;
   margin: 0 auto;
-  margin-top: 50px;
 `;
 
 const AreaItem = ({ area, itemKey, onClick, addWish }) => {
   return (
     <AreaItemBlock key={itemKey || area.contentid}>
       <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />
-      <p>
+      <p className="room-text">
         <p className="title">{area.title}</p>
         <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
           {area.addr1}
         </p>
-        <span onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
+        <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
           + 추가
         </span>
       </p>
@@ -61,10 +90,10 @@ const RoomListComp = ({ areas, error, onClick, loading, addWish }) => {
     target = result.items.item;
   }
   return (
-    <div>
+    <RoomListContainer>
       <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} addWish={addWish} />)}</RoomList>
       <PageNavComp2 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />
-    </div>
+    </RoomListContainer>
   );
 };
 
