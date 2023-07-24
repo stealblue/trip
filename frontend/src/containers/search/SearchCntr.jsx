@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchComp from '../../components/search/SearchComp';
 import { useDispatch, useSelector } from "react-redux";
-import { unloadPage, showAreaCode, showPageNo, showContentTypeId } from '../../modules/search/SearchMod';
+import { unloadPage, showAreaCode, showPageNo, showContentTypeId, showKeyword } from '../../modules/search/SearchMod';
 
 const areas = [
   { "name": "서울", "code": 1 }, { "name": "인천", "code": 2 }, { "name": "대전", "code": 3 }, { "name": "대구", "code": 4 },
@@ -50,9 +50,16 @@ const SearchCntr = () => {
     dispatch(showContentTypeId(contentTypeId));
   }
 
+  const onSearchArea = (e) => {
+    if (e.key === "Enter") {
+      const keyword = `${e.target.value}`;
+      dispatch(showKeyword(keyword));
+    }
+  };
+
   return (
     <div>
-      <SearchComp onClickArea={onClickArea} areaCode={areaCode} contentTypes={contentTypes} onSelectedContentType={onSelectedContentType} />
+      <SearchComp onClickArea={onClickArea} areaCode={areaCode} contentTypes={contentTypes} onSelectedContentType={onSelectedContentType} onSearchArea={onSearchArea} />
     </div>
   );
 };
