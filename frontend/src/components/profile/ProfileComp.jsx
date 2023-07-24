@@ -8,6 +8,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
 // import WishComp from "../../containers/profile/WIshComp";
+import { Container } from "../../containers/profile/Container";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -89,8 +90,7 @@ const BoardInfo = styled.ul`
   justify-content: space-around;
   box-sizing: border-box;
   text-align: center;
-  line-height: 50px;
-  li.board-li:first-child {
+  li:first-child {
     width: 20%;
     overflow: hidden;
     white-space: nowrap;
@@ -318,6 +318,7 @@ const ProfileComp = ({
         <form encType="multipart/form-data">
           <label>
             {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
+
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
             <Button onClick={onChangePhoto} className="change-btn">
               사진변경
@@ -462,6 +463,7 @@ const ProfileComp = ({
                   </li>
                 </BoardInfo>
                 <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
+                <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
               </Item>
             ))}
             <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
@@ -516,6 +518,31 @@ const ProfileComp = ({
                 ))}
               </AfterBox>
             </SchedulerBox>
+            <BeforeBox>
+              <div>
+                <input type="text" ref={subjectRef} />
+                <button onClick={onSaveScheduleList}>저장</button>
+              </div>
+              {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
+            </BeforeBox>
+            {/* <AfterBox>
+              {savedList?.map((list) => (
+                <SavedListBox key={list._id} onClick={() => onGetSavedListDetail(list.name[0].id, list.name[0].subject)}>
+                  {list.name[0].subject}
+                </SavedListBox>
+              ))}
+              <StyledModal
+                isOpen={listModal} //true = 열림 / false = 닫힘
+                ariahideapp={"false"} //에러 안뜨게하기
+                onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
+                onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
+              >
+                <div>savedListDetail</div>
+                {savedListDetail?.name[0].scheduleList.map((detail) => (
+                  <div>{detail.items[0].title}</div>
+                ))}
+              </StyledModal>
+            </AfterBox> */}
           </AllScheduleBox>
         )}
       </ListBox>
