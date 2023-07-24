@@ -95,15 +95,17 @@ const ScheduleMod = handleActions(
     [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addScheduleError } }) => ({
       ...state,
       addScheduleError,
+      scheduleListError: null,
     }),
     [ADD_SCHEDULE_FAILURE]: (state, { payload: { addScheduleError } }) => ({
       ...state,
       addScheduleError,
+      scheduleListError: null,
     }),
     [GET_SCHEDULE_LIST_SUCCESS]: (state, { payload: { scheduleList } }) => ({
       ...state,
       scheduleList,
-      scheduleListError: null,
+      scheduleListError: false,
       addScheduleError: null,
     }),
     [GET_SCHEDULE_LIST_FAILURE]: (

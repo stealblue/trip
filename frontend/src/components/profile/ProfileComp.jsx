@@ -470,7 +470,7 @@ const ProfileComp = ({
                 <input type="text" ref={subjectRef} />
                 <button onClick={onSaveScheduleList}>저장</button>
               </div>
-              {cards && <Container cards={cards} moveCard={moveCard} />}
+              {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
             </BeforeBox>
             <AfterBox>
               {savedList?.map((list) => (

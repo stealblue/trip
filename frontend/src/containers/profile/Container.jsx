@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { Card } from "./Card";
 
 const style = {
-  width: 400,
+  width: 250,
 };
 export const Container = ({ cards, moveCard }) => {
   {
@@ -18,7 +18,6 @@ export const Container = ({ cards, moveCard }) => {
         />
       );
     }, []);
-
     return (
       <>
         <div style={style}>{cards?.map((card, i) => renderCard(card, i))}</div>

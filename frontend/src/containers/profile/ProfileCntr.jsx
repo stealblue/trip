@@ -68,6 +68,7 @@ const ProfileCntr = () => {
     savedList,
     savedListError,
     savedListDetail,
+    scheduleListError,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -96,6 +97,7 @@ const ProfileCntr = () => {
     scheduleList: ScheduleMod.scheduleList,
     scheduleListError: ScheduleMod.scheduleListError,
     savedList: ScheduleMod.savedList,
+    scheduleListError: ScheduleMod.scheduleListError,
     saveScheduleListError: ScheduleMod.saveScheduleListError,
     savedListDetail: ScheduleMod.savedListDetail,
   }));
@@ -221,6 +223,7 @@ const ProfileCntr = () => {
         contentTypeId,
       })
     );
+    setCards(scheduleList);
   };
 
   const onSaveScheduleList = () => {
@@ -232,6 +235,7 @@ const ProfileCntr = () => {
         scheduleList: cards,
       })
     );
+    setCards();
   };
 
   const onGetSavedListDetail = (id, subject) => {
@@ -372,11 +376,6 @@ const ProfileCntr = () => {
         id,
       })
     );
-    dispatch(
-      getScheduleList({
-        id,
-      })
-    );
   }, [addScheduleError, wishListError, deleteWishError]);
 
   useEffect(() => {
@@ -402,13 +401,14 @@ const ProfileCntr = () => {
     }
   }, [nickAuth]);
   ///////////////////////////////////////////////////////
-  // useEffect(() => {
-  // dispatch(
-  //   getScheduleList({
-  //     id,
-  //   })
-  // );
-  // }, [addScheduleError]);
+  useEffect(() => {
+    setCards(scheduleList);
+    dispatch(
+      getScheduleList({
+        id,
+      })
+    );
+  }, [addScheduleError]);
   useEffect(() => {
     dispatch(
       getSavedList({
@@ -416,7 +416,6 @@ const ProfileCntr = () => {
       })
     );
   }, [saveScheduleListError]);
-  console.log(scheduleList, "----tq======");
 
   return (
     <div>
