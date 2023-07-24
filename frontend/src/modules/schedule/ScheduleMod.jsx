@@ -17,6 +17,11 @@ const [SAVE_LIST, SAVE_LIST_SUCCESS, SAVE_LIST_FAILURE] =
   createRequestActionTypes("schedule/SAVE_LIST");
 const [GET_SAVED_LIST, GET_SAVED_LIST_SUCCESS, GET_SAVED_LIST_FAILURE] =
   createRequestActionTypes("schedule/GET_SAVED_LIST");
+const [
+  GET_SAVED_LIST_DETAIL,
+  GET_SAVED_LIST_DETAIL_SUCCESS,
+  GET_SAVED_LIST_DETAIL_FAILURE,
+] = createRequestActionTypes("schedule/GET_SAVED_LIST_DETAIL");
 
 export const addSchedule = createAction(
   ADD_SCHEDULE,
@@ -41,6 +46,13 @@ export const saveList = createAction(
 export const getSavedList = createAction(GET_SAVED_LIST, ({ id }) => ({
   id,
 }));
+export const getSavedListDetail = createAction(
+  GET_SAVED_LIST_DETAIL,
+  ({ id, subject }) => ({
+    id,
+    subject,
+  })
+);
 
 const addScheduleSaga = createRequestSaga(
   ADD_SCHEDULE,
@@ -55,20 +67,23 @@ const getSavedListSaga = createRequestSaga(
   GET_SAVED_LIST,
   scheduleAPI.getSavedList
 );
+const getSavedListDetailSaga = createRequestSaga(
+  GET_SAVED_LIST_DETAIL,
+  scheduleAPI.getSavedListDetail
+);
 
 export function* scheduleSaga() {
   yield takeLatest(ADD_SCHEDULE, addScheduleSaga);
   yield takeLatest(GET_SCHEDULE_LIST, getScheduleListSaga);
   yield takeLatest(SAVE_LIST, saveListSaga);
   yield takeLatest(GET_SAVED_LIST, getSavedListSaga);
+  yield takeLatest(GET_SAVED_LIST_DETAIL, getSavedListDetailSaga);
 }
 
 const initialState = {
-  addSchedule: null,
   addScheduleError: null,
   scheduleList: null,
   scheduleListError: null,
-  saveScheduleList: null,
   saveScheduleListError: null,
   savedList: null,
   savedListError: null,
@@ -77,20 +92,19 @@ const initialState = {
 const ScheduleMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addSchedule } }) => ({
+    [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addScheduleError } }) => ({
       ...state,
-      addSchedule,
-      addScheduleError: null,
+      addScheduleError,
     }),
     [ADD_SCHEDULE_FAILURE]: (state, { payload: { addScheduleError } }) => ({
       ...state,
-      addSchedule: null,
       addScheduleError,
     }),
     [GET_SCHEDULE_LIST_SUCCESS]: (state, { payload: { scheduleList } }) => ({
       ...state,
       scheduleList,
       scheduleListError: null,
+      addScheduleError: null,
     }),
     [GET_SCHEDULE_LIST_FAILURE]: (
       state,
@@ -99,26 +113,43 @@ const ScheduleMod = handleActions(
       ...state,
       scheduleList: null,
       scheduleListError,
+      addScheduleError: null,
     }),
-    [SAVE_LIST_SUCCESS]: (state, { payload: { saveScheduleList } }) => ({
+    [SAVE_LIST_SUCCESS]: (state, { payload: { saveScheduleListError } }) => ({
       ...state,
-      saveScheduleList,
-      saveScheduleListError: null,
+      saveScheduleListError,
     }),
     [SAVE_LIST_FAILURE]: (state, { payload: { saveScheduleListError } }) => ({
       ...state,
-      saveScheduleList: null,
       saveScheduleListError,
     }),
     [GET_SAVED_LIST_SUCCESS]: (state, { payload: { savedList } }) => ({
       ...state,
       savedList,
       savedListError: null,
+      saveScheduleListError: null,
     }),
     [GET_SAVED_LIST_FAILURE]: (state, { payload: { savedListError } }) => ({
       ...state,
       savedList: null,
       savedListError,
+      saveScheduleListError: null,
+    }),
+    [GET_SAVED_LIST_DETAIL_SUCCESS]: (
+      state,
+      { payload: { savedListDetail } }
+    ) => ({
+      ...state,
+      savedListDetail,
+      savedListDetailError: null,
+    }),
+    [GET_SAVED_LIST_DETAIL_FAILURE]: (
+      state,
+      { payload: { savedListDetailError } }
+    ) => ({
+      ...state,
+      savedListDetail: null,
+      savedListDetailError,
     }),
   },
   initialState

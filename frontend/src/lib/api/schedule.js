@@ -21,3 +21,7 @@ export const saveList = async ({ id, subject, scheduleList }) => {
 export const getSavedList = async ({ id }) => {
     return await client.get(`/schedule/getSavedList/${id}`);
 }
+
+export const getSavedListDetail = async ({ id, subject }) => {
+    return await client.get(`/schedule/getSavedListDetail/${id}/${subject}`);
+}

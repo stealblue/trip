@@ -17,7 +17,7 @@ exports.addSchedule = async (req, res) => {
             });
             await aleadyMovedWish.destroy();
         }
-        res.status(200).json({ addSchedule: contentId });
+        res.status(200).json({ addScheduleError: false });
     } catch (e) {
         console.error(e);
         res.status(400).json({ addScheduleError: true });
@@ -51,10 +51,10 @@ exports.saveList = async (req, res) => {
             name: { subject, id, scheduleList }
         }, {where: {_id: id}});
 
-        res.status(200).json({ saveList: true });
+        res.status(200).json({ saveScheduleListError: false });
     } catch (e) {
         console.error(e);
-        res.status(400).json({ saveListError: true });
+        res.status(400).json({ saveScheduleListError: true });
     }
 }
 
@@ -70,5 +70,19 @@ exports.getSavedList = async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(400).json({savedListError: true})
+    }
+}
+
+exports.getSavedListDetail = async (req, res) => {
+    const { id, subject } = req.params;
+
+    try {
+
+        const savedListDetail = await wishListArray.findOne({"name.id":id, "name.subject": subject });
+
+        res.status(200).json({savedListDetail});
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({savedListDetailError: true});
     }
 }
