@@ -74,11 +74,11 @@ exports.getSavedList = async (req, res) => {
 }
 
 exports.getSavedListDetail = async (req, res) => {
-    const { id, subject } = req.params;
+    const { id, subject} = req.params;
 
     try {
 
-        const savedListDetail = await wishListArray.findOne({"name.id":id, "name.subject": subject });
+        const savedListDetail = await wishListArray.findOne({"name.id":id, "name.subject": subject});
 
         res.status(200).json({savedListDetail});
     } catch (e) {

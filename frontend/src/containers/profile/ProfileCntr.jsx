@@ -182,16 +182,6 @@ const ProfileCntr = () => {
         id,
       })
     );
-    // dispatch(
-    //   getScheduleList({
-    //     id,
-    //   })
-    // );
-    // dispatch(
-    //   getSavedList({
-    //     id,
-    //   })
-    // );
   };
 
   const onGetWishDetail = (contentId) => {
