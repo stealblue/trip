@@ -301,7 +301,7 @@ const TextJejudo = styled.text`
 const KoreaMap = ({ areas, onClick, areaCode }) => {
   const korea = () => (
     <KoreaMapContainer>
-      <svg height="1107" width="800">
+      <svg height="1107" width="200">
         <defs>
           <filter>
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
