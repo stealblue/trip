@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { showKeyword } from '../modules/search/SearchMod';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
@@ -22,6 +23,7 @@ import MainBoardComp from "../components/main/MainBoardComp";
 import WrapperComp from "../components/common/WrapperComp";
 import Swal from "sweetalert2";
 import SideMenuComp from "../components/main/SideMenuComp";
+import { useDispatch } from "react-redux";
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -80,14 +82,19 @@ const FadeInLeft = ({ children }) => (
 
 const Main = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSearchArea = (e) => {
     if (e.key === "Enter") {
       const keyword = `${e.target.value}`;
-      navigate("/search", { state: { keyword } });
+      dispatch(showKeyword(keyword));
+      navigate('/search');
+      // navigate("/search", { state: { keyword } });
     } else if (e.button === 0) {
       const keyword = `${e.target.dataset.keyword}`;
-      navigate("/search", { state: { keyword } });
+      dispatch(showKeyword(keyword));
+      navigate('/search');
+      // navigate("/search", { state: { keyword } });
     }
   };
 

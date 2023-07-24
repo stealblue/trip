@@ -26,6 +26,7 @@ const StyledBusan = styled.path`
   stroke: white;
   fill: #ffcacc;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;

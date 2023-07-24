@@ -6,12 +6,15 @@ import SearchResultCntr from '../../containers/search/SearchResultCntr';
 
 const SearchPage = () => {
   const location = useLocation();
-  const keyword = location.state.keyword
+  // if(location.state.keyword){
+  // const keyword = location.state.keyword;
+  // }
   return (
     <div>
-      <SearchCntr keyword={keyword} />
-      <SearchResultCntr keyword={keyword} />
-
+      {/* <SearchCntr />
+      {location.state.keyword ? <SearchResultCntr keyword={location.state.keyword} /> : <SearchResultCntr />} */}
+      <SearchCntr />
+      <SearchResultCntr />
     </div>
   );
 };
