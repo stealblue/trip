@@ -1,11 +1,13 @@
 import { styled } from "styled-components";
+import ThemeComp from "../common/ThemeComp";
 
 const KoreaMapContainer = styled.div`
+  width: 100%;
   .text {
     font-family: "SUITE-Regular";
   }
   svg {
-    padding-left: 1200px;
+    padding-left: 1000px;
   }
 `;
 
@@ -13,12 +15,14 @@ const StyledSeoul = styled.path`
   stroke: white;
   fill: #99ccff;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -33,6 +37,7 @@ const StyledBusan = styled.path`
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -40,12 +45,14 @@ const StyledDaegu = styled.path`
   stroke: white;
   fill: #f8b195;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -53,12 +60,14 @@ const StyledIncheon = styled.path`
   stroke: white;
   fill: #ceedc7;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -66,12 +75,14 @@ const StyledGuangju = styled.path`
   stroke: white;
   fill: #cdf0ea;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -79,12 +90,14 @@ const StyledDaejeon = styled.path`
   stroke: white;
   fill: #f9ebc8;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -92,12 +105,14 @@ const StyledUlsan = styled.path`
   stroke: white;
   fill: #aacfcf;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -105,12 +120,14 @@ const StyledSaejong = styled.path`
   stroke: white;
   fill: #ffb6b6;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -118,12 +135,14 @@ const StyledGeynggido = styled.path`
   stroke: white;
   fill: #f1c27b;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -131,12 +150,14 @@ const StyledGangwondo = styled.path`
   stroke: white;
   fill: #fd8a8a;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -144,12 +165,14 @@ const StyledChungchungbukdo = styled.path`
   stroke: white;
   fill: #ceedc7;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -157,12 +180,14 @@ const StyledChungchungnamdo = styled.path`
   stroke: white;
   fill: #f6ae99;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -170,12 +195,14 @@ const Styledjeonlabukdo = styled.path`
   stroke: white;
   fill: #a6a9b6;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -183,12 +210,14 @@ const StyledJeonlanamdo = styled.path`
   stroke: white;
   fill: #d8d3cd;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -196,12 +225,14 @@ const StyledGyengsangbukdo = styled.path`
   stroke: white;
   fill: #fcf7bb;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -209,12 +240,14 @@ const StyledGyengsangnamdo = styled.path`
   stroke: white;
   fill: #cbe2b0;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -222,12 +255,14 @@ const StyledJejudo = styled.path`
   stroke: white;
   fill: #f8b195;
   cursor: pointer;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
   }
   &.clicked {
     opacity: 1;
+    stroke: ${ThemeComp.softblack};
   }
 `;
 
@@ -302,7 +337,7 @@ const TextJejudo = styled.text`
 const KoreaMap = ({ areas, onClick, areaCode }) => {
   const korea = () => (
     <KoreaMapContainer>
-      <svg height="1107" width="200">
+      <svg height="1107" width="600">
         <defs>
           <filter>
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>

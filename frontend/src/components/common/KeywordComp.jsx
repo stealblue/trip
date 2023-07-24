@@ -4,7 +4,7 @@ import ThemeComp from "./ThemeComp";
 const KeywordBox = styled.div`
   border-radius: 25px;
   padding: 12px 30px;
-  background-color: ${ThemeComp.lightcolor};
+  background-color: ${ThemeComp.yellow};
   cursor: pointer;
   outline: none;
   box-shadow: 1px 4px 1px rgb(0, 0, 0, 0.5);
@@ -24,7 +24,11 @@ const KeywordBox = styled.div`
 `;
 
 const KeywordComp = ({ keyword, onClick }) => {
-  return <KeywordBox onClick={onClick} data-keyword={keyword}>{keyword}</KeywordBox>;
+  return (
+    <KeywordBox onClick={onClick} data-keyword={keyword}>
+      {keyword}
+    </KeywordBox>
+  );
 };
 
 export default KeywordComp;

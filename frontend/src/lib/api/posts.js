@@ -54,4 +54,4 @@ export const replyRemovePost = async ({ bno, no }) => {
 
 export const isLike = async ({ bno, id }) => {
   return await client.get(`/board/like/${bno}?id=${id}`);
-}
+};

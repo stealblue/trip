@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../containers/profile/Container";
+import { TitleComp } from "../common/TitleComp";
+import PaginationComp from "../common/PaginationComp";
+// import WishComp from "../../containers/profile/WIshComp";
+
 
 const StyledModal = Modal.styled`
   background: white;
@@ -63,14 +67,11 @@ const BoardListTitle = styled.li`
   border-bottom: 1px solid #000;
   li:first-child {
     width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   li:nth-child(2) {
     width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
   }
   li:nth-child(3) {
     width: 15%;
@@ -91,10 +92,14 @@ const BoardInfo = styled.ul`
   text-align: center;
   li:first-child {
     width: 20%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   li:nth-child(2) {
     width: 50%;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -294,6 +299,7 @@ const ProfileComp = ({
             ) : (
               <ImageBox src={"/assets/triplogo.png"} alt="img" />
             )}
+            {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
           </label>
         </form>
@@ -475,6 +481,7 @@ const ProfileComp = ({
                 <button onClick={onGetWishDetail}>x</button>
               </StyledModal>
             </WishListBox>
+
             <BeforeBox>
               <div>
                 <input type="text" ref={subjectRef} />
@@ -508,6 +515,24 @@ const ProfileComp = ({
                 <button onClick={onGetSavedListDetail}>닫기</button>
               </StyledModal>
             </AfterBox>
+
+            <SchedulerBox>
+              <BeforeBox>
+                <div>
+                  <input type="text" ref={subjectRef} />
+                  <button onClick={onSaveScheduleList}>저장</button>
+                </div>
+                {/* {scheduleList?.map((schedule) => (
+                  <WishComp id={schedule.items[0].title} index={scheduleList.indexOf(schedule)} userId={schedule.items[0].id} scheduleList={scheduleList} someDragging={someDragging} setSomeDragging={setSomeDragging} />
+                ))} */}
+              </BeforeBox>
+              <AfterBox>
+                {savedList?.map((list) => (
+                  <SavedListBox key={list.name[0].subject}>{list.name[0].subject}</SavedListBox>
+                ))}
+              </AfterBox>
+            </SchedulerBox>
+
           </AllScheduleBox>
         )}
       </ListBox>

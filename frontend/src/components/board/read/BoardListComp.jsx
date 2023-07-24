@@ -10,6 +10,8 @@ import ThemeComp from "../../common/ThemeComp";
 const ListContainer = styled.div`
   margin-top: 50px;
   .board-list {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     background: ${ThemeComp.smoke};
     padding: 20px;
@@ -24,7 +26,7 @@ const ListContainer = styled.div`
 
   .title {
     margin-top: 0px;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 600;
 
     width: 100%;
@@ -73,7 +75,7 @@ const ListContainer = styled.div`
   }
 `;
 const WriteButton = styled(ButtonComp)`
-  margin-top: 20px;
+  margin: 20px 0;
   text-align: center;
   position: relative;
   left: 50%;
@@ -86,7 +88,7 @@ const BoardListTitle = styled(TitleComp)`
 `;
 
 const BoardListImg = styled.img`
-  width: 500px;
+  width: 400px;
 `;
 
 const BoardListItem = ({ post }) => {

@@ -19,10 +19,10 @@ import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
 import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
-import XmppMod, { XmppSaga } from './chat/XmppMod';
-import SearchMod, { searchSaga } from './search/SearchMod';
+import XmppMod, { XmppSaga } from "./chat/XmppMod";
+import SearchMod, { searchSaga } from "./search/SearchMod";
 import LoadingMod from "./loadingMod";
-
+import MainboardMod, { mainPostsSaga } from "./main/MainboardMod";
 
 const rootReducer = combineReducers({
   LoginMod,
@@ -46,33 +46,12 @@ const rootReducer = combineReducers({
   ProfileMod,
   ScheduleMod,
   XmppMod,
-  SearchMod
+  SearchMod,
+  MainboardMod,
 });
 
 export function* rootSaga() {
-  yield all([
-    adminUserSaga(),
-    adminBoardSaga(),
-    writeSaga(),
-    loginSaga(),
-    registerSaga(),
-    postsSaga(),
-    userSaga(),
-    chatSaga(),
-    RoomSaga(),
-    postSaga(),
-    areaSaga(),
-    replySaga(),
-    replyReadSaga(),
-    lodgingSaga(),
-    wishListSaga(),
-    busSaga(),
-    trainSaga(),
-    ProfileSaga(),
-    scheduleSaga(),
-    XmppSaga(),
-    searchSaga()
-  ]);
+  yield all([adminUserSaga(), adminBoardSaga(), writeSaga(), loginSaga(), registerSaga(), postsSaga(), userSaga(), chatSaga(), RoomSaga(), postSaga(), areaSaga(), replySaga(), replyReadSaga(), lodgingSaga(), wishListSaga(), busSaga(), trainSaga(), ProfileSaga(), scheduleSaga(), XmppSaga(), searchSaga(), mainPostsSaga()]);
 }
 
 export default rootReducer;
