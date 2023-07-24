@@ -226,6 +226,16 @@ const SavedListBox = styled.div`
   margin: 2px 0;
 `;
 
+const ShceduleBox = styled.div`
+  border: 1px dashed black;
+  background: skyblue;
+  margin: 4px;
+`;
+
+const SheduleTitleBox = styled.div`
+  color: green;
+`;
+
 const ProfileComp = ({
   user,
   nick,
@@ -489,10 +499,13 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                <div>savedListDetail</div>
+                <SheduleTitleBox>
+                  {savedListDetail?.name[0].subject}
+                </SheduleTitleBox>
                 {savedListDetail?.name[0].scheduleList.map((detail) => (
-                  <div>{detail.items[0].title}</div>
+                  <ShceduleBox>{detail.items[0].title}</ShceduleBox>
                 ))}
+                <button onClick={onGetSavedListDetail}>닫기</button>
               </StyledModal>
             </AfterBox>
           </AllScheduleBox>
