@@ -307,6 +307,9 @@ const ProfileComp = ({
   moveCard,
   subjectRef,
   savedList,
+  onGetSavedListDetail,
+  savedListDetail,
+  listModal,
 }) => {
   const [someDragging, setSomeDragging] = useState(null);
   const [cnt, setCnt] = useState(0);
@@ -490,7 +493,9 @@ const ProfileComp = ({
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
                   <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
-                    <div key={Wish.no}>{Wish.title}</div>
+                    {/* <div key={Wish.no}> */}
+                    {Wish.title}
+                    {/* </div> */}
                   </BoardInfo>
                   <Button
                     onClick={() =>
@@ -519,22 +524,36 @@ const ProfileComp = ({
                 <button onClick={onGetWishDetail}>x</button>
               </StyledModal>
             </WishListBox>
-            <SchedulerBox>
-              <BeforeBox>
-                <div>
-                  <input type="text" ref={subjectRef} />
-                  <button onClick={onSaveScheduleList}>저장</button>
-                </div>
-                {cards && <Container cards={cards} moveCard={moveCard} />}
-              </BeforeBox>
-              <AfterBox>
-                {savedList?.map((list) => (
-                  <SavedListBox key={list.name[0].subject}>
-                    {list.name[0].subject}
-                  </SavedListBox>
+            <BeforeBox>
+              <div>
+                <input type="text" ref={subjectRef} />
+                <button onClick={onSaveScheduleList}>저장</button>
+              </div>
+              {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
+            </BeforeBox>
+            <AfterBox>
+              {savedList?.map((list) => (
+                <SavedListBox
+                  key={list._id}
+                  onClick={() =>
+                    onGetSavedListDetail(list.name[0].id, list.name[0].subject)
+                  }
+                >
+                  {list.name[0].subject}
+                </SavedListBox>
+              ))}
+              <StyledModal
+                isOpen={listModal} //true = 열림 / false = 닫힘
+                ariahideapp={"false"} //에러 안뜨게하기
+                onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
+                onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
+              >
+                <div>savedListDetail</div>
+                {savedListDetail?.name[0].scheduleList.map((detail) => (
+                  <div>{detail.items[0].title}</div>
                 ))}
-              </AfterBox>
-            </SchedulerBox>
+              </StyledModal>
+            </AfterBox>
           </AllScheduleBox>
         )}
       </ListBox>
