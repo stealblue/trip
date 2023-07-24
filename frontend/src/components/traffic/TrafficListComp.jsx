@@ -38,16 +38,16 @@ const TrafficHeader = styled.table`
 `;
 
 const TrafficItem = ({ item }) => {
-  const arrPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
-  const depPlandTime = (item.depplandtime || item.depPlandTime).toString();
-  const startTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
-  const endTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
+  const depPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
+  const arrPlandTime = (item.depplandtime || item.depPlandTime).toString();
+  const endTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
+  const startTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
   return (
     <TrafficHeader>
       <td>{item.arrplacename || item.arrPlaceNm}</td>
-      <td>{item.arrplandtime || item.arrPlandTime}</td>
+      <td>{startTime}</td>
       <td>{item.depplacename || item.depPlaceNm}</td>
-      <td>{item.depplandtime || item.depPlandTime}</td>
+      <td>{endTime}</td>
       <td>{item.traingradename || item.gradeNm}</td>
     </TrafficHeader>
   );
