@@ -5,8 +5,8 @@ import { changePhotoFailure } from "../../modules/profile/ProfileMod";
 const FooterComp = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${ThemeComp.dark};
-  margin-top: 100px;
+  background-color: ${ThemeComp.smoke};
+  border-top: 2px solid ${ThemeComp.lightblack};
   text-align: center;
   padding: 50px 0;
   display: flex;
@@ -18,7 +18,7 @@ const FooterComp = styled.div`
     justify-content: center;
     li {
       margin-left: 20px;
-      color: ${ThemeComp.smoke};
+      color: ${ThemeComp.black};
       cursor: pointer;
       transition: 0.3s;
     }
@@ -29,7 +29,7 @@ const FooterComp = styled.div`
   .copyright {
     margin-top: 20px;
     i {
-      color: ${ThemeComp.smoke};
+      color: ${ThemeComp.black};
       font-size: 18px;
     }
   }
@@ -42,20 +42,20 @@ const FooterComp = styled.div`
   }
 
   .info {
-    color: ${ThemeComp.smoke};
+    color: ${ThemeComp.black};
     margin-top: 20px;
     span {
-      color: ${ThemeComp.smoke};
+      color: ${ThemeComp.black};
       font-weight: 600;
     }
   }
 
   .tel {
-    color: ${ThemeComp.smoke};
+    color: ${ThemeComp.black};
     font-weight: 600;
     font-size: 24px;
     p {
-      color: ${ThemeComp.smoke};
+      color: ${ThemeComp.black};
       font-size: 20px;
       margin-top: 20px;
     }

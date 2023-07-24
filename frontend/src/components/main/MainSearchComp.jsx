@@ -2,11 +2,18 @@ import styled from "styled-components";
 
 import Responsive from "../common/ResponsiceComp";
 import KeywordComp from "../common/KeywordComp";
+import ThemeComp from "../common/ThemeComp";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchForm = styled.div`
   width: 100%;
   text-align: center;
+  margin: 0 auto;
   margin-top: -100px;
+  position: relative;
+  background: #fff;
 
   span {
     font-size: 30px;
@@ -25,24 +32,31 @@ const SearchForm = styled.div`
     justify-content: space-around;
     display: block;
   }
+
+  .search-icon {
+    position: absolute;
+    top: 16px;
+    right: 640px;
+  }
 `;
 
 const MainSearchComp = ({ onSearchArea }) => {
   return (
-    <Responsive>
+    <>
       <SearchForm>
         <span>검색</span>
         <input placeholder="장소,지역,테마 등을 입력하세요" onKeyUp={onSearchArea} />
         <div className="search-keyword">
           {/* <KeywordComp keyword='바다' onClick={onSearchArea} /> */}
-          <KeywordComp keyword='반려동물' onClick={onSearchArea} />
-          <KeywordComp keyword='스파' onClick={onSearchArea} />
-          <KeywordComp keyword='산림욕' onClick={onSearchArea} />
+          <KeywordComp keyword="반려동물" onClick={onSearchArea} />
+          <KeywordComp keyword="스파" onClick={onSearchArea} />
+          <KeywordComp keyword="산림욕" onClick={onSearchArea} />
           {/* <KeywordComp  keyword='바다' onClick={onSearch}/>
           <KeywordComp  keyword='바다' onClick={onSearch}/> */}
+          <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" className="search-icon" />
         </div>
       </SearchForm>
-    </Responsive>
+    </>
   );
 };
 

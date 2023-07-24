@@ -22,6 +22,8 @@ import MainBoardComp from "../components/main/MainBoardComp";
 import WrapperComp from "../components/common/WrapperComp";
 import Swal from "sweetalert2";
 import SideMenuComp from "../components/main/SideMenuComp";
+import MainBoardCntr from "../containers/main/MainBoardCntr";
+import ThemeComp from "../components/common/ThemeComp";
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -34,6 +36,7 @@ const SlideWarraper = styled.div`
     background-size: auto;
     object-fit: cover;
     height: 850px;
+
     /* opacity: 0.8; */
   }
 
@@ -47,29 +50,39 @@ const SlideWarraper = styled.div`
     font-size: 70px;
     font-family: "PyeongChangPeace-Bold";
     line-height: 74px;
+    color: ${ThemeComp.white};
+    -webkit-text-stroke: 1px ${ThemeComp.black};
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   }
   p {
     font-size: 20px;
-    background: rgba(0, 0, 0, 0.7);
+    background: ${ThemeComp.yellow};
     padding: 10px 40px;
     border-radius: 50px;
     margin-top: 10px;
     display: inline-block;
     color: #fff;
+    border: 2px solid #000;
     cursor: pointer;
 
     span {
       margin-right: 10px;
-      color: #fff;
+      color: ${ThemeComp.black};
     }
   }
   p:hover {
-    background: #111;
+    background: rgba(255, 255, 255, 0.7);
   }
 `;
 
 const MainBoardListContainer = styled.div`
+  width: 100%;
+  justify-content: center;
+  margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
+  /* background: ${ThemeComp.smoke}; */
+  padding: 20px 0 60px;
 `;
 
 const FadeInLeft = ({ children }) => (
@@ -165,15 +178,13 @@ const Main = () => {
           </SwiperSlide>
         </Swiper>
       </SlideWarraper>
-      <WrapperComp>
-        <MainSearchComp onSearchArea={onSearchArea} />
-        <MaincontentComp />
-        {/* <MaincontentComp /> */}
-        <MainBoardListContainer>
-          <MainChatComp />
-          <MainBoardComp />
-        </MainBoardListContainer>
-      </WrapperComp>
+      <MainSearchComp onSearchArea={onSearchArea} />
+      <MaincontentComp />
+      {/* <MaincontentComp /> */}
+      <MainBoardListContainer>
+        <MainChatComp />
+        <MainBoardCntr />
+      </MainBoardListContainer>
     </>
   );
 };

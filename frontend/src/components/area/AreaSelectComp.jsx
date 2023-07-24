@@ -7,23 +7,24 @@ import KoreaMap from "./KoreaMap";
 const AreaSelectWrapper = styled.div`
   width: 100%;
   height: 100vh;
+  margin-bottom: 100px;
 `;
 
 const MapContainer = styled.div`
   width: 100%;
-  /* height: 100vh; */
   margin-top: -35px;
   display: flex;
 `;
 
 const ListContainer = styled.div`
   width: 800px;
-  height: 1150px;
+  height: 1053px;
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 7.8rem;
+  top: 120px;
   left: 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   flex-wrap: wrap;
   background: ${ThemeComp.white};

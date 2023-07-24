@@ -12,9 +12,11 @@ const HeaderContainer = styled.div`
   left: 50%;
   transform: translate(-50%);
   z-index: 10000;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
   transition: 0.8s;
   &.original_header {
     background: none;

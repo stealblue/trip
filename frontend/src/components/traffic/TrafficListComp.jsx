@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import PageNavComp3 from "../common/PageNavComp3";
 import ThemeComp from "../common/ThemeComp";
+import WrapperComp from "../common/WrapperComp";
 
 const TrafficContainer = styled.div`
   margin: 30px auto;
@@ -56,25 +57,27 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
 
-  if ((!resultTrains) && (!resultBuses)) {
-    console.log('내용 없음');
+  if (!resultTrains && !resultBuses) {
+    console.log("내용 없음");
     return <div>내용 없음</div>;
   }
 
   return (
-    <TrafficContainer>
-      {result && (
-        <TrafficHeader>
-          <th>출발장소</th>
-          <th>시간</th>
-          <th>도착장소</th>
-          <th>시간</th>
-          <th>종류</th>
-        </TrafficHeader>
-      )}
-      {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
-      {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
-    </TrafficContainer>
+    <WrapperComp>
+      <TrafficContainer>
+        {result && (
+          <TrafficHeader>
+            <th>출발장소</th>
+            <th>시간</th>
+            <th>도착장소</th>
+            <th>시간</th>
+            <th>종류</th>
+          </TrafficHeader>
+        )}
+        {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
+        {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
+      </TrafficContainer>
+    </WrapperComp>
   );
 };
 

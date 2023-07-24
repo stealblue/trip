@@ -5,7 +5,7 @@ import ThemeComp from "../common/ThemeComp";
 
 const RoomListContainer = styled.div`
   width: 800px;
-  height: 1235px;
+  height: 1130px;
   /* background: #333; */
   position: absolute;
   left: 0;
