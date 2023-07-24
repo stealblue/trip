@@ -6,7 +6,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
-import WishComp from "../../containers/profile/WIshComp";
+// import WishComp from "../../containers/profile/WIshComp";
+import { Container } from "../../containers/profile/Container";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -88,6 +89,7 @@ const BoardInfo = styled.ul`
   justify-content: space-around;
   box-sizing: border-box;
   text-align: center;
+  line-height: 50px;
   li:first-child {
     width: 20%;
     overflow: hidden;
@@ -98,11 +100,7 @@ const BoardInfo = styled.ul`
     width: 50%;
     overflow: hidden;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
   }
   li:nth-child(3) {
     width: 15%;
@@ -282,8 +280,8 @@ const ProfileComp = ({
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            <ImageBox></ImageBox>
             {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
+
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
           </label>
         </form>
@@ -322,13 +320,7 @@ const ProfileComp = ({
                 <InputBox placeholder={"ID"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
               </UserInform>
-              {nickError ? (
-                <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
-              ) : nickAuth ? (
-                <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
-              ) : (
-                ""
-              )}
+              {nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}
               <UserInform>
                 <NameTag>전화번호</NameTag>
                 <Detail>{user.phone}</Detail>
@@ -354,18 +346,10 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>
-          게시물 ({totalBoard})
-        </SelectButton>
-        <SelectButton onClick={onGetReplyList}>
-          댓글 ({totalReply})
-        </SelectButton>
-        <SelectButton onClick={onGetLikeList}>
-          좋아요 ({totalLike})
-        </SelectButton>
-        <SelectButton onClick={onGetWishList}>
-          wishList ({totalWish})
-        </SelectButton>
+        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
+        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
+        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
+        <SelectButton onClick={onGetWishList}>wishList ({totalWish})</SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -393,9 +377,7 @@ const ProfileComp = ({
                   </li>
 
                   <li>
-                    <Button onClick={() => onDeleteBoard(board.no)}>
-                      삭제
-                    </Button>
+                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
                   </li>
                 </BoardInfo>
               </Item>
@@ -422,9 +404,7 @@ const ProfileComp = ({
                   <Detail>{like.bno_board.id}</Detail>
                   <Detail>{like.bno_board.title}</Detail>
                 </BoardInfo>
-                <Button onClick={() => onDeleteLike(like.no)}>
-                  좋아요버튼
-                </Button>
+                <Button onClick={() => onDeleteLike(like.no)}>좋아요버튼</Button>
               </Item>
             ))}
           </LikeBox>
@@ -446,8 +426,7 @@ const ProfileComp = ({
                         title: Wish.title,
                         contentTypeId: Wish.contentTypeId,
                       })
-                    }
-                  >
+                    }>
                     +
                   </Button>
                   <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
@@ -471,13 +450,38 @@ const ProfileComp = ({
                   <input type="text" ref={subjectRef} />
                   <button onClick={onSaveScheduleList}>저장</button>
                 </div>
-                {scheduleList?.map((schedule) => (
+                {/* {scheduleList?.map((schedule) => (
                   <WishComp id={schedule.items[0].title} index={scheduleList.indexOf(schedule)} userId={schedule.items[0].id} scheduleList={scheduleList} someDragging={someDragging} setSomeDragging={setSomeDragging} />
-                ))}
+                ))} */}
               </BeforeBox>
               <AfterBox>
                 {savedList?.map((list) => (
                   <SavedListBox key={list.name[0].subject}>{list.name[0].subject}</SavedListBox>
+                ))}
+              </AfterBox>
+            </SchedulerBox>
+            <BeforeBox>
+              <div>
+                <input type="text" ref={subjectRef} />
+                <button onClick={onSaveScheduleList}>저장</button>
+              </div>
+              {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
+            </BeforeBox>
+            <AfterBox>
+              {savedList?.map((list) => (
+                <SavedListBox key={list._id} onClick={() => onGetSavedListDetail(list.name[0].id, list.name[0].subject)}>
+                  {list.name[0].subject}
+                </SavedListBox>
+              ))}
+              <StyledModal
+                isOpen={listModal} //true = 열림 / false = 닫힘
+                ariahideapp={"false"} //에러 안뜨게하기
+                onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
+                onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
+              >
+                <div>savedListDetail</div>
+                {savedListDetail?.name[0].scheduleList.map((detail) => (
+                  <div>{detail.items[0].title}</div>
                 ))}
               </StyledModal>
             </AfterBox>
