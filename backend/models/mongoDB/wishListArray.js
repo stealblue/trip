@@ -4,7 +4,7 @@ const wishListArraySchema = new mongoose.Schema({
     type: String,
   },
   name: {
-    type: String,
+    type: Array,
   },
   items: {
     type: Array,

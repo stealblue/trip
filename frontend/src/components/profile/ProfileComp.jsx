@@ -5,7 +5,6 @@ import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-
 import { TitleComp } from "../common/TitleComp";
 import PaginationComp from "../common/PaginationComp";
 import WishComp from "../../containers/profile/WIshComp";
@@ -247,7 +246,8 @@ const BeforeBox = styled.div`
 `;
 
 const AfterBox = styled.div`
-  /* background: skyblue; */
+  display: flex;
+  flex-direction: column;
   width: 300px;
 `;
 
@@ -256,6 +256,11 @@ const Item = styled.div`
   background: none;
   border-bottom: 1px solid black;
   justify-content: space-between;
+`;
+
+const SavedListBox = styled.div`
+  border: 2px dashed black;
+  margin: 2px 0;
 `;
 
 const ProfileComp = ({
@@ -296,7 +301,14 @@ const ProfileComp = ({
   onDeleteWish,
   onAddSchedule,
   scheduleList,
+  onSaveScheduleList,
+  cards,
+  moveCard,
+  subjectRef,
+  savedList,
 }) => {
+  const [someDragging, setSomeDragging] = useState(null);
+  const [cnt, setCnt] = useState(0);
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -493,16 +505,17 @@ const ProfileComp = ({
             <SchedulerBox>
               <BeforeBox>
                 <div>
-                  <input type="text" />
-                  <button>저장</button>
+                  <input type="text" ref={subjectRef} />
+                  <button onClick={onSaveScheduleList}>저장</button>
                 </div>
                 {scheduleList?.map((schedule) => (
                   <WishComp id={schedule.items[0].title} index={scheduleList.indexOf(schedule)} userId={schedule.items[0].id} scheduleList={scheduleList} someDragging={someDragging} setSomeDragging={setSomeDragging} />
                 ))}
               </BeforeBox>
               <AfterBox>
-                <div>부산여행</div>
-                <div>서울여행</div>
+                {savedList?.map((list) => (
+                  <SavedListBox key={list.name[0].subject}>{list.name[0].subject}</SavedListBox>
+                ))}
               </AfterBox>
             </SchedulerBox>
           </AllScheduleBox>

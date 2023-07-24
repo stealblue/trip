@@ -39,6 +39,7 @@ const StyledDaegu = styled.path`
   stroke: white;
   fill: #f8b195;
   cursor: pointer;
+
   &:hover {
     opacity: 1;
   }

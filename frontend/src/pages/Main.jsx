@@ -78,13 +78,6 @@ const FadeInLeft = ({ children }) => (
   </Tween>
 );
 
-const onSwal = () => {
-  Swal.fire({
-    icon: "info",
-    title: "구현 중",
-  });
-};
-
 const Main = () => {
   const navigate = useNavigate();
 

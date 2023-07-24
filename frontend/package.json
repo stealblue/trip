@@ -19,6 +19,7 @@
     "frontend": "./",
     "gsap": "^3.12.2",
     "immer": "^10.0.2",
+    "immutability-helper": "^3.1.1",
     "mqtt": "^5.0.0-beta.2",
     "mqttjs": "^0.0.0",
     "next-redux-saga": "^4.1.2",

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import ProfileComp from "../../components/profile/ProfileComp";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePhoto } from "../../lib/api/profile";
+import update from "immutability-helper";
 
 import ProfileMod, {
   changeProfile,
@@ -26,7 +27,9 @@ import ProfileMod, {
 import { check, initializeUser } from "../../modules/auth/UserMod";
 import ScheduleMod, {
   addSchedule,
+  saveList,
   getScheduleList,
+  getSavedList,
 } from "../../modules/schedule/ScheduleMod";
 
 const ProfileCntr = () => {
@@ -58,6 +61,9 @@ const ProfileCntr = () => {
     deleteWishError,
     scheduleList,
     scheduleListError,
+    saveScheduleList,
+    savedList,
+    savedListError,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -83,12 +89,28 @@ const ProfileCntr = () => {
     deleteWishError: ProfileMod.deleteWishError,
     scheduleList: ScheduleMod.scheduleList,
     scheduleListError: ScheduleMod.scheduleListError,
+    saveScheduleList: ScheduleMod.saveScheduleList,
+    savedList: ScheduleMod.savedList,
+    savedListError: ScheduleMod.savedListError,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
   const [userImg, setUserImg] = useState();
   const [newSchedule, setNewSchedule] = useState();
+  const [cards, setCards] = useState(scheduleList);
+  const subjectRef = useRef("");
+
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    setCards((prevCards) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex]],
+        ],
+      })
+    );
+  }, []);
 
   const onGetBoardList = () => {
     setBoardType("BOARD");
@@ -181,6 +203,17 @@ const ProfileCntr = () => {
         contentId,
         title,
         contentTypeId,
+      })
+    );
+  };
+
+  const onSaveScheduleList = () => {
+    const subject = subjectRef.current.value;
+    dispatch(
+      saveList({
+        id,
+        subject,
+        scheduleList: cards,
       })
     );
   };
@@ -356,6 +389,13 @@ const ProfileCntr = () => {
     );
   }, [newSchedule]);
 
+  useEffect(() => {
+    dispatch(
+      getSavedList({
+        id,
+      })
+    );
+  }, [savedListError]);
   return (
     <div>
       <ProfileComp
@@ -396,6 +436,11 @@ const ProfileCntr = () => {
         onWithdraw={onWithdraw}
         onAddSchedule={onAddSchedule}
         scheduleList={scheduleList}
+        onSaveScheduleList={onSaveScheduleList}
+        cards={cards}
+        moveCard={moveCard}
+        subjectRef={subjectRef}
+        savedList={savedList}
       />
     </div>
   );

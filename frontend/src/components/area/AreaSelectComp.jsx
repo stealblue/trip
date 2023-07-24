@@ -99,41 +99,6 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
             <KoreaMap areas={areas} onClick={onClickArea} areaCode={areaCode} />
           </div>
         </MapContainer>
-        {/* <MapContainer>
-        
-        <div>
-          {areas.map((area) => (
-            <SelectArea
-              area={area}
-              key={area.code}
-              onClick={onClickArea}
-              areaCode={areaCode}
-            />
-          ))}
-        </div>
-
-        <ListContainer>
-          <ThemeList>
-            <div className="theme">
-              {contentTypes.map((type) => (
-                <SelectType
-                  type={type}
-                  key={type.code}
-                  onClick={onClickType}
-                  contentTypeId={contentTypeId}
-                />
-              ))}
-            </div>
-          </ThemeList>
-
-          <div className="select-list">
-            <AreaListCntr className="select" />
-          </div>
-        </ListContainer>
-        <div>`
-          <KoreaMap />
-        </div>
-      </MapContainer> */}
         <ListContainer>
           <ThemeList>
             <div className="theme">
