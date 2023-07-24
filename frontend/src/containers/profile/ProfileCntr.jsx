@@ -30,12 +30,14 @@ import ScheduleMod, {
   saveList,
   getScheduleList,
   getSavedList,
+  getSavedListDetail,
 } from "../../modules/schedule/ScheduleMod";
 
 const ProfileCntr = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [listModal, setListModal] = useState(false);
   const {
     id,
     img,
@@ -56,14 +58,17 @@ const ProfileCntr = () => {
     deleteLikeError,
     wishList,
     totalWish,
+    wishListError,
     wish,
     wishError,
     deleteWishError,
+    addScheduleError,
     scheduleList,
-    scheduleListError,
-    saveScheduleList,
+    saveScheduleListError,
     savedList,
     savedListError,
+    savedListDetail,
+    scheduleListError,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -84,14 +89,17 @@ const ProfileCntr = () => {
     deleteLikeError: ProfileMod.deleteLikeError,
     wishList: ProfileMod.wishList,
     totalWish: ProfileMod.totalWish,
+    wishListError: ProfileMod.wishListError,
     wish: ProfileMod.wish,
     wishError: ProfileMod.wishError,
     deleteWishError: ProfileMod.deleteWishError,
+    addScheduleError: ScheduleMod.addScheduleError,
     scheduleList: ScheduleMod.scheduleList,
     scheduleListError: ScheduleMod.scheduleListError,
-    saveScheduleList: ScheduleMod.saveScheduleList,
     savedList: ScheduleMod.savedList,
-    savedListError: ScheduleMod.savedListError,
+    scheduleListError: ScheduleMod.scheduleListError,
+    saveScheduleListError: ScheduleMod.saveScheduleListError,
+    savedListDetail: ScheduleMod.savedListDetail,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
@@ -174,6 +182,16 @@ const ProfileCntr = () => {
         id,
       })
     );
+    // dispatch(
+    //   getScheduleList({
+    //     id,
+    //   })
+    // );
+    // dispatch(
+    //   getSavedList({
+    //     id,
+    //   })
+    // );
   };
 
   const onGetWishDetail = (contentId) => {
@@ -205,6 +223,7 @@ const ProfileCntr = () => {
         contentTypeId,
       })
     );
+    setCards(scheduleList);
   };
 
   const onSaveScheduleList = () => {
@@ -216,8 +235,18 @@ const ProfileCntr = () => {
         scheduleList: cards,
       })
     );
+    setCards();
   };
 
+  const onGetSavedListDetail = (id, subject) => {
+    setListModal(!listModal);
+    dispatch(
+      getSavedListDetail({
+        id,
+        subject,
+      })
+    );
+  };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////작업중
   const onChange = (e) => {
     const { value } = e.target;
@@ -308,7 +337,6 @@ const ProfileCntr = () => {
       );
     }
   };
-
   useEffect(() => {
     dispatch(
       getProfile({
@@ -348,7 +376,7 @@ const ProfileCntr = () => {
         id,
       })
     );
-  }, [deleteWishError]);
+  }, [addScheduleError, wishListError, deleteWishError]);
 
   useEffect(() => {
     if (withdrawAuth) {
@@ -372,30 +400,23 @@ const ProfileCntr = () => {
       dispatch(check()); //닉네임 변경시 check해줌으로써 UserMod.user 값 갱신해줌
     }
   }, [nickAuth]);
-
+  ///////////////////////////////////////////////////////
   useEffect(() => {
+    setCards(scheduleList);
     dispatch(
       getScheduleList({
         id,
       })
     );
-  }, [newSchedule]);
-  //바로 위의 useEffect에 getWishList 액션을 넣으면 제대로 작동이 안됨 ..
-  useEffect(() => {
-    dispatch(
-      getWishList({
-        id,
-      })
-    );
-  }, [newSchedule]);
-
+  }, [addScheduleError]);
   useEffect(() => {
     dispatch(
       getSavedList({
         id,
       })
     );
-  }, [savedListError]);
+  }, [saveScheduleListError]);
+
   return (
     <div>
       <ProfileComp
@@ -441,6 +462,9 @@ const ProfileCntr = () => {
         moveCard={moveCard}
         subjectRef={subjectRef}
         savedList={savedList}
+        onGetSavedListDetail={onGetSavedListDetail}
+        savedListDetail={savedListDetail}
+        listModal={listModal}
       />
     </div>
   );
