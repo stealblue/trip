@@ -41,6 +41,9 @@ const ImgInput = styled.input`
 
 const InputBox = styled.input`
   background: white;
+  margin-right: 10px;
+  width: 150px;
+  height: 27px;
 `;
 
 const UserInformBox = styled.div`
@@ -222,8 +225,16 @@ const Item = styled.div`
 `;
 
 const SavedListBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
   border: 2px dashed black;
   margin: 2px 0;
+`;
+
+const SavedList = styled.div`
+  background: white;
+  cursor: pointer;
 `;
 
 const ShceduleBox = styled.div`
@@ -282,6 +293,8 @@ const ProfileComp = ({
   onGetSavedListDetail,
   savedListDetail,
   listModal,
+  onChangeProfileCancle,
+  onSavedListDelete,
 }) => {
   return (
     <>
@@ -360,6 +373,14 @@ const ProfileComp = ({
             <Button className="delete-user-btn" onClick={onWithdraw}>
               회원탈퇴
             </Button>
+            {changeInform && (
+              <Button
+                style={{ marginLeft: "10px" }}
+                onClick={onChangeProfileCancle}
+              >
+                수정취소
+              </Button>
+            )}
           </div>
         </UserInformBox>
       </ProfileBlock>
@@ -444,9 +465,7 @@ const ProfileComp = ({
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
                   <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
-                    {/* <div key={Wish.no}> */}
                     {Wish.title}
-                    {/* </div> */}
                   </BoardInfo>
                   <Button
                     onClick={() =>
@@ -477,21 +496,31 @@ const ProfileComp = ({
             </WishListBox>
             <BeforeBox>
               <div>
-                <input type="text" ref={subjectRef} />
-                <button onClick={onSaveScheduleList}>저장</button>
+                <InputBox type="text" ref={subjectRef} />
+                <Button onClick={onSaveScheduleList}>저장</Button>
               </div>
               {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
             </BeforeBox>
             <AfterBox>
               {savedList?.map((list) => (
-                <SavedListBox
-                  key={list._id}
-                  onClick={() =>
-                    onGetSavedListDetail(list.name[0].id, list.name[0].subject)
-                  }
-                >
-                  {list.name[0].subject}
-                </SavedListBox>
+                <>
+                  <SavedListBox>
+                    <SavedList
+                      key={list._id}
+                      onClick={() =>
+                        onGetSavedListDetail(
+                          list.name[0].id,
+                          list.name[0].subject
+                        )
+                      }
+                    >
+                      {list.name[0].subject}
+                    </SavedList>
+                    <Button onClick={() => onSavedListDelete(list._id)}>
+                      x
+                    </Button>
+                  </SavedListBox>
+                </>
               ))}
               <StyledModal
                 isOpen={listModal} //true = 열림 / false = 닫힘
@@ -503,9 +532,11 @@ const ProfileComp = ({
                   {savedListDetail?.name[0].subject}
                 </SheduleTitleBox>
                 {savedListDetail?.name[0].scheduleList.map((detail) => (
-                  <ShceduleBox>{detail.items[0].title}</ShceduleBox>
+                  <ShceduleBox key={detail.items[0].contentId}>
+                    {detail.items[0].title}
+                  </ShceduleBox>
                 ))}
-                <button onClick={onGetSavedListDetail}>닫기</button>
+                <Button onClick={onGetSavedListDetail}>닫기</Button>
               </StyledModal>
             </AfterBox>
           </AllScheduleBox>
