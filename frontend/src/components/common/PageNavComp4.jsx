@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-import { selectPageTrain } from '../../modules/traffic/TrainMod';
-import { selectPageBus } from '../../modules/traffic/BusMod';
+import { showPageNo } from "../../modules/search/SearchMod";
 
 const LiBlock = styled.li`
   display: inline-block;
@@ -11,7 +10,8 @@ const LiBlock = styled.li`
     color:steelblue;
   }
 `;
-const PageNavComp4 = ({ totalCount, pageNo, numOfRows }) => {
+const PageNavComp4 = ({ totalCount, pageNo }) => {
+  console.log(`pageNavComp4 ==> totalCount : ${totalCount} / pageNo : ${pageNo}`);
   const res = parseInt(Math.ceil(totalCount / 10));
   const page = pageNo || 1;
   let pageNavEndNum = (Math.ceil(page / 10) * 10);
@@ -26,8 +26,7 @@ const PageNavComp4 = ({ totalCount, pageNo, numOfRows }) => {
     console.log('page : ', e.target)
     const page = e.target.value || e.target.dataset.page;
     console.log('page : ', page);
-    dispatch(selectPageTrain(page));
-    dispatch(selectPageBus(page));
+    dispatch(showPageNo(page));
   }
   console.log('totalCount : ', totalCount);
   console.log('pageNo : ', pageNo);
