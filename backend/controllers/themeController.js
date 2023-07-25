@@ -1,11 +1,11 @@
 const axios = require("axios");
 const { theme } = require('../models/mysql');
 
-exports.listTheme = async (req, res) => {
+exports.listTheme = async (req, res, next) => {
   try {
     const { keyword } = req.params;
     const { pageNo, contentTypeId, areaCode } = req.query;
-    const where = { theme: keyword };
+    const where = { theme: keyword, };
     if (contentTypeId) {
       where.contentTypeId = contentTypeId;
     }
@@ -13,7 +13,7 @@ exports.listTheme = async (req, res) => {
       where.areaCode = areaCode;
     }
     const areas = await theme.findAndCountAll(where);
-    return res.json(areas);
+    return res.json({ areas, type: 'DB' });
   } catch (error) {
     return re.status(400).json(error);
   }

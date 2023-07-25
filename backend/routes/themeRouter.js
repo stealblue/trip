@@ -5,7 +5,8 @@ const { listTheme } = require('../controllers/themeController');
 const app = express();
 const search = express.Router();
 
-search.get("/api/:keyword", areaSearch);
-search.get("/db/:keyword", listTheme);
+search.get("/:keyword", areaSearch);
+// search.get("/:keyword", listTheme);
+search.get('/api', areaSearch)
 
 module.exports = search;
