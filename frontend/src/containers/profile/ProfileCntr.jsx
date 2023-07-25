@@ -518,6 +518,7 @@ const ProfileCntr = () => {
         onGetSavedListDetail={onGetSavedListDetail}
         savedListDetail={savedListDetail}
         listModal={listModal}
+        setListModal={setListModal}
         onChangeProfileCancle={onChangeProfileCancle}
         onSavedListDelete={onSavedListDelete}
         addScheduleError={addScheduleError}

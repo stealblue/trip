@@ -9,9 +9,10 @@ import SideMenuComp from "../components/main/SideMenuComp";
 
 const LayoutCntr = () => {
   const dispatch = useDispatch();
-  const { user, nick } = useSelector(({ UserMod }) => ({
+  const { user, nick, grade } = useSelector(({ UserMod }) => ({
     user: UserMod.user,
     nick: UserMod.user?.nick,
+    grade: UserMod.user?.grade,
   }));
 
   const onLogout = () => {
@@ -27,7 +28,7 @@ const LayoutCntr = () => {
 
   return (
     <>
-      <HeaderComp nick={nick} onLogout={onLogout} />
+      <HeaderComp nick={nick} grade={grade} onLogout={onLogout} />
       {/* <SideMenuComp /> */}
       <Outlet />
       <Footer />
