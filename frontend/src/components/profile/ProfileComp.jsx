@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import Modal from "styled-react-modal";
 import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import PaginationComp from "../common/PaginationComp";
 import { Container } from "../../containers/profile/Container";
 
 const StyledModal = Modal.styled`
@@ -24,7 +26,7 @@ const ProfileBlock = styled.div`
   height: 250px;
   justify-content: center;
   width: 50%;
-  margin: 0 auto;
+  margin: 60px auto;
 `;
 
 const ImageBox = styled.img`
@@ -58,7 +60,7 @@ const UserInform = styled.div`
   }
 `;
 
-const BoardListTitle = styled.li`
+const BoardListTitle = styled.ul`
   display: flex;
   text-align: center;
   padding: 10px;
@@ -66,21 +68,25 @@ const BoardListTitle = styled.li`
   border-bottom: 1px solid #000;
   li:first-child {
     width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 2px;
   }
   li:nth-child(2) {
     width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    margin: 0 2px;
   }
   li:nth-child(3) {
     width: 15%;
+    margin: 0 2px;
   }
-  li:nth-child(4),
+  li:nth-child(4) {
+    width: 5%;
+    margin: 0 4px;
+  }
   li:nth-child(5) {
     width: 5%;
+    margin: 0 2px;
   }
 `;
 
@@ -92,27 +98,64 @@ const BoardInfo = styled.ul`
   justify-content: space-around;
   box-sizing: border-box;
   text-align: center;
+  line-height: 50px;
   li:first-child {
     width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: 800;
+    }
   }
   li:nth-child(2) {
     width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
   }
   li:nth-child(3) {
     width: 15%;
   }
-  li:nth-child(4),
+  li:nth-child(4) {
+    width: 5%;
+  }
   li:nth-child(5) {
     width: 5%;
   }
+`;
 
-  span {
-    margin-left: 10px;
+const ListTitle = styled.ul`
+  display: flex;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #000;
+
+  li:first-child {
+    width: 22%;
+  }
+  li:nth-child(2) {
+    width: 53.5%;
+  }
+  li:nth-child(3) {
+    width: 16%;
+  }
+`;
+
+const LikeListTitle = styled.ul`
+  display: flex;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #000;
+
+  li:first-child {
+    width: 24.5%;
+  }
+  li:nth-child(2) {
+    width: 55%;
+  }
+  li:nth-child(3) {
+    width: 20%;
   }
 `;
 
@@ -145,10 +188,16 @@ const Button = styled.button`
   background: ${ThemeComp.bgcolor};
   border: none;
   border-radius: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    background: ${ThemeComp.subcolor};
+    color: #fff;
+  }
 
   &.change-btn {
     display: block;
-    margin: 10px auto;
+    margin: 28px auto;
   }
 
   &.delete-user-btn {
@@ -163,31 +212,45 @@ const SelectButton = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
+  border: 1px solid ${ThemeComp.softblack};
+  padding: 10px 20px;
+  transition: 0.3s;
 
   &:focus {
-    background: orange;
+    background: ${ThemeComp.softblack};
+    color: ${ThemeComp.white};
+  }
+
+  &:hover {
+    background: ${ThemeComp.softblack};
+    color: ${ThemeComp.white};
   }
 `;
 
 const ButtonBox = styled.div`
-  background: orange;
   margin-top: 20px;
+  margin: 0 auto;
+  text-align: center;
 `;
 
 const ListBox = styled.div`
-  /* background: gray; */
+  width: 90%;
+  margin: 0 auto;
   height: 600px;
+  margin-top: 20px;
+  background: ${ThemeComp.smoke};
+  padding: 50px;
 `;
 
 const BoardBox = styled.div`
   /* background: red; */
 `;
 const ReplyBox = styled.div`
-  background: skyblue;
+  /* background: skyblue; */
 `;
 
 const LikeBox = styled.div`
-  background: purple;
+  /* background: purple; */
 `;
 
 const AllScheduleBox = styled.div`
@@ -225,9 +288,6 @@ const Item = styled.div`
 `;
 
 const SavedListBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
   border: 2px dashed black;
   margin: 2px 0;
 `;
@@ -296,18 +356,23 @@ const ProfileComp = ({
   onChangeProfileCancle,
   onSavedListDelete,
 }) => {
+  const [limit, setLimit] = useState(7);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   return (
     <>
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            <ImageBox></ImageBox>
             {user?.img ? (
               <ImageBox src={`/assets/${user.img}`} alt="img" />
             ) : (
               <ImageBox src={"/assets/triplogo.png"} alt="img" />
             )}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
+            <Button onClick={onChangePhoto} className="change-btn">
+              사진변경
+            </Button>
           </label>
         </form>
         <UserInformBox>
@@ -405,15 +470,17 @@ const ProfileComp = ({
               <li>제목</li>
               <li>내용</li>
               <li>작성일자</li>
-              <li></li>
-              <li></li>
+              <li>좋아요</li>
+              <li>조회수</li>
             </BoardListTitle>
             {boardList?.map((board) => (
               <Item key={board.no}>
-                <BoardInfo onClick={() => onGetBoardDetail(board.no)}>
-                  <li className="title">{board.title}</li>
-                  <li className="content">{board.content}</li>
-                  <li>{board.createAt}</li>
+                <BoardInfo>
+                  <li onClick={() => onGetBoardDetail(board.no)}>
+                    {board.title}
+                  </li>
+                  <li>{board.content}</li>
+                  <li>{board.createAt.substr(0, 10)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
                     <span>{board.like}</span>
@@ -431,33 +498,81 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
+            <div className="pagin">
+              {boardList && (
+                <PaginationComp
+                  total={boardList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
-            {replyList.map((reply) => (
+            <ListTitle>
+              <li>이메일</li>
+              <li>내용</li>
+              <li>작성일자</li>
+            </ListTitle>
+            {replyList.slice(offset, offset + limit).map((reply) => (
               <Item key={reply.no}>
-                <BoardInfo onClick={() => onGetReplyDetail(reply.bno)}>
-                  <Detail>{reply.id}</Detail>
-                  <Detail>{reply.content}</Detail>
-                  <Detail>{reply.createAt.substr(0, 10)}</Detail>
+                <BoardInfo>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>
+                    {reply.id}
+                  </li>
+                  <li>{reply.content}</li>
+                  <li>{reply.createAt.substr(0, 10)}</li>
+                  <li>
+                    <Button onClick={() => onDeleteReply(reply.no)}>
+                      삭제
+                    </Button>
+                  </li>
                 </BoardInfo>
-                <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
               </Item>
             ))}
+            <div className="pagin">
+              {replyList && (
+                <PaginationComp
+                  total={replyList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
-            {likeList.map((like) => (
+            <LikeListTitle>
+              <li>이메일</li>
+              <li>글 제목</li>
+              <li>좋아요버튼</li>
+            </LikeListTitle>
+            {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
                 <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
-                  <Detail>{like.bno_board.id}</Detail>
-                  <Detail>{like.bno_board.title}</Detail>
+                  <li>{like.bno_board.id}</li>
+                  <li>{like.bno_board.title}</li>
+                  <li>
+                    <Button onClick={() => onDeleteLike(like.no)}>
+                      <FontAwesomeIcon className="icon" icon={faHeart} />
+                    </Button>
+                  </li>
                 </BoardInfo>
-                <Button onClick={() => onDeleteLike(like.no)}>
-                  좋아요버튼
-                </Button>
               </Item>
             ))}
+            <div className="pagin">
+              {likeList && (
+                <PaginationComp
+                  total={likeList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </LikeBox>
         ) : (
           <AllScheduleBox>
