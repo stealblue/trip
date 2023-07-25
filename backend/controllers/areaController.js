@@ -17,13 +17,9 @@ exports.areaList = async (req, res) => {
 };
 
 exports.areaSearch = async (req, res) => {
-  console.log(`req.params : ${req.params}`);
-  console.log(`req.query : ${req.query}`);
   try {
     const { keyword } = req.params;
-    console.log(`keyword : ${keyword}`);
     const { pageNo, contentTypeId, areaCode } = req.query;
-    console.log(`pageNo : ${pageNo} / contentTypeId : ${contentTypeId} / areaCode : ${areaCode}`);
     let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${KNTO_TOUR_KEY}&numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword=${keyword}`;
     if (typeof contentTypeId !== `undefined`) {
       searchUrl = searchUrl + `&contentTypeId=${contentTypeId}`;
@@ -36,6 +32,6 @@ exports.areaSearch = async (req, res) => {
     const areas = originalData.data;
     return res.json(areas);
   } catch (error) {
-    return re.status(400).json(error);
+    return res.status(400).json(error);
   }
 }
