@@ -32,7 +32,7 @@ import ScheduleMod, {
   getSavedList,
   getSavedListDetail,
   getDuplicateCheck,
-  duplicateClear,
+  initializeError,
   deleteSavedList,
 } from "../../modules/schedule/ScheduleMod";
 
@@ -415,6 +415,10 @@ const ProfileCntr = () => {
 
   useEffect(() => {
     setCards(scheduleList);
+    if (addScheduleError === "DUPLICATE") {
+      dispatch(initializeError());
+      return alert("이미 추가된 항목입니다.");
+    }
     dispatch(
       getScheduleList({
         id,
@@ -428,21 +432,27 @@ const ProfileCntr = () => {
         id,
       })
     );
+    if (!savedListDeleteError) {
+      dispatch(initializeError());
+    }
   }, [savedListDeleteError, saveScheduleListError]);
 
   useEffect(() => {
     const valid = (subject) => {
       return /^(?=.*[가-힣])[가-힣]{2,10}$/.test(subject);
     };
+    if (!valid(getSubject)) {
+      dispatch(initializeError());
+    }
     if (duplicateCheck !== null) {
       if (getSubject === "" || getSubject === null) {
-        dispatch(duplicateClear());
+        dispatch(initializeError());
         return alert("제목을 입력해주세요.");
       } else if (duplicateCheck === false) {
-        dispatch(duplicateClear());
+        dispatch(initializeError());
         return alert("같은 이름의 리스트가 이미 존재합니다.");
       } else if (scheduleList?.length === 0) {
-        dispatch(duplicateClear());
+        dispatch(initializeError());
         return alert("스케줄 리스트가 비어있습니다.");
       } else if (duplicateCheck && valid(getSubject)) {
         dispatch(
@@ -510,6 +520,7 @@ const ProfileCntr = () => {
         listModal={listModal}
         onChangeProfileCancle={onChangeProfileCancle}
         onSavedListDelete={onSavedListDelete}
+        addScheduleError={addScheduleError}
       />
     </div>
   );
