@@ -420,6 +420,10 @@ const ProfileCntr = () => {
         id,
       })
     );
+
+    if (addScheduleError === "DUPLICATE") {
+      return alert("이미 추가된 항목입니다.");
+    }
   }, [addScheduleError]);
 
   useEffect(() => {
@@ -510,6 +514,7 @@ const ProfileCntr = () => {
         listModal={listModal}
         onChangeProfileCancle={onChangeProfileCancle}
         onSavedListDelete={onSavedListDelete}
+        addScheduleError={addScheduleError}
       />
     </div>
   );

@@ -11,6 +11,7 @@ const [ADD_WISHLIST, ADD_WISHLIST_SUCCESS, ADD_WISHLIST_FAILURE] =
   createRequestActionTypes("wishList/ADD_WISHLIST");
 const UNLOAD_PAGE = "wishList/UNLOAD_PAGE";
 
+export const initializeWishList = createAction(INITIALIZE);
 export const addWishList = createAction(
   ADD_WISHLIST,
   ({ id, contentid, title, contenttypeid }) => ({

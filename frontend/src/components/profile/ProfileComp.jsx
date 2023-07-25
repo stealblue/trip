@@ -346,6 +346,7 @@ const ProfileComp = ({
   onAddSchedule,
   scheduleList,
   onSaveScheduleList,
+  addScheduleError,
   cards,
   moveCard,
   subjectRef,

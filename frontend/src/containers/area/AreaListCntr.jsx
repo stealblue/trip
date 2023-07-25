@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import AreaListComp from "../../components/area/AreaListComp";
 import { listAreas, unloadPage } from "../../modules/area/AreaMod";
 import ModalBasic from "../../components/common/ModalBasic";
-import Swal from 'sweetalert2';
-import { addWishList } from '../../modules/wishList/WishListMod'
+import Swal from "sweetalert2";
+import {
+  addWishList,
+  initializeWishList,
+} from "../../modules/wishList/WishListMod";
 
 const AreaListCntr = memo(() => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
-
   const dispatch = useDispatch();
 
   // 모달창 노출
@@ -19,60 +21,65 @@ const AreaListCntr = memo(() => {
       title: e.target.dataset.title,
       mapx: e.target.dataset.mapx,
       mapy: e.target.dataset.mapy,
-      addr: e.target.dataset.addr
+      addr: e.target.dataset.addr,
     });
   };
 
   const addWish = (e) => {
     Swal.fire({
-      text: '추가할까요?',
+      text: "추가할까요?",
       showCancelButton: true,
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Add'
+      cancelButtonText: "Cancel",
+      confirmButtonText: "Add",
     })
-      .then(result => {
+      .then((result) => {
         const id = user.id;
         const contentid = e.target.dataset.contentid;
         const title = e.target.dataset.title;
         const contenttypeid = e.target.dataset.contenttypeid;
         if (result.isConfirmed) {
           dispatch(addWishList({ id, contentid, title, contenttypeid }));
-          Swal.fire({
-            icon: 'success',
-            text: `추가했습니다.`,
-          })
         }
       })
-      .catch(error => {
+      .catch((error) => {
         Swal.fire({
-          icon: 'error',
-          text: '추가실패'
-        })
-      })
+          icon: "error",
+          text: "추가실패",
+        });
+      });
+  };
 
-  }
-
-
-
-  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ AreaMod, UserMod, LoadingMod }) => ({
+  const {
+    areas,
+    error,
+    loading,
+    areaCode,
+    pageNo,
+    contentTypeId,
+    user,
+    wishList,
+  } = useSelector(({ AreaMod, UserMod, LoadingMod, WishListMod }) => ({
     areas: AreaMod?.areas,
     error: AreaMod?.error,
     areaCode: AreaMod?.areaCode,
     pageNo: AreaMod?.pageNo,
     contentTypeId: AreaMod?.contentTypeId,
     user: UserMod.user,
-    loading: LoadingMod['area/LIST_AREAS']
+    loading: LoadingMod["area/LIST_AREAS"],
+    wishList: WishListMod.wishList,
   }));
 
   useEffect(() => {
     return () => {
       dispatch(unloadPage());
-    }
+    };
   }, [dispatch]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log(`pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`);
+    if (typeof window !== "undefined") {
+      console.log(
+        `pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`
+      );
       if (pageNo && areaCode && contentTypeId) {
         const numOfRows = 10;
         dispatch(listAreas({ pageNo, areaCode, contentTypeId, numOfRows }));
@@ -80,14 +87,31 @@ const AreaListCntr = memo(() => {
     }
   }, [dispatch, pageNo, areaCode, contentTypeId]);
 
+  useEffect(() => {
+    if (wishList === "DUPLICATE") {
+      Swal.fire({
+        icon: "error",
+        text: `리스트에 이미 추가된 항목입니다.`,
+      });
+      dispatch(initializeWishList());
+    } else if (wishList !== null) {
+      Swal.fire({
+        icon: "success",
+        text: `추가했습니다.`,
+      });
+    }
+  }, [wishList]);
+
   if (!areas) {
-    console.log('내용 없음');
+    console.log("내용 없음");
     return <div>내용 없음</div>;
   }
 
   return (
     <>
-      {modalOpen && <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />}
+      {modalOpen && (
+        <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />
+      )}
       <AreaListComp
         error={error}
         areas={areas}
@@ -95,7 +119,6 @@ const AreaListCntr = memo(() => {
         onClick={onClick}
         addWish={addWish}
       />
-
     </>
   );
 });
