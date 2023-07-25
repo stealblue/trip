@@ -26,7 +26,7 @@ const TrafficContainer = styled.div`
       color: ${ThemeComp.smoke};
     }
     &.traffic-category {
-      background-color: ${ThemeComp.bgcolor};
+      background-color: ${ThemeComp.yellow};
     }
   }
   .icon {
@@ -48,6 +48,11 @@ const TrafficContainer = styled.div`
       border-radius: 30px;
       border: 1px solid #333;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
 
       span {
         margin-left: 30px;
@@ -67,6 +72,7 @@ const TrafficContainer = styled.div`
       width: 100px;
       height: 40px;
       background: ${ThemeComp.smoke};
+      cursor: pointer;
     }
   }
 `;
@@ -168,7 +174,7 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
             <span>도착지</span>
             <span>{end}</span>
           </div>
-          <input type="date" onChange={onChangeDate} value={date} />
+          <input type="date" onChange={onChangeDate} value={date} className="date" />
           {/* <button>검색</button> */}
         </div>
       </TrafficContainer>

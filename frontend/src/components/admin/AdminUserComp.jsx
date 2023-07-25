@@ -19,12 +19,12 @@ const BoardContainer = styled.div`
   background: ${ThemeComp.smoke};
 
   &:first-child {
-    width: 37%;
+    width: 40%;
     height: 100%;
     margin-left: 1%;
   }
   &:last-child {
-    width: 53%;
+    width: 55%;
     margin-left: 2%;
   }
 `;
@@ -71,8 +71,7 @@ const UserInfo = styled.ul`
   /* background: ${ThemeComp.smoke}; */
   border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
-  padding: 14px 0;
-  line-height: 30px;
+  line-height: 60px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -135,7 +134,7 @@ const StyledModal = Modal.styled`
 `;
 
 const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   return (
