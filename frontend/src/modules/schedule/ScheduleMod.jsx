@@ -120,6 +120,7 @@ const ScheduleMod = handleActions(
     [SAVE_LIST_SUCCESS]: (state, { payload: { saveScheduleListError } }) => ({
       ...state,
       saveScheduleListError,
+      scheduleList: null,
     }),
     [SAVE_LIST_FAILURE]: (state, { payload: { saveScheduleListError } }) => ({
       ...state,

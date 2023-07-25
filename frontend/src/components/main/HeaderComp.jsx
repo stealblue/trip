@@ -140,7 +140,7 @@ const HeaderComp = ({ nick, onLogout }) => {
         </Logo>
         <Nav>
           <NavList onClick={onClick}>
-            <Link to="/area">
+            <Link to="/search">
               <span className="nav-item">통합검색</span>
             </Link>
           </NavList>

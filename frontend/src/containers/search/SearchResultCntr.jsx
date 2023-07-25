@@ -11,7 +11,9 @@ import { useLocation } from "react-router-dom";
 
 const SearchResultCntr = () => {
   const location = useLocation();
-  const locationKeyword = location.state.keyword;
+  // if(location.state.keyword){
+  //   const locationKeyword = location.state.keyword;
+  // }
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
 
@@ -75,12 +77,13 @@ const SearchResultCntr = () => {
     if (typeof window !== 'undefined') {
       // console.log(`pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`);
       // if (pageNo && areaCode && contentTypeId) {
-      if (locationKeyword || keyword) {
+      // if (locationKeyword || keyword) {
+      if (keyword) {
         // const numOfRows = 10;
-        dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword: (keyword ? keyword : locationKeyword) }));
+        dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword }));
       }
     }
-  }, [dispatch, pageNo, areaCode, contentTypeId, keyword, locationKeyword]);
+  }, [dispatch, pageNo, areaCode, contentTypeId, keyword]);
   if (!areas) {
     console.log('내용 없음');
     return <div>내용 없음</div>;
