@@ -36,11 +36,11 @@ const RoomList = styled.div`
   margin: 0 auto;
   margin-top: 50px;
 `;
-const AreaItem = ({ area, itemKey, onClick, addWish }) => {
+const AreaItem = ({ area, onClick, addWish }) => {
   return (
-    <AreaItemBlock key={itemKey || area.contentid}>
+    <AreaItemBlock>
       <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />
-      <p>
+      <div>
         <p className="title">{area.title}</p>
         <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
           {area.addr1}
@@ -48,24 +48,25 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
         <span onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
           + 추가
         </span>
-      </p>
+      </div>
     </AreaItemBlock>
   );
 };
 
-const SearchResultComp = ({ areas, error, loading, addWish }) => {
+const SearchResultComp = ({ areas, error, loading, addWish, searchType }) => {
   // const location = useLocation();
   // const keyword = location.state.keyword
+  console.log('areas : ', areas);
   let result;
   let target;
-  if (areas && areas.response && areas.response.body) {
-    result = areas.response?.body;
+  if (areas.areas && areas.areas.response && areas.areas.response.body) {
+    result = areas.areas.response?.body;
     target = result.items.item;
   }
   return (
     <div>
-      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} itemKey={area.contentid} addWish={addWish} />)}</RoomList>
-      <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} />
+      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}</RoomList>
+      {searchType === 'API' ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
     </div>
   );
 };

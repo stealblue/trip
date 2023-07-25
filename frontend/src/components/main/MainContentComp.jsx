@@ -136,7 +136,7 @@ const MaincontentComp = () => {
         </TravelListTitle>
 
         <TravelList>
-          <Swiper slidesPerView={4} spaceBetween={30} autoplay={{ delay: 3000 }} loop={true} loopAdditionalSlides={5} navigation={true} modules={[Navigation, Pagination, Autoplay]} className="mySwiper">
+          <Swiper slidesPerView={4} spaceBetween={30} autoplay={{ delay: 3000 }} loop={true} loopadditionalslides={5} navigation={true} modules={[Navigation, Pagination, Autoplay]} className="mySwiper">
             <SwiperSlide className="bg bg1" onClick={onSwal}>
               <p className="title">제주도</p>
               <p className="place">무지개 해안도로</p>

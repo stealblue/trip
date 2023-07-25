@@ -17,6 +17,7 @@ exports.areaList = async (req, res) => {
 };
 
 exports.areaSearch = async (req, res) => {
+  console.log('들어왓냐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
   try {
     const { keyword } = req.params;
     const { pageNo, contentTypeId, areaCode } = req.query;
@@ -30,8 +31,10 @@ exports.areaSearch = async (req, res) => {
     console.log(`searchUrl : ${searchUrl}`);
     const originalData = await axios.get(searchUrl);
     const areas = originalData.data;
-    return res.json(areas);
+    return res.json({ areas, searchType: 'API' });
+    // return res.json(areas);
   } catch (error) {
+    console.error(error);
     return res.status(400).json(error);
   }
 }

@@ -10,13 +10,15 @@ const SHOW_AREA_CODE = createRequestActionTypes('search/SHOW_AREA_CODE');
 const SHOW_PAGE_NO = createRequestActionTypes('search/SHOW_PAGE_NO');
 const SHOW_CONTENT_TYPE_ID = createRequestActionTypes('search/SHOW_CONTENT_TYPE_ID');
 const SHOW_KEYWORD = createRequestActionTypes('search/SHOW_KEYWORD');
+const SHOW_SEARCH_TYPE = createRequestActionTypes('search/SHOW_SEARCH_TYPE');
 const UNLOAD_PAGE = 'search/UNLOAD_PAGE';
 
-export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode, contentTypeId, keyword }) => ({ pageNo, areaCode, contentTypeId, keyword }));
+export const listAreas = createAction(LIST_AREAS, ({ pageNo, areaCode, contentTypeId, keyword, searchType }) => ({ pageNo, areaCode, contentTypeId, keyword, searchType }));
 export const showAreaCode = createAction(SHOW_AREA_CODE, (areaCode) => (areaCode));
 export const showPageNo = createAction(SHOW_PAGE_NO, (pageNo) => (pageNo));
 export const showContentTypeId = createAction(SHOW_CONTENT_TYPE_ID, (contentTypeId) => (contentTypeId));
 export const showKeyword = createAction(SHOW_KEYWORD, (keyword) => (keyword));
+export const showSearchType = createAction(SHOW_SEARCH_TYPE, (searchType) => (searchType));
 export const unloadPage = createAction(UNLOAD_PAGE);
 
 const listSearchSaga = createRequestSaga(LIST_AREAS, areaAPI.listSearch);
@@ -30,8 +32,9 @@ const initialState = {
   pageNo: 1,
   contentTypeId: null,
   keyword: null,
+  searchType: null,
   areas: null,
-  error: null,
+  error: null
 };
 
 const SearchMod = handleActions(
@@ -40,6 +43,7 @@ const SearchMod = handleActions(
     [LIST_AREAS_SUCCESS]: (state, { payload: areas }) =>
       produce(state, (draft) => {
         draft.areas = areas;
+        // draft.searchType = searchType;
       }),
     [LIST_AREAS_FAILURE]: (state, { payload: error }) =>
       produce(state, (draft) => {
@@ -56,6 +60,10 @@ const SearchMod = handleActions(
     [SHOW_KEYWORD]: (state, { payload: keyword }) =>
       produce(state, (draft) => {
         draft.keyword = keyword;
+      }),
+    [SHOW_SEARCH_TYPE]: (state, { payload: searchType }) =>
+      produce(state, (draft) => {
+        draft.searchType = searchType
       }),
     [SHOW_CONTENT_TYPE_ID]: (state, { payload: contentTypeId }) =>
       produce(state, (draft) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchComp from '../../components/search/SearchComp';
 import { useDispatch, useSelector } from "react-redux";
 import { unloadPage, showAreaCode, showPageNo, showContentTypeId, showKeyword } from '../../modules/search/SearchMod';
@@ -12,15 +12,18 @@ const contentTypes = [
 
 const SearchCntr = () => {
 
-  const dispatch = useDispatch();
-
-  const { areaCode, contentTypeId, keyword, page, loading } = useSelector(({ SearchMod, LoadingMod }) => ({
+  const { areaCode, keyword, loading, searchType } = useSelector(({ SearchMod, LoadingMod }) => ({
     areaCode: SearchMod.areaCode,
-    contentTypeId: SearchMod.contentTypeId,
     keyword: SearchMod.keyword,
-    page: SearchMod.page,
+    searchType: SearchMod.searchType,
     loading: LoadingMod
   }));
+
+  const [searchKeyword, setSearchKeyword] = useState(keyword || '');
+
+  const dispatch = useDispatch();
+
+
 
   const onClickArea = (e) => {
     const areaCode = e.target.dataset.value;
@@ -43,9 +46,21 @@ const SearchCntr = () => {
     }
   };
 
+  const onChange = (e) => {
+    setSearchKeyword(e.target.value);
+  }
+
   return (
     <div>
-      <SearchComp onClickArea={onClickArea} areaCode={areaCode} contentTypes={contentTypes} onSelectedContentType={onSelectedContentType} onSearchArea={onSearchArea} />
+      <SearchComp
+        onClickArea={onClickArea}
+        areaCode={areaCode}
+        contentTypes={contentTypes}
+        onSelectedContentType={onSelectedContentType}
+        onSearchArea={onSearchArea}
+        searchKeyword={searchKeyword}
+        onChange={onChange}
+      />
     </div>
   );
 };

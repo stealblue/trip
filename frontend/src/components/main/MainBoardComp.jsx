@@ -74,8 +74,7 @@ const BoardListItem = ({ post }) => {
     return <div>오류</div>;
   }
 
-  const { no, id, title, content, createAt } = post;
-  console.log("content : ", content);
+  const { no, id, title, createAt } = post;
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -83,7 +82,6 @@ const BoardListItem = ({ post }) => {
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
-            {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
             <p className="createat"> {createAt.substr(0, 10)}</p>
           </div>
