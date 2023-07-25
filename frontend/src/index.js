@@ -10,27 +10,27 @@ import App from "./App";
 import { tempSetUser, check } from "./modules/auth/UserMod";
 import { ModalProvider } from "styled-react-modal";
 // import { persistStore } from 'redux-persist'
-import { createLogger } from "redux-logger";
+// import { createLogger } from "redux-logger";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-const middlewares = [sagaMiddleware];
+// const middlewares = [sagaMiddleware];
 
-sagaMiddleware.run(rootSaga);
+// sagaMiddleware.run(rootSaga);
 
 // export const persistor = persistStore(store)
 
-const notLogged = ["persist/PERSIST", "persist/REHYDRATE"];
+// const notLogged = ["persist/PERSIST", "persist/REHYDRATE"];
 
-const logger = createLogger({
-  predicate: (getState, action) => !notLogged.includes(action.type),
-});
+// const logger = createLogger({
+//   predicate: (getState, action) => !notLogged.includes(action.type),
+// });
 
-if (process.env.NODE_ENV === "development") {
-  middlewares.push(logger);
-}
+// if (process.env.NODE_ENV === "development") {
+//   middlewares.push(logger);
+// }
 
 function loadUser() {
   const user = localStorage.getItem("USER");

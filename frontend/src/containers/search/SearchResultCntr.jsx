@@ -100,7 +100,7 @@ const SearchResultCntr = () => {
         // onClickTest={onClickTest}
         addWish={addWish}
       />
-      <PageNavComp4 />
+
     </>
   );
 };

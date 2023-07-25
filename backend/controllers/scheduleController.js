@@ -73,16 +73,49 @@ exports.getSavedList = async (req, res) => {
     }
 }
 
-exports.getSavedListDetail = async (req, res) => {
-    const { id, subject} = req.params;
+exports.deleteSavedList = async (req, res) => {
+    const { id, _id } = req.params;
 
     try {
+        const exSavedList = await wishListArray.find({
+            "_id": _id, "name.id": id,
+        });
 
+        if (exSavedList) {
+            await wishListArray.deleteOne({"_id": _id, "name.id": id,});
+            res.status(200).json({ savedListDeleteError: false });
+        }
+    } catch (e) {
+        console.error(e);
+        res.status(200).json({ savedListDeleteError: true });
+    }
+}
+
+exports.getSavedListDetail = async (req, res) => {
+    const { id, subject } = req.params;
+
+    try {
         const savedListDetail = await wishListArray.findOne({"name.id":id, "name.subject": subject});
 
         res.status(200).json({savedListDetail});
     } catch (e) {
         console.error(e);
         res.status(400).json({savedListDetailError: true});
+    }
+}
+
+exports.getDuplicateCheck = async (req, res) => {
+    const { id, subject} = req.params;
+
+    try {
+        const exSubject = await wishListArray.findOne({"name.id":id, "name.subject": subject});
+
+        if (exSubject) {
+            return res.status(200).json({duplicateCheck: false});
+        }
+        return res.status(200).json({duplicateCheck: true});
+    } catch (e) {
+        console.error(e);
+        return res.status(400).json({duplicateCheck: false});
     }
 }

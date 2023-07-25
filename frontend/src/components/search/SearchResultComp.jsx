@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
-// import PageNavComp2 from "../common/PageNavComp2";
+import PageNavComp4 from "../common/PageNavComp4";
 import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
@@ -65,7 +65,7 @@ const SearchResultComp = ({ areas, error, loading, addWish }) => {
   return (
     <div>
       <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} itemKey={area.contentid} addWish={addWish} />)}</RoomList>
-      {/* <PageNavComp2 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} /> */}
+      <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} />
     </div>
   );
 };

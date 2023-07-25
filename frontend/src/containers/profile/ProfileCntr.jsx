@@ -31,6 +31,9 @@ import ScheduleMod, {
   getScheduleList,
   getSavedList,
   getSavedListDetail,
+  getDuplicateCheck,
+  duplicateClear,
+  deleteSavedList,
 } from "../../modules/schedule/ScheduleMod";
 
 const ProfileCntr = () => {
@@ -67,8 +70,10 @@ const ProfileCntr = () => {
     saveScheduleListError,
     savedList,
     savedListError,
+    savedListDeleteError,
     savedListDetail,
     scheduleListError,
+    duplicateCheck,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
     img_: ProfileMod.img,
@@ -99,13 +104,16 @@ const ProfileCntr = () => {
     savedList: ScheduleMod.savedList,
     scheduleListError: ScheduleMod.scheduleListError,
     saveScheduleListError: ScheduleMod.saveScheduleListError,
+    savedListDeleteError: ScheduleMod.savedListDeleteError,
     savedListDetail: ScheduleMod.savedListDetail,
+    duplicateCheck: ScheduleMod.duplicateCheck,
   }));
   const [changeInform, setChangeInform] = useState(false);
   const [boardType, setBoardType] = useState();
   const [content, setContent] = useState();
   const [userImg, setUserImg] = useState();
   const [newSchedule, setNewSchedule] = useState();
+  const [getSubject, setGetSubject] = useState(null);
   const [cards, setCards] = useState(scheduleList);
   const subjectRef = useRef("");
 
@@ -174,9 +182,10 @@ const ProfileCntr = () => {
       })
     );
   };
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////작업중
+
   const onGetWishList = () => {
     setBoardType("SCHEDULER");
+    setCards(scheduleList);
     dispatch(
       getWishList({
         id,
@@ -218,14 +227,23 @@ const ProfileCntr = () => {
 
   const onSaveScheduleList = () => {
     const subject = subjectRef.current.value;
+    setGetSubject(subject);
+
     dispatch(
-      saveList({
+      getDuplicateCheck({
         id,
         subject,
-        scheduleList: cards,
       })
     );
-    setCards();
+  };
+
+  const onSavedListDelete = (_id) => {
+    dispatch(
+      deleteSavedList({
+        id,
+        _id,
+      })
+    );
   };
 
   const onGetSavedListDetail = (id, subject) => {
@@ -237,7 +255,7 @@ const ProfileCntr = () => {
       })
     );
   };
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////작업중
+
   const onChange = (e) => {
     const { value } = e.target;
     dispatch(
@@ -296,6 +314,10 @@ const ProfileCntr = () => {
         })
       );
     }
+  };
+
+  const onChangeProfileCancle = () => {
+    setChangeInform(!changeInform);
   };
 
   const onNickCheck = () => {
@@ -390,7 +412,7 @@ const ProfileCntr = () => {
       dispatch(check()); //닉네임 변경시 check해줌으로써 UserMod.user 값 갱신해줌
     }
   }, [nickAuth]);
-  ///////////////////////////////////////////////////////
+
   useEffect(() => {
     setCards(scheduleList);
     dispatch(
@@ -399,13 +421,44 @@ const ProfileCntr = () => {
       })
     );
   }, [addScheduleError]);
+
   useEffect(() => {
     dispatch(
       getSavedList({
         id,
       })
     );
-  }, [saveScheduleListError]);
+  }, [savedListDeleteError, saveScheduleListError]);
+
+  useEffect(() => {
+    const valid = (subject) => {
+      return /^(?=.*[가-힣])[가-힣]{2,10}$/.test(subject);
+    };
+    if (duplicateCheck !== null) {
+      if (getSubject === "" || getSubject === null) {
+        dispatch(duplicateClear());
+        return alert("제목을 입력해주세요.");
+      } else if (duplicateCheck === false) {
+        dispatch(duplicateClear());
+        return alert("같은 이름의 리스트가 이미 존재합니다.");
+      } else if (scheduleList?.length === 0) {
+        dispatch(duplicateClear());
+        return alert("스케줄 리스트가 비어있습니다.");
+      } else if (duplicateCheck && valid(getSubject)) {
+        dispatch(
+          saveList({
+            id,
+            subject: getSubject,
+            scheduleList: cards,
+          })
+        );
+        subjectRef.current.value = "";
+        setCards();
+      } else {
+        return alert("제목은 2자 이상, 10자 이하 한글만 가능합니다.");
+      }
+    }
+  }, [duplicateCheck]);
 
   return (
     <div>
@@ -455,6 +508,8 @@ const ProfileCntr = () => {
         onGetSavedListDetail={onGetSavedListDetail}
         savedListDetail={savedListDetail}
         listModal={listModal}
+        onChangeProfileCancle={onChangeProfileCancle}
+        onSavedListDelete={onSavedListDelete}
       />
     </div>
   );
