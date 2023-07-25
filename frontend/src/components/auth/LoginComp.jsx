@@ -192,7 +192,6 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
               <FontAwesomeIcon icon={faHouse} size="2xl" />
             </div>
           </Link>
-
           <h2 className="logo">
             <img src="/assets/triplogo.png" alt="" />
           </h2>
@@ -262,6 +261,8 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
               </div>
             )}
           </StyledModal>
+          아직 회원이 아니세요?
+          <button className="login-btn">LOGIN</button>
         </LoginWrapper>
       </LoginPageContainer>
     </motion.div>

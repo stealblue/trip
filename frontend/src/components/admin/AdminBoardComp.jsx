@@ -80,8 +80,7 @@ const BoardInfo = styled.div`
   /* background: ${ThemeComp.smoke}; */
   border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
-  padding: 14px 0;
-  line-height: 30px;
+  line-height: 6op0px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -186,7 +185,7 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
 
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물</span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물 / </span>
           <span>총 게시물 수({totalBoard})개</span>
         </BoardName>
         <Board>
