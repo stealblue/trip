@@ -5,7 +5,7 @@ import createRequestSaga, {
 import * as scheduleAPI from "../../lib/api/schedule";
 import { takeLatest } from "redux-saga/effects";
 
-const DUPLICATE_CLEAR = createRequestActionTypes("schedule/DUPLICATE_CLEAR");
+const INITIALIZE_ERROR = createRequestActionTypes("schedule/INITIALIZE_ERROR");
 const [ADD_SCHEDULE, ADD_SCHEDULE_SUCCESS, ADD_SCHEDULE_FAILURE] =
   createRequestActionTypes("schedule/ADD_SCHEDULE");
 const [
@@ -77,7 +77,7 @@ export const getDuplicateCheck = createAction(
     subject,
   })
 );
-export const duplicateClear = createAction(DUPLICATE_CLEAR);
+export const initializeError = createAction(INITIALIZE_ERROR);
 
 const addScheduleSaga = createRequestSaga(
   ADD_SCHEDULE,
@@ -130,9 +130,11 @@ const initialState = {
 
 const ScheduleMod = handleActions(
   {
-    [DUPLICATE_CLEAR]: (state) => ({
+    [INITIALIZE_ERROR]: (state) => ({
       ...state,
+      addScheduleError: null,
       duplicateCheck: null,
+      savedListDeleteError: null,
     }),
     [ADD_SCHEDULE_SUCCESS]: (state, { payload: { addScheduleError } }) => ({
       ...state,

@@ -3,29 +3,21 @@ const { wishList } = require("../models/mysql/index");
 
 exports.addSchedule = async (req, res) => {
     const { id, contentId, title, contentTypeId } = req.body;
-    
+
     try {
-        // const exScheduleList = await wishListArray.find({
-        //     "items.contentId": contentId,
-        // }).exec();
-        
-        // if (exScheduleList) {
-        //     return res.status(200).json({ addScheduleError: "DUPLICATE" });
-        // }
+        const exScheduleList = await wishListArray.find({
+                "items.contentId" : contentId
+        }).exec();
+
+        if (exScheduleList.length !== 0) {
+            return res.status(200).json({ addScheduleError: "DUPLICATE" });
+        }
 
         const addSchedule = await wishListArray.create({
             items: { id, contentId, title, contentTypeId },
         }, { where: { _id: id } });
-        
-        if (addSchedule) {
-            const aleadyMovedWish = await wishList.findOne({
-                where: {
-                    contentId,
-                }
-            });
-            await aleadyMovedWish.destroy();
-        }
-        res.status(200).json({ addScheduleError: false });
+
+        return res.status(200).json({ addScheduleError: false });
     } catch (e) {
         console.error(e);
         res.status(400).json({ addScheduleError: true });
