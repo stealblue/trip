@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import RoomListComp from "../../components/room/RoomListComp";
 import { listAreas, unloadPage } from "../../modules/room/LodgingMod";
 import ModalBasic from "../../components/common/ModalBasic";
-import Swal from 'sweetalert2';
-import { addWishList } from '../../modules/wishList/WishListMod'
+import Swal from "sweetalert2";
+import {
+  addWishList,
+  initializeWishList,
+} from "../../modules/wishList/WishListMod";
 
 const RoomListCntr = ({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,61 +19,67 @@ const RoomListCntr = ({ onClickTest }) => {
     setMapData({
       title: e.target.dataset.title,
       mapx: e.target.dataset.mapx,
-      mapy: e.target.dataset.mapy
+      mapy: e.target.dataset.mapy,
     });
   };
 
   const addWish = (e) => {
     Swal.fire({
-      text: '추가할까요?',
+      text: "추가할까요?",
       showCancelButton: true,
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Add'
+      cancelButtonText: "Cancel",
+      confirmButtonText: "Add",
     })
-      .then(result => {
+      .then((result) => {
         const id = user.id;
         const contentid = e.target.dataset.contentid;
         const title = e.target.dataset.title;
         const contenttypeid = e.target.dataset.contenttypeid;
         if (result.isConfirmed) {
           dispatch(addWishList({ id, contentid, title, contenttypeid }));
-          Swal.fire({
-            icon: 'success',
-            text: `추가했습니다.`,
-          })
         }
       })
-      .catch(error => {
+      .catch((error) => {
         Swal.fire({
-          icon: 'error',
-          text: '추가실패'
-        })
-      })
-
-  }
-
+          icon: "error",
+          text: "추가실패",
+        });
+      });
+  };
 
   const dispatch = useDispatch();
 
-  const { areas, error, loading, areaCode, pageNo, contentTypeId, user } = useSelector(({ LodgingMod, LoadingMod, UserMod }) => ({
+  const {
+    areas,
+    error,
+    loading,
+    areaCode,
+    pageNo,
+    contentTypeId,
+    user,
+    wishList,
+  } = useSelector(({ LodgingMod, LoadingMod, UserMod, WishListMod }) => ({
     areas: LodgingMod?.areas,
     error: LodgingMod?.error,
     areaCode: LodgingMod?.areaCode,
     pageNo: LodgingMod?.pageNo,
     contentTypeId: LodgingMod?.contentTypeId,
     user: UserMod.user,
-    loading: LoadingMod['room/LIST_AREAS']
+    loading: LoadingMod["room/LIST_AREAS"],
+    wishList: WishListMod.wishList,
   }));
 
   useEffect(() => {
     return () => {
       dispatch(unloadPage());
-    }
+    };
   }, [dispatch]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log(`pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`);
+    if (typeof window !== "undefined") {
+      console.log(
+        `pageNo : ${pageNo}  / areaCode : ${areaCode}   / contentTypeId : ${contentTypeId}`
+      );
       if (pageNo && areaCode && contentTypeId) {
         const numOfRows = 9;
         dispatch(listAreas({ pageNo, areaCode, contentTypeId, numOfRows }));
@@ -78,14 +87,31 @@ const RoomListCntr = ({ onClickTest }) => {
     }
   }, [dispatch, pageNo, areaCode, contentTypeId]);
 
+  useEffect(() => {
+    if (wishList === "DUPLICATE") {
+      Swal.fire({
+        icon: "error",
+        text: `리스트에 이미 추가된 항목입니다.`,
+      });
+      dispatch(initializeWishList());
+    } else if (wishList !== null) {
+      Swal.fire({
+        icon: "success",
+        text: `추가했습니다.`,
+      });
+    }
+  }, [wishList]);
+
   if (!areas) {
-    console.log('내용 없음');
+    console.log("내용 없음");
     return <div>내용 없음</div>;
   }
 
   return (
     <>
-      {modalOpen && <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />}
+      {modalOpen && (
+        <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />
+      )}
       <RoomListComp
         error={error}
         areas={areas}
@@ -94,7 +120,6 @@ const RoomListCntr = ({ onClickTest }) => {
         onClickTest={onClickTest}
         addWish={addWish}
       />
-
     </>
   );
 };
