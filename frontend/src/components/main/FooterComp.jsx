@@ -12,6 +12,7 @@ const FooterComp = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 100px;
 
   .footer-menu {
     display: flex;
