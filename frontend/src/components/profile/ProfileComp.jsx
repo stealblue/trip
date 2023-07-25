@@ -363,6 +363,7 @@ const ProfileComp = ({
   onGetSavedListDetail,
   savedListDetail,
   listModal,
+  setListModal,
   onChangeProfileCancle,
   onSavedListDelete,
 }) => {
@@ -374,7 +375,11 @@ const ProfileComp = ({
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
+            {user?.img ? (
+              <ImageBox src={`/assets/${user.img}`} alt="img" />
+            ) : (
+              <ImageBox src={"/assets/triplogo.png"} alt="img" />
+            )}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
             <Button onClick={onChangePhoto} className="change-btn">
               사진변경
@@ -415,7 +420,15 @@ const ProfileComp = ({
                 <NameTag>닉네임</NameTag>
                 <InputBox placeholder={"닉네임"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
-                <div>{nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}</div>
+                <div>
+                  {nickError ? (
+                    <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
+                  ) : nickAuth ? (
+                    <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </UserInform>
 
               <UserInform>
@@ -440,7 +453,10 @@ const ProfileComp = ({
               회원탈퇴
             </Button>
             {changeInform && (
-              <Button style={{ marginLeft: "10px" }} onClick={onChangeProfileCancle}>
+              <Button
+                style={{ marginLeft: "10px" }}
+                onClick={onChangeProfileCancle}
+              >
                 수정취소
               </Button>
             )}
@@ -448,10 +464,18 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
-        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
-        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
-        <SelectButton onClick={onGetWishList}>wishList ({totalWish})</SelectButton>
+        <SelectButton onClick={onGetBoardList}>
+          게시물 ({totalBoard})
+        </SelectButton>
+        <SelectButton onClick={onGetReplyList}>
+          댓글 ({totalReply})
+        </SelectButton>
+        <SelectButton onClick={onGetLikeList}>
+          좋아요 ({totalLike})
+        </SelectButton>
+        <SelectButton onClick={onGetWishList}>
+          wishList ({totalWish})
+        </SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -466,7 +490,9 @@ const ProfileComp = ({
             {boardList?.map((board) => (
               <Item key={board.no}>
                 <BoardInfo>
-                  <li onClick={() => onGetBoardDetail(board.no)}>{board.title}</li>
+                  <li onClick={() => onGetBoardDetail(board.no)}>
+                    {board.title}
+                  </li>
                   <li>{board.content}</li>
                   <li>{board.createAt.substr(0, 10)}</li>
                   <li>
@@ -479,12 +505,23 @@ const ProfileComp = ({
                   </li>
 
                   <li>
-                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
+                    <Button onClick={() => onDeleteBoard(board.no)}>
+                      삭제
+                    </Button>
                   </li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{boardList && <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {boardList && (
+                <PaginationComp
+                  total={boardList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
@@ -496,16 +533,29 @@ const ProfileComp = ({
             {replyList.slice(offset, offset + limit).map((reply) => (
               <Item key={reply.no}>
                 <BoardInfo>
-                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.id}</li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>
+                    {reply.id}
+                  </li>
                   <li>{reply.content}</li>
                   <li>{reply.createAt.substr(0, 10)}</li>
                   <li>
-                    <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
+                    <Button onClick={() => onDeleteReply(reply.no)}>
+                      삭제
+                    </Button>
                   </li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{replyList && <PaginationComp total={replyList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {replyList && (
+                <PaginationComp
+                  total={replyList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
@@ -527,7 +577,16 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {likeList && (
+                <PaginationComp
+                  total={likeList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </LikeBox>
         ) : (
           <AllScheduleBox>
@@ -545,7 +604,8 @@ const ProfileComp = ({
                         title: Wish.title,
                         contentTypeId: Wish.contentTypeId,
                       })
-                    }>
+                    }
+                  >
                     +
                   </Button>
                   <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
@@ -574,10 +634,20 @@ const ProfileComp = ({
               {savedList?.map((list) => (
                 <>
                   <SavedListBox>
-                    <SavedList key={list._id} onClick={() => onGetSavedListDetail(list.name[0].id, list.name[0].subject)}>
+                    <SavedList
+                      key={list._id}
+                      onClick={() =>
+                        onGetSavedListDetail(
+                          list.name[0].id,
+                          list.name[0].subject
+                        )
+                      }
+                    >
                       {list.name[0].subject}
                     </SavedList>
-                    <Button onClick={() => onSavedListDelete(list._id)}>x</Button>
+                    <Button onClick={() => onSavedListDelete(list._id)}>
+                      x
+                    </Button>
                   </SavedListBox>
                 </>
               ))}
@@ -587,10 +657,15 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                <SheduleTitleBox>{savedListDetail?.name[0].subject}</SheduleTitleBox>
+                <SheduleTitleBox>
+                  {savedListDetail?.name[0].subject}
+                </SheduleTitleBox>
                 {savedListDetail?.name[0].scheduleList.map((detail) => (
-                  <ShceduleBox key={detail.items[0].contentId}>{detail.items[0].title}</ShceduleBox>
+                  <ShceduleBox key={detail.items[0].contentId}>
+                    {detail.items[0].title}
+                  </ShceduleBox>
                 ))}
+                <Button onClick={onGetSavedListDetail}>닫기</Button>
               </StyledModal>
             </AfterBox>
           </AllScheduleBox>

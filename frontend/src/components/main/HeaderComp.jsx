@@ -109,7 +109,7 @@ const Spacer = styled.div`
   height: 10rem;
 `;
 
-const HeaderComp = ({ nick, onLogout }) => {
+const HeaderComp = ({ nick, onLogout, grade }) => {
   // const [color, setColor] = useState('#111');
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -132,7 +132,9 @@ const HeaderComp = ({ nick, onLogout }) => {
   });
   return (
     <>
-      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
+      <HeaderContainer
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+      >
         <Logo onClick={onClick}>
           <Link to="/">
             <img src="/assets/triplogo8.png" alt="img" />
@@ -174,7 +176,11 @@ const HeaderComp = ({ nick, onLogout }) => {
           <div>
             <div className="welecome">{nick}님 환영합니다!</div>
             <LoginCategory onClick={onClick}>
-              <Link to={`/profile/${nick}`}>마이페이지</Link>
+              {grade === 1 ? (
+                <Link to={`/profile/${nick}`}>마이페이지</Link>
+              ) : (
+                <Link to={"/admin/user"}>관리자페이지</Link>
+              )}
             </LoginCategory>
             <LoginCategory onClick={onClick}>
               <span className="logout" onClick={onLogout}>
