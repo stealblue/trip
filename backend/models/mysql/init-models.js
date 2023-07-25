@@ -4,6 +4,7 @@ var _busTerminal = require("./busTerminal");
 var _busType = require("./busType");
 var _like = require("./like");
 var _reply = require("./reply");
+var _theme = require("./theme");
 var _trainStation = require("./trainStation");
 var _trainType = require("./trainType");
 var _user = require("./user");
@@ -15,6 +16,7 @@ function initModels(sequelize) {
   var busType = _busType(sequelize, DataTypes);
   var like = _like(sequelize, DataTypes);
   var reply = _reply(sequelize, DataTypes);
+  var theme = _theme(sequelize, DataTypes);
   var trainStation = _trainStation(sequelize, DataTypes);
   var trainType = _trainType(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
@@ -39,6 +41,7 @@ function initModels(sequelize) {
     busType,
     like,
     reply,
+    theme,
     trainStation,
     trainType,
     user,
