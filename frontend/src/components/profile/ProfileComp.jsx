@@ -495,7 +495,11 @@ const ProfileComp = ({
                   <li onClick={() => onGetBoardDetail(board.no)}>
                     {board.title}
                   </li>
-                  <li>{board.content}</li>
+                  <li
+                    dangerouslySetInnerHTML={{
+                      __html: board.content,
+                    }}
+                  ></li>
                   <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
@@ -654,12 +658,6 @@ const ProfileComp = ({
                       {wish?.data?.foodplace ? wish.data.foodplace : "-"}
                     </div>
                     <div>
-                      예약 링크 :
-                      {wish?.data?.reservationurl
-                        ? wish.data.reservationurl
-                        : "-"}
-                    </div>
-                    <div>
                       전화번호 :
                       {wish?.data?.infocenterlodging
                         ? wish.data.infocenterlodging
@@ -681,6 +679,18 @@ const ProfileComp = ({
                       건물 이용 범위 :
                       {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}
                     </div>
+                    {wish?.data?.reservationurl ? (
+                      <div>
+                        홈페이지 링크 :
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.reservationurl,
+                          }}
+                        ></div>
+                      </div>
+                    ) : (
+                      <div>홈페이지 링크 : -</div>
+                    )}
                   </>
                 ) : (
                   <>
@@ -695,9 +705,18 @@ const ProfileComp = ({
                     <div>
                       컨텐츠 :{wish?.data?.expguide ? wish.data.expguide : "-"}
                     </div>
-                    <div>
-                      이용시간 :{wish?.data?.usetime ? wish.data.usetime : "-"}
-                    </div>
+                    {wish?.data?.usetime ? (
+                      <div>
+                        이용시간 :
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.usetime,
+                          }}
+                        ></div>
+                      </div>
+                    ) : (
+                      <div>이용시간 : -</div>
+                    )}
                     <div>
                       주차 가능여부 :
                       {wish?.data?.parking ? wish.data.parking : "-"}

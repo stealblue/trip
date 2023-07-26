@@ -85,10 +85,6 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
               이용시설 :{onGetDetail?.foodplace ? onGetDetail.foodplace : "-"}
             </div>
             <div>
-              예약 링크 :
-              {onGetDetail?.reservationurl ? onGetDetail.reservationurl : "-"}
-            </div>
-            <div>
               전화번호 :
               {onGetDetail?.infocenterlodging
                 ? onGetDetail.infocenterlodging
@@ -108,6 +104,18 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
               건물 이용 범위 :
               {onGetDetail?.scalelodging ? onGetDetail.scalelodging : "-"}
             </div>
+            {onGetDetail?.reservationurl ? (
+              <div>
+                예약링크 :
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: onGetDetail.reservationurl,
+                  }}
+                ></div>
+              </div>
+            ) : (
+              <div>예약링크 : -</div>
+            )}
           </>
         ) : (
           <>
@@ -120,9 +128,18 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
             <div>
               컨텐츠 :{onGetDetail?.expguide ? onGetDetail.expguide : "-"}
             </div>
-            <div>
-              이용시간 :{onGetDetail?.usetime ? onGetDetail.usetime : "-"}
-            </div>
+            {onGetDetail?.usetime ? (
+              <div>
+                이용시간 :
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: onGetDetail.usetime,
+                  }}
+                ></div>
+              </div>
+            ) : (
+              <div>이용시간 : -</div>
+            )}
             <div>
               주차 가능여부 : {onGetDetail?.parking ? onGetDetail.parking : "-"}
             </div>
