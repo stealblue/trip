@@ -103,41 +103,40 @@ const Main = () => {
       const keyword = `${e.target.value}`;
       dispatch(showKeyword(keyword));
       navigate('/search');
-      // navigate("/search", { state: { keyword } });
-    } else if (e.button === 0) {
+    } else if (e.button === 0) { // 마우스 왼쪽
       const keyword = `${e.target.dataset.keyword}`;
+      console.log('keyword : ', e.target);
       dispatch(showKeyword(keyword));
       navigate('/search');
-      // navigate("/search", { state: { keyword } });
     }
   };
 
-  const onSwal = () => {
-    Swal.fire({
-      icon: "info",
-      title: "구현 중",
-    });
-  };
+  // const onSwal = () => {
+  //   Swal.fire({
+  //     icon: "info",
+  //     title: "구현 중",
+  //   });
+  // };
 
   return (
     <>
       <SlideWarraper>
         <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
-          <SwiperSlide onClick={onSwal}>
+          <SwiperSlide>
             <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
                 <FadeInLeft>
                   <h3>바다로 떠나는 여행</h3>
                   <p>
-                    <span>전국 곳곳 바다여행 알아보기</span>
+                    <span onClick={onSearchArea} data-keyword="바다">전국 곳곳 바다여행 알아보기</span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide onClick={onSwal}>
+          <SwiperSlide >
             <img src="/assets/mainslide2.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
@@ -146,28 +145,28 @@ const Main = () => {
                     하늘에서 즐기는 <br /> 액티비티한 여행
                   </h3>
                   <p>
-                    <span>액티비티 여행 찾아보기</span>
+                    <span onClick={onSearchArea} data-keyword="액티비티">액티비티 여행 찾아보기</span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide onClick={onSwal}>
+          <SwiperSlide>
             <img src="/assets/mainslide3.jpg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
                 <FadeInLeft>
                   <h3>아름다운 풍경과 마주하는 여행</h3>
                   <p>
-                    <span>전국 풍경 명소 찾아보기</span>
+                    <span onClick={onSearchArea} data-keyword="풍경명소">전국 풍경 명소 찾아보기</span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide onClick={onSwal}>
+          <SwiperSlide>
             <img src="/assets/mainslide4.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
@@ -177,7 +176,7 @@ const Main = () => {
                     한옥을 즐기고 싶다면
                   </h3>
                   <p>
-                    <span>아름다운 한옥펜션 알아보기</span>
+                    <span onClick={onSearchArea} data-keyword="한옥펜션">아름다운 한옥펜션 알아보기</span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
