@@ -254,9 +254,9 @@ exports.getWishDetail = async (req, res) => {
 		}
 
 		const exWish = await axios.get(`https://apis.data.go.kr/B551011/KorService1/detailIntro1?serviceKey=${KNTO_TOUR_KEY}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=${contentId}&contentTypeId=${contentTypeId}`)
-		const data = exWish.data;
+		const detail = exWish.data.response.body.items.item[0];
 		
-		return res.status(200).json({ wish: { title, data } });
+		return res.status(200).json({ wish: { title, data: detail } });
 	} catch (e) {
 		console.error(e);
 		res.status(400).json({wishError: true});

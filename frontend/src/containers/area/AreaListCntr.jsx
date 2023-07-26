@@ -8,21 +8,54 @@ import {
   addWishList,
   initializeWishList,
 } from "../../modules/wishList/WishListMod";
+import AreaListMod, { listDetail } from "../../modules/area/AreaListMod";
 
 const AreaListCntr = memo(() => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
+  const [onGetDetail, setOnGetDetail] = useState();
   const dispatch = useDispatch();
+  const {
+    areas,
+    error,
+    loading,
+    areaCode,
+    pageNo,
+    contentTypeId,
+    user,
+    wishList,
+    getDetail,
+  } = useSelector(
+    ({ AreaMod, UserMod, LoadingMod, WishListMod, AreaListMod }) => ({
+      areas: AreaMod?.areas,
+      error: AreaMod?.error,
+      areaCode: AreaMod?.areaCode,
+      pageNo: AreaMod?.pageNo,
+      contentTypeId: AreaMod?.contentTypeId,
+      user: UserMod.user,
+      loading: LoadingMod["area/LIST_AREAS"],
+      wishList: WishListMod.wishList,
+      getDetail: AreaListMod.getDetail,
+    })
+  );
 
   // 모달창 노출
   const onClick = (e) => {
+    const { title, mapx, mapy, addr, contentid, contenttypeid } =
+      e.target.dataset;
     setModalOpen(true);
     setMapData({
-      title: e.target.dataset.title,
-      mapx: e.target.dataset.mapx,
-      mapy: e.target.dataset.mapy,
-      addr: e.target.dataset.addr,
+      title,
+      mapx,
+      mapy,
+      addr,
     });
+    dispatch(
+      listDetail({
+        contentId: contentid,
+        contentTypeId: contenttypeid,
+      })
+    );
   };
 
   const addWish = (e) => {
@@ -48,26 +81,6 @@ const AreaListCntr = memo(() => {
         });
       });
   };
-
-  const {
-    areas,
-    error,
-    loading,
-    areaCode,
-    pageNo,
-    contentTypeId,
-    user,
-    wishList,
-  } = useSelector(({ AreaMod, UserMod, LoadingMod, WishListMod }) => ({
-    areas: AreaMod?.areas,
-    error: AreaMod?.error,
-    areaCode: AreaMod?.areaCode,
-    pageNo: AreaMod?.pageNo,
-    contentTypeId: AreaMod?.contentTypeId,
-    user: UserMod.user,
-    loading: LoadingMod["area/LIST_AREAS"],
-    wishList: WishListMod.wishList,
-  }));
 
   useEffect(() => {
     return () => {
@@ -103,6 +116,10 @@ const AreaListCntr = memo(() => {
     }
   }, [wishList]);
 
+  useEffect(() => {
+    setOnGetDetail(getDetail);
+  }, [getDetail]);
+
   if (!areas) {
     console.log("내용 없음");
     return <div>내용 없음</div>;
@@ -111,7 +128,11 @@ const AreaListCntr = memo(() => {
   return (
     <>
       {modalOpen && (
-        <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />
+        <ModalBasic
+          setModalOpen={setModalOpen}
+          mapData={mapData}
+          onGetDetail={onGetDetail}
+        />
       )}
       <AreaListComp
         error={error}

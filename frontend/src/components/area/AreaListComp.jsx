@@ -56,21 +56,54 @@ const AreaItemBlock = styled.div`
   }
 `;
 
+const StyledP = styled.p`
+  cursor: pointer;
+
+  &: hover {
+    font-weight: 700;
+  }
+`;
+
 const AreaItem = ({ area, onClick, addWish }) => {
   return (
     <AreaItemBlock>
       <div>
         <div>
           <LazyLoad>
-            <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo.png"} alt="이미지없음" loading="lazy" />
+            <img
+              src={
+                area.firstimage !== ""
+                  ? area.firstimage
+                  : area.firstimge2
+                  ? area.firstimge2
+                  : "/assets/triplogo.png"
+              }
+              alt="이미지없음"
+              loading="lazy"
+            />
           </LazyLoad>
         </div>
         <div className="des">
           <p className="title">{area.title}</p>
-          <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-addr={area.addr1 || area.addr2}>
+          <StyledP
+            className="addr"
+            onClick={onClick}
+            data-mapx={area.mapx}
+            data-mapy={area.mapy}
+            data-title={area.title}
+            data-addr={area.addr1 || area.addr2}
+            data-contentid={area.contentid}
+            data-contenttypeid={area.contenttypeid}
+          >
             {area.addr1}
-          </p>
-          <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
+          </StyledP>
+          <span
+            className="add-btn"
+            onClick={addWish}
+            data-contentid={area.contentid}
+            data-title={area.title}
+            data-contenttypeid={area.contenttypeid}
+          >
             + 추가
           </span>
         </div>
@@ -86,8 +119,22 @@ const AreaListComp = ({ areas, error, onClick, addWish, loading }) => {
   if (areas) target = result.items.item;
   return (
     <div>
-      {!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}
-      <PageNavComp pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} />
+      {!loading &&
+        areas &&
+        target &&
+        target.map((area) => (
+          <AreaItem
+            area={area}
+            onClick={onClick}
+            key={area.contentid}
+            addWish={addWish}
+          />
+        ))}
+      <PageNavComp
+        pageNo={result.pageNo}
+        totalCount={result.totalCount}
+        numOfRows={result.numOfRows}
+      />
     </div>
   );
 };

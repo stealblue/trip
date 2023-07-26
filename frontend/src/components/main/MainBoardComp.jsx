@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ThemeComp from "../common/ThemeComp";
+import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const MainBoardWarraper = styled.div`
   margin-top: 30px;
@@ -83,7 +84,7 @@ const BoardListItem = ({ post }) => {
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
             <p className="write-id">{id}</p>
-            <p className="createat"> {createAt.substr(0, 10)}</p>
+            <p className="createat"> {makeCreatedAt(createAt)}</p>
           </div>
         </div>
       </Link>
@@ -98,7 +99,10 @@ const MainBoardComp = ({ posts, error }) => {
         <h2>
           <span>Hot!</span> 여행후기
         </h2>
-        {posts && posts.map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {posts &&
+          posts.map((post, index) => (
+            <BoardListItem key={post.no} post={post} />
+          ))}
         <Link to="/board">
           <span className="add-list"> + 더보기</span>
         </Link>

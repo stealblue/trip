@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RoomListComp from "../../components/room/RoomListComp";
-import { listAreas, unloadPage } from "../../modules/room/LodgingMod";
+import {
+  listAreas,
+  listDetail,
+  unloadPage,
+} from "../../modules/room/LodgingMod";
 import ModalBasic from "../../components/common/ModalBasic";
 import Swal from "sweetalert2";
 import {
@@ -12,15 +16,25 @@ import {
 const RoomListCntr = ({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
+  const [onGetDetail, setOnGetDetail] = useState();
 
   // 모달창 노출
   const onClick = (e) => {
+    const { title, mapx, mapy, contentid, contenttypeid } = e.target.dataset;
     setModalOpen(true);
     setMapData({
-      title: e.target.dataset.title,
-      mapx: e.target.dataset.mapx,
-      mapy: e.target.dataset.mapy,
+      title,
+      mapx,
+      mapy,
+      contentid,
+      contenttypeid,
     });
+    dispatch(
+      listDetail({
+        contentId: contentid,
+        contentTypeId: contenttypeid,
+      })
+    );
   };
 
   const addWish = (e) => {
@@ -58,12 +72,14 @@ const RoomListCntr = ({ onClickTest }) => {
     contentTypeId,
     user,
     wishList,
+    getDetail,
   } = useSelector(({ LodgingMod, LoadingMod, UserMod, WishListMod }) => ({
     areas: LodgingMod?.areas,
     error: LodgingMod?.error,
     areaCode: LodgingMod?.areaCode,
     pageNo: LodgingMod?.pageNo,
     contentTypeId: LodgingMod?.contentTypeId,
+    getDetail: LodgingMod?.getDetail,
     user: UserMod.user,
     loading: LoadingMod["room/LIST_AREAS"],
     wishList: WishListMod.wishList,
@@ -103,6 +119,10 @@ const RoomListCntr = ({ onClickTest }) => {
     }
   }, [wishList]);
 
+  useEffect(() => {
+    setOnGetDetail(getDetail);
+  }, [getDetail]);
+
   if (!areas) {
     console.log("내용 없음");
     return <div>내용 없음</div>;
@@ -111,7 +131,11 @@ const RoomListCntr = ({ onClickTest }) => {
   return (
     <>
       {modalOpen && (
-        <ModalBasic setModalOpen={setModalOpen} mapData={mapData} />
+        <ModalBasic
+          setModalOpen={setModalOpen}
+          mapData={mapData}
+          onGetDetail={onGetDetail}
+        />
       )}
       <RoomListComp
         error={error}

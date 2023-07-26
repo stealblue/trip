@@ -491,14 +491,16 @@ const ProfileComp = ({
               <li>조회수</li>
             </BoardListTitle>
             {boardList?.map((board) => (
-              // const removeContent = contentImgFilter(board.content);
               <Item key={board.no}>
                 <BoardInfo>
                   <li onClick={() => onGetBoardDetail(board.no)}>
                     {board.title}
                   </li>
-                  {/* <li>{board.content}</li> */}
-                  <li dangerouslySetInnerHTML={{ __html: contentImgFilter(board.content) }} />
+                  <li
+                    dangerouslySetInnerHTML={{
+                      __html: contentImgFilter(board.content),
+                    }}
+                  ></li>
                   <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
@@ -542,7 +544,7 @@ const ProfileComp = ({
                     {reply.id}
                   </li>
                   <li>{reply.content}</li>
-                  <li>{reply.createAt.substr(0, 10)}</li>
+                  <li>{makeCreatedAt(reply.createAt)}</li>
                   <li>
                     <Button onClick={() => onDeleteReply(reply.no)}>
                       삭제
@@ -630,132 +632,104 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetWishDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetWishDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                {wish?.data?.response?.body?.items?.item[0]?.contenttypeid ===
-                  "32" ? (
+                {wish?.data?.contenttypeid === "32" ? (
                   <>
                     <div>{wish?.title}</div>
                     <div>
                       보유 룸 갯수 :
-                      {wish?.data?.response?.body?.items?.item[0]?.roomcount
-                        ? wish?.data?.response?.body?.items?.item[0]?.roomcount
-                        : "-"}
+                      {wish?.data?.roomcount ? wish.data.roomcount : "-"}
                     </div>
                     <div>
-                      룸 타입 :
-                      {wish?.data?.response?.body?.items?.item[0]?.roomtype
-                        ? wish?.data?.response?.body?.items?.item[0]?.roomtype
-                        : "-"}
+                      룸 타입 :{wish?.data?.roomtype ? wish.data.roomtype : "-"}
                     </div>
                     <div>
                       체크인 :
-                      {wish?.data?.response?.body?.items?.item[0]?.checkintime
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.checkintime
-                        : "-"}
+                      {wish?.data?.checkintime ? wish.data.checkintime : "-"}
                     </div>
                     <div>
                       체크아웃 :
-                      {wish?.data?.response?.body?.items?.item[0]?.checkouttime
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.checkouttime
-                        : "-"}
+                      {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}
                     </div>
                     <div>
                       취사 가능여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.chkcooking
-                        ? wish?.data?.response?.body?.items?.item[0]?.chkcooking
-                        : "-"}
+                      {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}
                     </div>
                     <div>
                       이용시설 :
-                      {wish?.data?.response?.body?.items?.item[0]?.foodplace
-                        ? wish?.data?.response?.body?.items?.item[0]?.foodplace
-                        : "-"}
-                    </div>
-                    <div>
-                      예약 링크 :
-                      {wish?.data?.response?.body?.items?.item[0]
-                        ?.reservationurl
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.reservationurl
-                        : "-"}
+                      {wish?.data?.foodplace ? wish.data.foodplace : "-"}
                     </div>
                     <div>
                       전화번호 :
-                      {wish?.data?.response?.body?.items?.item[0]
-                        ?.infocenterlodging
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.infocenterlodging
+                      {wish?.data?.infocenterlodging
+                        ? wish.data.infocenterlodging
                         : "-"}
                     </div>
                     <div>
                       주차 가능여부 :
-                      {wish?.data?.response?.body?.items?.item[0]
-                        ?.parkinglodging
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.parkinglodging
+                      {wish?.data?.parkinglodging
+                        ? wish.data.parkinglodging
                         : "-"}
                     </div>
                     <div>
                       숙박 예약 :
-                      {wish?.data?.response?.body?.items?.item[0]
-                        ?.reservationlodging
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.reservationlodging
+                      {wish?.data?.reservationlodging
+                        ? wish.data.reservationlodging
                         : "-"}
                     </div>
                     <div>
                       건물 이용 범위 :
-                      {wish?.data?.response?.body?.items?.item[0]?.scalelodging
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.scalelodging
-                        : "-"}
+                      {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}
                     </div>
+                    {wish?.data?.reservationurl ? (
+                      <div>
+                        홈페이지 링크 :
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.reservationurl,
+                          }}
+                        ></div>
+                      </div>
+                    ) : (
+                      <div>홈페이지 링크 : -</div>
+                    )}
                   </>
                 ) : (
                   <>
                     <div>{wish?.title}</div>
                     <div>
                       전화번호 :
-                      {wish?.data?.response?.body?.items?.item[0]?.infocenter
-                        ? wish?.data?.response?.body?.items?.item[0]?.infocenter
-                        : "-"}
+                      {wish?.data?.infocenter ? wish.data.infocenter : "-"}
                     </div>
                     <div>
-                      휴일 :
-                      {wish?.data?.response?.body?.items?.item[0]?.restdate
-                        ? wish?.data?.response?.body?.items?.item[0]?.restdate
-                        : "-"}
+                      휴일 :{wish?.data?.restdate ? wish.data.restdate : "-"}
                     </div>
                     <div>
-                      컨텐츠 :
-                      {wish?.data?.response?.body?.items?.item[0]?.expguide
-                        ? wish?.data?.response?.body?.items?.item[0]?.expguide
-                        : "-"}
+                      컨텐츠 :{wish?.data?.expguide ? wish.data.expguide : "-"}
                     </div>
-                    <div>
-                      이용시간 :
-                      {wish?.data?.response?.body?.items?.item[0]?.usetime
-                        ? wish?.data?.response?.body?.items?.item[0]?.usetime
-                        : "-"}
-                    </div>
+                    {wish?.data?.usetime ? (
+                      <div>
+                        이용시간 :
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.usetime,
+                          }}
+                        ></div>
+                      </div>
+                    ) : (
+                      <div>이용시간 : -</div>
+                    )}
                     <div>
                       주차 가능여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.parking
-                        ? wish?.data?.response?.body?.items?.item[0]?.parking
-                        : "-"}
+                      {wish?.data?.parking ? wish.data.parking : "-"}
                     </div>
                     <div>
                       반려동물 동반여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.chkpet
-                        ? wish?.data?.response?.body?.items?.item[0]?.chkpet
-                        : "-"}
+                      {wish?.data?.chkpet ? wish.data.chkpet : "-"}
                     </div>
                     <div>
                       신용카드 이용 :
-                      {wish?.data?.response?.body?.items?.item[0]?.chkcreditcard
-                        ? wish?.data?.response?.body?.items?.item[0]
-                          ?.chkcreditcard
+                      {wish?.data?.chkcreditcard
+                        ? wish.data.chkcreditcard
                         : "-"}
                     </div>
                   </>

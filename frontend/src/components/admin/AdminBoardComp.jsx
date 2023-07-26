@@ -218,7 +218,6 @@ const AdminBoardComp = ({
                 <Detail>{board.like}</Detail>
                 <Detail>{board.cnt}</Detail>
                 <Detail>{makeCreatedAt(board.createAt)}</Detail>
-                {/* <Detail>{board.createAt}</Detail> */}
                 <Detail>
                   <ControlButton onClick={() => deleteBoardInform(board.no)}>
                     삭제
@@ -276,7 +275,7 @@ const AdminBoardComp = ({
                   </tr>
                   <tr>
                     <th>작성일</th>
-                    <td colSpan="3"> {board.createAt}</td>
+                    <td colSpan="3"> {makeCreatedAt(board.createAt)}</td>
                   </tr>
                 </tbody>
               </table>
