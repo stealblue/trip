@@ -63,7 +63,7 @@ profile.get("/getLikeList/:id", getLikeList);
 profile.delete("/deleteLike/:no", deleteLike);
 
 profile.get("/getWishList/:id", getWishList);
-profile.get("/getWishDetail/:contentId", getWishDetail);
+profile.get("/getWishDetail/:title/:contentId/:contentTypeId", getWishDetail);
 profile.delete("/deleteWish/:no", deleteWish);
 
 module.exports = profile;
