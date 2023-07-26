@@ -539,7 +539,7 @@ const ProfileComp = ({
                     {reply.id}
                   </li>
                   <li>{reply.content}</li>
-                  <li>{reply.createAt.substr(0, 10)}</li>
+                  <li>{makeCreatedAt(reply.createAt)}</li>
                   <li>
                     <Button onClick={() => onDeleteReply(reply.no)}>
                       삭제
