@@ -84,7 +84,7 @@ const LoginWrapper = styled.div`
   }
 
   .login-btn {
-    width: 100%;
+    width: 400px;
     padding: 17px 20px;
     background: ${ThemeComp.lightblack};
     cursor: pointer;
@@ -107,6 +107,12 @@ const LoginWrapper = styled.div`
 
   .find:hover {
     opacity: 0.8;
+  }
+
+  .ragister {
+    margin-left: 14px;
+    color: ${ThemeComp.black};
+    font-weight: 600;
   }
 `;
 
@@ -215,6 +221,13 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
           <span onClick={changeInform} name="pwd" className="find">
             PW 찾기
           </span>
+          <br />
+          <br />
+          <span> 아직 회원이 아니세요?</span>
+          <Link to="/auth/register">
+            <span className="ragister">회원가입</span>
+          </Link>
+
           <StyledModal
             isOpen={modal} //true = 열림 / false = 닫힘
             ariahideapp={"false"} //에러 안뜨게하기
@@ -261,8 +274,6 @@ const LoginComp = ({ error, onChange, onSubmit, changeInform, searchName, findId
               </div>
             )}
           </StyledModal>
-          아직 회원이 아니세요?
-          <button className="login-btn">LOGIN</button>
         </LoginWrapper>
       </LoginPageContainer>
     </motion.div>

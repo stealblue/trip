@@ -26,11 +26,16 @@ const SearchCntr = () => {
 
 
   const onClickArea = (e) => {
+    // if(searchType === 'API'){
     const areaCode = e.target.dataset.value;
     const page = 1;
     dispatch(showAreaCode(areaCode));
     dispatch(showPageNo(page));
     dispatch(showContentTypeId(null));
+    // }else if (searchType === 'DB'){
+
+    // }
+
   };
 
   const onSelectedContentType = (e) => {

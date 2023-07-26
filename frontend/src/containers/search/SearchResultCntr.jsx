@@ -111,7 +111,6 @@ const SearchResultCntr = () => {
         areas={areas}
         loading={loading}
         onClick={onClick}
-        // onClickTest={onClickTest}
         addWish={addWish}
         searchType={searchType}
       />

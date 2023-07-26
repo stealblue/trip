@@ -94,6 +94,12 @@ const LoginCategory = styled.span`
     font-size: 16px;
     cursor: pointer;
   }
+  span {
+    &.click {
+      color: ${ThemeComp.subcolor};
+      font-weight: 600;
+    }
+  }
 
   @media (max-width: 1200px) {
     font-size: 14px;
@@ -176,10 +182,10 @@ const HeaderComp = ({ nick, onLogout, grade }) => {
             <div className="welecome">{nick}님 환영합니다!</div>
             <LoginCategory onClick={onClick}>
               {grade === 1 ? (
-                <Link to={`/profile/${nick}`}>마이페이지</Link>
-              ) : (
+                <Link to={`/profile/${nick}`}><span className="nav-item">마이페이지</span></Link>
+              ) : grade === 2 ? (
                 <Link to={"/admin/user"}>관리자페이지</Link>
-              )}
+              ) : null}
             </LoginCategory>
             <LoginCategory onClick={onClick}>
               <span className="logout" onClick={onLogout}>

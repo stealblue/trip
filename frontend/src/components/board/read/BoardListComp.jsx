@@ -96,9 +96,9 @@ const BoardListItem = ({ post }) => {
   if (!post) {
     return <div>오류</div>;
   }
-
-  const { no, id, title, content, createAt } = post;
-  console.log("content : ", content);
+  // console.log('post : ', post);
+  const { no, id, title, content, createAt, updateAt, like, cnt } = post;
+  // console.log("content : ", content);
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -106,9 +106,10 @@ const BoardListItem = ({ post }) => {
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
+            <h4> 좋아요: {like} 조회수 : {cnt}</h4>
             {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
-            <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>
+            {updateAt ? <p className="createat">수정일자 : {makeCreatedAt(updateAt)}</p> : <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>}
           </div>
         </div>
       </Link>

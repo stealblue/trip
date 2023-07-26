@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faList } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faList, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Outlet } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -35,6 +35,12 @@ const AdminSideBar = styled.div`
       margin-top: 10px;
     }
   }
+
+  .home-icon {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
 `;
 
 const AdminNav = styled.ul`
@@ -65,6 +71,9 @@ const AdminMainComp = () => {
     <>
       <AdminContainer>
         <AdminSideBar>
+          <Link to="/">
+            <FontAwesomeIcon icon={faRightFromBracket} size="2xl" className="home-icon" />
+          </Link>
           <div className="logo">
             <Link to={"/"}>
               TRIPPER

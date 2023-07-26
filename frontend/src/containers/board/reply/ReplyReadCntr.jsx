@@ -16,7 +16,7 @@ const ReplyReadCntr = () => {
     reply: ReplyWriteMod.reply,
     replys: ReplyReadMod.replys,
     content: ReplyReadMod.content,
-    user: UserMod.user,
+    user: UserMod?.user,
     profile: ProfileMod.user,
     bno: ReadMod.post?.no,
   }));
@@ -24,7 +24,7 @@ const ReplyReadCntr = () => {
   // console.log("replyReadcntr ====> originpost :", profile.img);
 
   useEffect(() => {
-    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd");
+    // console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd");
     dispatch(
       replyReadPost({
         bno: readNo,
@@ -65,12 +65,10 @@ const ReplyReadCntr = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      getProfile({
-        id: user.id,
-      })
-    );
-  }, [dispatch]);
+    if (user) {
+      dispatch(getProfile({ id: user.id, }));
+    }
+  }, [dispatch, user]);
   return (
     <>
       <ReplyReadComp content={content} replys={replys} user={user} onEdit={onEdit} onRemove={onRemove} profile={profile} />;

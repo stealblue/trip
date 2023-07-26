@@ -30,18 +30,16 @@ function App() {
     user: UserMod.user,
   }));
 
-  const location = useLocation();
-  // const client = 
-
   return (
     <>
       <AnimatePresence>
         <Routes>
           <Route element={<LayoutCntr />}>
             <Route path="/" element={<Main />} />
-            <Route path="/chat" element={<RoomListPage />} />
+            <Route path="/chat" element={<Navigate to='/' />} />
+            {/* <Route path="/chat" element={<RoomListPage />} />
             <Route path="/chat/room" element={<RoomCreatePage />} />
-            <Route path="/chat/room/:roomId" element={<RoomReadPage />} />
+            <Route path="/chat/room/:roomId" element={<RoomReadPage />} /> */}
             <Route path="/board" element={<BoardListPage />} />
             <Route path="/area" element={<AreaListPage />} />
             <Route path="/board/write" element={<WritePage />} />
@@ -57,8 +55,8 @@ function App() {
             <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
           </Route>
           <Route element={<AdminLayoutCntr />}>
-            <Route path="/admin/user" element={<AdminUserPage />} />
-            <Route path="/admin/board" element={<AdminBoardPage />} />
+            <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
+            <Route path="/admin/board" element={user?.grade === 2 ? <AdminBoardPage /> : <Navigate to='/' />} />
           </Route>
           <Route path="map" element={<KoreaMap />} />
         </Routes>
