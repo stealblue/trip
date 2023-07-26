@@ -8,6 +8,7 @@ import PaginationComp from "../common/PaginationComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartSimple, faUser } from "@fortawesome/free-solid-svg-icons";
+import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const AdminBoardWrap = styled.div`
   width: 1600px;
@@ -170,7 +171,15 @@ line-height : 20px;
 
 `;
 
-const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal }) => {
+const AdminBoardComp = ({
+  getBoardInform,
+  deleteBoardInform,
+  boardList,
+  totalBoard,
+  board,
+  modal,
+  switchModal,
+}) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -178,14 +187,16 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
     <AdminBoardWrap>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물</span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <span>게시물</span>
         </BoardName>
         <AdminUserGraph totalItem={totalBoard} type={"board"} />
       </BoardContainer>
 
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물 / </span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <span>게시물 / </span>
           <span>총 게시물 수({totalBoard})개</span>
         </BoardName>
         <Board>
@@ -206,14 +217,22 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
                 <Detail className="title">{board.title}</Detail>
                 <Detail>{board.like}</Detail>
                 <Detail>{board.cnt}</Detail>
-                <Detail>{board.createAt}</Detail>
+                <Detail>{makeCreatedAt(board.createAt)}</Detail>
+                {/* <Detail>{board.createAt}</Detail> */}
                 <Detail>
-                  <ControlButton onClick={() => deleteBoardInform(board.no)}>삭제</ControlButton>
+                  <ControlButton onClick={() => deleteBoardInform(board.no)}>
+                    삭제
+                  </ControlButton>
                 </Detail>
               </BoardInfo>
             </BoardInfoContainer>
           ))}
-          <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />
+          <PaginationComp
+            total={boardList.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
           {modal && board && (
             <StyledModal
               isOpen={modal} //true = 열림 / false = 닫힘

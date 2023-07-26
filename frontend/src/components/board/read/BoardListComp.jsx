@@ -7,6 +7,7 @@ import ButtonComp from "../../../components/common/ButtonComp";
 import PaginationComp from "../../common/PaginationComp";
 import { addWishList } from "../../../lib/api/wishList";
 import ThemeComp from "../../common/ThemeComp";
+import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 const ListContainer = styled.div`
   margin-top: 50px;
   .board-list {
@@ -107,7 +108,7 @@ const BoardListItem = ({ post }) => {
             <h3 className="title">{title}</h3>
             {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
-            <p className="createat">작성일자 : {createAt.substr(0, 10)}</p>
+            <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>
           </div>
         </div>
       </Link>
@@ -125,10 +126,24 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
       <WrapperComp>
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
-        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
-        {posts && posts.slice(offset, offset + limit).map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {showWriteButton && (
+          <WriteButton to={"/board/write"}>글쓰기</WriteButton>
+        )}
+        {posts &&
+          posts
+            .slice(offset, offset + limit)
+            .map((post, index) => <BoardListItem key={post.no} post={post} />)}
         {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
-        <div className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</div>
+        <div className="pagin">
+          {posts && (
+            <PaginationComp
+              total={posts.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
+          )}
+        </div>
       </WrapperComp>
     </>
   );

@@ -8,6 +8,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import PaginationComp from "../common/PaginationComp";
 // import WishComp from "../../containers/profile/WIshComp";
 import { Container } from "../../containers/profile/Container";
+import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const StyledModal = Modal.styled`
   background: white;
@@ -370,6 +371,7 @@ const ProfileComp = ({
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+
   return (
     <>
       <ProfileBlock>
@@ -494,7 +496,7 @@ const ProfileComp = ({
                     {board.title}
                   </li>
                   <li>{board.content}</li>
-                  <li>{board.createAt.substr(0, 10)}</li>
+                  <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
                     <span> {board.like}</span>
@@ -631,59 +633,80 @@ const ProfileComp = ({
                     <div>{wish?.title}</div>
                     <div>
                       보유 룸 갯수 :
-                      {wish?.data?.response?.body?.items?.item[0]?.roomcount}
+                      {wish?.data?.response?.body?.items?.item[0]?.roomcount
+                        ? wish?.data?.response?.body?.items?.item[0]?.roomcount
+                        : "-"}
                     </div>
                     <div>
                       룸 타입 :
-                      {wish?.data?.response?.body?.items?.item[0]?.roomtype}
+                      {wish?.data?.response?.body?.items?.item[0]?.roomtype
+                        ? wish?.data?.response?.body?.items?.item[0]?.roomtype
+                        : "-"}
                     </div>
                     <div>
                       체크인 :
-                      {wish?.data?.response?.body?.items?.item[0]?.checkintime}
+                      {wish?.data?.response?.body?.items?.item[0]?.checkintime
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.checkintime
+                        : "-"}
                     </div>
                     <div>
                       체크아웃 :
-                      {wish?.data?.response?.body?.items?.item[0]?.checkouttime}
+                      {wish?.data?.response?.body?.items?.item[0]?.checkouttime
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.checkouttime
+                        : "-"}
                     </div>
                     <div>
                       취사 가능여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.chkcooking}
+                      {wish?.data?.response?.body?.items?.item[0]?.chkcooking
+                        ? wish?.data?.response?.body?.items?.item[0]?.chkcooking
+                        : "-"}
                     </div>
                     <div>
                       이용시설 :
-                      {wish?.data?.response?.body?.items?.item[0]?.foodplace}
+                      {wish?.data?.response?.body?.items?.item[0]?.foodplace
+                        ? wish?.data?.response?.body?.items?.item[0]?.foodplace
+                        : "-"}
                     </div>
                     <div>
                       예약 링크 :
-                      {
-                        wish?.data?.response?.body?.items?.item[0]
-                          ?.reservationurl
-                      }
+                      {wish?.data?.response?.body?.items?.item[0]
+                        ?.reservationurl
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.reservationurl
+                        : "-"}
                     </div>
                     <div>
                       전화번호 :
-                      {
-                        wish?.data?.response?.body?.items?.item[0]
-                          ?.infocenterlodging
-                      }
+                      {wish?.data?.response?.body?.items?.item[0]
+                        ?.infocenterlodging
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.infocenterlodging
+                        : "-"}
                     </div>
                     <div>
                       주차 가능여부 :
-                      {
-                        wish?.data?.response?.body?.items?.item[0]
-                          ?.parkinglodging
-                      }
+                      {wish?.data?.response?.body?.items?.item[0]
+                        ?.parkinglodging
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.parkinglodging
+                        : "-"}
                     </div>
                     <div>
                       숙박 예약 :
-                      {
-                        wish?.data?.response?.body?.items?.item[0]
-                          ?.reservationlodging
-                      }
+                      {wish?.data?.response?.body?.items?.item[0]
+                        ?.reservationlodging
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.reservationlodging
+                        : "-"}
                     </div>
                     <div>
                       건물 이용 범위 :
-                      {wish?.data?.response?.body?.items?.item[0]?.scalelodging}
+                      {wish?.data?.response?.body?.items?.item[0]?.scalelodging
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.scalelodging
+                        : "-"}
                     </div>
                   </>
                 ) : (
@@ -691,34 +714,46 @@ const ProfileComp = ({
                     <div>{wish?.title}</div>
                     <div>
                       전화번호 :
-                      {wish?.data?.response?.body?.items?.item[0]?.infocenter}
+                      {wish?.data?.response?.body?.items?.item[0]?.infocenter
+                        ? wish?.data?.response?.body?.items?.item[0]?.infocenter
+                        : "-"}
                     </div>
                     <div>
                       휴일 :
-                      {wish?.data?.response?.body?.items?.item[0]?.restdate}
+                      {wish?.data?.response?.body?.items?.item[0]?.restdate
+                        ? wish?.data?.response?.body?.items?.item[0]?.restdate
+                        : "-"}
                     </div>
                     <div>
                       컨텐츠 :
-                      {wish?.data?.response?.body?.items?.item[0]?.expguide}
+                      {wish?.data?.response?.body?.items?.item[0]?.expguide
+                        ? wish?.data?.response?.body?.items?.item[0]?.expguide
+                        : "-"}
                     </div>
                     <div>
                       이용시간 :
-                      {wish?.data?.response?.body?.items?.item[0]?.usetime}
+                      {wish?.data?.response?.body?.items?.item[0]?.usetime
+                        ? wish?.data?.response?.body?.items?.item[0]?.usetime
+                        : "-"}
                     </div>
                     <div>
                       주차 가능여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.parking}
+                      {wish?.data?.response?.body?.items?.item[0]?.parking
+                        ? wish?.data?.response?.body?.items?.item[0]?.parking
+                        : "-"}
                     </div>
                     <div>
                       반려동물 동반여부 :
-                      {wish?.data?.response?.body?.items?.item[0]?.chkpet}
+                      {wish?.data?.response?.body?.items?.item[0]?.chkpet
+                        ? wish?.data?.response?.body?.items?.item[0]?.chkpet
+                        : "-"}
                     </div>
                     <div>
                       신용카드 이용 :
-                      {
-                        wish?.data?.response?.body?.items?.item[0]
-                          ?.chkcreditcard
-                      }
+                      {wish?.data?.response?.body?.items?.item[0]?.chkcreditcard
+                        ? wish?.data?.response?.body?.items?.item[0]
+                            ?.chkcreditcard
+                        : "-"}
                     </div>
                   </>
                 )}
@@ -735,24 +770,19 @@ const ProfileComp = ({
             </BeforeBox>
             <AfterBox>
               {savedList?.map((list) => (
-                <>
-                  <SavedListBox>
-                    <SavedList
-                      key={list._id}
-                      onClick={() =>
-                        onGetSavedListDetail(
-                          list.name[0].id,
-                          list.name[0].subject
-                        )
-                      }
-                    >
-                      {list.name[0].subject}
-                    </SavedList>
-                    <Button onClick={() => onSavedListDelete(list._id)}>
-                      x
-                    </Button>
-                  </SavedListBox>
-                </>
+                <SavedListBox key={list._id}>
+                  <SavedList
+                    onClick={() =>
+                      onGetSavedListDetail(
+                        list.name[0].id,
+                        list.name[0].subject
+                      )
+                    }
+                  >
+                    {list.name[0].subject}
+                  </SavedList>
+                  <Button onClick={() => onSavedListDelete(list._id)}>x</Button>
+                </SavedListBox>
               ))}
               <StyledModal
                 isOpen={listModal} //true = 열림 / false = 닫힘
