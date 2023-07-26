@@ -110,7 +110,6 @@ const Spacer = styled.div`
 `;
 
 const HeaderComp = ({ nick, onLogout, grade }) => {
-  // const [color, setColor] = useState('#111');
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const updateScroll = () => {

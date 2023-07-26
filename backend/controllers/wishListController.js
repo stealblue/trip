@@ -2,9 +2,7 @@ const { wishList } = require("../models/mysql/index");
 
 exports.addWishList = async (req, res) => {
   const { contentid, id, title, contenttypeid } = req.body;
-  // console.log('wishListController');
-  // console.log(req.body);
-  console.log(`contentid : ${contentid} , id : ${id} , title : ${title}`);
+
   try {
     const exScheduleList = await wishList.findOne({
       where: {

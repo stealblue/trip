@@ -593,7 +593,15 @@ const ProfileComp = ({
             <WishListBox>
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
-                  <BoardInfo onClick={() => onGetWishDetail(Wish.contentId)}>
+                  <BoardInfo
+                    onClick={() =>
+                      onGetWishDetail(
+                        Wish.title,
+                        Wish.contentId,
+                        Wish.contentTypeId
+                      )
+                    }
+                  >
                     <div key={Wish.no}>{Wish.title}</div>
                   </BoardInfo>
                   <Button
@@ -617,9 +625,104 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetWishDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetWishDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                <div>{wish?.title ? wish.title : "준비중"}</div>
-                <div>{wish?.img ? wish.img : "준비중"}</div>
-                <div>{wish?.location ? wish.location : "준비중"}</div>
+                {wish?.data?.response?.body?.items?.item[0]?.contenttypeid ===
+                "32" ? (
+                  <>
+                    <div>{wish?.title}</div>
+                    <div>
+                      보유 룸 갯수 :
+                      {wish?.data?.response?.body?.items?.item[0]?.roomcount}
+                    </div>
+                    <div>
+                      룸 타입 :
+                      {wish?.data?.response?.body?.items?.item[0]?.roomtype}
+                    </div>
+                    <div>
+                      체크인 :
+                      {wish?.data?.response?.body?.items?.item[0]?.checkintime}
+                    </div>
+                    <div>
+                      체크아웃 :
+                      {wish?.data?.response?.body?.items?.item[0]?.checkouttime}
+                    </div>
+                    <div>
+                      취사 가능여부 :
+                      {wish?.data?.response?.body?.items?.item[0]?.chkcooking}
+                    </div>
+                    <div>
+                      이용시설 :
+                      {wish?.data?.response?.body?.items?.item[0]?.foodplace}
+                    </div>
+                    <div>
+                      예약 링크 :
+                      {
+                        wish?.data?.response?.body?.items?.item[0]
+                          ?.reservationurl
+                      }
+                    </div>
+                    <div>
+                      전화번호 :
+                      {
+                        wish?.data?.response?.body?.items?.item[0]
+                          ?.infocenterlodging
+                      }
+                    </div>
+                    <div>
+                      주차 가능여부 :
+                      {
+                        wish?.data?.response?.body?.items?.item[0]
+                          ?.parkinglodging
+                      }
+                    </div>
+                    <div>
+                      숙박 예약 :
+                      {
+                        wish?.data?.response?.body?.items?.item[0]
+                          ?.reservationlodging
+                      }
+                    </div>
+                    <div>
+                      건물 이용 범위 :
+                      {wish?.data?.response?.body?.items?.item[0]?.scalelodging}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>{wish?.title}</div>
+                    <div>
+                      전화번호 :
+                      {wish?.data?.response?.body?.items?.item[0]?.infocenter}
+                    </div>
+                    <div>
+                      휴일 :
+                      {wish?.data?.response?.body?.items?.item[0]?.restdate}
+                    </div>
+                    <div>
+                      컨텐츠 :
+                      {wish?.data?.response?.body?.items?.item[0]?.expguide}
+                    </div>
+                    <div>
+                      이용시간 :
+                      {wish?.data?.response?.body?.items?.item[0]?.usetime}
+                    </div>
+                    <div>
+                      주차 가능여부 :
+                      {wish?.data?.response?.body?.items?.item[0]?.parking}
+                    </div>
+                    <div>
+                      반려동물 동반여부 :
+                      {wish?.data?.response?.body?.items?.item[0]?.chkpet}
+                    </div>
+                    <div>
+                      신용카드 이용 :
+                      {
+                        wish?.data?.response?.body?.items?.item[0]
+                          ?.chkcreditcard
+                      }
+                    </div>
+                  </>
+                )}
+
                 <button onClick={onGetWishDetail}>x</button>
               </StyledModal>
             </WishListBox>

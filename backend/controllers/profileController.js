@@ -1,6 +1,8 @@
 const { user, board, reply, like, wishList } = require("../models/mysql");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("./authController");
+const axios = require("axios");
+const { KNTO_TOUR_KEY } = process.env;
 
 exports.getProfile = async (req, res) => {
 	const { id } = req.params;
@@ -244,17 +246,17 @@ exports.getWishList = async (req, res) => {
 };
 
 exports.getWishDetail = async (req, res) => {
-	const { contentId, contentTypeId } = req.params;
-	console.log(contentId, contentTypeId);
-	try {
-		//////contentTypeID 받아서 검색하기
-		const exWish = await wishList.findOne({
-			where: {
-				contentId,
-			}
-		});
+	const { title, contentId, contentTypeId } = req.params;
 
-		return res.status(200).json({ wish: exWish });
+	try {
+		if (!contentId || !contentTypeId) {
+			return res.status(200).json({ wish: null });
+		}
+
+		const exWish = await axios.get(`https://apis.data.go.kr/B551011/KorService1/detailIntro1?serviceKey=${KNTO_TOUR_KEY}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=${contentId}&contentTypeId=${contentTypeId}`)
+		const data = exWish.data;
+		
+		return res.status(200).json({ wish: { title, data } });
 	} catch (e) {
 		console.error(e);
 		res.status(400).json({wishError: true});

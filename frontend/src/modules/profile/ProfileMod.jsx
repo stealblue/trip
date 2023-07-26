@@ -124,16 +124,19 @@ const [GET_WISH_DETAIL, GET_WISH_DETAIL_SUCCESS, GET_WISH_DETAIL_FAILURE] =
   createRequestActionTypes("profile/GET_WISH_DETAIL");
 const [DELETE_WISH, DELETE_WISH_SUCCESS, DELETE_WISH_FAILURE] =
   createRequestActionTypes("profile/DELETE_WISH");
+const WISH_DETAIL_CLEAR = "profile/WISH_DETAIL_CLEAR";
 
 export const getWishList = createAction(GET_WISH_LIST);
 export const getWishDetail = createAction(
   GET_WISH_DETAIL,
-  ({ contentId, contentTypeId }) => ({
+  ({ title, contentId, contentTypeId }) => ({
+    title,
     contentId,
     contentTypeId,
   })
 );
 export const deleteWish = createAction(DELETE_WISH, ({ no }) => ({ no }));
+export const wishDetailClear = createAction(WISH_DETAIL_CLEAR);
 
 const getWishListProcess = createRequestSaga(
   GET_WISH_LIST,
@@ -359,6 +362,10 @@ const ProfileMod = handleActions(
       ...state,
       wish: null,
       wishError,
+    }),
+    [WISH_DETAIL_CLEAR]: (state) => ({
+      ...state,
+      wish: null,
     }),
     [DELETE_WISH_SUCCESS]: (state, { payload: { deleteWishError } }) => ({
       ...state,

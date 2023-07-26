@@ -23,6 +23,7 @@ import ProfileMod, {
   withdraw,
   deleteWish,
   getWishDetail,
+  wishDetailClear,
 } from "../../modules/profile/ProfileMod";
 import { check, initializeUser } from "../../modules/auth/UserMod";
 import ScheduleMod, {
@@ -193,14 +194,19 @@ const ProfileCntr = () => {
     );
   };
 
-  const onGetWishDetail = (contentId) => {
+  const onGetWishDetail = (title, contentId, contentTypeId) => {
     setModal(!modal);
     if (!wish) {
       dispatch(
         getWishDetail({
+          title,
           contentId,
+          contentTypeId,
         })
       );
+    }
+    if (wish) {
+      dispatch(wishDetailClear());
     }
   };
 
@@ -469,6 +475,13 @@ const ProfileCntr = () => {
       }
     }
   }, [duplicateCheck]);
+  ////작업중
+  // useEffect(() => {
+  //   if (!wish && !listModal) {
+  //     dispatch(wishDetailClear());
+  //   }
+  //   console.dir(wish?.response?.body?.items?.item[0]?.contentid);
+  // }, [wish]);
 
   return (
     <div>
@@ -518,7 +531,6 @@ const ProfileCntr = () => {
         onGetSavedListDetail={onGetSavedListDetail}
         savedListDetail={savedListDetail}
         listModal={listModal}
-        setListModal={setListModal}
         onChangeProfileCancle={onChangeProfileCancle}
         onSavedListDelete={onSavedListDelete}
         addScheduleError={addScheduleError}
