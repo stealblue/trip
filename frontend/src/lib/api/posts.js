@@ -31,9 +31,9 @@ export const likePost = ({ id, no }) => {
 };
 
 //댓글쓰기
-export const replyPost = ({ content, id, bno }) => {
-  console.log(`댓글 쓰기 : ${id}`);
-  return client.post(`/board/write/reply/${bno}`, { content, id, bno });
+export const replyPost = ({ content, uno, bno }) => {
+  // console.log(`댓글 쓰기 : ${uno}`);
+  return client.post(`/board/write/reply/${bno}`, { content, uno, bno });
 };
 
 //댓글읽기

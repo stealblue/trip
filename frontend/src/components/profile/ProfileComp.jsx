@@ -367,6 +367,7 @@ const ProfileComp = ({
   setListModal,
   onChangeProfileCancle,
   onSavedListDelete,
+  contentImgFilter
 }) => {
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
@@ -490,12 +491,14 @@ const ProfileComp = ({
               <li>조회수</li>
             </BoardListTitle>
             {boardList?.map((board) => (
+              // const removeContent = contentImgFilter(board.content);
               <Item key={board.no}>
                 <BoardInfo>
                   <li onClick={() => onGetBoardDetail(board.no)}>
                     {board.title}
                   </li>
-                  <li>{board.content}</li>
+                  {/* <li>{board.content}</li> */}
+                  <li dangerouslySetInnerHTML={{ __html: contentImgFilter(board.content) }} />
                   <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
@@ -628,7 +631,7 @@ const ProfileComp = ({
                 onBackgroundClick={onGetWishDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
                 {wish?.data?.response?.body?.items?.item[0]?.contenttypeid ===
-                "32" ? (
+                  "32" ? (
                   <>
                     <div>{wish?.title}</div>
                     <div>
@@ -647,14 +650,14 @@ const ProfileComp = ({
                       체크인 :
                       {wish?.data?.response?.body?.items?.item[0]?.checkintime
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.checkintime
+                          ?.checkintime
                         : "-"}
                     </div>
                     <div>
                       체크아웃 :
                       {wish?.data?.response?.body?.items?.item[0]?.checkouttime
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.checkouttime
+                          ?.checkouttime
                         : "-"}
                     </div>
                     <div>
@@ -674,7 +677,7 @@ const ProfileComp = ({
                       {wish?.data?.response?.body?.items?.item[0]
                         ?.reservationurl
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.reservationurl
+                          ?.reservationurl
                         : "-"}
                     </div>
                     <div>
@@ -682,7 +685,7 @@ const ProfileComp = ({
                       {wish?.data?.response?.body?.items?.item[0]
                         ?.infocenterlodging
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.infocenterlodging
+                          ?.infocenterlodging
                         : "-"}
                     </div>
                     <div>
@@ -690,7 +693,7 @@ const ProfileComp = ({
                       {wish?.data?.response?.body?.items?.item[0]
                         ?.parkinglodging
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.parkinglodging
+                          ?.parkinglodging
                         : "-"}
                     </div>
                     <div>
@@ -698,14 +701,14 @@ const ProfileComp = ({
                       {wish?.data?.response?.body?.items?.item[0]
                         ?.reservationlodging
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.reservationlodging
+                          ?.reservationlodging
                         : "-"}
                     </div>
                     <div>
                       건물 이용 범위 :
                       {wish?.data?.response?.body?.items?.item[0]?.scalelodging
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.scalelodging
+                          ?.scalelodging
                         : "-"}
                     </div>
                   </>
@@ -752,7 +755,7 @@ const ProfileComp = ({
                       신용카드 이용 :
                       {wish?.data?.response?.body?.items?.item[0]?.chkcreditcard
                         ? wish?.data?.response?.body?.items?.item[0]
-                            ?.chkcreditcard
+                          ?.chkcreditcard
                         : "-"}
                     </div>
                   </>

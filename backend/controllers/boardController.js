@@ -1,7 +1,8 @@
 const { Sequelize } = require("sequelize");
-const { board, like, reply } = require("../models/mysql");
+const { board, like, reply, user } = require("../models/mysql");
 const sanitizeHtml = require("sanitize-html");
-
+// const { sql } = require('@sequelize/core');
+// const Sequelize = require('sequelize');
 const removeHtml = (body) => {
   const filtered = sanitizeHtml(body, {
     allowedTags: [],
@@ -216,11 +217,11 @@ exports.replyAdd = async (req, res) => {
   console.log("commentAdd 들어왔나 ===> ", req.params);
   try {
     const no = req.params.bno;
-    const { bno, id, content } = req.body;
+    const { bno, uno, content } = req.body;
     const commentAdd = await reply.create(
       {
         bno,
-        id,
+        uno,
         content,
       },
       {
@@ -236,14 +237,20 @@ exports.replyAdd = async (req, res) => {
   }
 };
 
-exports.replyRead = async (req, res, next) => {
+exports.replyRead = async (req, res) => {
   const bno = req.params.bno;
   try {
     const replys = await reply.findAll({
       where: { bno },
+      include: [{
+        model: user,
+        as: 'uno_user',
+        required: false
+      }]
     });
     return res.json(replys);
   } catch (error) {
+    console.error(error);
     return res.json(error);
   }
 };

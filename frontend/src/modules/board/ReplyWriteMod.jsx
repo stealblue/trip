@@ -25,10 +25,10 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 }));
 export const replywritePost = createAction(
   REPLY_WRITE_POST,
-  ({ bno, id, content }) => ({
+  ({ bno, uno, content }) => ({
     bno,
     content,
-    id,
+    uno,
   })
 );
 export const replysetOriginPost = createAction(

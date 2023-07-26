@@ -30,8 +30,8 @@ function initModels(sequelize) {
   user.hasMany(board, { as: "boards", foreignKey: "id"});
   like.belongsTo(user, { as: "id_user", foreignKey: "id"});
   user.hasMany(like, { as: "likes", foreignKey: "id"});
-  reply.belongsTo(user, { as: "id_user", foreignKey: "id"});
-  user.hasMany(reply, { as: "replies", foreignKey: "id"});
+  reply.belongsTo(user, { as: "uno_user", foreignKey: "uno"});
+  user.hasMany(reply, { as: "replies", foreignKey: "uno"});
   wishList.belongsTo(user, { as: "id_user", foreignKey: "id"});
   user.hasMany(wishList, { as: "wishLists", foreignKey: "id"});
 

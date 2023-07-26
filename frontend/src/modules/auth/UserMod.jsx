@@ -44,6 +44,7 @@ export function* userSaga() {
 const initialState = {
   user: null,
   checkError: null,
+  replyUser: null
 };
 
 const UserMod = handleActions(
@@ -66,7 +67,7 @@ const UserMod = handleActions(
     [LOGOUT]: (state) => ({
       ...state,
       user: null,
-    }),
+    })
   },
   initialState
 );

@@ -355,6 +355,13 @@ const ProfileCntr = () => {
       );
     }
   };
+
+  const contentImgFilter = (content) => { // 이미지태그 제거 정규표현식
+    const imgTagReg = /<img[^>]+>/gi;
+    const textOnly = content.replace(imgTagReg, '');
+    return textOnly;
+  }
+
   useEffect(() => {
     dispatch(
       getProfile({
@@ -534,6 +541,7 @@ const ProfileCntr = () => {
         onChangeProfileCancle={onChangeProfileCancle}
         onSavedListDelete={onSavedListDelete}
         addScheduleError={addScheduleError}
+        contentImgFilter={contentImgFilter}
       />
     </div>
   );
