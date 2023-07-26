@@ -53,7 +53,7 @@ exports.check = (req, res) => {
   const exUser = req.cookies.access_token;
 
   if (!exUser) {
-    return res.status(200).json({checkError: true});
+    return res.status(400).json({checkError: true});
   }
   return res.json(jwt.verify(exUser, process.env.JWT_TOKEN));
 };

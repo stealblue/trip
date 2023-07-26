@@ -5,6 +5,10 @@ export const listAreas = async ({ pageNo, areaCode, contentTypeId, numOfRows }) 
   return client.get(`/area/${areaCode}?pageNo=${pageNo}&contentTypeId=${contentTypeId}&numOfRows=${numOfRows}`);
 };
 
+export const listDetail = async ({ contentId, contentTypeId }) => {
+  return client.get(`/area/detail/${contentId}/${contentTypeId}`);
+};
+
 export const listSearch = async ({ pageNo, areaCode, contentTypeId, keyword, searchType }) => {
   console.log(`listSearch ==>  pageNo : ${pageNo} / areaCode : ${areaCode} / contentTypeId : ${contentTypeId} / keyword :${keyword} / searchType : ${searchType}`);
   // let searchUrl;

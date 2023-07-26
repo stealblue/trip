@@ -16,6 +16,21 @@ exports.areaList = async (req, res) => {
   }
 };
 
+exports.listDetail = async (req, res) => {
+  const { contentId, contentTypeId } = req.params;
+
+  try {
+    const exWish = await axios.get(`https://apis.data.go.kr/B551011/KorService1/detailIntro1?serviceKey=${KNTO_TOUR_KEY}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=${contentId}&contentTypeId=${contentTypeId}`)
+    const getDetail = exWish.data.response.body.items.item[0];
+
+    return res.status(200).json({ getDetail });
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({ detailError: true });
+  }
+
+}
+
 exports.areaSearch = async (req, res) => {
   console.log('들어왓냐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
   try {
