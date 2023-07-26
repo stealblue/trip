@@ -40,8 +40,19 @@ const ReplyWriteCntr = () => {
     } else {
       Swal.fire({
         text: "로그인해주세요",
-      });
-      navigate("/auth/login");
+        showConfirmButton: true,
+        confirmButtonText: '확인',
+        showCancelButton: true,
+        cancelButtonText: "취소"
+      })
+        .then((res) => {
+          if (res.isConfirmed) {
+            navigate("/auth/login");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        })
     }
   };
 

@@ -18,7 +18,7 @@ const ReadContainer = () => {
   const { post, error, loading, user, like } = useSelector(({ ReadMod, loading, UserMod }) => ({
     post: ReadMod.post,
     error: ReadMod.error,
-    user: UserMod.user,
+    user: UserMod?.user,
     like: ReadMod.like
   }));
 
