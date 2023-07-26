@@ -99,6 +99,7 @@ const RoomListCntr = ({ onClickTest }) => {
         icon: "success",
         text: `추가했습니다.`,
       });
+      dispatch(initializeWishList());
     }
   }, [wishList]);
 

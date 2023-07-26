@@ -133,7 +133,15 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
+const AdminUserComp = ({
+  getUserInform,
+  deleteUserInform,
+  userList,
+  totalUser,
+  user,
+  modal,
+  switchModal,
+}) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -141,14 +149,16 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
     <AdminUserWrap>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>가입자수</span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <span>가입자수</span>
         </BoardName>
         <AdminUserGraph totalItem={totalUser} type={"user"} />
       </BoardContainer>
 
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} /> <span>회원관리</span>
+          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />{" "}
+          <span>회원관리</span>
           <span> / 총 가입자 수({totalUser}명)</span>
         </BoardName>
         <Board>
@@ -160,18 +170,25 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
           </ul>
 
           {userList.slice(offset, offset + limit).map((user) => (
-            <UserInfoContainer key={user.colSpanid}>
+            <UserInfoContainer key={user.no}>
               <UserInfo id={user.id} onClick={getUserInform}>
                 <Detail>{user.id}</Detail>
                 <Detail> {user.nick}</Detail>
                 <Detail> {user.phone}</Detail>
                 <Detail>
-                  <ControlButton onClick={() => deleteUserInform(user.id)}>탈퇴</ControlButton>
+                  <ControlButton onClick={() => deleteUserInform(user.id)}>
+                    탈퇴
+                  </ControlButton>
                 </Detail>
               </UserInfo>
             </UserInfoContainer>
           ))}
-          <PaginationComp total={userList.length} limit={limit} page={page} setPage={setPage} />
+          <PaginationComp
+            total={userList.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
 
           {modal && user && (
             <StyledModal
@@ -182,14 +199,6 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
             >
               <h3>회원 상세 정보</h3>
               <table>
-                {/* <thead>
-                  <tr>
-                    <th></th>
-                    <th>Ipsum</th>
-                    <th>Ipsum</th>
-                    <th>Ipsum</th>
-                  </tr>
-                </thead> */}
                 <tbody>
                   <tr>
                     <th>아이디</th>
