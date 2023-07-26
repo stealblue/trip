@@ -1,31 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
 const { kakao } = window;
+const KakaomapWrapper = styled.div`
+  #map {
+    margin: 30px 20px;
+    border: 2px solid #333;
+    border-radius: 20px;
+  }
+`;
 
 const KakaoMapComp = ({ mapx, mapy }) => {
   useEffect(() => {
     const xdata = parseFloat(mapx || 37.5663);
     const ydata = parseFloat(mapy || 126.79581);
-    const mapContainer = document.getElementById('map');
+    const mapContainer = document.getElementById("map");
     const mapOptions = {
       center: new window.kakao.maps.LatLng(ydata, xdata),
-      level: 3
+      level: 3,
     };
     const map = new kakao.maps.Map(mapContainer, mapOptions);
     const markerPosition = new kakao.maps.LatLng(ydata, xdata);
     const marker = new kakao.maps.Marker({
-      position: markerPosition
-    })
+      position: markerPosition,
+    });
     marker.setMap(map);
-  }, [mapx, mapy])
+  }, [mapx, mapy]);
 
   return (
-    <>
-      <div id='map' style={{ width: '400px', height: '400px' }} />
-    </>
+    <KakaomapWrapper>
+      <div id="map" style={{ width: "650px", height: "400px" }} />
+    </KakaomapWrapper>
   );
 };
 
 export default KakaoMapComp;
-
-
