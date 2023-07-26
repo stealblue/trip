@@ -10,8 +10,8 @@ const ReplyWriteCntr = () => {
   const dispatch = useDispatch();
   const { readNo } = useParams();
   const emptyReply = useRef();
-  const { id, content, reply, originreplyId } = useSelector(({ UserMod, ReplyWriteMod }) => ({
-    id: UserMod.user?.id,
+  const { content, reply, user, originreplyId } = useSelector(({ UserMod, ReplyWriteMod }) => ({
+    user: UserMod?.user,
     content: ReplyWriteMod.content,
     reply: ReplyWriteMod.reply,
   }));
@@ -29,11 +29,13 @@ const ReplyWriteCntr = () => {
 
   const onPublish = (e) => {
     e.preventDefault();
-    if (id) {
+    if (user) {
+      const uno = user.no;
+      console.log('user 댓글 체크', user.no)
       dispatch(
         replywritePost({
           bno: readNo,
-          id: id,
+          uno,
           content: content,
         })
       );

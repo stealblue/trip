@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
 
     const hashedPwd = exUser.pwd;
     const pwdChk = await bcrypt.compare(pwd, hashedPwd); //결과값 true OR false
-    const token = generateToken(id, exUser.nick, exUser.grade); //jwt token 발행
+    const token = generateToken(id, exUser.nick, exUser.grade, exUser.no); //jwt token 발행
     res.cookie("access_token", token, {
       //res cookie에 jwt token 담기
       maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -53,7 +53,7 @@ exports.check = (req, res) => {
   const exUser = req.cookies.access_token;
 
   if (!exUser) {
-    return res.status(400).json({checkError: true});
+    return res.status(400).json({ checkError: true });
   }
   return res.json(jwt.verify(exUser, process.env.JWT_TOKEN));
 };
