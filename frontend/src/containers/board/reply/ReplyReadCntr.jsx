@@ -18,7 +18,7 @@ const ReplyReadCntr = () => {
     content: ReplyReadMod.content,
     user: UserMod?.user,
     profile: ProfileMod.user,
-    bno: ReadMod.post?.no,
+    bno: ReadMod.post?.no
   }));
 
   // console.log("replyReadcntr ====> originpost :", profile.img);

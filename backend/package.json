@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "@sequelize/core": "^7.0.0-alpha.27",
     "axios": "^1.4.0",
     "backend": "./",
     "bcrypt": "^5.1.0",

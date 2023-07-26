@@ -77,7 +77,8 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButto
         <Content>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </Content>
-        {user && post.id === user.id && actionButtons} {/* Uncaught Error: Objects are not valid as a React child (found: object with keys {actionButtons}). If you meant to render a collection of children, use an array instead. */}
+        {user && post.id === user.id && actionButtons}
+        {/* Uncaught Error: Objects are not valid as a React child (found: object with keys {actionButtons}). If you meant to render a collection of children, use an array instead. */}
       </Responsive>
     </>
   );

@@ -13,13 +13,13 @@ export const check = async () => {
 }
 
 export const searchId = async ({ phone }) => {
-    return await client.post("/auth/searchId", {phone});
+    return await client.post("/auth/searchId", { phone });
 }
 
-export const searchPwd = async ({email, phone}) => {
-    return await client.post("/auth/searchPwd", {email, phone});
+export const searchPwd = async ({ email, phone }) => {
+    return await client.post("/auth/searchPwd", { email, phone });
 }
 
-export const updatePwd = async ({email, pwd}) => {
-    return await client.post("/auth/searchPwd/:id", {email, pwd});
+export const updatePwd = async ({ email, pwd }) => {
+    return await client.post("/auth/searchPwd/:id", { email, pwd });
 }

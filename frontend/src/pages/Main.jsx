@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { showKeyword } from '../modules/search/SearchMod';
@@ -7,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,10 +20,10 @@ import { faRightLong } from "@fortawesome/free-solid-svg-icons";
 import MainSearchComp from "../components/main/MainSearchComp";
 import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
-import MainBoardComp from "../components/main/MainBoardComp";
-import WrapperComp from "../components/common/WrapperComp";
-import Swal from "sweetalert2";
-import SideMenuComp from "../components/main/SideMenuComp";
+// import MainBoardComp from "../components/main/MainBoardComp";
+// import WrapperComp from "../components/common/WrapperComp";
+// import Swal from "sweetalert2";
+// import SideMenuComp from "../components/main/SideMenuComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
 import ThemeComp from "../components/common/ThemeComp";

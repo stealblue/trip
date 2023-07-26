@@ -15,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
         key: 'no'
       }
     },
-    id: {
-      type: DataTypes.STRING(35),
+    uno: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'user',
-        key: 'id'
+        key: 'no'
       }
     },
     content: {
@@ -75,7 +75,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "reply_ibfk_1",
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "uno" },
         ]
       },
     ]

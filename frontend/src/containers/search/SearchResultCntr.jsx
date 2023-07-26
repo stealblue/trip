@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import RoomListComp from "../../components/room/RoomListComp";
 import { listAreas, unloadPage, showSearchType } from "../../modules/search/SearchMod";
 import ModalBasic from "../../components/common/ModalBasic";
 import Swal from 'sweetalert2';
 import { addWishList } from '../../modules/wishList/WishListMod';
 import SearchResultComp from '../../components/search/SearchResultComp';
-// import PageNavComp4 from '../../components/common/PageNavComp4';
-import { useLocation } from "react-router-dom";
 
 const SearchResultCntr = () => {
-  const location = useLocation();
-  // if(location.state.keyword){
-  //   const locationKeyword = location.state.keyword;
-  // }
+
   const [modalOpen, setModalOpen] = useState(false);
   const [mapData, setMapData] = useState({});
 
@@ -24,6 +18,7 @@ const SearchResultCntr = () => {
       mapx: e.target.dataset.mapx,
       mapy: e.target.dataset.mapy
     });
+    console.log('mapData : ', mapData)
   };
 
   const addWish = (e) => {
@@ -43,6 +38,12 @@ const SearchResultCntr = () => {
           Swal.fire({
             icon: 'success',
             text: `추가했습니다.`,
+          })
+        }
+        else if (result.isDismissed) {
+          Swal.fire({
+            icon: 'question',
+            text: '추가 안했습니다.'
           })
         }
       })
@@ -69,34 +70,22 @@ const SearchResultCntr = () => {
   }));
 
   useEffect(() => {
-    return () => {
-      dispatch(unloadPage());
-    }
+    return () => dispatch(unloadPage());
   }, [dispatch]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (keyword) {
-        if (!searchType) {
-          dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
-        } else if (searchType === 'DB') {
-          dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
-        } else if (searchType === 'API') {
-          dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
-        }
+        if (!searchType) dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
+        else if (searchType === 'DB') dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
+        else if (searchType === 'API') dispatch(listAreas({ pageNo, areaCode, contentTypeId, keyword, searchType }));
       }
     }
   }, [dispatch, pageNo, areaCode, contentTypeId, keyword, searchType]);
 
   useEffect(() => {
-    if (areas) {
-      dispatch(showSearchType(areas.searchType));
-    }
+    if (areas) dispatch(showSearchType(areas.searchType));
   }, [dispatch, areas, searchType])
-
-
-
-
 
   if (!areas) {
     console.log('내용 없음');

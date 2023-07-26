@@ -75,7 +75,6 @@ const RoomList = styled.div`
   margin-top: 150px;
 `;
 const AreaItem = ({ area, onClick, addWish }) => {
-  console.log('areaItem ===> ', area);
   return (
     <AreaItemBlock>
       <div>
@@ -94,34 +93,31 @@ const AreaItem = ({ area, onClick, addWish }) => {
   );
 };
 
-const SearchResultComp = ({ areas, error, loading, addWish, searchType }) => {
-  // console.log('areas : ', areas);
-  let result;
-  let target;
-  if (searchType === 'DB') {
-    console.log('DB>>', areas.areas);
-    if (areas.areas.rows && areas.areas.rows.length >= 0) {
-      target = areas.areas.rows;
-      console.log('target DB : ', target.rows);
+const SearchResultComp = ({ areas, error, loading, addWish, searchType, onClick }) => {
+  if (!error) {
+    let result;
+    let target;
+    if (searchType === 'DB') {
+      if (areas.areas.rows && areas.areas.rows.length >= 0) {
+        target = areas.areas.rows;
+      }
+    } else if (searchType === 'API') {
+      if (areas.areas && areas.areas.response && areas.areas.response.body) {
+        result = areas.areas.response?.body;
+        target = result.items.item;
+      }
     }
-  } else if (searchType === 'API') {
-    if (areas.areas && areas.areas.response && areas.areas.response.body) {
-      result = areas.areas.response?.body;
-      target = result.items.item;
-      console.log('target API : ', target);
-    }
-  }
-  return (
-    <div>
-      <RoomListContainer>
-        <RoomList>
-          {searchType === 'API' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-          {searchType === 'DB' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-          {searchType === 'API' ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
-        </RoomList>
-      </RoomListContainer>
-    </div >
-  );
-};
-
-export default SearchResultComp;
+    return (
+      <div>
+        <RoomListContainer>
+          <RoomList>
+            {searchType === 'API' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
+            {searchType === 'DB' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
+            {searchType === 'API' ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
+          </RoomList>
+        </RoomListContainer>
+      </div >
+    );
+  };
+}
+export default React.memo(SearchResultComp);

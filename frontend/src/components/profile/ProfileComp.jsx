@@ -367,6 +367,7 @@ const ProfileComp = ({
   setListModal,
   onChangeProfileCancle,
   onSavedListDelete,
+  contentImgFilter
 }) => {
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
@@ -497,7 +498,7 @@ const ProfileComp = ({
                   </li>
                   <li
                     dangerouslySetInnerHTML={{
-                      __html: board.content,
+                      __html: contentImgFilter(board.content),
                     }}
                   ></li>
                   <li>{makeCreatedAt(board.createAt)}</li>
