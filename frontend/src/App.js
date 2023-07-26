@@ -50,9 +50,9 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
           </Route>
           <Route>
-            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
             <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
-            <Route path="/auth/searchPwd/:id" element={<SearchPwdPage />} />
+            <Route path="/auth/searchPwd/:id" element={user ? <Navigate to="/" /> : <SearchPwdPage />} />
           </Route>
           <Route element={<AdminLayoutCntr />}>
             <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
