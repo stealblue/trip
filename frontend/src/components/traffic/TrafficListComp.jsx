@@ -44,11 +44,15 @@ const TrafficItem = ({ item }) => {
   const endTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
   return (
     <TrafficHeader>
-      <td>{item.depplacename || item.depPlaceNm}</td>
-      <td>{startTime}</td>
-      <td>{item.arrplacename || item.arrPlaceNm}</td>
-      <td>{endTime}</td>
-      <td>{item.traingradename || item.gradeNm}</td>
+      <tbody>
+        <tr>
+          <td>{item.depplacename || item.depPlaceNm}</td>
+          <td>{startTime}</td>
+          <td>{item.arrplacename || item.arrPlaceNm}</td>
+          <td>{endTime}</td>
+          <td>{item.traingradename || item.gradeNm}</td>
+        </tr>
+      </tbody>
     </TrafficHeader>
   );
 };
@@ -67,14 +71,18 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
       <TrafficContainer>
         {result && (
           <TrafficHeader>
-            <th>출발장소</th>
-            <th>시간</th>
-            <th>도착장소</th>
-            <th>시간</th>
-            <th>종류</th>
+            <thead>
+              <tr>
+                <th>출발장소</th>
+                <th>시간</th>
+                <th>도착장소</th>
+                <th>시간</th>
+                <th>종류</th>
+              </tr>
+            </thead>
           </TrafficHeader>
         )}
-        {result && result.map((item) => <TrafficItem item={item} key={item.index} />)}
+        {result && result.map((item, index) => <TrafficItem item={item} key={index} />)}
         {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
       </TrafficContainer>
     </WrapperComp>

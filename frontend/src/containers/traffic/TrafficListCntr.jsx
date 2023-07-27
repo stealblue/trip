@@ -22,7 +22,6 @@ const TrafficListCntr = () => {
 
   useEffect(() => {
     if (startStation && endStation && (dateTrain !== '' && dateTrain)) {
-      console.log('check======================================================')
       const startValue = startStation.stationId;
       const endValue = endStation.stationId;
       const date = dateTrain.dateTrain;

@@ -40,10 +40,6 @@ const PageNavComp3 = ({ totalCount, pageNo, numOfRows }) => {
     dispatch(selectPageTrain(page));
     dispatch(selectPageBus(page));
   };
-  console.log("totalCount : ", totalCount);
-  console.log("pageNo : ", pageNo);
-  console.log("res : ", res);
-  console.log("pageNavEndNum : ", pageNavEndNum);
   const resArray = Array.from({ length: pageNavEndNum - pageNavStartNum + 1 }, (_, index) => index + pageNavStartNum);
   return (
     <div>
