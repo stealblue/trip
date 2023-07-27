@@ -49,17 +49,15 @@ const AdminUserCnrt = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <AdminUserComp
-        getUserInform={getUserInform}
-        deleteUserInform={deleteUserInform}
-        userList={userList}
-        totalUser={totalUser}
-        user={user}
-        modal={modal}
-        switchModal={switchModal}
-      />
-    </div>
+    <AdminUserComp
+      getUserInform={getUserInform}
+      deleteUserInform={deleteUserInform}
+      userList={userList}
+      totalUser={totalUser}
+      user={user}
+      modal={modal}
+      switchModal={switchModal}
+    />
   );
 };
 

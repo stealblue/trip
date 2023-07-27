@@ -164,7 +164,6 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   };
 
   const onHamMenu = () => {
-    console.log('ddddddddddddd')
     if (!flagHamMenu) {
       setFlagHamMenu(true);
     }
@@ -185,7 +184,7 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
           </Link>
         </Logo>
         <FontAwesomeIcon icon={faBars} className="ham-menu" onClick={onHamMenu} />
-        <HamMenuComp flagHamMenu={flagHamMenu} onHamMenu={onHamMenu} />
+        <HamMenuComp flagHamMenu={flagHamMenu} onClick={onClick} onHamMenu={onHamMenu} nick={nick} onLogout={onLogout} grade={grade} />
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/search">

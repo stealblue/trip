@@ -18,6 +18,7 @@ const AdminUserWrap = styled.div`
 
 const BoardContainer = styled.div`
   background: ${ThemeComp.smoke};
+  width: 100%;
 
   &:first-child {
     width: 40%;
@@ -42,6 +43,7 @@ const BoardName = styled.div`
 `;
 
 const Board = styled.div`
+width: 100%;
   background: white;
   border-radius: 20px;
   .list-name {

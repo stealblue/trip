@@ -26,6 +26,20 @@ const ModalBlock = styled.div`
     border: none;
     font-size: 20px;
   }
+  .Modal-item{
+    width: 100%;
+     text-align: left;
+    :first-child{
+     padding-left: 5px;
+      width: 20%;
+      display: inline-block;
+    }
+    :last-child{
+     
+      width: 75%;
+      display: inline-block;
+    }
+  }
 `;
 
 const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
@@ -68,51 +82,106 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
         <div className="title">{title}</div>
         {onGetDetail?.contenttypeid === "32" ? (
           <>
-            <div>보유 룸 갯수 :{onGetDetail?.roomcount ? onGetDetail.roomcount : "-"}</div>
-            <div>룸 타입 :{onGetDetail?.roomtype ? onGetDetail.roomtype : "-"}</div>
-            <div>체크인 :{onGetDetail?.checkintime ? onGetDetail.checkintime : "-"}</div>
-            <div>체크아웃 :{onGetDetail?.checkouttime ? onGetDetail.checkouttime : "-"}</div>
-            <div>취사 가능여부 :{onGetDetail?.chkcooking ? onGetDetail.chkcooking : "-"}</div>
-            <div>이용시설 :{onGetDetail?.foodplace ? onGetDetail.foodplace : "-"}</div>
-            <div>전화번호 :{onGetDetail?.infocenterlodging ? onGetDetail.infocenterlodging : "-"}</div>
-            <div>주차 가능여부 :{onGetDetail?.parkinglodging ? onGetDetail.parkinglodging : "-"}</div>
-            <div>숙박 예약 :{onGetDetail?.reservationlodging ? onGetDetail.reservationlodging : "-"}</div>
-            <div>건물 이용 범위 :{onGetDetail?.scalelodging ? onGetDetail.scalelodging : "-"}</div>
-            {onGetDetail?.reservationurl ? (
-              <div>
-                예약링크 :
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: onGetDetail.reservationurl,
-                  }}></div>
-              </div>
-            ) : (
-              <div>예약링크 : -</div>
-            )}
+            <div className="Modal-item">
+              <div className="Modal-left">보유 룸 갯수</div>
+              <div className="Modal-right">: {onGetDetail?.roomcount ? onGetDetail.roomcount : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">룸 타입</div>
+              <div className="Modal-right">: {onGetDetail?.roomtype ? onGetDetail.roomtype : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">체크인</div>
+              <div className="Modal-right">: {onGetDetail?.checkintime ? onGetDetail.checkintime : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">체크아웃</div>
+              <div className="Modal-right">: {onGetDetail?.checkouttime ? onGetDetail.checkouttime : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">취사 가능여부</div>
+              <div className="Modal-right">: {onGetDetail?.chkcooking ? onGetDetail.chkcooking : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">이용시설</div>
+              <div className="Modal-right">: {onGetDetail?.foodplace ? onGetDetail.foodplace : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">전화번호</div>
+              <div className="Modal-right">: {onGetDetail?.infocenterlodging ? onGetDetail.infocenterlodging : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">주차 가능여부</div>
+              <div className="Modal-right">: {onGetDetail?.parkinglodging ? onGetDetail.parkinglodging : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">숙박 예약</div>
+              <div className="Modal-right">: {onGetDetail?.reservationlodging ? onGetDetail.reservationlodging : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">건물 이용 범위</div>
+              <div className="Modal-right">: {onGetDetail?.scalelodging ? onGetDetail.scalelodging : "-"}</div>
+            </div>
+            {onGetDetail?.reservationurl ?
+              (
+                <div className="Modal-item">
+                  <div className="Modal-left">예약링크</div>
+                  : <div className="Moda-right" dangerouslySetInnerHTML={{ __html: onGetDetail.reservationurl }} />
+                </div>
+              )
+              :
+              (
+                <div className="Modal-item">
+                  <div className="Modal-left">예약링크</div>
+                  <div className="Modal-right">: -</div>
+                </div>
+              )}
           </>
         ) : (
           <>
-            <div>전화번호 :{onGetDetail?.infocenter ? onGetDetail.infocenter : "-"}</div>
-            <div>휴일 :{onGetDetail?.restdate ? onGetDetail.restdate : "-"}</div>
-            <div>컨텐츠 :{onGetDetail?.expguide ? onGetDetail.expguide : "-"}</div>
-            {onGetDetail?.usetime ? (
-              <div>
-                이용시간 :
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: onGetDetail.usetime,
-                  }}></div>
-              </div>
-            ) : (
-              <div>이용시간 : -</div>
-            )}
-            <div>주차 가능여부 : {onGetDetail?.parking ? onGetDetail.parking : "-"}</div>
-            <div>반려동물 동반여부 :{onGetDetail?.chkpet ? onGetDetail.chkpet : "-"}</div>
-            <div>신용카드 이용 :{onGetDetail?.chkcreditcard ? onGetDetail.chkcreditcard : "-"}</div>
+            <div className="Modal-item">
+              <div className="Modal-left">전화번호</div>
+              <div className="Modal-right">: {onGetDetail?.infocenter ? onGetDetail.infocenter : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">휴일</div>
+              <div className="Modal-right">: {onGetDetail?.restdate ? onGetDetail.restdate : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">컨텐츠</div>
+              <div className="Modal-right">: {onGetDetail?.expguide ? onGetDetail.expguide : "-"}</div>
+            </div>
+            {onGetDetail?.usetime ?
+              (
+                <div className="Modal-item">
+                  <div className="Modal-left">이용시간</div>
+                  : <div className="Modal-right" dangerouslySetInnerHTML={{ __html: onGetDetail.usetime, }} />
+                </div>
+              )
+              :
+              (
+                <div className="Modal-item">
+                  <div className="Modal-left">이용시간</div>
+                  <div className="Modal-right">: -</div>
+                </div>
+              )}
+            <div className="Modal-item">
+              <div className="Modal-left">주차 가능여부</div>
+              <div className="Modal-right">: {onGetDetail?.parking ? onGetDetail.parking : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">반려동물 동반여부</div>
+              <div className="Modal-right">: {onGetDetail?.chkpet ? onGetDetail.chkpet : "-"}</div>
+            </div>
+            <div className="Modal-item">
+              <div className="Modal-left">신용카드 이용</div>
+              <div className="Modal-right">: {onGetDetail?.chkcreditcard ? onGetDetail.chkcreditcard : "-"}</div>
+            </div>
           </>
         )}
-
-        <div className="addr">{addr}</div>
+        <div className="addr">
+          {addr ? ({ addr }) : null}
+        </div>
         <KakaoMapComp mapx={mapx} mapy={mapy} />
       </ModalBlock>
     </>

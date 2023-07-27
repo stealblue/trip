@@ -49,17 +49,17 @@ const AdminBoardCnrt = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <AdminBoardComp
-        getBoardInform={getBoardInform}
-        deleteBoardInform={deleteBoardInform}
-        boardList={boardList}
-        totalBoard={totalBoard}
-        board={board}
-        modal={modal}
-        switchModal={switchModal}
-      />
-    </div>
+
+    <AdminBoardComp
+      getBoardInform={getBoardInform}
+      deleteBoardInform={deleteBoardInform}
+      boardList={boardList}
+      totalBoard={totalBoard}
+      board={board}
+      modal={modal}
+      switchModal={switchModal}
+    />
+
   );
 };
 

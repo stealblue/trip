@@ -47,9 +47,10 @@ const NavList = styled.li`
   }
 `;
 
-const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu }) => {
+const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu, onClick }) => {
 
-  const onFlag = () => {
+  const onFlag = (e) => {
+    onClick(e);
     onHamMenu();
   }
 
@@ -87,22 +88,22 @@ const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu }) => {
         )}
       </LoginCategory>
       <Nav>
-        <NavList>
+        <NavList onClick={onFlag}>
           <Link to="/search">
             <span className="nav-item" onClick={onHamMenu}>통합검색</span>
           </Link>
         </NavList>
-        <NavList>
+        <NavList onClick={onFlag}>
           <Link to="/area">
             <span className="nav-item" onClick={onHamMenu}>지역</span>
           </Link>
         </NavList>
-        <NavList>
+        <NavList onClick={onFlag}>
           <Link to="/room">
             <span className="nav-item" onClick={onHamMenu}>숙소</span>
           </Link>
         </NavList>
-        <NavList>
+        <NavList onClick={onFlag}>
           <Link to="/traffic">
             <span className="nav-item" onClick={onHamMenu}>교통수단</span>
           </Link>
@@ -112,7 +113,7 @@ const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu }) => {
             <span className="nav-item" onClick={onHamMenu}>여행MATE</span>
           </Link>
         </NavList>
-        <NavList>
+        <NavList onClick={onFlag}>
           <Link to="/board">
             <span className="nav-item" onClick={onHamMenu}>여행후기</span>
           </Link>
