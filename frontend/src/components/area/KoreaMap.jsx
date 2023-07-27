@@ -8,6 +8,8 @@ const KoreaMapContainer = styled.div`
   }
   svg {
     padding-left: 1000px;
+    /* display: block; */
+    /* width: 500px; */
   }
 `;
 

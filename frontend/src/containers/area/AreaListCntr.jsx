@@ -122,7 +122,7 @@ const AreaListCntr = memo(() => {
 
   if (!areas) {
     console.log("내용 없음");
-    return <div>내용 없음</div>;
+    return <div></div>;
   }
 
   return (
