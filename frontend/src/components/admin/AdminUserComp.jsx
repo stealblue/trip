@@ -21,12 +21,12 @@ const BoardContainer = styled.div`
   width: 100%;
 
   &:first-child {
-    width: 40%;
+    width: 100%;
     height: 100%;
     margin-left: 1%;
   }
   &:last-child {
-    width: 55%;
+    width: 100%;
     margin-left: 2%;
   }
 `;

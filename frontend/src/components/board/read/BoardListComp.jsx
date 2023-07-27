@@ -5,7 +5,6 @@ import { TitleComp, SubTitleComp } from "../../../components/common/TitleComp";
 import WrapperComp from "../../../components/common/WrapperComp";
 import ButtonComp from "../../../components/common/ButtonComp";
 import PaginationComp from "../../common/PaginationComp";
-import { addWishList } from "../../../lib/api/wishList";
 import ThemeComp from "../../common/ThemeComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 
@@ -31,12 +30,17 @@ const ListContainer = styled.div`
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.22), 0 8px 8px rgba(0, 0, 0, 0.22);
   }
 
+  .board-list-text {
+    margin-left: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+    white-space: wrap;
+  }
+
   .title {
     margin-top: 0px;
     font-size: 28px;
     font-weight: 600;
-
-    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -101,6 +105,30 @@ const ListContainer = styled.div`
       margin-left: 14px;
     }
   }
+
+  @media (max-width: 1200px) {
+    margin-top: 30px;
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    .title {
+      font-size: 18px;
+    }
+    .write-id {
+      font-size: 14px;
+    }
+
+    .createat {
+      font-size: 14px;
+    }
+    .likeandcnt {
+      font-size: 12px;
+    }
+  }
 `;
 const WriteButton = styled(ButtonComp)`
   margin: 20px 0;
@@ -116,7 +144,15 @@ const BoardListTitle = styled(TitleComp)`
 `;
 
 const BoardListImg = styled.img`
-  width: 40%;
+  width: 400px;
+
+  @media (max-width: 1200px) {
+    width: 300px;
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
 `;
 
 const BoardListItem = ({ post, likeCount }) => {
@@ -124,7 +160,7 @@ const BoardListItem = ({ post, likeCount }) => {
     return <div>오류</div>;
   }
 
-  const { no, id, nick, title, content, createAt, updateAt, like, cnt } = post;
+  const { no, id, title, createAt, updateAt, like, cnt } = post;
 
   return (
     <ListContainer>
@@ -132,7 +168,7 @@ const BoardListItem = ({ post, likeCount }) => {
         <div className="board-list">
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
-            <h3 className="title">{title}</h3>
+            <div className="title">{title}</div>
             <div className="likeandcnt">
               <div>
                 <FontAwesomeIcon
@@ -151,7 +187,6 @@ const BoardListItem = ({ post, likeCount }) => {
                 {cnt}{" "}
               </div>
             </div>
-            {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
             {updateAt ? (
               <p className="createat">수정일자 : {makeCreatedAt(updateAt)}</p>
@@ -166,10 +201,9 @@ const BoardListItem = ({ post, likeCount }) => {
 };
 
 const BoardListComp = ({ posts, showWriteButton, error }) => {
-  const [limit, setLimit] = useState(5);
+  const limit = 5;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  // console.log("posts : ", posts);
   return (
     <>
       <WrapperComp>
@@ -181,8 +215,7 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         {posts &&
           posts
             .slice(offset, offset + limit)
-            .map((post, index) => <BoardListItem key={post.no} post={post} />)}
-        {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
+            .map((post) => <BoardListItem key={post.no} post={post} />)}
         <div className="pagin">
           {posts && (
             <PaginationComp

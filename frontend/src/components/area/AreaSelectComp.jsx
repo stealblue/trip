@@ -18,7 +18,7 @@ const MapContainer = styled.div`
 
 const ListContainer = styled.div`
   width: 800px;
-  height: 1283px;
+  height: 1050px;
   position: static;
   display: flex;
   flex-direction: column;

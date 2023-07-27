@@ -5,7 +5,7 @@ import ThemeComp from "../common/ThemeComp";
 
 const RoomListContainer = styled.div`
   width: 800px;
-  height: 1130px;
+  height: 1080px;
   /* background: #333; */
   position: absolute;
   left: 0;
@@ -83,7 +83,7 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
           {area.addr1}
         </StyledP>
         <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
-          <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />+ 추가
+          + 추가
         </span>
       </p>
     </AreaItemBlock>
