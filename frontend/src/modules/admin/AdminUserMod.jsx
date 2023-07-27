@@ -11,12 +11,15 @@ const [GET_USER_DETAIL, GET_USER_DETAIL_SUCCESS, GET_USER_DETAIL_FAILURE] =
   createRequestActionTypes("admin/GET_USER_DETAIL");
 const [DELETE_USER, DELETE_USER_SUCCESS, DELETE_USER_FAILURE] =
   createRequestActionTypes("admin/DELETE_USER");
+const [GET_USER_ACTION, GET_USER_ACTION_SUCCESS, GET_USER_ACTION_FAILURE] =
+  createRequestActionTypes("admin/GET_USER_ACTION");
 
 export const getUserList = createAction(GET_USER_LIST);
 export const getUserDetail = createAction(GET_USER_DETAIL, ({ id }) => ({
   id,
 }));
 export const deleteUser = createAction(DELETE_USER, ({ id }) => ({ id }));
+export const getUserAction = createAction(GET_USER_ACTION);
 
 const getUserListProcess = createRequestSaga(
   GET_USER_LIST,
@@ -27,11 +30,16 @@ const getUserDetailProcess = createRequestSaga(
   adminAPI.getUserDetail
 );
 const deleteUserProcess = createRequestSaga(DELETE_USER, adminAPI.deleteUser);
+const getUserActionProcess = createRequestSaga(
+  GET_USER_ACTION,
+  adminAPI.getUserAction
+);
 
 export function* adminUserSaga() {
   yield takeLatest(GET_USER_LIST, getUserListProcess);
   yield takeLatest(GET_USER_DETAIL, getUserDetailProcess);
   yield takeLatest(DELETE_USER, deleteUserProcess);
+  yield takeLatest(GET_USER_ACTION, getUserActionProcess);
 }
 
 const initialState = {
@@ -41,6 +49,8 @@ const initialState = {
   user: null,
   userError: null,
   deleteError: null,
+  userAction: null,
+  userActionError: null,
 };
 
 const AdminUserMod = handleActions(
@@ -73,6 +83,16 @@ const AdminUserMod = handleActions(
     [DELETE_USER_FAILURE]: (state, { payload: { deleteError } }) => ({
       ...state,
       deleteError,
+    }),
+    [GET_USER_ACTION_SUCCESS]: (state, { payload: { userAction } }) => ({
+      ...state,
+      userAction,
+      userActionError: null,
+    }),
+    [GET_USER_ACTION_FAILURE]: (state, { payload: { userActionError } }) => ({
+      ...state,
+      userAction: null,
+      userActionError,
     }),
   },
   initialState

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminUserComp from "../../components/admin/AdminUserComp";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserAction } from "../../modules/admin/AdminUserMod";
 import {
   getUserList,
   getUserDetail,
@@ -42,6 +43,10 @@ const AdminUserCnrt = () => {
   useEffect(() => {
     dispatch(getUserList());
   }, [dispatch, deleteError]);
+
+  useEffect(() => {
+    dispatch(getUserAction());
+  }, [dispatch]);
 
   return (
     <div>
