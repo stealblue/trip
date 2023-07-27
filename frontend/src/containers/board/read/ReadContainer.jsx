@@ -16,7 +16,7 @@ const ReadContainer = () => {
   const [likeCount, setLikeCount] = useState(0);
 
   const { post, error, loading, user, like } = useSelector(({ ReadMod, loading, UserMod }) => ({
-    post: ReadMod.post,
+    post: ReadMod?.post,
     error: ReadMod.error,
     user: UserMod?.user,
     like: ReadMod.like
@@ -36,12 +36,16 @@ const ReadContainer = () => {
   useEffect(() => {
     if (!loading && post) {
       const likes = post?.likes;
-      likes.forEach((like) => {
-        if (user.id === like.id) {
-          setIsLike(true)
-        }
-      });
-      setLikeCount(likes.length);
+      if (typeof likes === 'undefined') {
+        likes.forEach((like) => {
+          console.log('user.id : ', user.id);
+          console.log('like.id : ', like.id);
+          if (user.id === like.id) {
+            setIsLike(true)
+          }
+        });
+        setLikeCount(likes.length);
+      }
     }
   }, [loading, post, user]);
 
