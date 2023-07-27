@@ -18,8 +18,8 @@ const AdminUserWrap = styled.div`
 
 const BoardContainer = styled.div`
   background: ${ThemeComp.smoke};
-  width: 100%;
-
+  /* width: 100%; */
+margin-right: 10px;
   &:first-child {
     width: 100%;
     height: 100%;
@@ -27,7 +27,7 @@ const BoardContainer = styled.div`
   }
   &:last-child {
     width: 100%;
-    margin-left: 2%;
+    margin-left: 1%;
   }
 `;
 

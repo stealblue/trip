@@ -22,7 +22,7 @@ const BoardContainer = styled.div`
 
   &:first-child {
     width: 35%;
-    height: 100%;
+    /* height: 100%; */
     margin-left: 1%;
   }
   &:last-child {
@@ -43,6 +43,7 @@ const BoardName = styled.div`
 `;
 
 const Board = styled.div`
+width: 100%;
   background: white;
   border-radius: 20px;
   .list-name {
@@ -81,7 +82,7 @@ const BoardInfo = styled.div`
   /* background: ${ThemeComp.smoke}; */
   border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
-  line-height: 6op0px;
+  line-height: 60px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -93,6 +94,9 @@ const Detail = styled.span`
   width: 30%;
   text-align: center;
   width: 5%;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
   &:nth-child(3n),
   &:nth-child(2) {

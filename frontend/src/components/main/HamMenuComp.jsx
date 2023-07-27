@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const HamMenuWrap = styled.div`
-  width: 400px;
+  width: 200px;
   height: 100%;
   background: rgba(255, 255, 255, 0.9);
   position: absolute;
@@ -27,6 +27,7 @@ const Nav = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9);
 `;
 
 const NavList = styled.li`
