@@ -140,17 +140,21 @@ exports.deleteBoard = async (req, res) => {
 };
 
 exports.getReplyList = async (req, res) => {
-	const { id } = req.params;
-
+	const { uno } = req.params;
+	console.log('getReplyList ==>uno : ', uno)
 	try {
 		const replyList = await reply.findAll({
 			where: {
-				id,
+				uno
 			},
+			include: [{
+				model: user,
+				as: "uno_user"
+			}]
 		});
 
 		const totalReply = replyList.length;
-
+		console.log('totalReply : ', totalReply);
 		if (replyList) {
 			return res.status(200).json({ replyList, totalReply });
 		}

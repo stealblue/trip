@@ -149,22 +149,23 @@ const Spacer = styled.div`
   height: 10rem;
 `;
 
-const HeaderComp = ({ nick, onLogout, grade }) => {
+const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
-  const onClick = (e) => {
-    const navItems = Array.from(document.getElementsByClassName("nav-item"));
-    navItems.forEach((item) => {
-      if (item === e.target) {
-        item.classList.add("click");
-      } else {
-        item.classList.remove("click");
-      }
-    });
-  };
+  // const onClick = (e) => {
+  //   const navItems = Array.from(document.getElementsByClassName("nav-item"));
+  //   navItems.forEach((item) => {
+  //     if (item === e.target) {
+  //       item.classList.add("click");
+  //       // }
+  //     } else {
+  //       item.classList.remove("click");
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
@@ -199,7 +200,7 @@ const HeaderComp = ({ nick, onLogout, grade }) => {
               <span className="nav-item">교통수단</span>
             </Link>
           </NavList>
-          <NavList onClick={onClick}>
+          <NavList>
             <Link to="/chat">
               <span className="nav-item">여행MATE</span>
             </Link>

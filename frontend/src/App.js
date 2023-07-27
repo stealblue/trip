@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { Routes, Route, Navigate, useLocation } from "react-router";
-
+import { useNavigate } from "react-router-dom";
 import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
@@ -24,11 +24,26 @@ import AdminBoardPage from "./pages/admin/AdminboardPage";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
+import Swal from 'sweetalert2';
 
 function App() {
+  const navigate = useNavigate();
   const { user } = useSelector(({ UserMod }) => ({
     user: UserMod.user,
   }));
+
+  // const onSwal = () => {
+  //   Swal.fire({
+  //     title: "구현 중",
+  //     showConfirmButton: true,
+  //     confirmButtonText: "확인"
+  //   })
+  //     .then((result) => {
+  //       if (result.isConfirmed) {
+  //         return <Navigate to='/' />
+  //       }
+  //     })
+  // }
 
   return (
     <>
@@ -37,6 +52,7 @@ function App() {
           <Route element={<LayoutCntr />}>
             <Route path="/" element={<Main />} />
             <Route path="/chat" element={<Navigate to='/' />} />
+            {/* <Route path="/chat" element={onSwal} /> */}
             {/* <Route path="/chat" element={<RoomListPage />} />
             <Route path="/chat/room" element={<RoomCreatePage />} />
             <Route path="/chat/room/:roomId" element={<RoomReadPage />} /> */}

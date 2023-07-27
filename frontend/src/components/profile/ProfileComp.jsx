@@ -516,6 +516,7 @@ const ProfileComp = ({
               <Item key={reply.no}>
                 <BoardInfo>
                   <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.uno_user.id}</li>
                   <li>{reply.content}</li>
                   <li>{makeCreatedAt(reply.createAt)}</li>
                   <li>
