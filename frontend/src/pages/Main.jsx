@@ -1,4 +1,3 @@
-// import React, { useEffect } from "react";
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
-// import { motion } from "framer-motion";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -20,10 +16,6 @@ import { faRightLong } from "@fortawesome/free-solid-svg-icons";
 import MainSearchComp from "../components/main/MainSearchComp";
 import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
-// import MainBoardComp from "../components/main/MainBoardComp";
-// import WrapperComp from "../components/common/WrapperComp";
-// import Swal from "sweetalert2";
-// import SideMenuComp from "../components/main/SideMenuComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
 import ThemeComp from "../components/common/ThemeComp";
@@ -40,8 +32,6 @@ const SlideWarraper = styled.div`
     background-size: auto;
     object-fit: cover;
     height: 850px;
-
-    /* opacity: 0.8; */
   }
 
   .slide-text {
@@ -85,7 +75,6 @@ const MainBoardListContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  /* background: ${ThemeComp.smoke}; */
   padding: 20px 0 60px;
 `;
 
@@ -105,7 +94,6 @@ const Main = () => {
       dispatch(showKeyword(keyword));
       navigate("/search");
     } else if (e.button === 0) {
-      // 마우스 왼쪽
       const keyword = `${e.target.dataset.keyword}`;
       console.log("keyword : ", e.target);
       dispatch(showKeyword(keyword));
@@ -113,12 +101,9 @@ const Main = () => {
     }
   };
 
-  // const onSwal = () => {
-  //   Swal.fire({
-  //     icon: "info",
-  //     title: "구현 중",
-  //   });
-  // };
+  const onHamMenu = (e) => {
+    console.log('dddddddddddddddddd');
+  };
 
   return (
     <>
@@ -197,12 +182,11 @@ const Main = () => {
       </SlideWarraper>
       <MainSearchComp onSearchArea={onSearchArea} />
       <MaincontentComp />
-      {/* <MaincontentComp /> */}
       <MainBoardListContainer>
         <MainChatComp />
         <MainBoardCntr />
       </MainBoardListContainer>
-      <HamMenuComp />
+      {/* <HamMenuComp onHamMenu={onHamMenu} /> */}
     </>
   );
 };
