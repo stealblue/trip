@@ -179,9 +179,7 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
             </div>
           </>
         )}
-        <div className="addr">
-          {addr ? ({ addr }) : null}
-        </div>
+        {addr ? <div className="addr">{addr}</div> : null}
         <KakaoMapComp mapx={mapx} mapy={mapy} />
       </ModalBlock>
     </>

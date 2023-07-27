@@ -22,6 +22,14 @@ const StyledModal = Modal.styled`
     padding: 5px;
     justify-content: space-between;
   }
+  .Modal-item{
+    :first-child{
+      width: 30%;
+    }
+    :last-child{
+      width: 65%;
+    }
+  }
 `;
 
 const ProfileBlock = styled.div`
@@ -768,53 +776,102 @@ const ProfileComp = ({
                 onBackgroundClick={onGetWishDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
                 {wish?.data?.contenttypeid === "32" ? (
-                  <>
-                    <div>{wish?.title}</div>
-                    <div>보유 룸 갯수 :{wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
-                    <div>룸 타입 :{wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
-                    <div>체크인 :{wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
-                    <div>체크아웃 :{wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
-                    <div>취사 가능여부 :{wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
-                    <div>이용시설 :{wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
-                    <div>전화번호 :{wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
-                    <div>주차 가능여부 :{wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
-                    <div>숙박 예약 :{wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
-                    <div>건물 이용 범위 :{wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
+                  <div>
+                    <div>
+                      {wish?.title}
+                    </div>
+                    <div className="Modal-item">
+                      <div>보유 룸 갯수</div>
+                      <div>: {wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>룸 타입</div>
+                      <div>: {wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>체크인</div>
+                      <div>: {wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>체크아웃</div>
+                      <div>: {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>취사 가능여부</div>
+                      <div>: {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>이용시설</div>
+                      <div>: {wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>전화번호</div>
+                      <div>: {wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>주차 가능여부</div>
+                      <div>: {wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>숙박 예약</div>
+                      <div>: {wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>건물 이용 범위</div>
+                      <div>: {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
+                    </div>
                     {wish?.data?.reservationurl ? (
-                      <div>
-                        홈페이지 링크 :
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: wish.data.reservationurl,
-                          }}></div>
+                      <div className="Modal-item">
+                        <div>홈페이지 링크</div>
+                        :<div dangerouslySetInnerHTML={{ __html: wish.data.reservationurl }} />
                       </div>
                     ) : (
-                      <div>홈페이지 링크 : -</div>
+                      <div className="Modal-item">
+                        <div>홈페이지 링크</div>
+                        <div>: -</div>
+                      </div>
                     )}
-                  </>
+                  </div>
                 ) : (
                   <>
                     <div>{wish?.title}</div>
-                    <div>전화번호 :{wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
-                    <div>휴일 :{wish?.data?.restdate ? wish.data.restdate : "-"}</div>
-                    <div>컨텐츠 :{wish?.data?.expguide ? wish.data.expguide : "-"}</div>
+                    <div className="Modal-item">
+                      <div>전화번호</div>
+                      <div>: {wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>휴일</div>
+                      <div>: {wish?.data?.restdate ? wish.data.restdate : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>컨텐츠</div>
+                      <div>: {wish?.data?.expguide ? wish.data.expguide : "-"}</div>
+                    </div>
                     {wish?.data?.usetime ? (
-                      <div>
-                        이용시간 :
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: wish.data.usetime,
-                          }}></div>
+                      <div className="Modal-item">
+                        <div>이용시간</div>
+                        :<div dangerouslySetInnerHTML={{ __html: wish.data.usetime }} />
                       </div>
                     ) : (
-                      <div>이용시간 : -</div>
+                      <div className="Modal-item">
+                        <div>이용시간</div>
+                        <div>: -</div>
+                      </div>
                     )}
-                    <div>주차 가능여부 :{wish?.data?.parking ? wish.data.parking : "-"}</div>
-                    <div>반려동물 동반여부 :{wish?.data?.chkpet ? wish.data.chkpet : "-"}</div>
-                    <div>신용카드 이용 :{wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
+                    <div className="Modal-item">
+                      <div>주차 가능여부</div>
+                      <div>: {wish?.data?.parking ? wish.data.parking : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>반려동물 동반여부</div>
+                      <div>: {wish?.data?.chkpet ? wish.data.chkpet : "-"}</div>
+                    </div>
+                    <div className="Modal-item">
+                      <div>신용카드 이용</div>
+                      <div>: {wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
+                    </div>
                   </>
                 )}
-
                 <button onClick={onGetWishDetail}>x</button>
               </StyledModal>
             </WishListBox>

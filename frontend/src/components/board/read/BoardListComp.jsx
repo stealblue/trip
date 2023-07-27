@@ -45,6 +45,7 @@ const ListContainer = styled.div`
   .board-list-text {
     margin-left: 20px;
     margin-top: 1rem;
+    width: 55%;
   }
 
   .des {
@@ -73,12 +74,18 @@ const ListContainer = styled.div`
   .write-id {
     margin-top: 1rem;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .createat {
     font-size: 16px;
     color: #7b7b7b;
     margin-top: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .likeandcnt {
@@ -109,7 +116,7 @@ const BoardListTitle = styled(TitleComp)`
 `;
 
 const BoardListImg = styled.img`
-  width: 400px;
+  width: 40%;
 `;
 
 const BoardListItem = ({ post, likeCount }) => {
