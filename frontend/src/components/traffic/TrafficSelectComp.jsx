@@ -8,14 +8,14 @@ const TrafficContainer = styled.div`
   align-items: center;
   .traffic-btn {
     display: flex;
-    justify-content: space-around;
-    width: 15%;
+    justify-content: center;
   }
   button {
     background: none;
     padding: 10px 30px;
     text-align: center;
     border-radius: 10px;
+    margin-left: 10px;
     font-size: 18px;
     line-height: 30px;
     cursor: pointer;
@@ -38,11 +38,12 @@ const TrafficContainer = styled.div`
   .select-option {
     display: flex;
     margin-top: 20px;
-    justify-content: space-around;
-    width: 50%;
+    justify-content: center;
+    flex-wrap: wrap;
 
     .select-area {
       width: 200px;
+      margin-right: 20px;
       padding: 15px 10px;
       background: ${ThemeComp.smoke};
       border-radius: 30px;
@@ -60,19 +61,35 @@ const TrafficContainer = styled.div`
         font-size: 18px;
         line-height: 18px;
       }
+
+      input {
+        border-radius: 30px;
+        padding: 0 30px;
+        background: ${ThemeComp.smoke};
+      }
+
+      select {
+        width: 100px;
+        height: 40px;
+        background: ${ThemeComp.smoke};
+        cursor: pointer;
+      }
     }
 
-    input {
-      border-radius: 30px;
-      padding: 0 30px;
-      background: ${ThemeComp.smoke};
-    }
-
-    select {
-      width: 100px;
-      height: 40px;
-      background: ${ThemeComp.smoke};
-      cursor: pointer;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      margin: 10px 0;
+      div {
+        margin-top: 10px;
+        margin-right: 0;
+      }
+      input {
+        margin-top: 10px;
+        border-radius: 30px;
+        width: 200px;
+        padding: 13px;
+        background: ${ThemeComp.smoke};
+      }
     }
   }
 `;

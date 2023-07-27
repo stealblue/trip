@@ -33,6 +33,7 @@ const RoomList = styled.div`
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
 `;
 
 // const SelectArea = ({ onClick, area, areaCode, loading }) => {

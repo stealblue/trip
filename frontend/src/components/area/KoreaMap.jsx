@@ -7,7 +7,8 @@ const KoreaMapContainer = styled.div`
     font-family: "SUITE-Regular";
   }
   svg {
-    padding-left: 1000px;
+    position: absolute;
+    right: 100px;
     /* display: block; */
     /* width: 500px; */
   }

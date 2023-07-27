@@ -8,6 +8,7 @@ const AreaItemBlock = styled.div`
   padding: 20px 0;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  background: #fff;
 
   div {
     display: flex;

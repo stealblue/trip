@@ -9,9 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartSimple, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const AdminUserWrap = styled.div`
-  width: 1600px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
+  justify-content: space-around;
   margin-top: 30px;
 `;
 
@@ -133,15 +134,7 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminUserComp = ({
-  getUserInform,
-  deleteUserInform,
-  userList,
-  totalUser,
-  user,
-  modal,
-  switchModal,
-}) => {
+const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -149,16 +142,14 @@ const AdminUserComp = ({
     <AdminUserWrap>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
-          <span>가입자수</span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>가입자수</span>
         </BoardName>
         <AdminUserGraph totalItem={totalUser} type={"user"} />
       </BoardContainer>
 
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />{" "}
-          <span>회원관리</span>
+          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} /> <span>회원관리</span>
           <span> / 총 가입자 수({totalUser}명)</span>
         </BoardName>
         <Board>
@@ -176,19 +167,12 @@ const AdminUserComp = ({
                 <Detail> {user.nick}</Detail>
                 <Detail> {user.phone}</Detail>
                 <Detail>
-                  <ControlButton onClick={() => deleteUserInform(user.id)}>
-                    탈퇴
-                  </ControlButton>
+                  <ControlButton onClick={() => deleteUserInform(user.id)}>탈퇴</ControlButton>
                 </Detail>
               </UserInfo>
             </UserInfoContainer>
           ))}
-          <PaginationComp
-            total={userList.length}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-          />
+          <PaginationComp total={userList.length} limit={limit} page={page} setPage={setPage} />
 
           {modal && user && (
             <StyledModal

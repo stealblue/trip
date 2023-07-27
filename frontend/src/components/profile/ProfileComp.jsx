@@ -31,6 +31,22 @@ const ProfileBlock = styled.div`
   justify-content: center;
   width: 50%;
   margin: 60px auto;
+  justify-content: space-around;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+    margin-bottom: 200px;
+    width: 100%;
+
+    form {
+      text-align: center;
+    }
+    .buttons {
+      text-align: center;
+    }
+  }
 `;
 
 const ImageBox = styled.img`
@@ -57,6 +73,7 @@ const InputBox = styled.input`
 const UserInformBox = styled.div`
   height: 240px;
   margin-left: 30px;
+  margin: 0 auto;
 `;
 
 const UserInform = styled.div`
@@ -70,32 +87,39 @@ const BoardListTitle = styled.ul`
   display: flex;
   text-align: center;
   padding: 10px;
+  justify-content: space-around;
   font-weight: 600;
   border-bottom: 1px solid #000;
   li:first-child {
-    width: 20%;
+    width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 2px;
   }
-  li:nth-child(2) {
+  /* li:nth-child(2) {
     width: 40%;
+    margin: 0 2px;
+  } */
+  li:nth-child(2) {
+    width: 30%;
     margin: 0 2px;
   }
   li:nth-child(3) {
-    width: 15%;
-    margin: 0 2px;
+    width: 10%;
+    margin: 0 4px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(4) {
-    width: 5%;
-    margin: 0 4px;
+    width: 10%;
+    margin: 0 2px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(5) {
-    width: 5%;
-    margin: 0 2px;
-  }
-
-  @media (max-width: 1200px) {
+    width: 10%;
   }
 `;
 
@@ -107,6 +131,9 @@ const BoardInfo = styled.ul`
   box-sizing: border-box;
   text-align: center;
   line-height: 50px;
+
+  &.board-info {
+  }
 
   li:first-child {
     width: 30%;
@@ -126,53 +153,101 @@ const BoardInfo = styled.ul`
     text-overflow: ellipsis;
     white-space: nowrap;
   } */
-  li:nth-child(3) {
+  li:nth-child(2) {
     width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  li:nth-child(3) {
+    width: 10%;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
   li:nth-child(4) {
     width: 10%;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(5) {
     width: 10%;
   }
 
-  @media (max-width: 1200px) {
+  &.reply-boardinfo {
+    li:first-child {
+      width: 20%;
+    }
+    li:nth-child(2) {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(3) {
+      width: 20%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(4) {
+      width: 10%;
+    }
+  }
+
+  &.like-boardinfo {
+    li:first-child {
+      width: 30%;
+    }
+    li:nth-child(2) {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(3) {
+      width: 20%;
+    }
   }
 `;
 
 const ListTitle = styled.ul`
   display: flex;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   font-weight: 600;
   border-bottom: 1px solid #000;
 
   li:first-child {
-    width: 22%;
+    width: 20%;
   }
   li:nth-child(2) {
-    width: 53.5%;
+    width: 50%;
   }
   li:nth-child(3) {
-    width: 16%;
+    width: 20%;
+  }
+  li:nth-child(4) {
+    width: 10%;
   }
 `;
 
 const LikeListTitle = styled.ul`
   display: flex;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   font-weight: 600;
   border-bottom: 1px solid #000;
 
   li:first-child {
-    width: 24.5%;
+    width: 30%;
   }
   li:nth-child(2) {
-    width: 55%;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   li:nth-child(3) {
     width: 20%;
@@ -246,6 +321,10 @@ const SelectButton = styled.button`
     background: ${ThemeComp.softblack};
     color: ${ThemeComp.white};
   }
+
+  @media (max-width: 1200px) {
+    width: 40%;
+  }
 `;
 
 const ButtonBox = styled.div`
@@ -261,6 +340,11 @@ const ListBox = styled.div`
   margin-top: 20px;
   background: ${ThemeComp.smoke};
   padding: 50px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    padding: 0;
+  }
 `;
 
 const BoardBox = styled.div`
@@ -490,11 +574,7 @@ const ProfileComp = ({
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            {user?.img ? (
-              <ImageBox src={`/assets/${user.img}`} alt="img" />
-            ) : (
-              <ImageBox src={"/assets/triplogo.png"} alt="img" />
-            )}
+            {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
             <Button onClick={onChangePhoto} className="change-btn">
               사진변경
@@ -535,15 +615,7 @@ const ProfileComp = ({
                 <NameTag>닉네임</NameTag>
                 <InputBox placeholder={"닉네임"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
-                <div>
-                  {nickError ? (
-                    <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
-                  ) : nickAuth ? (
-                    <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                <div>{nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}</div>
               </UserInform>
 
               <UserInform>
@@ -562,16 +634,13 @@ const ProfileComp = ({
           ) : (
             ""
           )}
-          <div>
+          <div className="buttons">
             <Button onClick={onChangeProfile}>정보수정</Button>
             <Button className="delete-user-btn" onClick={onWithdraw}>
               회원탈퇴
             </Button>
             {changeInform && (
-              <Button
-                style={{ marginLeft: "10px" }}
-                onClick={onChangeProfileCancle}
-              >
+              <Button style={{ marginLeft: "10px" }} onClick={onChangeProfileCancle}>
                 수정취소
               </Button>
             )}
@@ -579,18 +648,10 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>
-          게시물 ({totalBoard})
-        </SelectButton>
-        <SelectButton onClick={onGetReplyList}>
-          댓글 ({totalReply})
-        </SelectButton>
-        <SelectButton onClick={onGetLikeList}>
-          좋아요 ({totalLike})
-        </SelectButton>
-        <SelectButton onClick={onGetWishList}>
-          wishList ({totalWish})
-        </SelectButton>
+        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
+        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
+        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
+        <SelectButton onClick={onGetWishList}>wishList ({totalWish})</SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -605,10 +666,9 @@ const ProfileComp = ({
             </BoardListTitle>
             {boardList?.map((board) => (
               <Item key={board.no}>
-                <BoardInfo>
-                  <li onClick={() => onGetBoardDetail(board.no)}>
-                    {board.title}
-                  </li>
+                <BoardInfo className="board-info">
+                  <li onClick={() => onGetBoardDetail(board.no)}>{board.title}</li>
+                  <li onClick={() => onGetBoardDetail(board.no)}>{board.title}</li>
                   {/* <li
                     className="content"
                     dangerouslySetInnerHTML={{
@@ -625,24 +685,12 @@ const ProfileComp = ({
                   </li>
 
                   <li>
-                    <Button onClick={() => onDeleteBoard(board.no)}>
-                      삭제
-                    </Button>
+                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
                   </li>
-                  <li></li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">
-              {boardList && (
-                <PaginationComp
-                  total={boardList.length}
-                  limit={limit}
-                  page={page}
-                  setPage={setPage}
-                />
-              )}
-            </div>
+            <div className="pagin">{boardList && <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
@@ -650,36 +698,24 @@ const ProfileComp = ({
               <li>이메일</li>
               <li>내용</li>
               <li>작성일자</li>
+              <li></li>
             </ListTitle>
             {replyList.slice(offset, offset + limit).map((reply) => (
               <Item key={reply.no}>
-                <BoardInfo>
-                  <li onClick={() => onGetReplyDetail(reply.bno)}>
-                    {reply.nick}
-                  </li>
-                  <li onClick={() => onGetReplyDetail(reply.bno)}>
-                    {reply.uno_user.id}
-                  </li>
+                <BoardInfo className="reply-boardinfo">
+                  {/* <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li> */}
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.uno_user.id}</li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.uno_user.id}</li>
                   <li>{reply.content}</li>
                   <li>{makeCreatedAt(reply.createAt)}</li>
                   <li>
-                    <Button onClick={() => onDeleteReply(reply.no)}>
-                      삭제
-                    </Button>
+                    <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
                   </li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">
-              {replyList && (
-                <PaginationComp
-                  total={replyList.length}
-                  limit={limit}
-                  page={page}
-                  setPage={setPage}
-                />
-              )}
-            </div>
+            <div className="pagin">{replyList && <PaginationComp total={replyList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
@@ -690,7 +726,7 @@ const ProfileComp = ({
             </LikeListTitle>
             {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
-                <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
+                <BoardInfo className="like-boardinfo" onClick={() => onGetLikeDetail(like.bno)}>
                   <li>{like.bno_board.id}</li>
                   <li>{like.bno_board.title}</li>
                   <li>
@@ -701,31 +737,14 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">
-              {likeList && (
-                <PaginationComp
-                  total={likeList.length}
-                  limit={limit}
-                  page={page}
-                  setPage={setPage}
-                />
-              )}
-            </div>
+            <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
           </LikeBox>
         ) : (
           <AllScheduleBox>
             <WishListBox>
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
-                  <SchedulerBox
-                    onClick={() =>
-                      onGetWishDetail(
-                        Wish.title,
-                        Wish.contentId,
-                        Wish.contentTypeId
-                      )
-                    }
-                  >
+                  <SchedulerBox onClick={() => onGetWishDetail(Wish.title, Wish.contentId, Wish.contentTypeId)}>
                     <ScheduleTitle key={Wish.no}>{Wish.title}</ScheduleTitle>
                   </SchedulerBox>
                   <ScheduleButton
@@ -736,13 +755,10 @@ const ProfileComp = ({
                         title: Wish.title,
                         contentTypeId: Wish.contentTypeId,
                       })
-                    }
-                  >
+                    }>
                     +
                   </ScheduleButton>
-                  <ScheduleButton onClick={() => onDeleteWish(Wish.no)}>
-                    x
-                  </ScheduleButton>
+                  <ScheduleButton onClick={() => onDeleteWish(Wish.no)}>x</ScheduleButton>
                 </Item>
               ))}
               <StyledModal
@@ -754,59 +770,23 @@ const ProfileComp = ({
                 {wish?.data?.contenttypeid === "32" ? (
                   <>
                     <div>{wish?.title}</div>
-                    <div>
-                      보유 룸 갯수 :
-                      {wish?.data?.roomcount ? wish.data.roomcount : "-"}
-                    </div>
-                    <div>
-                      룸 타입 :{wish?.data?.roomtype ? wish.data.roomtype : "-"}
-                    </div>
-                    <div>
-                      체크인 :
-                      {wish?.data?.checkintime ? wish.data.checkintime : "-"}
-                    </div>
-                    <div>
-                      체크아웃 :
-                      {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}
-                    </div>
-                    <div>
-                      취사 가능여부 :
-                      {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}
-                    </div>
-                    <div>
-                      이용시설 :
-                      {wish?.data?.foodplace ? wish.data.foodplace : "-"}
-                    </div>
-                    <div>
-                      전화번호 :
-                      {wish?.data?.infocenterlodging
-                        ? wish.data.infocenterlodging
-                        : "-"}
-                    </div>
-                    <div>
-                      주차 가능여부 :
-                      {wish?.data?.parkinglodging
-                        ? wish.data.parkinglodging
-                        : "-"}
-                    </div>
-                    <div>
-                      숙박 예약 :
-                      {wish?.data?.reservationlodging
-                        ? wish.data.reservationlodging
-                        : "-"}
-                    </div>
-                    <div>
-                      건물 이용 범위 :
-                      {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}
-                    </div>
+                    <div>보유 룸 갯수 :{wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
+                    <div>룸 타입 :{wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
+                    <div>체크인 :{wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
+                    <div>체크아웃 :{wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
+                    <div>취사 가능여부 :{wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
+                    <div>이용시설 :{wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
+                    <div>전화번호 :{wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
+                    <div>주차 가능여부 :{wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
+                    <div>숙박 예약 :{wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
+                    <div>건물 이용 범위 :{wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
                     {wish?.data?.reservationurl ? (
                       <div>
                         홈페이지 링크 :
                         <div
                           dangerouslySetInnerHTML={{
                             __html: wish.data.reservationurl,
-                          }}
-                        ></div>
+                          }}></div>
                       </div>
                     ) : (
                       <div>홈페이지 링크 : -</div>
@@ -815,42 +795,23 @@ const ProfileComp = ({
                 ) : (
                   <>
                     <div>{wish?.title}</div>
-                    <div>
-                      전화번호 :
-                      {wish?.data?.infocenter ? wish.data.infocenter : "-"}
-                    </div>
-                    <div>
-                      휴일 :{wish?.data?.restdate ? wish.data.restdate : "-"}
-                    </div>
-                    <div>
-                      컨텐츠 :{wish?.data?.expguide ? wish.data.expguide : "-"}
-                    </div>
+                    <div>전화번호 :{wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
+                    <div>휴일 :{wish?.data?.restdate ? wish.data.restdate : "-"}</div>
+                    <div>컨텐츠 :{wish?.data?.expguide ? wish.data.expguide : "-"}</div>
                     {wish?.data?.usetime ? (
                       <div>
                         이용시간 :
                         <div
                           dangerouslySetInnerHTML={{
                             __html: wish.data.usetime,
-                          }}
-                        ></div>
+                          }}></div>
                       </div>
                     ) : (
                       <div>이용시간 : -</div>
                     )}
-                    <div>
-                      주차 가능여부 :
-                      {wish?.data?.parking ? wish.data.parking : "-"}
-                    </div>
-                    <div>
-                      반려동물 동반여부 :
-                      {wish?.data?.chkpet ? wish.data.chkpet : "-"}
-                    </div>
-                    <div>
-                      신용카드 이용 :
-                      {wish?.data?.chkcreditcard
-                        ? wish.data.chkcreditcard
-                        : "-"}
-                    </div>
+                    <div>주차 가능여부 :{wish?.data?.parking ? wish.data.parking : "-"}</div>
+                    <div>반려동물 동반여부 :{wish?.data?.chkpet ? wish.data.chkpet : "-"}</div>
+                    <div>신용카드 이용 :{wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
                   </>
                 )}
 
@@ -859,11 +820,7 @@ const ProfileComp = ({
             </WishListBox>
             <BeforeBox>
               <BeforeInputBox>
-                <InputBox
-                  type="text"
-                  ref={subjectRef}
-                  placeholder="한글 2~10자"
-                />
+                <InputBox type="text" ref={subjectRef} placeholder="한글 2~10자" />
                 <Button onClick={onSaveScheduleList}>저장</Button>
               </BeforeInputBox>
               {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
@@ -871,19 +828,8 @@ const ProfileComp = ({
             <AfterBox>
               {savedList?.map((list) => (
                 <SavedListBox key={list._id}>
-                  <SavedList
-                    onClick={() =>
-                      onGetSavedListDetail(
-                        list.name[0].id,
-                        list.name[0].subject
-                      )
-                    }
-                  >
-                    {list.name[0].subject}
-                  </SavedList>
-                  <SavedButton onClick={() => onSavedListDelete(list._id)}>
-                    x
-                  </SavedButton>
+                  <SavedList onClick={() => onGetSavedListDetail(list.name[0].id, list.name[0].subject)}>{list.name[0].subject}</SavedList>
+                  <SavedButton onClick={() => onSavedListDelete(list._id)}>x</SavedButton>
                 </SavedListBox>
               ))}
               <StyledModal
@@ -892,14 +838,10 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                <SheduleTitleBox>
-                  {savedListDetail?.name[0].subject}
-                </SheduleTitleBox>
+                <SheduleTitleBox>{savedListDetail?.name[0].subject}</SheduleTitleBox>
                 <SavedListDetailBox>
                   {savedListDetail?.name[0].scheduleList.map((detail) => (
-                    <ShceduleBox key={detail.items[0].contentId}>
-                      {detail.items[0].title}
-                    </ShceduleBox>
+                    <ShceduleBox key={detail.items[0].contentId}>{detail.items[0].title}</ShceduleBox>
                   ))}
                 </SavedListDetailBox>
                 <Button onClick={onGetSavedListDetail}>닫기</Button>

@@ -30,6 +30,9 @@ const SearchForm = styled.div`
     padding: 20px 20px;
     border-radius: 50px;
     font-size: 16px;
+    @media (max-width: 600px) {
+      margin-top: 20px;
+    }
   }
 
   .search-keyword {
@@ -42,6 +45,10 @@ const SearchForm = styled.div`
     position: absolute;
     top: 16px;
     right: 4%;
+    @media (max-width: 600px) {
+      top: 80px;
+      right: 8%;
+    }
   }
 `;
 

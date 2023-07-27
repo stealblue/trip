@@ -61,6 +61,16 @@ const FooterComp = styled.div`
       margin-top: 20px;
     }
   }
+
+  @media (max-width: 768px) {
+    margin-top: 300px;
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    .tel {
+      display: none;
+    }
+  }
 `;
 
 const Footer = () => {
