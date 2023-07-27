@@ -151,21 +151,21 @@ const Spacer = styled.div`
 
 const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [flagHamMenu, setFlagHamMenu] = useState(false);
 
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
-  // const onClick = (e) => {
-  //   const navItems = Array.from(document.getElementsByClassName("nav-item"));
-  //   navItems.forEach((item) => {
-  //     if (item === e.target) {
-  //       item.classList.add("click");
-  //       // }
-  //     } else {
-  //       item.classList.remove("click");
-  //     }
-  //   });
-  // };
+
+  const onHamMenu = () => {
+    console.log('ddddddddddddd')
+    if (!flagHamMenu) {
+      setFlagHamMenu(true);
+    }
+    else {
+      setFlagHamMenu(false);
+    }
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
@@ -178,7 +178,8 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
             <img src="/assets/triplogo8.png" alt="img" />
           </Link>
         </Logo>
-        <FontAwesomeIcon icon={faBars} className="ham-menu" />
+        <FontAwesomeIcon icon={faBars} className="ham-menu" onClick={onHamMenu} />
+        <HamMenuComp flagHamMenu={flagHamMenu} onHamMenu={onHamMenu} />
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/search">
