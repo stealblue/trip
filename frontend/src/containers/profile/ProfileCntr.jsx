@@ -44,6 +44,7 @@ const ProfileCntr = () => {
   const [listModal, setListModal] = useState(false);
   const {
     id,
+    uno,
     img,
     user,
     nick,
@@ -77,6 +78,7 @@ const ProfileCntr = () => {
     duplicateCheck,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
+    uno: UserMod.user.no,
     img_: ProfileMod.img,
     user: ProfileMod.user,
     nick: ProfileMod.nick,
@@ -148,7 +150,7 @@ const ProfileCntr = () => {
 
   const onGetReplyList = () => {
     setBoardType("REPLY");
-    dispatch(getReplyList({ id }));
+    dispatch(getReplyList({ uno }));
   };
 
   const onGetReplyDetail = (bno) => {
@@ -382,7 +384,7 @@ const ProfileCntr = () => {
   useEffect(() => {
     dispatch(
       getReplyList({
-        id,
+        uno,
       })
     );
   }, [deleteReplyError]);

@@ -61,7 +61,8 @@ const ReadContainer = () => {
     }
   };
   const likeButton = (e) => {
-    console.log('like 버튼')
+    console.log('like 버튼 : ', e.target.dataset.cnt);
+
     if (!isLlike) {
       setLikeCount(parseInt(e.target.dataset.cnt) + 1);
       setIsLike(true);
@@ -103,4 +104,4 @@ const ReadContainer = () => {
     actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />} />;
 };
 
-export default ReadContainer;
+export default React.memo(ReadContainer);
