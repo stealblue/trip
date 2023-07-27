@@ -128,15 +128,29 @@ const BoardListItem = ({ post, likeCount }) => {
             <h3 className="title">{title}</h3>
             <div className="likeandcnt">
               <div>
-                <FontAwesomeIcon className="icon" icon={faHeart} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} /> {like}
+                <FontAwesomeIcon
+                  className="icon"
+                  icon={faHeart}
+                  data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount}
+                />{" "}
+                {like}
               </div>
               <div>
-                <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} /> {cnt}{" "}
+                <FontAwesomeIcon
+                  className="icon"
+                  icon={faEye}
+                  style={{ color: "#000000" }}
+                />{" "}
+                {cnt}{" "}
               </div>
             </div>
             {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
-            {updateAt ? <p className="createat">수정일자 : {makeCreatedAt(updateAt)}</p> : <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>}
+            {updateAt ? (
+              <p className="createat">수정일자 : {makeCreatedAt(updateAt)}</p>
+            ) : (
+              <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>
+            )}
           </div>
         </div>
       </Link>
@@ -154,10 +168,24 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
       <WrapperComp>
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
-        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
-        {posts && posts.slice(offset, offset + limit).map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {showWriteButton && (
+          <WriteButton to={"/board/write"}>글쓰기</WriteButton>
+        )}
+        {posts &&
+          posts
+            .slice(offset, offset + limit)
+            .map((post, index) => <BoardListItem key={post.no} post={post} />)}
         {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
-        <div className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</div>
+        <div className="pagin">
+          {posts && (
+            <PaginationComp
+              total={posts?.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
+          )}
+        </div>
       </WrapperComp>
     </>
   );

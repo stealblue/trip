@@ -429,7 +429,7 @@ const BeforeInputBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 50px;
+  padding: 0 120px;
 `;
 
 const AfterBox = styled.div`

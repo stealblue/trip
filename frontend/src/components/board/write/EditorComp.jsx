@@ -29,7 +29,6 @@ const QuillWrapper = styled.div`
 `;
 
 const EditorComp = ({ title, content, onChangeField }) => {
-  console.log("111111110>", title, content);
   const quillElement = useRef(null); //Quill적용할 divelement 설정
   const quillInstance = useRef(null); // Quill 인스턴스 설정
   useEffect(() => {
@@ -66,7 +65,11 @@ const EditorComp = ({ title, content, onChangeField }) => {
 
   return (
     <EditorBlock>
-      <TitleInput placeholder="제목입력" onChange={onChangeTitle} value={title} />
+      <TitleInput
+        placeholder="제목입력"
+        onChange={onChangeTitle}
+        value={title}
+      />
       <QuillWrapper>
         <div ref={quillElement} />
       </QuillWrapper>

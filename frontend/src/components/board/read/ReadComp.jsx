@@ -49,9 +49,19 @@ const Content = styled.div`
   }
 `;
 
-const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButton, isLike, likeCount }) => {
+const ReadComp = ({
+  post,
+  error,
+  loading,
+  actionButtons,
+  onlike,
+  user,
+  likeButton,
+  isLike,
+  likeCount,
+}) => {
   if (error) {
-    if (error.response && error.response.status === 404) {
+    if (error?.response && error?.response.status === 404) {
       return <div>존재하지않는포스트입니다</div>;
     }
     return <div>오류발생</div>;
@@ -65,28 +75,47 @@ const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButto
     <>
       <Responsive>
         <ReadContainer>
-          <TitleComp>{post.title}</TitleComp>
-          <p className="id">{post.id}</p>
+          <TitleComp>{post?.title}</TitleComp>
+          <p className="id">{post?.id}</p>
           <div className="likeandcnt">
             <p>
-              {isLike ?
-                <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeart} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount} /> :
-                <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeartBroken} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount} />
-              }
+              {isLike ? (
+                <FontAwesomeIcon
+                  className="icon"
+                  onClick={likeButton}
+                  icon={faHeart}
+                  data-id={post?.id}
+                  data-no={post?.no}
+                  data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="icon"
+                  onClick={likeButton}
+                  icon={faHeartBroken}
+                  data-id={post?.id}
+                  data-no={post?.no}
+                  data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
+                />
+              )}
               {/* <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeartBroken} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} /> */}
-              {likeCount === 0 ? parseInt(post.like) : likeCount}
+              {likeCount === 0 ? parseInt(post?.like) : likeCount}
               {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
             </p>
             <p>
-              <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} />
-              {post.cnt}
+              <FontAwesomeIcon
+                className="icon"
+                icon={faEye}
+                style={{ color: "#000000" }}
+              />
+              {post?.cnt}
             </p>
           </div>
         </ReadContainer>
         <Content>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div dangerouslySetInnerHTML={{ __html: post?.content }} />
         </Content>
-        {user && post.id === user.id && actionButtons}
+        {user && post?.id === user?.id && actionButtons}
         {/* Uncaught Error: Objects are not valid as a React child (found: object with keys {actionButtons}). If you meant to render a collection of children, use an array instead. */}
       </Responsive>
     </>
