@@ -10,6 +10,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 const ReadContainer = styled.div`
   text-align: left;
   border-bottom: 2px solid #333;
+
   padding: 13px 25px;
   margin-top: 50px;
 
@@ -42,6 +43,10 @@ const Content = styled.div`
   padding: 20px;
   margin-top: 20px;
   font-size: 18px;
+  border-bottom: 2px solid #333;
+  div {
+    padding-bottom: 20px;
+  }
 `;
 
 const ReadComp = ({ post, error, loading, actionButtons, onlike, user, likeButton, isLike, likeCount }) => {
