@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 // import ReplyWriteActionButtonComp from "./ReplyWriteActionButtonComp";
+import Button from "../../common/ButtonComp";
 
 const ReplyWrapper = styled.div`
   width: 50%;
@@ -14,12 +15,13 @@ const ReplyWrapper = styled.div`
     margin-top: 20px;
     padding: 10px;
   }
-  button {
-    padding: 10px 20px;
-    position: relative;
-    top: -34px;
-    left: 20px;
-  }
+`;
+
+const ReplyButton = styled(Button)`
+  padding: 10px 20px;
+  position: relative;
+  top: -26px;
+  left: 20px;
 `;
 
 const ReplyWriteComp = ({ onReset, onPublish, onChangeField, emptyReply }) => {
@@ -28,11 +30,7 @@ const ReplyWriteComp = ({ onReset, onPublish, onChangeField, emptyReply }) => {
       <ReplyWrapper>
         <p>댓글</p>
         <textarea ref={emptyReply} name="content" placeholder="reply write comeon" onChange={onChangeField} />
-        <button onClick={onPublish}>
-          댓글
-          <br />
-          등록
-        </button>
+        <ReplyButton onClick={onPublish}>댓글 등록</ReplyButton>
         {/* {post.map((item) => (
           <div key={item.index}>
             {item.id} " : " {item.content}
