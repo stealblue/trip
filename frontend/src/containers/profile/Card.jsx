@@ -1,13 +1,23 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 const style = {
-  border: "1px dashed gray",
+  display: "flex",
+  border: "1px solid black",
+  borderRadius: "10px",
   padding: "0.5rem 1rem",
   marginBottom: ".5rem",
   backgroundColor: "white",
   cursor: "move",
+  fontWeight: 700,
+  textAlign: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "35px",
+  margin: "12px",
+  cursor: "pointer",
 };
+
 export const Card = ({ id, text, index, moveCard }) => {
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({

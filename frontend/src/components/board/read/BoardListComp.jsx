@@ -116,9 +116,9 @@ const BoardListItem = ({ post, likeCount }) => {
   if (!post) {
     return <div>오류</div>;
   }
-  // console.log('post : ', post);
+
   const { no, id, nick, title, content, createAt, updateAt, like, cnt } = post;
-  // console.log("content : ", id);
+
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>

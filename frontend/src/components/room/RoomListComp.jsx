@@ -68,7 +68,7 @@ const RoomList = styled.div`
 const StyledP = styled.p`
   cursor: pointer;
 
-  &: hover {
+  &:hover {
     font-weight: 700;
   }
 `;
@@ -83,7 +83,7 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
           {area.addr1}
         </StyledP>
         <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
-          + 추가
+          <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />+ 추가
         </span>
       </p>
     </AreaItemBlock>

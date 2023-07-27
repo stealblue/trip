@@ -3,6 +3,7 @@ import TrafficListComp from '../../components/traffic/TrafficListComp'
 import { useDispatch, useSelector } from "react-redux";
 import { listTrains } from '../../modules/traffic/TrainMod';
 import { listBuses } from '../../modules/traffic/BusMod';
+import LoadingComp from '../../components/common/LoadingComp';
 
 const TrafficListCntr = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,10 @@ const TrafficListCntr = () => {
     }
   }, [dispatch, startTerminal, endTerminal, dateBus, pageNoBus])
 
-
+  if (loading && (!resultTrains && !resultBuses)) {
+    // return <LoadingComp />
+    return <div></div>;
+  }
 
   return (
     <div>

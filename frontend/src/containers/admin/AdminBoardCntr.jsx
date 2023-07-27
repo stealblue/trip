@@ -5,6 +5,7 @@ import {
   getBoardList,
   getBoardDetail,
   deleteBoard,
+  getBoardAction,
 } from "../../modules/admin/AdminBoardMod";
 
 const AdminBoardCnrt = () => {
@@ -42,6 +43,10 @@ const AdminBoardCnrt = () => {
   useEffect(() => {
     dispatch(getBoardList());
   }, [dispatch, deleteError]);
+
+  useEffect(() => {
+    dispatch(getBoardAction());
+  }, [dispatch]);
 
   return (
     <div>
