@@ -28,7 +28,9 @@ const TagListBlock = styled.div`
   margin-top: 10px;
 `;
 
-const TagItem = React.memo(({ tag, onRemove }) => <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>);
+const TagItem = React.memo(({ tag, onRemove }) => (
+  <Tag onClick={() => onRemove(tag)}>#{tag}</Tag>
+));
 // react.memo로 tag 값이 바뀔때만 리렌더링
 
 const TagList = React.memo(({ tags, onRemove }) => (
@@ -65,7 +67,6 @@ const TagBoxComp = ({ tags, onChangeTags }) => {
 
   const onChange = useCallback((e) => {
     setInput(e.target.value);
-    console.log(e.target.value);
   }, []);
 
   const onSubmit = useCallback(
@@ -79,8 +80,6 @@ const TagBoxComp = ({ tags, onChangeTags }) => {
 
   //tag값 바뀔시
   useEffect(() => {
-    console.log("3333333->", localTags);
-
     setLocalTags(localTags);
   }, [localTags]);
 

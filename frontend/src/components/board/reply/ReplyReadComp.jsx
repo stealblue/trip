@@ -35,23 +35,54 @@ const ImageBox = styled.img`
   border: 1px solid black;
 `;
 
-const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user, profile }) => {
+const ReplyItem = ({
+  reply,
+  ReplyActionButtons,
+  onRemove,
+  onEdit,
+  user,
+  profile,
+}) => {
   return (
     <ReplyItemWarrap>
       <div className="reply">
-        <p className="id">{reply.uno_user?.nick}</p>
+        <p className="id">{reply?.uno_user?.nick}</p>
         <p>{reply?.content}</p>
         <p className="createat">{reply?.createAt}</p>
       </div>
-      {user?.nick === reply.uno_user?.nick ? <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} /> : null}
+      {user?.nick === reply?.uno_user?.nick ? (
+        <ReplyActionButtonsComp
+          onRemove={onRemove}
+          onEdit={onEdit}
+          reply={reply}
+        />
+      ) : null}
     </ReplyItemWarrap>
   );
 };
 
-const ReplyReadComp = ({ content, replys, user, replyactionbuttons, onRemove, onEdit, profile }) => {
+const ReplyReadComp = ({
+  content,
+  replys,
+  user,
+  replyactionbuttons,
+  onRemove,
+  onEdit,
+  profile,
+}) => {
   return (
     <div>
-      {replys && replys.map((reply) => <ReplyItem reply={reply} key={reply.no} onRemove={onRemove} onEdit={onEdit} user={user} profile={profile} />)}
+      {replys &&
+        replys.map((reply) => (
+          <ReplyItem
+            reply={reply}
+            key={reply?.no}
+            onRemove={onRemove}
+            onEdit={onEdit}
+            user={user}
+            profile={profile}
+          />
+        ))}
     </div>
   );
 };
