@@ -13,6 +13,9 @@ const StyledModal = Modal.styled`
   background: white;
   height: 450px;
   width: 500px;
+  border-radius: 10px;
+  padding: 15px;
+  overflow: auto;
 
   div{
     display: flex;
@@ -386,10 +389,21 @@ const SavedListBox = styled.div`
   margin: 0 7px;
 `;
 
+const SavedListDetailBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const ShceduleBox = styled.div`
-  border: 1px dashed black;
-  background: skyblue;
-  margin: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 70%;
+  height: 30px;
+  margin: 10px 0;
 `;
 
 const SavedButton = styled.div`
@@ -409,7 +423,10 @@ const SavedButton = styled.div`
 `;
 
 const SheduleTitleBox = styled.div`
-  color: green;
+  color: blue;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
 `;
 
 const ProfileComp = ({
@@ -878,11 +895,13 @@ const ProfileComp = ({
                 <SheduleTitleBox>
                   {savedListDetail?.name[0].subject}
                 </SheduleTitleBox>
-                {savedListDetail?.name[0].scheduleList.map((detail) => (
-                  <ShceduleBox key={detail.items[0].contentId}>
-                    {detail.items[0].title}
-                  </ShceduleBox>
-                ))}
+                <SavedListDetailBox>
+                  {savedListDetail?.name[0].scheduleList.map((detail) => (
+                    <ShceduleBox key={detail.items[0].contentId}>
+                      {detail.items[0].title}
+                    </ShceduleBox>
+                  ))}
+                </SavedListDetailBox>
                 <Button onClick={onGetSavedListDetail}>닫기</Button>
               </StyledModal>
             </AfterBox>
