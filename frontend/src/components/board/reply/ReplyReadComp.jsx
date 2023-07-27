@@ -20,6 +20,11 @@ const ReplyItemWarrap = styled.div`
     margin-left: 20px;
     line-height: 30px;
   }
+
+  .createat {
+    margin-left: 720px;
+    font-size: 14px;
+  }
 `;
 
 const ImageBox = styled.img`
@@ -36,6 +41,7 @@ const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user, profile 
       <div className="reply">
         <p className="id">{reply.uno_user?.nick}</p>
         <p>{reply?.content}</p>
+        <p className="createat">{reply?.createAt}</p>
       </div>
       {user?.nick === reply.uno_user?.nick ? <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} /> : null}
     </ReplyItemWarrap>

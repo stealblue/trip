@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import ThemeComp from "../common/ThemeComp";
+import HamMenuComp from "./HamMenuComp";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -11,7 +15,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   left: 50%;
   transform: translate(-50%);
-  z-index: 10000;
+  z-index: 999;
   padding: 5px;
   align-items: center;
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
@@ -33,10 +37,26 @@ const HeaderContainer = styled.div`
     font-weight: 600;
   }
 
+  .ham-menu {
+    display: none;
+  }
+
   @media (max-width: 1200px) {
     .welecome {
       margin-left: 16px;
       font-size: 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .welecome {
+      display: none;
+    }
+    .ham-menu {
+      display: block;
+      transform: scale(2.5);
+      position: absolute;
+      right: 10%;
     }
   }
 `;
@@ -51,9 +71,15 @@ const Logo = styled.div`
     margin-top: 20px;
   }
 
+  .welecome {
+    margin-left: 16px;
+    font-size: 18px;
+  }
+
   @media (max-width: 1200px) {
     img {
-      width: 150px;
+      width: 180px;
+      margin-left: -100px;
     }
   }
 `;
@@ -61,6 +87,10 @@ const Logo = styled.div`
 const Nav = styled.ul`
   display: flex;
   justify-content: space-around;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavList = styled.li`
@@ -109,6 +139,10 @@ const LoginCategory = styled.span`
       cursor: pointer;
     }
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Spacer = styled.div`
@@ -138,14 +172,13 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   });
   return (
     <>
-      <HeaderContainer
-        className={scrollPosition < 100 ? "original_header" : "change_header"}
-      >
+      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo onClick={onClick}>
           <Link to="/">
             <img src="/assets/triplogo8.png" alt="img" />
           </Link>
         </Logo>
+        <FontAwesomeIcon icon={faBars} className="ham-menu" />
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/search">
@@ -183,7 +216,9 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
             <div className="welecome">{nick}님 환영합니다!</div>
             <LoginCategory onClick={onClick}>
               {grade === 1 ? (
-                <Link to={`/profile/${nick}`}><span className="nav-item">마이페이지</span></Link>
+                <Link to={`/profile/${nick}`}>
+                  <span className="nav-item">마이페이지</span>
+                </Link>
               ) : grade === 2 ? (
                 <Link to={"/admin/user"}>관리자페이지</Link>
               ) : null}

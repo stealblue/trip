@@ -34,7 +34,7 @@ const MainBoardWarraper = styled.div`
   }
 
   @media (max-width: 1200px) {
-    width: 100%;
+    width: 90%;
   }
 `;
 
@@ -99,10 +99,7 @@ const MainBoardComp = ({ posts, error }) => {
         <h2>
           <span>Hot!</span> 여행후기
         </h2>
-        {posts &&
-          posts.map((post, index) => (
-            <BoardListItem key={post.no} post={post} />
-          ))}
+        {posts && posts.map((post, index) => <BoardListItem key={post.no} post={post} />)}
         <Link to="/board">
           <span className="add-list"> + 더보기</span>
         </Link>

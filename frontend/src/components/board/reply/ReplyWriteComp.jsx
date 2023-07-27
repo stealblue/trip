@@ -4,33 +4,41 @@ import Button from "../../common/ButtonComp";
 
 const ReplyWrapper = styled.div`
   width: 50%;
-  margin: 0 auto;
-  margin-top: 20px;
+  margin: 20px auto;
+
   p {
     font-size: 24px;
   }
-  textarea {
-    width: 70%;
+  input {
+    width: 100%;
     height: 40px;
     margin-top: 20px;
     padding: 10px;
   }
+  div {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 `;
 
 const ReplyButton = styled(Button)`
-  padding: 10px 20px;
-  position: relative;
-  top: -26px;
-  left: 20px;
+  width: 100px;
+  height: 40px;
+  padding: 0;
+  padding: 0 20px;
+  margin-left: 10px;
+  margin-top: 40px;
 `;
-
 const ReplyWriteComp = ({ onReset, onPublish, onChangeField, emptyReply }) => {
   return (
     <>
       <ReplyWrapper>
         <p>댓글</p>
-        <textarea ref={emptyReply} name="content" placeholder="reply write comeon" onChange={onChangeField} />
-        <ReplyButton onClick={onPublish}>댓글 등록</ReplyButton>
+        <div>
+          <input ref={emptyReply} name="content" placeholder="reply write comeon" onChange={onChangeField} />
+          <ReplyButton onClick={onPublish}>등록</ReplyButton>
+        </div>
+
         {/* {post.map((item) => (
           <div key={item.index}>
             {item.id} " : " {item.content}
