@@ -79,7 +79,13 @@ const Logo = styled.div`
   @media (max-width: 1200px) {
     img {
       width: 180px;
-      margin-left: -100px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    img {
+      margin-left: -50%;
+      font-size: 18px;
     }
   }
 `;
@@ -88,7 +94,7 @@ const Nav = styled.ul`
   display: flex;
   justify-content: space-around;
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `;
@@ -140,7 +146,7 @@ const LoginCategory = styled.span`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `;

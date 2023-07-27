@@ -22,8 +22,11 @@ const ReplyItemWarrap = styled.div`
   }
 
   .createat {
-    margin-left: 720px;
-    font-size: 14px;
+    position: absolute;
+    right: 3%;
+    bottom: 7%;
+    font-size: 13px;
+    color: ${ThemeComp.lightblack};
   }
 `;
 

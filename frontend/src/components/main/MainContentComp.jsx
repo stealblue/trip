@@ -83,22 +83,12 @@ const TravelList = styled.div`
     background: url("/assets/main-content7.jpg");
     background-size: cover;
   }
-
   @media (max-width: 1200px) {
     width: 90%;
-    margin: 30px auto;
-    .bg {
-      height: 400px;
-      .title {
-        font-size: 30px;
-        bottom: 80px;
-      }
-      .place {
-        font-size: 20px;
-        bottom: 40px;
-      }
-    }
+    margin: 20px auto;
   }
+
+  justify-content: space-around;
 `;
 
 const TravelListTitle = styled.div`

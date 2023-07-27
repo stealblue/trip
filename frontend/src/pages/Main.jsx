@@ -77,6 +77,56 @@ const SlideWarraper = styled.div`
   p:hover {
     background: rgba(255, 255, 255, 0.7);
   }
+
+  @media (max-width: 1200px) {
+    .slide-text {
+      position: absolute;
+      bottom: 100px;
+      left: 40px;
+    }
+
+    h3 {
+      font-size: 55px;
+      line-height: 50px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 1200px) {
+    .slide-text {
+      position: absolute;
+      bottom: 100px;
+      left: 40px;
+    }
+
+    h3 {
+      font-size: 55px;
+      line-height: 50px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 600px) {
+    height: 600px;
+    img {
+      height: 600px;
+    }
+    .slide-text {
+      position: absolute;
+      bottom: 50px;
+      left: 40px;
+    }
+
+    h3 {
+      font-size: 55px;
+      line-height: 50px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
 `;
 
 const MainBoardListContainer = styled.div`

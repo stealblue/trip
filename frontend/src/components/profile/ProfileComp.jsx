@@ -29,6 +29,22 @@ const ProfileBlock = styled.div`
   justify-content: center;
   width: 50%;
   margin: 60px auto;
+  justify-content: space-around;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+    margin-bottom: 200px;
+    width: 100%;
+
+    form {
+      text-align: center;
+    }
+    .buttons {
+      text-align: center;
+    }
+  }
 `;
 
 const ImageBox = styled.img`
@@ -54,6 +70,7 @@ const InputBox = styled.input`
 const UserInformBox = styled.div`
   height: 240px;
   margin-left: 30px;
+  margin: 0 auto;
 `;
 
 const UserInform = styled.div`
@@ -67,32 +84,39 @@ const BoardListTitle = styled.ul`
   display: flex;
   text-align: center;
   padding: 10px;
+  justify-content: space-around;
   font-weight: 600;
   border-bottom: 1px solid #000;
   li:first-child {
-    width: 20%;
+    width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 2px;
   }
-  li:nth-child(2) {
+  /* li:nth-child(2) {
     width: 40%;
+    margin: 0 2px;
+  } */
+  li:nth-child(2) {
+    width: 30%;
     margin: 0 2px;
   }
   li:nth-child(3) {
-    width: 15%;
-    margin: 0 2px;
+    width: 10%;
+    margin: 0 4px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(4) {
-    width: 5%;
-    margin: 0 4px;
+    width: 10%;
+    margin: 0 2px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(5) {
-    width: 5%;
-    margin: 0 2px;
-  }
-
-  @media (max-width: 1200px) {
+    width: 10%;
   }
 `;
 
@@ -105,6 +129,9 @@ const BoardInfo = styled.ul`
   box-sizing: border-box;
   text-align: center;
   line-height: 50px;
+
+  &.board-info {
+  }
 
   li:first-child {
     width: 30%;
@@ -124,53 +151,101 @@ const BoardInfo = styled.ul`
     text-overflow: ellipsis;
     white-space: nowrap;
   } */
-  li:nth-child(3) {
+  li:nth-child(2) {
     width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  li:nth-child(3) {
+    width: 10%;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
   li:nth-child(4) {
     width: 10%;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   li:nth-child(5) {
     width: 10%;
   }
 
-  @media (max-width: 1200px) {
+  &.reply-boardinfo {
+    li:first-child {
+      width: 20%;
+    }
+    li:nth-child(2) {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(3) {
+      width: 20%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(4) {
+      width: 10%;
+    }
+  }
+
+  &.like-boardinfo {
+    li:first-child {
+      width: 30%;
+    }
+    li:nth-child(2) {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    li:nth-child(3) {
+      width: 20%;
+    }
   }
 `;
 
 const ListTitle = styled.ul`
   display: flex;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   font-weight: 600;
   border-bottom: 1px solid #000;
 
   li:first-child {
-    width: 22%;
+    width: 20%;
   }
   li:nth-child(2) {
-    width: 53.5%;
+    width: 50%;
   }
   li:nth-child(3) {
-    width: 16%;
+    width: 20%;
+  }
+  li:nth-child(4) {
+    width: 10%;
   }
 `;
 
 const LikeListTitle = styled.ul`
   display: flex;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   font-weight: 600;
   border-bottom: 1px solid #000;
 
   li:first-child {
-    width: 24.5%;
+    width: 30%;
   }
   li:nth-child(2) {
-    width: 55%;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   li:nth-child(3) {
     width: 20%;
@@ -244,6 +319,10 @@ const SelectButton = styled.button`
     background: ${ThemeComp.softblack};
     color: ${ThemeComp.white};
   }
+
+  @media (max-width: 1200px) {
+    width: 40%;
+  }
 `;
 
 const ButtonBox = styled.div`
@@ -259,6 +338,11 @@ const ListBox = styled.div`
   margin-top: 20px;
   background: ${ThemeComp.smoke};
   padding: 50px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    padding: 0;
+  }
 `;
 
 const BoardBox = styled.div`
@@ -447,7 +531,7 @@ const ProfileComp = ({
           ) : (
             ""
           )}
-          <div>
+          <div className="buttons">
             <Button onClick={onChangeProfile}>정보수정</Button>
             <Button className="delete-user-btn" onClick={onWithdraw}>
               회원탈퇴
@@ -479,7 +563,7 @@ const ProfileComp = ({
             </BoardListTitle>
             {boardList?.map((board) => (
               <Item key={board.no}>
-                <BoardInfo>
+                <BoardInfo className="board-info">
                   <li onClick={() => onGetBoardDetail(board.no)}>{board.title}</li>
                   {/* <li
                     className="content"
@@ -499,7 +583,6 @@ const ProfileComp = ({
                   <li>
                     <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
                   </li>
-                  <li></li>
                 </BoardInfo>
               </Item>
             ))}
@@ -511,11 +594,12 @@ const ProfileComp = ({
               <li>이메일</li>
               <li>내용</li>
               <li>작성일자</li>
+              <li></li>
             </ListTitle>
             {replyList.slice(offset, offset + limit).map((reply) => (
               <Item key={reply.no}>
-                <BoardInfo>
-                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li>
+                <BoardInfo className="reply-boardinfo">
+                  {/* <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li> */}
                   <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.uno_user.id}</li>
                   <li>{reply.content}</li>
                   <li>{makeCreatedAt(reply.createAt)}</li>
@@ -536,7 +620,7 @@ const ProfileComp = ({
             </LikeListTitle>
             {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
-                <BoardInfo onClick={() => onGetLikeDetail(like.bno)}>
+                <BoardInfo className="like-boardinfo" onClick={() => onGetLikeDetail(like.bno)}>
                   <li>{like.bno_board.id}</li>
                   <li>{like.bno_board.title}</li>
                   <li>

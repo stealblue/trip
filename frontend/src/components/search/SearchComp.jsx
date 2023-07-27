@@ -5,12 +5,13 @@ import ThemeComp from "../common/ThemeComp";
 
 const SearchWrapper = styled.div`
   position: relative;
+  min-height: 100vh;
 `;
 
 const SelectContainer = styled.div`
   position: fixed;
   z-index: 900;
-  top: 120px;
+  top: 119px;
 
   select {
     padding: 10px 20px;
@@ -36,12 +37,14 @@ const SearchComp = ({ searchKeyword, areaCode, onClickArea, contentTypes, onSele
         <div>
           <select onChange={onSelectedContentType}>
             <option>컨텐츠타입</option>
-            {contentTypes && contentTypes.map((item) => (
-              <option name='contentType' value={item.code} key={item.code}>{item.name}</option>
-            ))
-            }
+            {contentTypes &&
+              contentTypes.map((item) => (
+                <option name="contentType" value={item.code} key={item.code}>
+                  {item.name}
+                </option>
+              ))}
           </select>
-          <input placeholder='검색해주세요' onKeyUp={onSearchArea} value={searchKeyword} onChange={onChange} />
+          <input placeholder="검색해주세요" onKeyUp={onSearchArea} value={searchKeyword} onChange={onChange} />
         </div>
       </SelectContainer>
       <KoreaMap className="korea-map" onClick={onClickArea} areaCode={areaCode} />
