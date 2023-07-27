@@ -1,6 +1,28 @@
 import { styled } from "styled-components";
 import { useState, useCallback } from "react";
 import AskRemoveModalComp from "../remove/AskRemoveModalComp";
+import ThemeComp from "../../common/ThemeComp";
+
+const ListButtons = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 50px;
+`;
+
+const Buttons = styled.button`
+  padding: 10px 18px;
+  background: #333;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  &:first-child {
+    background: ${ThemeComp.bgcolor};
+  }
+  &:last-child {
+    margin-left: 10px;
+    color: ${ThemeComp.white};
+  }
+`;
 
 const ListActionButtonsComp = ({ onEdit, onRemove }) => {
   const [modal, setModal] = useState(false);
@@ -17,10 +39,10 @@ const ListActionButtonsComp = ({ onEdit, onRemove }) => {
 
   return (
     <>
-      <div>
-        <button onClick={onEdit}>수정</button>
-        <button onClick={onRemoveClick}>삭제</button>
-      </div>
+      <ListButtons>
+        <Buttons onClick={onEdit}>수정</Buttons>
+        <Buttons onClick={onRemoveClick}>삭제</Buttons>
+      </ListButtons>
       <AskRemoveModalComp visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
     </>
   );

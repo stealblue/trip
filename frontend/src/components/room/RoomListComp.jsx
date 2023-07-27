@@ -68,7 +68,7 @@ const RoomList = styled.div`
 const StyledP = styled.p`
   cursor: pointer;
 
-  &: hover {
+  &:hover {
     font-weight: 700;
   }
 `;
@@ -81,8 +81,8 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
           area.firstimage !== ""
             ? area.firstimage
             : area.firstimge2
-            ? area.firstimge2
-            : "/assets/triplogo-noimage.png"
+              ? area.firstimge2
+              : "/assets/triplogo-noimage.png"
         }
         alt="이미지없음"
         loading="lazy"

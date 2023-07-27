@@ -20,6 +20,19 @@ const LayoutCntr = () => {
     dispatch(initializeLoginForm()); // 초기화 해줌. 로그아웃 후 LoginMod에 정보(auth: true)가 남아있어 check()에 걸려 로그인 페이지 재진입시 401에러 발생함.
   };
 
+  const onClick = (e) => {
+    const navItems = Array.from(document.getElementsByClassName("nav-item"));
+    navItems.forEach((item) => {
+      if (item === e.target) {
+        item.classList.add("click");
+        // }
+      } else {
+        item.classList.remove("click");
+      }
+    });
+  };
+
+
   //마이페이지에서 닉네임 수정시 localstorage 저장된 값 변경해줌.
   useEffect(() => {
     const USER_KEY = "USER";
@@ -28,7 +41,7 @@ const LayoutCntr = () => {
 
   return (
     <>
-      <HeaderComp nick={nick} grade={grade} onLogout={onLogout} />
+      <HeaderComp nick={nick} grade={grade} onLogout={onLogout} onClick={onClick} />
       {/* <SideMenuComp /> */}
       <Outlet />
       <Footer />

@@ -20,6 +20,11 @@ const ReplyItemWarrap = styled.div`
     margin-left: 20px;
     line-height: 30px;
   }
+
+  .createat {
+    margin-left: 720px;
+    font-size: 14px;
+  }
 `;
 
 const ImageBox = styled.img`
@@ -31,30 +36,21 @@ const ImageBox = styled.img`
 `;
 
 const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user, profile }) => {
-  // console.log(profile.img);
-  console.log('reply : ', reply);
   return (
     <ReplyItemWarrap>
-      {/* <p>{profile?.img ? <ImageBox src={`/assets/${profile.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}</p> */}
       <div className="reply">
-        {/* <p className="id">{user?.nick}</p> */}
-        <p className="id">{reply.uno_user.nick}</p>
-        <p>{reply.content}</p>
+        <p className="id">{reply.uno_user?.nick}</p>
+        <p>{reply?.content}</p>
+        <p className="createat">{reply?.createAt}</p>
       </div>
-
-      {/* {ReplyActionButtons} */}
-      {user?.nick === reply.uno_user.nick ? <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} /> : null}
+      {user?.nick === reply.uno_user?.nick ? <ReplyActionButtonsComp onRemove={onRemove} onEdit={onEdit} reply={reply} /> : null}
     </ReplyItemWarrap>
   );
 };
 
 const ReplyReadComp = ({ content, replys, user, replyactionbuttons, onRemove, onEdit, profile }) => {
-  // console.log("3434");
-  // console.log("replies : ", replys);
   return (
     <div>
-      {/* <div>{content}</div>
-      <div>내용</div> */}
       {replys && replys.map((reply) => <ReplyItem reply={reply} key={reply.no} onRemove={onRemove} onEdit={onEdit} user={user} profile={profile} />)}
     </div>
   );

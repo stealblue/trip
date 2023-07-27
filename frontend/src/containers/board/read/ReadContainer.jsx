@@ -23,14 +23,28 @@ const ReadContainer = () => {
   }));
 
   useEffect(() => {
+    dispatch(readPost(readNo), likePost(readNo, user));
     return () => {
       dispatch(unloadPost());
     }
-  }, [dispatch]);
+  }, [dispatch, readNo, user]);
+
+  // useEffect(() => {
+  //   dispatch(readPost(readNo), likePost(readNo, user));
+  // }, [dispatch, readNo, user]);
 
   useEffect(() => {
-    dispatch(readPost(readNo), likePost(readNo, user));
-  }, [dispatch, readNo, user]);
+    if (!loading && post) {
+      const likes = post?.likes;
+      likes.forEach((like) => {
+        if (user.id === like.id) {
+          setIsLike(true)
+        }
+      });
+      setLikeCount(likes.length);
+    }
+  }, [loading, post, user]);
+
 
   const onEdit = () => {
     dispatch(setOriginPost(post));
@@ -47,6 +61,8 @@ const ReadContainer = () => {
     }
   };
   const likeButton = (e) => {
+    console.log('like 버튼 : ', e.target.dataset.cnt);
+
     if (!isLlike) {
       setLikeCount(parseInt(e.target.dataset.cnt) + 1);
       setIsLike(true);
@@ -55,25 +71,25 @@ const ReadContainer = () => {
       setIsLike(false);
     }
     dispatch(isLike({ bno: post.no, id: user.id }))
-    if (like) {
-      Swal.fire({
-        toast: true,
-        position: 'bottom-right',
-        timer: 1500,
-        text: '좋아요 취소!',
-        showConfirmButton: false,
-        icon: 'success'
-      })
-    } else {
-      Swal.fire({
-        toast: true,
-        position: 'bottom-right',
-        timer: 1500,
-        text: "좋아요 성공!",
-        showConfirmButton: false,
-        icon: 'success'
-      })
-    }
+    // if (like) {
+    //   Swal.fire({
+    //     toast: true,
+    //     position: 'bottom-right',
+    //     timer: 1500,
+    //     text: '좋아요 취소!',
+    //     showConfirmButton: false,
+    //     icon: 'success'
+    //   })
+    // } else {
+    //   Swal.fire({
+    //     toast: true,
+    //     position: 'bottom-right',
+    //     timer: 1500,
+    //     text: "좋아요 성공!",
+    //     showConfirmButton: false,
+    //     icon: 'success'
+    //   })
+    // }
   };
 
   return <ReadComp
@@ -88,4 +104,4 @@ const ReadContainer = () => {
     actionButtons={<ListActionButtonsComp onEdit={onEdit} onRemove={onRemove} />} />;
 };
 
-export default ReadContainer;
+export default React.memo(ReadContainer);

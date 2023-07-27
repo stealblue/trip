@@ -76,7 +76,7 @@ const BoardListTitle = styled.ul`
     margin: 0 2px;
   }
   li:nth-child(2) {
-    width: 50%;
+    width: 40%;
     margin: 0 2px;
   }
   li:nth-child(3) {
@@ -91,6 +91,9 @@ const BoardListTitle = styled.ul`
     width: 5%;
     margin: 0 2px;
   }
+
+  @media (max-width: 1200px) {
+  }
 `;
 
 const BoardInfo = styled.ul`
@@ -103,7 +106,7 @@ const BoardInfo = styled.ul`
   line-height: 50px;
 
   li:first-child {
-    width: 20%;
+    width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -114,20 +117,26 @@ const BoardInfo = styled.ul`
       font-weight: 800;
     }
   }
-  li:nth-child(2) {
-    width: 50%;
+  /* li:nth-child(2) {
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } */
+  li:nth-child(3) {
+    width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  li:nth-child(3) {
-    width: 15%;
-  }
   li:nth-child(4) {
-    width: 5%;
+    width: 10%;
   }
   li:nth-child(5) {
-    width: 5%;
+    width: 10%;
+  }
+
+  @media (max-width: 1200px) {
   }
 `;
 
@@ -571,10 +580,11 @@ const ProfileComp = ({
           <BoardBox>
             <BoardListTitle>
               <li>제목</li>
-              <li>내용</li>
+              {/* <li className="content">내용</li> */}
               <li>작성일자</li>
               <li>좋아요</li>
               <li>조회수</li>
+              <li></li>
             </BoardListTitle>
             {boardList?.map((board) => (
               <Item key={board.no}>
@@ -582,11 +592,11 @@ const ProfileComp = ({
                   <li onClick={() => onGetBoardDetail(board.no)}>
                     {board.title}
                   </li>
-                  <li
+                  {/* <li
+                    className="content"
                     dangerouslySetInnerHTML={{
                       __html: contentImgFilter(board.content),
-                    }}
-                  ></li>
+                    }}></li> */}
                   <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
@@ -602,6 +612,7 @@ const ProfileComp = ({
                       삭제
                     </Button>
                   </li>
+                  <li></li>
                 </BoardInfo>
               </Item>
             ))}
@@ -627,7 +638,10 @@ const ProfileComp = ({
               <Item key={reply.no}>
                 <BoardInfo>
                   <li onClick={() => onGetReplyDetail(reply.bno)}>
-                    {reply.id}
+                    {reply.nick}
+                  </li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>
+                    {reply.uno_user.id}
                   </li>
                   <li>{reply.content}</li>
                   <li>{makeCreatedAt(reply.createAt)}</li>
@@ -839,9 +853,8 @@ const ProfileComp = ({
             </BeforeBox>
             <AfterBox>
               {savedList?.map((list) => (
-                <SavedListBox>
+                <SavedListBox key={list._id}>
                   <SavedList
-                    key={list._id}
                     onClick={() =>
                       onGetSavedListDetail(
                         list.name[0].id,

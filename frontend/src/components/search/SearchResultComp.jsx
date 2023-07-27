@@ -56,7 +56,7 @@ const AreaItemBlock = styled.div`
 const RoomListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 1150px;
+  height: 1250px;
   flex-direction: column;
   width: 800px;
   margin: 0 auto;
@@ -97,11 +97,11 @@ const SearchResultComp = ({ areas, error, loading, addWish, searchType, onClick 
   if (!error) {
     let result;
     let target;
-    if (searchType === 'DB') {
+    if (searchType === "DB") {
       if (areas.areas.rows && areas.areas.rows.length >= 0) {
         target = areas.areas.rows;
       }
-    } else if (searchType === 'API') {
+    } else if (searchType === "API") {
       if (areas.areas && areas.areas.response && areas.areas.response.body) {
         result = areas.areas.response?.body;
         target = result.items.item;
@@ -111,13 +111,13 @@ const SearchResultComp = ({ areas, error, loading, addWish, searchType, onClick 
       <div>
         <RoomListContainer>
           <RoomList>
-            {searchType === 'API' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-            {searchType === 'DB' && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-            {searchType === 'API' ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
+            {searchType === "API" && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
+            {searchType === "DB" && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
+            {searchType === "API" ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
           </RoomList>
         </RoomListContainer>
-      </div >
+      </div>
     );
-  };
-}
+  }
+};
 export default React.memo(SearchResultComp);

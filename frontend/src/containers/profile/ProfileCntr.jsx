@@ -44,6 +44,7 @@ const ProfileCntr = () => {
   const [listModal, setListModal] = useState(false);
   const {
     id,
+    uno,
     img,
     user,
     nick,
@@ -77,6 +78,7 @@ const ProfileCntr = () => {
     duplicateCheck,
   } = useSelector(({ UserMod, ProfileMod, ScheduleMod }) => ({
     id: UserMod.user.id,
+    uno: UserMod.user.no,
     img_: ProfileMod.img,
     user: ProfileMod.user,
     nick: ProfileMod.nick,
@@ -148,7 +150,7 @@ const ProfileCntr = () => {
 
   const onGetReplyList = () => {
     setBoardType("REPLY");
-    dispatch(getReplyList({ id }));
+    dispatch(getReplyList({ uno }));
   };
 
   const onGetReplyDetail = (bno) => {
@@ -357,7 +359,7 @@ const ProfileCntr = () => {
   };
 
   const contentImgFilter = (content) => { // 이미지태그 제거 정규표현식
-    const imgTagReg = /<img[^>]+>/gi;
+    const imgTagReg = /<[^>]+>/gi;
     const textOnly = content.replace(imgTagReg, '');
     return textOnly;
   }
@@ -382,7 +384,7 @@ const ProfileCntr = () => {
   useEffect(() => {
     dispatch(
       getReplyList({
-        id,
+        uno,
       })
     );
   }, [deleteReplyError]);

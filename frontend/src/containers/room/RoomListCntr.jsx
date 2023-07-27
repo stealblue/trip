@@ -12,6 +12,7 @@ import {
   addWishList,
   initializeWishList,
 } from "../../modules/wishList/WishListMod";
+import LoadingComp from "../../components/common/LoadingComp";
 
 const RoomListCntr = ({ onClickTest }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -123,9 +124,13 @@ const RoomListCntr = ({ onClickTest }) => {
     setOnGetDetail(getDetail);
   }, [getDetail]);
 
+  if (loading && !areas) {
+    return <LoadingComp />;
+  }
   if (!areas) {
     console.log("내용 없음");
-    return <div>내용 없음</div>;
+    return <div />;
+    // return <LoadingComp />;
   }
 
   return (

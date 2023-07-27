@@ -151,7 +151,7 @@ const EndDetailItem = ({ item, onClick }) => {
   );
 };
 
-const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, date, loading }) => {
+const TrafficSelectComp = ({ target, stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, date, loading }) => {
   return (
     <div>
       <TrafficContainer>
@@ -180,11 +180,11 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
       </TrafficContainer>
       <SelectListContainer>
         <div className="list flag" id="start-container">
-          <SelectListBlock>
+          {target ? <SelectListBlock>
             <p className="title">출발지</p>
             {stations && stations.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
             {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-          </SelectListBlock>
+          </SelectListBlock> : null}
           <SelectListBlock>
             {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
             {terminalStartDetails && terminalStartDetails.map((terminal) => <StartDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}
@@ -192,11 +192,11 @@ const TrafficSelectComp = ({ stations, terminals, stationStartDetails, terminalS
         </div>
 
         <div className="list flag" id="end-container">
-          <SelectListBlock>
+          {target ? <SelectListBlock>
             <p className="title">도착지</p>
             {stations && stations.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
             {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-          </SelectListBlock>
+          </SelectListBlock> : null}
           <SelectListBlock>
             {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
             {terminalEndDetails && terminalEndDetails.map((terminal) => <EndDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}

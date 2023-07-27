@@ -8,6 +8,11 @@ import PaginationComp from "../../common/PaginationComp";
 import { addWishList } from "../../../lib/api/wishList";
 import ThemeComp from "../../common/ThemeComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
 const ListContainer = styled.div`
   margin-top: 50px;
   .board-list {
@@ -19,6 +24,7 @@ const ListContainer = styled.div`
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    position: relative;
   }
 
   .board-list:hover {
@@ -74,6 +80,20 @@ const ListContainer = styled.div`
     color: #7b7b7b;
     margin-top: 1rem;
   }
+
+  .likeandcnt {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    .icon {
+      margin-right: 3px;
+    }
+    div {
+      margin-left: 14px;
+    }
+  }
 `;
 const WriteButton = styled(ButtonComp)`
   margin: 20px 0;
@@ -92,13 +112,13 @@ const BoardListImg = styled.img`
   width: 400px;
 `;
 
-const BoardListItem = ({ post }) => {
+const BoardListItem = ({ post, likeCount }) => {
   if (!post) {
     return <div>오류</div>;
   }
-  // console.log('post : ', post);
-  const { no, id, title, content, createAt, updateAt, like, cnt } = post;
-  // console.log("content : ", content);
+
+  const { no, id, nick, title, content, createAt, updateAt, like, cnt } = post;
+
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
@@ -106,7 +126,14 @@ const BoardListItem = ({ post }) => {
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
             <h3 className="title">{title}</h3>
-            <h4> 좋아요: {like} 조회수 : {cnt}</h4>
+            <div className="likeandcnt">
+              <div>
+                <FontAwesomeIcon className="icon" icon={faHeart} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} /> {like}
+              </div>
+              <div>
+                <FontAwesomeIcon className="icon" icon={faEye} style={{ color: "#000000" }} /> {cnt}{" "}
+              </div>
+            </div>
             {/* <p className="content">{content}</p> */}
             <p className="write-id">{id}</p>
             {updateAt ? <p className="createat">수정일자 : {makeCreatedAt(updateAt)}</p> : <p className="createat">작성일자 : {makeCreatedAt(createAt)}</p>}
@@ -127,24 +154,10 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
       <WrapperComp>
         <BoardListTitle>여행 후기</BoardListTitle>
         <SubTitleComp>전국 여행후기를 남겨주세요!</SubTitleComp>
-        {showWriteButton && (
-          <WriteButton to={"/board/write"}>글쓰기</WriteButton>
-        )}
-        {posts &&
-          posts
-            .slice(offset, offset + limit)
-            .map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>}
+        {posts && posts.slice(offset, offset + limit).map((post, index) => <BoardListItem key={post.no} post={post} />)}
         {/* {showWriteButton && <WriteButton to={"/board/write"}>글쓰기</WriteButton>} */}
-        <div className="pagin">
-          {posts && (
-            <PaginationComp
-              total={posts.length}
-              limit={limit}
-              page={page}
-              setPage={setPage}
-            />
-          )}
-        </div>
+        <div className="pagin">{posts && <PaginationComp total={posts.length} limit={limit} page={page} setPage={setPage} />}</div>
       </WrapperComp>
     </>
   );

@@ -126,9 +126,16 @@ exports.boardDetailPage = async (req, res) => {
         }
       );
     }
+    console.log('============================================================');
     const detailPage = await board.findOne({
       where: { no },
+      include: [{
+        model: like,
+        as: 'likes'
+      }]
     });
+    console.log('detailPage : ', detailPage);
+    console.log('============================================================');
     return res.json(detailPage);
   } catch (error) {
     return res.json(error);

@@ -44,17 +44,17 @@ exports.changeProfile = async (req, res) => {
 		});
 
 		//토큰 재발행하여 layoutcntr의 닉네임도 갱신해야한다.
-		const token = generateToken(id, nick, exUser.grade); //jwt token 발행
-    res.cookie("access_token", token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-    });
+		const token = generateToken(id, nick, exUser.grade, exUser.no); //jwt token 발행
+		res.cookie("access_token", token, {
+			maxAge: 1000 * 60 * 60 * 24 * 7,
+			httpOnly: true,
+		});
 
 		return res.status(200).json({ nick });
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ nickError: true });
-  }
+	}
 };
 
 exports.nickChk = async (req, res) => {
@@ -74,7 +74,7 @@ exports.nickChk = async (req, res) => {
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ nickError: true });
-	} 
+	}
 }
 
 exports.withdraw = async (req, res) => {
@@ -92,10 +92,10 @@ exports.withdraw = async (req, res) => {
 			return res.status(200).json({ withdrawAuth: true });
 		}
 
-  } catch (e) {
+	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ withdrawError: true });
-  }
+	}
 };
 
 exports.getBoardList = async (req, res) => {
@@ -140,17 +140,21 @@ exports.deleteBoard = async (req, res) => {
 };
 
 exports.getReplyList = async (req, res) => {
-	const { id } = req.params;
-
+	const { uno } = req.params;
+	console.log('getReplyList ==>uno : ', uno)
 	try {
 		const replyList = await reply.findAll({
 			where: {
-				id,
+				uno
 			},
+			include: [{
+				model: user,
+				as: "uno_user"
+			}]
 		});
 
 		const totalReply = replyList.length;
-
+		console.log('totalReply : ', totalReply);
 		if (replyList) {
 			return res.status(200).json({ replyList, totalReply });
 		}
@@ -189,10 +193,10 @@ exports.getLikeList = async (req, res) => {
 				id,
 			},
 			include: {
-                model: board,
-                required: true,
-                as: 'bno_board'
-            }
+				model: board,
+				required: true,
+				as: 'bno_board'
+			}
 		});
 		const totalLike = likeList.length;
 
@@ -255,11 +259,11 @@ exports.getWishDetail = async (req, res) => {
 
 		const exWish = await axios.get(`https://apis.data.go.kr/B551011/KorService1/detailIntro1?serviceKey=${KNTO_TOUR_KEY}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=${contentId}&contentTypeId=${contentTypeId}`)
 		const detail = exWish.data.response.body.items.item[0];
-		
+
 		return res.status(200).json({ wish: { title, data: detail } });
 	} catch (e) {
 		console.error(e);
-		res.status(400).json({wishError: true});
+		res.status(400).json({ wishError: true });
 	}
 }
 
