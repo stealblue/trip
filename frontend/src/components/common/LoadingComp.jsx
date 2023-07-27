@@ -8,19 +8,22 @@
 // `;
 
 // const LoaderContainer = styled.div`
-//   height: 100vh;
+//   width: 600px; 
+//   height: 600px;
 //   display: flex;
 //   flex-direction: column;
 //   align-items: center;
 //   justify-content: center;
-//   position: absolute;
+//   margin: auto;
+//   /* position: absolute; */
+//   z-index: 100;
 //   /* background: #324D5B; */
 // `;
 
 // const Loader = styled.div`
 //   animation: ${spin} 1s ease-in-out infinite alternate both;
-//   height: 200px; 
-//   width: 500px; 
+//   height: 200px;
+//   width: 100%; /* 컨테이너를 가득 채우기 위해 너비를 100%로 설정 */
 //   position: relative;
 // `;
 
@@ -32,16 +35,16 @@
 // `;
 
 // const CircleMiddle = styled(Circle)`
-//   width: 24px; 
-//   height: 24px;
+//   width: 3.6%; /* Loader 컴포넌트에 대해 백분율 사용하여 크기 조정 */
+//   padding-top: 3.6%; /* 가로 세로 비율 유지 */
 //   background-color: #7e3f3f;
 //   border-radius: 50%;
 //   transform: translate(-50%, -50%);
 // `;
 
 // const CircleSmall = styled(Circle)`
-//   width: 18px; 
-//   height: 18px;
+//   width: 2.7%; /* Loader 컴포넌트에 대해 백분율 사용하여 크기 조정 */
+//   padding-top: 2.7%; /* 가로 세로 비율 유지 */
 //   background-color: #26A6D1;
 //   border-radius: 50%;
 // `;
@@ -72,14 +75,15 @@ const spin = keyframes`
 `;
 
 const LoaderContainer = styled.div`
-  width: 800px; /* 너비를 800px로 설정 */
-  height: 100vh;
+  width: 600px; 
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  /* 배경색을 원하시면 주석 해제 */
+  margin: auto;
+  /* position: absolute; */
+  z-index: 100;
   /* background: #324D5B; */
 `;
 
@@ -98,18 +102,19 @@ const Circle = styled.div`
 `;
 
 const CircleMiddle = styled(Circle)`
-  width: 3.6%; /* Loader 컴포넌트에 대해 백분율 사용하여 크기 조정 */
-  padding-top: 3.6%; /* 가로 세로 비율 유지 */
+  width: 3.6%;
+  padding-top: 3.6%;
   background-color: #7e3f3f;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* 아이콘을 수직, 수평 정중앙으로 이동 */
 `;
 
 const CircleSmall = styled(Circle)`
-  width: 2.7%; /* Loader 컴포넌트에 대해 백분율 사용하여 크기 조정 */
-  padding-top: 2.7%; /* 가로 세로 비율 유지 */
+  width: 2.7%;
+  padding-top: 2.7%;
   background-color: #26A6D1;
   border-radius: 50%;
+  transform: translate(-50%, -50%); /* 아이콘을 수직, 수평 정중앙으로 이동 */
 `;
 
 const LoadingComp = () => {

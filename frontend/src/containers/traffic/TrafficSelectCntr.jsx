@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listTerminals, startTerminals, selectStartTerminal, endTerminals, selectEndTerminal, selectDateBus, unloadBus } from "../../modules/traffic/BusMod";
 import { listStations, startStations, selectStartStation, endStations, selectEndStation, selectDateTrain, unloadTrain } from "../../modules/traffic/TrainMod";
 import TrafficSelectComp from '../../components/traffic/TrafficSelectComp';
+import LoadingComp from '../../components/common/LoadingComp';
 
 const TrafficSelectCntr = () => {
   const [target, setTarget] = useState(null);
@@ -33,7 +34,7 @@ const TrafficSelectCntr = () => {
         dispatch(endStations({ cityCode }));
         onClickedItem(e, 'end-area', 'clicked');
       }
-    } else {
+    } else if (target === 'bus') {
       if (e.target.dataset.type === 'start') {
         dispatch(startTerminals({ cityCode }));
         onClickedItem(e, 'start-area', 'clicked');
@@ -88,14 +89,6 @@ const TrafficSelectCntr = () => {
     setEnd('');
     setStart('');
     setDate('');
-    // const trafficCategory = Array.from(document.getElementsByClassName('category'));
-    // trafficCategory.forEach((item) => {
-    //   if (item === e.target) {
-    //     item.classList.add('traffic-category');
-    //   } else {
-    //     item.classList.remove('traffic-category');
-    //   }
-    // })
     onClickedItem(e, 'category', 'traffic-category')
   }
 
@@ -145,6 +138,10 @@ const TrafficSelectCntr = () => {
     }
   }, [dispatch, target])
 
+  // if (loading && ()) {
+  //   return <LoadingComp />
+  // }
+
   return (
     <div>
       {
@@ -164,6 +161,7 @@ const TrafficSelectCntr = () => {
           end={end}
           date={date}
           loading={loading}
+          target={target}
         />
       }
     </div>
