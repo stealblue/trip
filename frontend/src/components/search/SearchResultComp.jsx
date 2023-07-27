@@ -57,7 +57,7 @@ const AreaItemBlock = styled.div`
 const RoomListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 1250px;
+  height: 1080px;
   flex-direction: column;
   width: 800px;
   margin: 0 auto;

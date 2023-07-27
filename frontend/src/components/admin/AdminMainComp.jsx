@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faList,
-  faRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faList, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Outlet } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -92,11 +88,7 @@ const AdminMainComp = () => {
           <AdminNav>
             <li>
               <Link to={"/admin/user"}>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="icon"
-                  style={{ color: "white" }}
-                />
+                <FontAwesomeIcon icon={faUser} className="icon" style={{ color: "white" }} />
                 <span>회원관리</span>
               </Link>
             </li>
@@ -109,11 +101,7 @@ const AdminMainComp = () => {
           </AdminNav>
           <BackButton>
             <Link to="/">
-              <FontAwesomeIcon
-                icon={faRightFromBracket}
-                size="2xl"
-                className="home-icon"
-              />
+              <FontAwesomeIcon icon={faRightFromBracket} size="2xl" className="home-icon" />
             </Link>
           </BackButton>
         </AdminSideBar>

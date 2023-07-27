@@ -31,20 +31,20 @@ const ListContainer = styled.div`
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.22), 0 8px 8px rgba(0, 0, 0, 0.22);
   }
 
+  .board-list-text {
+    margin-left: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+    white-space: wrap;
+  }
+
   .title {
     margin-top: 0px;
     font-size: 28px;
     font-weight: 600;
-
-    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .board-list-text {
-    margin-left: 20px;
-    margin-top: 1rem;
   }
 
   .des {
@@ -94,6 +94,30 @@ const ListContainer = styled.div`
       margin-left: 14px;
     }
   }
+
+  @media (max-width: 1200px) {
+    margin-top: 30px;
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    .title {
+      font-size: 18px;
+    }
+    .write-id {
+      font-size: 14px;
+    }
+
+    .createat {
+      font-size: 14px;
+    }
+    .likeandcnt {
+      font-size: 12px;
+    }
+  }
 `;
 const WriteButton = styled(ButtonComp)`
   margin: 20px 0;
@@ -110,6 +134,14 @@ const BoardListTitle = styled(TitleComp)`
 
 const BoardListImg = styled.img`
   width: 400px;
+
+  @media (max-width: 1200px) {
+    width: 300px;
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
 `;
 
 const BoardListItem = ({ post, likeCount }) => {
@@ -125,7 +157,7 @@ const BoardListItem = ({ post, likeCount }) => {
         <div className="board-list">
           <BoardListImg src="/assets/mainslide.jpeg" />
           <div className="board-list-text">
-            <h3 className="title">{title}</h3>
+            <div className="title">{title}</div>
             <div className="likeandcnt">
               <div>
                 <FontAwesomeIcon className="icon" icon={faHeart} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} /> {like}
