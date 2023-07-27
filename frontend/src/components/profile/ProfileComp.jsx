@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import PaginationComp from "../common/PaginationComp";
-// import WishComp from "../../containers/profile/WIshComp";
 import { Container } from "../../containers/profile/Container";
 import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
@@ -47,8 +46,9 @@ const InputBox = styled.input`
   background: white;
   margin-right: 10px;
   width: 150px;
-  height: 27px;
+  height: 28px;
   padding: 0 10px;
+  border-radius: 14px;
 `;
 
 const UserInformBox = styled.div`
@@ -94,7 +94,6 @@ const BoardListTitle = styled.ul`
 `;
 
 const BoardInfo = styled.ul`
-  /* background: gray; */
   width: 100%;
   padding: 10px;
   display: flex;
@@ -264,53 +263,140 @@ const LikeBox = styled.div`
 `;
 
 const AllScheduleBox = styled.div`
-  background: red;
   display: flex;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: space-around;
 `;
 
 const SchedulerBox = styled.div`
-  background: pink;
+  background: white;
+  cursor: pointer;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
   width: 70%;
+  height: 50px;
+  margin: 7px;
+
+  &:hover {
+    cursor: pointer;
+    background: pink;
+    opacity: 0.8;
+  }
+`;
+
+const ScheduleTitle = styled.span`
+  font-weight: 700;
+`;
+
+const ScheduleButton = styled.div`
+  cursor: pointer;
+  background: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  font-weight: 800;
+
+  &:hover {
+    background: pink;
+    opacity: 0.8;
+  }
 `;
 
 const WishListBox = styled.div`
-  background: yellow;
+  background: white;
+  border: 1px solid black;
+  border-radius: 10px;
   width: 30%;
+  height: 600px;
+  overflow: auto;
 `;
 
 const BeforeBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
   background: white;
-  width: 300px;
+  width: 30%;
+  height: 600px;
+  overflow: auto;
+`;
+
+const BeforeInputBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
 `;
 
 const AfterBox = styled.div`
   display: flex;
+  border: 1px solid black;
+  border-radius: 10px;
   flex-direction: column;
-  width: 300px;
+  background: white;
+  width: 30%;
+  height: 600px;
+  overflow: auto;
 `;
 
 const Item = styled.div`
   display: flex;
   background: none;
-  border-bottom: 1px solid black;
-  justify-content: space-between;
-`;
-
-const SavedListBox = styled.div`
-  border: 2px dashed black;
-  margin: 2px 0;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const SavedList = styled.div`
-  background: white;
+  display: flex;
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 7px;
+  font-weight: 700;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background: pink;
+    opacity: 0.7;
+  }
+`;
+
+const SavedListBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 7px;
 `;
 
 const ShceduleBox = styled.div`
   border: 1px dashed black;
   background: skyblue;
   margin: 4px;
+`;
+
+const SavedButton = styled.div`
+  background: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  font-weight: 800;
+  text-align: center;
+
+  &:hover {
+    background: pink;
+    opacity: 0.8;
+  }
 `;
 
 const SheduleTitleBox = styled.div`
@@ -367,7 +453,7 @@ const ProfileComp = ({
   setListModal,
   onChangeProfileCancle,
   onSavedListDelete,
-  contentImgFilter
+  contentImgFilter,
 }) => {
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
@@ -569,7 +655,7 @@ const ProfileComp = ({
             <LikeListTitle>
               <li>이메일</li>
               <li>글 제목</li>
-              <li>좋아요버튼</li>
+              <li>좋아요</li>
             </LikeListTitle>
             {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
@@ -600,7 +686,7 @@ const ProfileComp = ({
             <WishListBox>
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
-                  <BoardInfo
+                  <SchedulerBox
                     onClick={() =>
                       onGetWishDetail(
                         Wish.title,
@@ -609,9 +695,9 @@ const ProfileComp = ({
                       )
                     }
                   >
-                    <div key={Wish.no}>{Wish.title}</div>
-                  </BoardInfo>
-                  <Button
+                    <ScheduleTitle key={Wish.no}>{Wish.title}</ScheduleTitle>
+                  </SchedulerBox>
+                  <ScheduleButton
                     onClick={() =>
                       onAddSchedule({
                         id: user.id,
@@ -622,8 +708,10 @@ const ProfileComp = ({
                     }
                   >
                     +
-                  </Button>
-                  <Button onClick={() => onDeleteWish(Wish.no)}>삭제</Button>
+                  </ScheduleButton>
+                  <ScheduleButton onClick={() => onDeleteWish(Wish.no)}>
+                    x
+                  </ScheduleButton>
                 </Item>
               ))}
               <StyledModal
@@ -739,16 +827,21 @@ const ProfileComp = ({
               </StyledModal>
             </WishListBox>
             <BeforeBox>
-              <div>
-                <InputBox type="text" ref={subjectRef} />
+              <BeforeInputBox>
+                <InputBox
+                  type="text"
+                  ref={subjectRef}
+                  placeholder="한글 2~10자"
+                />
                 <Button onClick={onSaveScheduleList}>저장</Button>
-              </div>
+              </BeforeInputBox>
               {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
             </BeforeBox>
             <AfterBox>
               {savedList?.map((list) => (
-                <SavedListBox key={list._id}>
+                <SavedListBox>
                   <SavedList
+                    key={list._id}
                     onClick={() =>
                       onGetSavedListDetail(
                         list.name[0].id,
@@ -758,7 +851,9 @@ const ProfileComp = ({
                   >
                     {list.name[0].subject}
                   </SavedList>
-                  <Button onClick={() => onSavedListDelete(list._id)}>x</Button>
+                  <SavedButton onClick={() => onSavedListDelete(list._id)}>
+                    x
+                  </SavedButton>
                 </SavedListBox>
               ))}
               <StyledModal

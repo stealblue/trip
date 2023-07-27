@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { Card } from "./Card";
 
 const style = {
-  width: 250,
+  width: "100%",
 };
 export const Container = ({ cards, moveCard }) => {
   {
