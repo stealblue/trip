@@ -2,7 +2,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { showKeyword } from '../modules/search/SearchMod';
+import { showKeyword } from "../modules/search/SearchMod";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
@@ -27,7 +27,7 @@ import MainChatComp from "../components/main/MainChatComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
 import ThemeComp from "../components/common/ThemeComp";
-
+import HamMenuComp from "../components/main/HamMenuComp";
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -103,12 +103,13 @@ const Main = () => {
     if (e.key === "Enter") {
       const keyword = `${e.target.value}`;
       dispatch(showKeyword(keyword));
-      navigate('/search');
-    } else if (e.button === 0) { // 마우스 왼쪽
+      navigate("/search");
+    } else if (e.button === 0) {
+      // 마우스 왼쪽
       const keyword = `${e.target.dataset.keyword}`;
-      console.log('keyword : ', e.target);
+      console.log("keyword : ", e.target);
       dispatch(showKeyword(keyword));
-      navigate('/search');
+      navigate("/search");
     }
   };
 
@@ -130,14 +131,16 @@ const Main = () => {
                 <FadeInLeft>
                   <h3>바다로 떠나는 여행</h3>
                   <p>
-                    <span onClick={onSearchArea} data-keyword="바다">전국 곳곳 바다여행 알아보기</span>
+                    <span onClick={onSearchArea} data-keyword="바다">
+                      전국 곳곳 바다여행 알아보기
+                    </span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
               </Reveal>
             </div>
           </SwiperSlide>
-          <SwiperSlide >
+          <SwiperSlide>
             <img src="/assets/mainslide2.jpeg" alt="슬라이드1" />
             <div className="slide-text">
               <Reveal repeat trigger={<div />}>
@@ -146,7 +149,9 @@ const Main = () => {
                     하늘에서 즐기는 <br /> 액티비티한 여행
                   </h3>
                   <p>
-                    <span onClick={onSearchArea} data-keyword="액티비티">액티비티 여행 찾아보기</span>
+                    <span onClick={onSearchArea} data-keyword="액티비티">
+                      액티비티 여행 찾아보기
+                    </span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
@@ -160,7 +165,9 @@ const Main = () => {
                 <FadeInLeft>
                   <h3>아름다운 풍경과 마주하는 여행</h3>
                   <p>
-                    <span onClick={onSearchArea} data-keyword="풍경명소">전국 풍경 명소 찾아보기</span>
+                    <span onClick={onSearchArea} data-keyword="풍경명소">
+                      전국 풍경 명소 찾아보기
+                    </span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
@@ -177,7 +184,9 @@ const Main = () => {
                     한옥을 즐기고 싶다면
                   </h3>
                   <p>
-                    <span onClick={onSearchArea} data-keyword="한옥펜션">아름다운 한옥펜션 알아보기</span>
+                    <span onClick={onSearchArea} data-keyword="한옥펜션">
+                      아름다운 한옥펜션 알아보기
+                    </span>
                     <FontAwesomeIcon icon={faRightLong} />
                   </p>
                 </FadeInLeft>
@@ -193,6 +202,7 @@ const Main = () => {
         <MainChatComp />
         <MainBoardCntr />
       </MainBoardListContainer>
+      <HamMenuComp />
     </>
   );
 };

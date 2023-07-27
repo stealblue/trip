@@ -84,7 +84,9 @@ const TravelList = styled.div`
     background-size: cover;
   }
 
-  @media (max-width: 1260px) {
+  @media (max-width: 1200px) {
+    width: 90%;
+    margin: 30px auto;
     .bg {
       height: 400px;
       .title {
@@ -109,6 +111,12 @@ const TravelListTitle = styled.div`
       font-size: 36px;
       font-family: "OAGothic-ExtraBold";
       font-weight: 600;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    h2 {
+      margin-left: 40px;
     }
   }
 `;
@@ -136,7 +144,26 @@ const MaincontentComp = () => {
         </TravelListTitle>
 
         <TravelList>
-          <Swiper slidesPerView={4} spaceBetween={30} autoplay={{ delay: 3000 }} loop={true} loopadditionalslides={5} navigation={true} modules={[Navigation, Pagination, Autoplay]} className="mySwiper">
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={30}
+            autoplay={{ delay: 3000 }}
+            loop={true}
+            loopadditionalslides={5}
+            navigation={true}
+            breakpoints={{
+              1200: {
+                slidesPerView: 4,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              300: {
+                slidesPerView: 1,
+              },
+            }}
+            modules={[Navigation, Pagination, Autoplay]}
+            className="mySwiper">
             <SwiperSlide className="bg bg1" onClick={onSwal}>
               <p className="title">제주도</p>
               <p className="place">무지개 해안도로</p>

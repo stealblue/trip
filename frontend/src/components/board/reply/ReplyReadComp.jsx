@@ -20,6 +20,11 @@ const ReplyItemWarrap = styled.div`
     margin-left: 20px;
     line-height: 30px;
   }
+
+  .createat {
+    margin-left: 720px;
+    font-size: 14px;
+  }
 `;
 
 const ImageBox = styled.img`
@@ -32,7 +37,7 @@ const ImageBox = styled.img`
 
 const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user, profile }) => {
   // console.log(profile.img);
-  console.log('reply : ', reply);
+  console.log("reply : ", reply);
   return (
     <ReplyItemWarrap>
       {/* <p>{profile?.img ? <ImageBox src={`/assets/${profile.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}</p> */}
@@ -40,6 +45,7 @@ const ReplyItem = ({ reply, ReplyActionButtons, onRemove, onEdit, user, profile 
         {/* <p className="id">{user?.nick}</p> */}
         <p className="id">{reply.uno_user?.nick}</p>
         <p>{reply?.content}</p>
+        <p className="createat">{reply?.createAt}</p>
       </div>
 
       {/* {ReplyActionButtons} */}
