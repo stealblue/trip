@@ -43,7 +43,7 @@ const BoardName = styled.div`
 `;
 
 const Board = styled.div`
-width: 100%;
+  width: 100%;
   background: white;
   border-radius: 20px;
   .list-name {
@@ -67,6 +67,7 @@ width: 100%;
 
     li:first-child {
       line-height: 17px;
+      width: 10%;
     }
   }
 `;
@@ -90,14 +91,14 @@ const BoardInfo = styled.div`
   }
 `;
 
-const Detail = styled.span`
+const Detail = styled.li`
   margin-right: 10px;
   width: 30%;
   text-align: center;
   width: 5%;
   white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:nth-child(3n),
   &:nth-child(2) {
@@ -108,6 +109,10 @@ const Detail = styled.span`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &.remove-board {
+    width: 10%;
   }
 `;
 
@@ -222,7 +227,9 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
                   <Detail>{makeCreatedAt(board.createAt)}</Detail>
                 </BoardInfo>
                 <Detail>
-                  <ControlButton onClick={() => deleteBoardInform(board.no)}>삭제</ControlButton>
+                  <ControlButton className="remove-board" onClick={() => deleteBoardInform(board.no)}>
+                    삭제
+                  </ControlButton>
                 </Detail>
               </BoardInfoContainer>
             </>
