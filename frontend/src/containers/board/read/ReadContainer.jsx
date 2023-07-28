@@ -17,11 +17,12 @@ const ReadContainer = () => {
   const { readNo } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { post, error, loading, user, myLike, id, no } = useSelector(
+  const { post, error, loading, user, myLike, id, no, userId } = useSelector(
     ({ ReadMod, loading, UserMod }) => ({
       post: ReadMod?.post,
       error: ReadMod.error,
       user: UserMod?.user,
+      userId: UserMod?.user.id,
       myLike: ReadMod?.myLike,
       id: ReadMod?.post?.id,
       no: ReadMod?.post?.no,
@@ -31,7 +32,7 @@ const ReadContainer = () => {
   const changeLike = () => {
     dispatch(
       isLike({
-        id,
+        id: userId,
         bno: no,
       })
     );

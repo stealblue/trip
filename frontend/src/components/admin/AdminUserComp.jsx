@@ -160,7 +160,7 @@ const AdminUserComp = ({
         <BoardName>
           <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />{" "}
           <span>회원관리</span>
-          <span> / 총 가입자 수({totalUser}명)</span>
+          <span>/ 총 가입자 수({totalUser}명)</span>
         </BoardName>
         <Board>
           <ul className="list-name">
