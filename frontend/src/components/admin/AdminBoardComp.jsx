@@ -73,6 +73,7 @@ width: 100%;
 
 const BoardInfoContainer = styled.div`
   display: flex;
+  border-bottom: 1px solid black;
 `;
 
 const BoardInfo = styled.div`
@@ -80,7 +81,7 @@ const BoardInfo = styled.div`
   justify-content: space-around;
   width: 100%;
   /* background: ${ThemeComp.smoke}; */
-  border-bottom: 1px solid ${ThemeComp.lightblack};
+  // border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
   line-height: 60px;
 
@@ -116,7 +117,7 @@ const ControlButton = styled.button`
   color: ${ThemeComp.smoke};
   cursor: pointer;
   padding: 7px 12px;
-  margin-top: 20px;
+  margin: 10px;
 
   &:hover {
     background: ${ThemeComp.softblack};
@@ -124,38 +125,43 @@ const ControlButton = styled.button`
 `;
 
 const StyledModal = Modal.styled`
-background: ${ThemeComp.smoke};
-height: 800px;
-width: 800px;
-margin: 0 auto;
-display:flex;
-flex-direction :column;
-align-items:center;
-justify-content:center;
+  background: ${ThemeComp.smoke};
+  height: 800px;
+  width: 800px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction :column;
+  align-items:center;
+  justify-content:center;
 
-table{
-  width :90%;
-  table-layout: fixed;
-}
+  table{
+    width :90%;
+    table-layout: fixed;
+  }
 
-  table,
-td,
-th {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding: 15px;
-  margin:0 auto;
-  margin-top : 20px;
-}
+    table,
+  td,
+  th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    margin:0 auto;
+    margin-top : 20px;
+  }
 
-th{
-  background : #e7e7e7;
-  width : 100px;
-}
+  th{
+    background : #e7e7e7;
+    width : 100px;
+  }
 
-h3{
-  text-align:center;
-}
+  h3{
+    text-align:center;
+  }
+
+ 
+
+
+
 
 .content-title{
   margin-top : 20px;
@@ -170,9 +176,8 @@ overflow:auto;
 margin-top : 20px;
 border : 1px solid ${ThemeComp.lightblack};
 padding: 20px;
-line-height : 2010px;
+line-height : 20px;
 }
-
 `;
 
 const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal }) => {
@@ -204,19 +209,21 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
             <li></li>
           </ul>
           {boardList.slice(offset, offset + limit).map((board) => (
-            <BoardInfoContainer key={board.no}>
-              <BoardInfo id={board.no} onClick={getBoardInform}>
-                <Detail>{board.no}</Detail>
-                <Detail>{board.id}</Detail>
-                <Detail className="title">{board.title}</Detail>
-                <Detail>{board.like}</Detail>
-                <Detail>{board.cnt}</Detail>
-                <Detail>{makeCreatedAt(board.createAt)}</Detail>
+            <>
+              <BoardInfoContainer key={board.no}>
+                <BoardInfo id={board.no} onClick={getBoardInform}>
+                  <Detail>{board.no}</Detail>
+                  <Detail>{board.id}</Detail>
+                  <Detail className="title">{board.title}</Detail>
+                  <Detail>{board.like}</Detail>
+                  <Detail>{board.cnt}</Detail>
+                  <Detail>{makeCreatedAt(board.createAt)}</Detail>
+                </BoardInfo>
                 <Detail>
                   <ControlButton onClick={() => deleteBoardInform(board.no)}>삭제</ControlButton>
                 </Detail>
-              </BoardInfo>
-            </BoardInfoContainer>
+              </BoardInfoContainer>
+            </>
           ))}
           <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />
           {modal && board && (

@@ -65,6 +65,7 @@ const Board = styled.div`
 `;
 const UserInfoContainer = styled.div`
   display: flex;
+  border-bottom: 1px solid black;
 `;
 
 const UserInfo = styled.ul`
@@ -72,7 +73,7 @@ const UserInfo = styled.ul`
   justify-content: space-around;
   width: 100%;
   /* background: ${ThemeComp.smoke}; */
-  border-bottom: 1px solid ${ThemeComp.lightblack};
+  // border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
   line-height: 60px;
 
@@ -97,7 +98,7 @@ const ControlButton = styled.button`
   color: ${ThemeComp.smoke};
   cursor: pointer;
   padding: 7px 12px;
-  margin-top: 20px;
+  margin: 13px 0;
   &:hover {
     background: ${ThemeComp.softblack};
   }
@@ -168,10 +169,12 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
                 <Detail>{user.id}</Detail>
                 <Detail> {user.nick}</Detail>
                 <Detail> {user.phone}</Detail>
-                <Detail>
-                  <ControlButton onClick={() => deleteUserInform(user.id)}>탈퇴</ControlButton>
-                </Detail>
               </UserInfo>
+              <Detail>
+                <ControlButton onClick={() => deleteUserInform(user.id)}>
+                  탈퇴
+                </ControlButton>
+              </Detail>
             </UserInfoContainer>
           ))}
           <PaginationComp total={userList.length} limit={limit} page={page} setPage={setPage} />

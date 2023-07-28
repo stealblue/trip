@@ -119,7 +119,6 @@ const ProfileCntr = () => {
   const [getSubject, setGetSubject] = useState(null);
   const [cards, setCards] = useState(scheduleList);
   const subjectRef = useRef("");
-
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     setCards((prevCards) =>
       update(prevCards, {
@@ -358,11 +357,12 @@ const ProfileCntr = () => {
     }
   };
 
-  const contentImgFilter = (content) => { // 이미지태그 제거 정규표현식
+  const contentImgFilter = (content) => {
+    // 이미지태그 제거 정규표현식
     const imgTagReg = /<[^>]+>/gi;
-    const textOnly = content.replace(imgTagReg, '');
+    const textOnly = content.replace(imgTagReg, "");
     return textOnly;
-  }
+  };
 
   useEffect(() => {
     dispatch(

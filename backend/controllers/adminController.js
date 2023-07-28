@@ -33,7 +33,7 @@ exports.getUserDetail = async (req, res) => {
 	}
 }
 exports.deleteUser = async (req, res) => {
-	const { id } = res.params;
+	const { id } = req.params;
 
 	try {
 		const exUser = await user.findOne({

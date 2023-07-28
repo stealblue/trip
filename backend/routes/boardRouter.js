@@ -10,7 +10,8 @@ const {
   replyRead,
   replyModify,
   replyRemove,
-  isLike
+  isLike,
+  getLike
 } = require("../controllers/boardController");
 
 const app = express();
@@ -28,5 +29,6 @@ board.post("/read/reply/modify", replyModify);
 // board.post("/read/reply/remove/:bno", replyRemove);
 board.post("/read/reply/remove", replyRemove);
 board.get('/like/:bno', isLike);
+board.get('/getLike/:bno/:id', getLike);
 
 module.exports = board;

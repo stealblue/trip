@@ -54,11 +54,9 @@ const ReadComp = ({
   error,
   loading,
   actionButtons,
-  onlike,
+  myLike,
+  changeLike,
   user,
-  likeButton,
-  isLike,
-  likeCount,
 }) => {
   if (error) {
     if (error?.response && error?.response.status === 404) {
@@ -79,27 +77,27 @@ const ReadComp = ({
           <p className="id">{post?.id}</p>
           <div className="likeandcnt">
             <p>
-              {isLike ? (
+              {myLike ? (
                 <FontAwesomeIcon
                   className="icon"
-                  onClick={likeButton}
+                  onClick={changeLike}
                   icon={faHeart}
                   data-id={post?.id}
                   data-no={post?.no}
-                  data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
+                  // data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
                 />
               ) : (
                 <FontAwesomeIcon
                   className="icon"
-                  onClick={likeButton}
+                  onClick={changeLike}
                   icon={faHeartBroken}
                   data-id={post?.id}
                   data-no={post?.no}
-                  data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
+                  // data-cnt={likeCount === 0 ? parseInt(post?.like) : likeCount}
                 />
               )}
               {/* <FontAwesomeIcon className="icon" onClick={likeButton} icon={faHeartBroken} data-id={post.id} data-no={post.no} data-cnt={likeCount === 0 ? parseInt(post.like) : likeCount} /> */}
-              {likeCount === 0 ? parseInt(post?.like) : likeCount}
+              {/* {likeCount === 0 ? parseInt(post?.like) : likeCount} */}
               {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
             </p>
             <p>
