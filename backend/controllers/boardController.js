@@ -91,7 +91,7 @@ const sanitizeOption = {
 };
 
 exports.boardListPage = async (req, res, next) => {
-  console.log("boardLitpage들어옴");
+
   try {
     const boards = await board.findAll({
       order: [['no', 'DESC']]
@@ -126,7 +126,7 @@ exports.boardDetailPage = async (req, res) => {
         }
       );
     }
-    console.log('============================================================');
+
     const detailPage = await board.findOne({
       where: { no },
       include: [{
@@ -134,8 +134,7 @@ exports.boardDetailPage = async (req, res) => {
         as: 'likes'
       }]
     });
-    console.log('detailPage : ', detailPage);
-    console.log('============================================================');
+
     return res.json(detailPage);
   } catch (error) {
     return res.json(error);
@@ -143,11 +142,9 @@ exports.boardDetailPage = async (req, res) => {
 };
 
 exports.boardAdd = async (req, res) => {
-  console.log("boardAdd에 들어왔나");
+
   try {
     const { no, img, id, title, content, like, cnt } = req.body;
-    console.log(`no : ${no} / img : ${img} / id : ${id} / title : ${title} / content : ${content} / like : ${like} / cnt : ${cnt}`);
-    console.log(req.body, "boardadd try....");
 
     const Addboard = await board.create({
       no,
@@ -167,10 +164,7 @@ exports.boardAdd = async (req, res) => {
 
 exports.boardModify = async (req, res) => {
   try {
-    console.log("백앤드쪽 req.body : ", req.body);
     const { title, content, no } = req.body;
-    console.log("no : ", no);
-    console.log("수정하기");
 
     await board.update(
       {
@@ -203,9 +197,12 @@ exports.boardRemove = async (req, res) => {
 
 exports.boardLike = async (req, res) => {
   const { no, id } = req.body;
+
   try {
     const originLike = await like.findOne({ where: { bno: no, id } });
     const originBoard = await board.findOne({ no });
+    const post = await board.findOne({ where: { no } });
+
     if (!originLike) {
       await like.create({ bno: no, id });
       await board.update({ like: originBoard.like + 1 }, { where: { no } });
@@ -213,7 +210,7 @@ exports.boardLike = async (req, res) => {
       await like.destroy({ where: { bno: no, id } });
       await board.update({ like: originBoard.like - 1 }, { where: { no } });
     }
-    const post = await board.findOne({ where: { no } });
+
     res.json(post);
   } catch (error) {
     res.status(400).json({ msg: error });
@@ -221,7 +218,6 @@ exports.boardLike = async (req, res) => {
 };
 
 exports.replyAdd = async (req, res) => {
-  console.log("commentAdd 들어왔나 ===> ", req.params);
   try {
     const no = req.params.bno;
     const { bno, uno, content } = req.body;
@@ -255,6 +251,7 @@ exports.replyRead = async (req, res) => {
         required: false
       }]
     });
+
     return res.json(replys);
   } catch (error) {
     console.error(error);
@@ -265,6 +262,7 @@ exports.replyRead = async (req, res) => {
 exports.replyModify = async (req, res, next) => {
   try {
     const { content, no } = req.body;
+
     await reply.update(
       {
         content,
@@ -274,6 +272,7 @@ exports.replyModify = async (req, res, next) => {
         where: { no },
       }
     );
+
     return res.send("내 꿈은 꼬마박사");
   } catch (error) {
     return res.json(error);
@@ -282,13 +281,16 @@ exports.replyModify = async (req, res, next) => {
 
 exports.replyRemove = async (req, res, next) => {
   const { bno, no } = req.body;
+
   try {
     await reply.destroy({
       where: { no },
     });
+
     const replys = await reply.findAll({
       where: { bno }
     })
+
     return res.json(replys);
   } catch (error) {
     console.error(error);
@@ -297,26 +299,53 @@ exports.replyRemove = async (req, res, next) => {
 };
 
 exports.isLike = async (req, res) => {
+  const { bno } = req.params;
+  const { id } = req.query;
+
   try {
-    const { bno } = req.params;
-    const { id } = req.query;
-    console.log(`isLike ===> bno : ${bno}  / id : ${id}`);
-    const checkLike = await like.findOne({ where: { bno, id } });
-    if (!checkLike || checkLike === {}) {
-      // return res.json({ like: null });
-      console.log('insert like!!!');
+    const findLike = await like.findOne({
+      where: {
+        id, bno
+      }
+    });
+    
+    if (!findLike || findLike === null) {
       await like.create({
         bno,
         id
       });
-      return res.json({ like: 'create' });
+
+      return res.status(200).json({ myLike: true });
     }
-    else {
-      await like.destroy({ where: { bno, id } });
-      return res.json({ like: 'delete' });
-    }
+
+    await like.destroy({ where: { bno, id } });
+    
+    return res.status(200).json({ myLike: false });
   } catch (error) {
     console.error(error);
-    return res.json(error);
+    return res.status(400).json(error);
+  }
+}
+
+exports.getLike = async (req, res) => {
+  const { bno, id } = req.params;
+  let getLike;
+
+  try {
+      const Like = await like.findOne({
+      where: {
+        id, bno
+        }
+      });
+      
+      if (Like) {
+        getLike = true;
+      } else {
+        getLike = false;
+      }
+      return res.status(200).json({ myLike: getLike });
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({ myLikeError: true  });
   }
 }
