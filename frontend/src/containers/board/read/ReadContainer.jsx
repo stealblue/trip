@@ -22,6 +22,7 @@ const ReadContainer = () => {
       post: ReadMod?.post,
       error: ReadMod.error,
       user: UserMod?.user,
+      userId: UserMod?.user.id,
       myLike: ReadMod?.myLike,
       userId: UserMod?.user.id,
       id: ReadMod?.post?.id,

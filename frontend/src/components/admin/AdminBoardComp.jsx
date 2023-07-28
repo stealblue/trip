@@ -74,6 +74,7 @@ width: 100%;
 const BoardInfoContainer = styled.div`
   display: flex;
   border-bottom: 1px solid black;
+  align-items: center;
 `;
 
 const BoardInfo = styled.div`
@@ -92,13 +93,12 @@ const BoardInfo = styled.div`
 
 const Detail = styled.span`
   margin-right: 10px;
-  width: 30%;
+  // width: 30%;
   text-align: center;
-  width: 5%;
   white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
+  width: 8%;
   &:nth-child(3n),
   &:nth-child(2) {
     width: 20%;
@@ -194,12 +194,11 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
         </BoardName>
         <AdminUserGraph totalItem={totalBoard} type={"board"} />
       </BoardContainer>
-
       <BoardContainer>
         <BoardName>
           <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>게시물 / </span>
           <span>총 게시물 수({totalBoard})개</span>
-        </BoardName>
+        </BoardName >
         <Board>
           <ul className="list-name">
             <li>게시물 번호</li>
@@ -221,9 +220,9 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
                   <Detail>{board.cnt}</Detail>
                   <Detail>{makeCreatedAt(board.createAt)}</Detail>
                 </BoardInfo>
-                <Detail>
-                  <ControlButton onClick={() => deleteBoardInform(board.no)}>삭제</ControlButton>
-                </Detail>
+                <ControlButton onClick={() => deleteBoardInform(board.no)}>
+                  삭제
+                </ControlButton>
               </BoardInfoContainer>
             </>
           ))}
@@ -290,8 +289,8 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
             </StyledModal>
           )}
         </Board>
-      </BoardContainer>
-    </AdminBoardWrap>
+      </BoardContainer >
+    </AdminBoardWrap >
   );
 };
 
