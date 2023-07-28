@@ -141,11 +141,19 @@ const MaincontentComp = () => {
       showConfirmButton: true,
       showCancelButton: true,
       confirmButtonText: "확인",
-      cancelButtonText: "아니"
+      cancelButtonText: "취소"
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.isConfirmed && !wishError) {
         Swal.fire({
-          html: `${wish}`
+          html: `<p>${wish.title}</p>
+          <p>
+          <전화번호 : ${wish.data.infocenter}</p>
+          <p>휴일 : ${wish.data.restdate}</p>
+          <p>컨텐츠 : ${wish.data.expguide}</p>
+          <p>이용시간 : ${wish.data.usetime}</p>
+          <p>주차가능여부 : ${wish.data.parking}</p>
+          <p>반려동물 동반여부 : ${wish.data.chkpet}</p>
+          <p>신용카드 이용 : ${wish.data.chkcreditcard}</p>`
         })
       }
     })
