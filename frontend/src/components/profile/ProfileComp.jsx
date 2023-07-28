@@ -11,11 +11,23 @@ import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const StyledModal = Modal.styled`
   background: white;
-  height: 450px;
-  width: 500px;
+  height: 550px;
+  width: 600px;
   border-radius: 10px;
   padding: 15px;
   overflow: auto;
+  .title{
+    font-size:24px;
+    font-weight: 600;
+    border-bottom:2px solid #333;
+    padding: 20px 0 ;
+    text-align:center;
+  }
+
+  .sub-title{
+    font-size:16px;
+    font-weight: 500;
+  }
 
   div{
     display: flex;
@@ -24,11 +36,20 @@ const StyledModal = Modal.styled`
   }
   .Modal-item{
     :first-child{
-      width: 30%;
+      width: 35%;
     }
     :last-child{
       width: 65%;
     }
+  }
+  .modal-close{
+    background : ${ThemeComp.softblack};
+    color : ${ThemeComp.white};
+    padding: 5px 10px;
+    display:block;
+    margin: 0 auto;
+    margin-top :20px;
+    curosr:pointer;
   }
 `;
 
@@ -772,52 +793,50 @@ const ProfileComp = ({
               >
                 {wish?.data?.contenttypeid === "32" ? (
                   <div>
-                    <div>
-                      {wish?.title}
+                    <div className="title">{wish?.title}</div>
+                    <div className="Modal-item">
+                      <div className="sub-title">보유 룸 갯수</div>
+                      <div> {wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>보유 룸 갯수</div>
-                      <div>: {wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
+                      <div className="sub-title">룸 타입</div>
+                      <div> {wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>룸 타입</div>
-                      <div>: {wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
+                      <div className="sub-title">체크인</div>
+                      <div> {wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>체크인</div>
-                      <div>: {wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
+                      <div className="sub-title">체크아웃</div>
+                      <div> {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>체크아웃</div>
-                      <div>: {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
+                      <div className="sub-title">취사 가능여부</div>
+                      <div> {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>취사 가능여부</div>
-                      <div>: {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
-                    </div>
-                    <div className="Modal-item">
-                      <div>이용시설</div>
-                      <div>: {wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
+                      <div className="sub-title">이용시설</div>
+                      <div> {wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
                     </div>
                     <div className="Modal-item">
                       <div>전화번호</div>
-                      <div>: {wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
+                      <div> {wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>주차 가능여부</div>
-                      <div>: {wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
+                      <div className="sub-title">주차 가능여부</div>
+                      <div> {wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>숙박 예약</div>
-                      <div>: {wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
+                      <div className="sub-title">숙박 예약</div>
+                      <div> {wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>건물 이용 범위</div>
-                      <div>: {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
+                      <div className="sub-title">건물 이용 범위</div>
+                      <div> {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
                     </div>
                     {wish?.data?.reservationurl ? (
                       <div className="Modal-item">
-                        <div>홈페이지 링크</div>
+                        <div className="sub-title">홈페이지 링크</div>
                         :<div dangerouslySetInnerHTML={{ __html: wish.data.reservationurl }} />
                       </div>
                     ) : (
@@ -829,45 +848,47 @@ const ProfileComp = ({
                   </div>
                 ) : (
                   <>
-                    <div>{wish?.title}</div>
+                    <div className="title">{wish?.title}</div>
                     <div className="Modal-item">
-                      <div>전화번호</div>
-                      <div>: {wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
+                      <div className="sub-title">전화번호</div>
+                      <div> {wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>휴일</div>
-                      <div>: {wish?.data?.restdate ? wish.data.restdate : "-"}</div>
+                      <div className="sub-title">휴일</div>
+                      <div> {wish?.data?.restdate ? wish.data.restdate : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>컨텐츠</div>
-                      <div>: {wish?.data?.expguide ? wish.data.expguide : "-"}</div>
+                      <div className="sub-title">컨텐츠</div>
+                      <div> {wish?.data?.expguide ? wish.data.expguide : "-"}</div>
                     </div>
                     {wish?.data?.usetime ? (
                       <div className="Modal-item">
-                        <div>이용시간</div>
-                        :<div dangerouslySetInnerHTML={{ __html: wish.data.usetime }} />
+                        <div className="sub-title">이용시간</div>
+                        <div dangerouslySetInnerHTML={{ __html: wish.data.usetime }} />
                       </div>
                     ) : (
                       <div className="Modal-item">
-                        <div>이용시간</div>
-                        <div>: -</div>
+                        <div className="sub-title">이용시간</div>
+                        <div> -</div>
                       </div>
                     )}
                     <div className="Modal-item">
-                      <div>주차 가능여부</div>
-                      <div>: {wish?.data?.parking ? wish.data.parking : "-"}</div>
+                      <div className="sub-title">주차 가능여부</div>
+                      <div> {wish?.data?.parking ? wish.data.parking : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>반려동물 동반여부</div>
-                      <div>: {wish?.data?.chkpet ? wish.data.chkpet : "-"}</div>
+                      <div className="sub-title">반려동물 동반여부</div>
+                      <div> {wish?.data?.chkpet ? wish.data.chkpet : "-"}</div>
                     </div>
                     <div className="Modal-item">
-                      <div>신용카드 이용</div>
-                      <div>: {wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
+                      <div className="sub-title">신용카드 이용</div>
+                      <div> {wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
                     </div>
                   </>
                 )}
-                <button onClick={onGetWishDetail}>x</button>
+                <button className="modal-close" onClick={onGetWishDetail}>
+                  닫기
+                </button>
               </StyledModal>
             </WishListBox>
             <BeforeBox>

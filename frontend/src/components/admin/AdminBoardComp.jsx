@@ -166,7 +166,6 @@ overflow:auto;
 margin-top : 20px;
 border : 1px solid ${ThemeComp.lightblack};
 padding: 20px;
-line-height : 2010px;
 }
 
 `;
