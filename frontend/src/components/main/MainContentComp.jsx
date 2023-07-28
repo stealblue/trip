@@ -5,11 +5,13 @@ import ThemeComp from "../common/ThemeComp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
 import Swal from "sweetalert2";
+import { getWishDetail } from "../../modules/profile/ProfileMod";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainContentWrapper = styled.div`
   width: 100%;
@@ -117,12 +119,37 @@ const TravelListItem = styled.div`
 `;
 
 const MaincontentComp = () => {
+  const dispatch = useDispatch();
+  const { wish, wishError } = useSelector(({ ProfileMod }) => ({
+    wish: ProfileMod?.wish,
+    wishError: ProfileMod?.wishError
+  }));
+
   const onSwal = () => {
     Swal.fire({
       icon: "error",
       title: "구현 중...",
     });
   };
+
+  const onDetail = (e) => {
+    const { id, type, title } = e.target.dataset;
+    console.log(`${id} / ${type} / ${title}`);
+    dispatch(getWishDetail({ title, contentId: id, contentTypeId: type }))
+    Swal.fire({
+      text: '볼까요',
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "아니"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          html: `${wish}`
+        })
+      }
+    })
+  }
 
   return (
     <MainContentWrapper>
@@ -158,29 +185,29 @@ const MaincontentComp = () => {
               <p className="title">제주도</p>
               <p className="place">무지개 해안도로</p>
             </SwiperSlide>
-            <SwiperSlide className="bg bg2" onClick={onSwal}>
+            <SwiperSlide className="bg bg2">
               <p className="title">부산</p>
-              <p className="place">엑스더스카이 전망대</p>
+              <p className="place" onClick={onDetail} data-id='2668973' data-type='12' data-title="엑스더스카이 전망대">엑스더스카이 전망대</p>
             </SwiperSlide>
-            <SwiperSlide className="bg bg3" onClick={onSwal}>
+            <SwiperSlide className="bg bg3">
               <p className="title">울산</p>
-              <p className="place">간월재</p>
+              <p className="place" onClick={onDetail} data-id='2723688' data-type='12' data-title="간월재">간월재</p>
             </SwiperSlide>
-            <SwiperSlide className="bg bg4" onClick={onSwal}>
+            <SwiperSlide className="bg bg4">
               <p className="title">충북</p>
-              <p className="place">갈론계곡</p>
+              <p className="place" onClick={onDetail} data-id='753397' data-type='12' data-title="갈론계곡">갈론계곡</p>
             </SwiperSlide>
             <SwiperSlide className="bg bg5" onClick={onSwal}>
               <p className="title">경주</p>
               <p className="place">안압지</p>
             </SwiperSlide>
-            <SwiperSlide className="bg bg6" onClick={onSwal}>
+            <SwiperSlide className="bg bg6">
               <p className="title">남해</p>
-              <p className="place">상상양떼목장&편백숲</p>
+              <p className="place" onClick={onDetail} data-id='2536599' data-type='12' data-title="상상양떼목장">상상양떼목장&편백숲</p>
             </SwiperSlide>
-            <SwiperSlide className="bg bg7" onClick={onSwal}>
+            <SwiperSlide className="bg bg7">
               <p className="title">전주</p>
-              <p className="place">전주 한옥 마을</p>
+              <p className="place" onClick={onDetail} data-id='264284' data-type='12' data-title="전주한옥마을">전주 한옥 마을</p>
             </SwiperSlide>
           </Swiper>
         </TravelList>
