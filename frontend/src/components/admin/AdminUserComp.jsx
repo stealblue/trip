@@ -21,13 +21,13 @@ const BoardContainer = styled.div`
   /* width: 100%; */
 margin-right: 10px;
   &:first-child {
-    width: 100%;
+    width: 98%;
     height: 100%;
     margin-left: 1%;
   }
   &:last-child {
-    width: 100%;
-    margin-left: 1%;
+    width: 98%;
+    margin-left: 2%;
   }
 `;
 
@@ -43,7 +43,7 @@ const BoardName = styled.div`
 `;
 
 const Board = styled.div`
-width: 100%;
+  width: 100%;
   background: white;
   border-radius: 20px;
   .list-name {
