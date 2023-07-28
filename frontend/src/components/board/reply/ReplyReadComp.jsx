@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import ThemeComp from "../../common/ThemeComp";
 import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
+import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 
 const ReplyItemWarrap = styled.div`
   width: 50%;
@@ -51,7 +52,7 @@ const ReplyItem = ({
       <div className="reply">
         <p className="id">{reply?.uno_user?.nick}</p>
         <p>{reply?.content}</p>
-        <p className="createat">{reply?.createAt}</p>
+        <p className="createat">{makeCreatedAt(reply?.createAt)}</p>
       </div>
       {user?.nick === reply?.uno_user?.nick ? (
         <ReplyActionButtonsComp
