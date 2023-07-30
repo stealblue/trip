@@ -98,6 +98,72 @@ const AdminMainComp = () => {
                 <span>게시판관리</span>
               </Link>
             </li>
+            <li>
+              <Link to={"/admin/theme"}>
+                <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+                <span>테마관리</span>
+              </Link>
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>예약관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>문의관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>스타일관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>통계관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>배너관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>약관관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>추천여행지관리</span>
+              {/* </Link> */}
+            </li>
+            {/* <li>
+              <Link to={"/admin/notice"}>
+                <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+                <span>공지사항관리</span>
+              </Link>
+            </li> */}
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>관리자관리</span>
+              {/* </Link> */}
+            </li>
+            <li>
+              {/* <Link to={"/admin/theme"}> */}
+              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+              <span>LayOut관리</span>
+              {/* </Link> */}
+            </li>
           </AdminNav>
           <BackButton>
             <Link to="/">

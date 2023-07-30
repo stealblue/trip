@@ -1,17 +1,18 @@
 import "./App.css";
 
-import { Routes, Route, Navigate, useLocation } from "react-router";
-import { useNavigate } from "react-router-dom";
+// import { Routes, Route, Navigate, useLocation } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
+// import { useNavigate } from "react-router-dom";
 import LayoutCntr from "./containers/LayoutCntr";
 import Main from "./pages/Main";
 import BoardListPage from "./pages/board/BoardListPage";
 import WritePage from "./pages/board/WritePage";
-import RoomListPage from "./pages/chat/RoomListPage";
+// import RoomListPage from "./pages/chat/RoomListPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import AreaListPage from "./pages/area/AreaListPage";
-import RoomCreatePage from "./pages/chat/RoomCreatePage";
-import RoomReadPage from "./pages/chat/RoomReadPage";
+// import RoomCreatePage from "./pages/chat/RoomCreatePage";
+// import RoomReadPage from "./pages/chat/RoomReadPage";
 import ReadPage from "./pages/board/ReadPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import TrafficListPage from "./pages/traffic/TrafficListPage";
@@ -21,13 +22,15 @@ import SearchPwdPage from "./pages/auth/searchPwdPage";
 import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
+import AdminThemePage from "./pages/admin/AdminThemePage";
+import AdminNoticePage from './pages/admin/AdminNoticePage';
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = useSelector(({ UserMod }) => ({
     user: UserMod.user,
   }));
@@ -70,10 +73,16 @@ function App() {
             <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
             <Route path="/auth/searchPwd/:id" element={user ? <Navigate to="/" /> : <SearchPwdPage />} />
           </Route>
-          <Route element={<AdminLayoutCntr />}>
-            <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
+          {user.grade === 2 ? <Route element={<AdminLayoutCntr />}>
+            {/* <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
             <Route path="/admin/board" element={user?.grade === 2 ? <AdminBoardPage /> : <Navigate to='/' />} />
-          </Route>
+            <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
+            <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} /> */}
+            <Route path="/admin/user" element={<AdminUserPage />} />
+            <Route path="/admin/board" element={<AdminBoardPage />} />
+            <Route path="/admin/theme" element={<AdminThemePage />} />
+            <Route path="/admin/notice" element={<AdminNoticePage />} />
+          </Route> : <Navigate to='/' />}
           <Route path="map" element={<KoreaMap />} />
         </Routes>
       </AnimatePresence>

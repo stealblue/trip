@@ -182,7 +182,7 @@ line-height : 20px;
 }
 `;
 
-const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal }) => {
+const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal, onNotice }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -226,6 +226,7 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
               </BoardInfoContainer>
             </>
           ))}
+          <button onClick={onNotice}>공지사항추가</button>
           <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />
           {modal && board && (
             <StyledModal

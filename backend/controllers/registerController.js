@@ -114,15 +114,15 @@ exports.phoneChk = async (req, res) => {
 
       console.log(code, "가 발급되었습니다");
 
-      await client.messages
-        .create({
-          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
-          from: fromNum,
-          to: `+82${substrPhone}`,
-        }, function (err, message) {
-          if (err) console.log(err);
-          else console.log(message.sid);
-        });
+      // await client.messages
+      //   .create({
+      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+      //     from: fromNum,
+      //     to: `+82${substrPhone}`,
+      //   }, function (err, message) {
+      //     if (err) console.log(err);
+      //     else console.log(message.sid);
+      //   });
 
       return res.status(200).json({ phoneAuth: true, phoneMsg: "핸드폰으로 인증번호가 발급되었습니다." });
     }
@@ -140,15 +140,15 @@ exports.phoneChk = async (req, res) => {
       );
       console.log(`${code}가 재발급되었씁니다.`);
 
-      await client.messages
-        .create({
-          body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
-          from: fromNum,
-          to: `+82${substrPhone}`,
-        }, function (err, message) {
-          if (err) console.log(err);
-          else console.log(message.sid);
-        });
+      // await client.messages
+      //   .create({
+      //     body: `TRIPPER MAKER 인증번호는 ${code}입니다.`,
+      //     from: fromNum,
+      //     to: `+82${substrPhone}`,
+      //   }, function (err, message) {
+      //     if (err) console.log(err);
+      //     else console.log(message.sid);
+      //   });
 
       return res.status(200).json({ phoneAuth: true, phoneMsg: "인증번호가 재발급 되었습니다." });
     }

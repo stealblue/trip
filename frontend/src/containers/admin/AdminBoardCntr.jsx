@@ -7,6 +7,9 @@ import {
   deleteBoard,
   getBoardAction,
 } from "../../modules/admin/AdminBoardMod";
+import Swal from 'sweetalert2';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 
 const AdminBoardCnrt = () => {
   const dispatch = useDispatch();
@@ -19,6 +22,7 @@ const AdminBoardCnrt = () => {
     })
   );
   const [modal, setModal] = useState(false);
+  // const [text, setText] = useState('');
 
   const switchModal = () => {
     setModal(!modal);
@@ -39,6 +43,67 @@ const AdminBoardCnrt = () => {
     return;
   };
 
+  const onNotice = () => {
+    // Swal.fire({
+
+    // })
+    // Swal.fire({
+    //   title: 'Quill Editor',
+    //   html: '<div id="quill-editor"></div>',
+    //   showCancelButton: true,
+    //   preConfirm: () => {
+    //     const content = document.querySelector('.ql-editor').innerHTML;
+    //     setText(content);
+    //   },
+    //   didOpen: () => {
+    //     // Initialize Quill Editor when the modal is opened
+    //     const quill = new ReactQuill('#quill-editor', {
+    //       theme: 'snow',
+    //       // Additional Quill configurations can be added here
+    //     });
+    //   },
+    // });
+    Swal.fire({
+      title: '공지사항 제목',
+      input: "text",
+      // html: `<p><input name='title' placeholder='공지사항 제목'/></p>
+      // <p><input name='content' placeholder='공지사항 내용'/></p>`,
+      // input: 'text',
+      // input: 'text',
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "확인"
+    })
+      .then((titleRes) => {
+        const title = titleRes.value;
+        if (titleRes.isConfirmed && title.length > 0) {
+          Swal.fire({
+            title: `${title}`,
+            input: "textarea",
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonText: "취소",
+            confirmButtonText: "확인"
+          })
+            .then((contentRes) => {
+              if (contentRes.isConfirmed) {
+                const content = contentRes.value;
+                Swal.fire({
+                  title: `${title}`,
+                  input: `${content}`
+                })
+              }
+            })
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: `${error}`
+        })
+      })
+  }
+
   //정보 확인중 갱신되면 곤란할테니 유저 리스트는 실시간 갱신 안할것임, 회원 탈퇴는 바로 갱신
   useEffect(() => {
     dispatch(getBoardList());
@@ -58,6 +123,7 @@ const AdminBoardCnrt = () => {
       board={board}
       modal={modal}
       switchModal={switchModal}
+      onNotice={onNotice}
     />
 
   );
