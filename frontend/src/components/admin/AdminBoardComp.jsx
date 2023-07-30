@@ -43,7 +43,7 @@ const BoardName = styled.div`
 `;
 
 const Board = styled.div`
-width: 100%;
+  width: 100%;
   background: white;
   border-radius: 20px;
   .list-name {
@@ -67,6 +67,7 @@ width: 100%;
 
     li:first-child {
       line-height: 17px;
+      width: 10%;
     }
   }
 `;
@@ -94,14 +95,15 @@ const BoardInfo = styled.div`
   }
 `;
 
-const Detail = styled.span`
+const Detail = styled.li`
   margin-right: 10px;
   // width: 30%;
   text-align: center;
   white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  width: 8%;
+    width: 8%;
+
   &:nth-child(3n),
   &:nth-child(2) {
     width: 20%;
@@ -111,6 +113,10 @@ const Detail = styled.span`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &.remove-board {
+    width: 10%;
   }
 `;
 
@@ -223,6 +229,7 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
                   <Detail>{board.cnt}</Detail>
                   <Detail>{makeCreatedAt(board.createAt)}</Detail>
                 </BoardInfo>
+
                 {board.grade === 2 ? <button onClick={onDone} data-no={board.no}>비활성화</button> : null}
                 <ControlButton onClick={() => deleteBoardInform(board.no)}>
                   삭제

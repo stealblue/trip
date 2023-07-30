@@ -19,7 +19,7 @@ const AdminUserWrap = styled.div`
 const BoardContainer = styled.div`
   background: ${ThemeComp.smoke};
   /* width: 100%; */
-margin-right: 10px;
+  margin-right: 10px;
   &:first-child {
     width: 98%;
     height: 100%;
@@ -54,12 +54,11 @@ const Board = styled.div`
     width: 100%;
     background: ${ThemeComp.smoke};
     border-bottom: 2px solid #333;
+    padding-left: 5px;
+
     li {
       text-align: center;
       width: 30%;
-    }
-    li:last-child {
-      width: 10%;
     }
   }
 `;
@@ -76,6 +75,7 @@ const UserInfo = styled.ul`
   // border-bottom: 1px solid ${ThemeComp.lightblack};
   cursor: pointer;
   line-height: 60px;
+  padding-left: 10px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -83,11 +83,11 @@ const UserInfo = styled.ul`
 `;
 
 const Detail = styled.li`
-  margin-right: 10px;
   width: 30%;
   text-align: center;
+  padding: 0 10px;
 
-  &:last-child {
+  &.remove-user {
     width: 10%;
   }
 `;
@@ -171,7 +171,7 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
                 <Detail> {user.phone}</Detail>
               </UserInfo>
               <Detail>
-                <ControlButton onClick={() => deleteUserInform(user.id)}>
+                <ControlButton className="remove-user" onClick={() => deleteUserInform(user.id)}>
                   탈퇴
                 </ControlButton>
               </Detail>
