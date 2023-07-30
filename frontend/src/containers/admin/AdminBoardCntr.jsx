@@ -6,10 +6,11 @@ import {
   getBoardDetail,
   deleteBoard,
   getBoardAction,
-  createNotice
+  createNotice,
+  doneNotice
 } from "../../modules/admin/AdminBoardMod";
 import Swal from 'sweetalert2';
-import axios from "axios";
+
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 
@@ -25,7 +26,6 @@ const AdminBoardCnrt = () => {
     })
   );
   const [modal, setModal] = useState(false);
-  // const [text, setText] = useState('');
 
   const switchModal = () => {
     setModal(!modal);
@@ -47,49 +47,41 @@ const AdminBoardCnrt = () => {
   };
 
   const onNotice = async () => {
-    Swal.fire({
-      title: '공지사항 제목',
-      input: "text",
-      showCancelButton: true,
-      showConfirmButton: true,
-      cancelButtonText: "취소",
-      confirmButtonText: "확인"
-    })
+    Swal.fire({ title: '공지사항 제목', input: "text", showCancelButton: true, showConfirmButton: true, cancelButtonText: "취소", confirmButtonText: "확인" })
       .then((titleRes) => {
         const title = titleRes.value;
         if (titleRes.isConfirmed && title.length > 0) {
-          Swal.fire({
-            title: `${title}`,
-            input: "textarea",
-            showCancelButton: true,
-            showConfirmButton: true,
-            cancelButtonText: "취소",
-            confirmButtonText: "확인"
-          })
+          Swal.fire({ title: `${title}`, input: "textarea", showCancelButton: true, showConfirmButton: true, cancelButtonText: "취소", confirmButtonText: "확인" })
             .then((contentRes) => {
-              console.log('공지사항 보내기전1');
               if (contentRes.isConfirmed) {
-                console.log('공지사항 보내기전2');
                 const content = contentRes.value;
-                // Swal.fire({
-                //   title: `${title}`,
-                //   text: `${content}`
-                // })
-                // await axios.post('192.168.10.102:4000/')
                 const id = user.id;
-                console.log('공지사항 보내기전3');
-                console.log(`content : ${content} / title : ${title} / id : ${id}`)
                 dispatch(createNotice({ content, title, id }));
-                console.log('공지사항 보내기 후1');
               }
             })
         }
       })
-      .catch((error) => {
-        Swal.fire({
-          title: `${error}`
-        })
+      .catch((error) => { Swal.fire({ title: `${error}` }) })
+  }
+
+  const onDone = async (e) => {
+    Swal.fire({ icon: 'question', text: '이 공지사항을 비활성화 할까요?', showCancelButton: true, showConfirmButton: true, cancelButtonText: 'CANCEL', confirmButtonText: 'OK' })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const no = parseInt(e.target.dataset.no);
+          dispatch(doneNotice({ no }));
+          Swal.fire({ icon: 'success', text: '비활성화 했습니다.' })
+        }
       })
+      .catch((error) => { Swal.fire({ icon: 'error', text: `${error}` }) })
+  }
+
+  const onDisableNotice = async () => {
+    Swal.fire({
+      icon: 'warning',
+      title: "구현 할까말까 고민 중",
+      timer: 1000,
+    })
   }
 
   //정보 확인중 갱신되면 곤란할테니 유저 리스트는 실시간 갱신 안할것임, 회원 탈퇴는 바로 갱신
@@ -112,6 +104,8 @@ const AdminBoardCnrt = () => {
       modal={modal}
       switchModal={switchModal}
       onNotice={onNotice}
+      onDone={onDone}
+      onDisableNotice={onDisableNotice}
     />
 
   );

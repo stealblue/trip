@@ -13,15 +13,17 @@ const [DELETE_BOARD, DELETE_BOARD_SUCCESS, DELETE_BOARD_FAILURE] =
   createRequestActionTypes("admin/DELETE_BOARD");
 const [GET_BOARD_ACTION, GET_BOARD_ACTION_SUCCESS, GET_BOARD_ACTION_FAILURE] =
   createRequestActionTypes("admin/GET_BOARD_ACTION");
-const [CREATE_NOTICE, CREATE_NOTICE_SUCESS, CREATE_NOTICE_FAILURE] = createRequestActionTypes('admin/CREATE_NOTICE');
+const [CREATE_NOTICE, CREATE_NOTICE_SUCESS, CREATE_NOTICE_FAILURE] =
+  createRequestActionTypes('admin/CREATE_NOTICE');
+const [DONE_NOTICE, DONE_NOTICE_SUCESS, DONE_NOTICE_FAILURE] =
+  createRequestActionTypes('admin/DONE_NOTICE');
 
 export const getBoardList = createAction(GET_BOARD_LIST);
-export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({
-  no,
-}));
+export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({ no }));
 export const deleteBoard = createAction(DELETE_BOARD, ({ no }) => ({ no }));
 export const getBoardAction = createAction(GET_BOARD_ACTION);
 export const createNotice = createAction(CREATE_NOTICE, ({ title, content, id }) => ({ title, content, id }));
+export const doneNotice = createAction(DONE_NOTICE, ({ no }) => ({ no }));
 
 const getBoardListProcess = createRequestSaga(
   GET_BOARD_LIST,
@@ -43,6 +45,10 @@ const createNoticeProcess = createRequestSaga(
   CREATE_NOTICE,
   adminAPI.createNotice
 )
+const doneNoticeProcess = createRequestSaga(
+  DONE_NOTICE,
+  adminAPI.doneNotice
+);
 
 export function* adminBoardSaga() {
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
@@ -50,6 +56,7 @@ export function* adminBoardSaga() {
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
   yield takeLatest(GET_BOARD_ACTION, getBoardActionProcess);
   yield takeLatest(CREATE_NOTICE, createNoticeProcess);
+  yield takeLatest(DONE_NOTICE, doneNoticeProcess);
 }
 
 const initialState = {
@@ -114,6 +121,16 @@ const AdminBoardMod = handleActions(
       boardError: null
     }),
     [CREATE_NOTICE_FAILURE]: (state, { payload: { boardError } }) => ({
+      ...state,
+      board: null,
+      boardError
+    }),
+    [DONE_NOTICE_SUCESS]: (state, { payload: { board } }) => ({
+      ...state,
+      board,
+      boardError: null
+    }),
+    [DONE_NOTICE_FAILURE]: (state, { payload: { boardError } }) => ({
       ...state,
       board: null,
       boardError

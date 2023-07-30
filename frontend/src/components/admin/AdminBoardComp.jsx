@@ -75,6 +75,9 @@ const BoardInfoContainer = styled.div`
   display: flex;
   border-bottom: 1px solid black;
   align-items: center;
+  &.notice{
+    background-color: steelblue;
+  }
 `;
 
 const BoardInfo = styled.div`
@@ -182,7 +185,7 @@ line-height : 20px;
 }
 `;
 
-const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal, onNotice }) => {
+const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoard, board, modal, switchModal, onNotice, onDone, onDisableNotice }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -211,7 +214,7 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
           </ul>
           {boardList.slice(offset, offset + limit).map((board) => (
             <>
-              <BoardInfoContainer key={board.no}>
+              <BoardInfoContainer key={board.no} className={board.grade === 2 ? 'notice' : null}>
                 <BoardInfo id={board.no} onClick={getBoardInform}>
                   <Detail>{board.no}</Detail>
                   <Detail>{board.id}</Detail>
@@ -220,14 +223,16 @@ const AdminBoardComp = ({ getBoardInform, deleteBoardInform, boardList, totalBoa
                   <Detail>{board.cnt}</Detail>
                   <Detail>{makeCreatedAt(board.createAt)}</Detail>
                 </BoardInfo>
+                {board.grade === 2 ? <button onClick={onDone} data-no={board.no}>비활성화</button> : null}
                 <ControlButton onClick={() => deleteBoardInform(board.no)}>
                   삭제
                 </ControlButton>
               </BoardInfoContainer>
             </>
           ))}
-          <button onClick={onNotice}>공지사항추가</button>
           <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />
+          <button onClick={onNotice}>공지사항추가</button>
+          <button onClick={onDisableNotice}>비활성화된 공지사항보기</button>
           {modal && board && (
             <StyledModal
               isOpen={modal} //true = 열림 / false = 닫힘

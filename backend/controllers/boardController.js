@@ -94,7 +94,10 @@ exports.boardListPage = async (req, res, next) => {
 
   try {
     const boards = await board.findAll({
-      order: [['no', 'DESC']]
+      order: [['no', 'DESC']],
+      where: {
+        done: 1
+      }
     });
     return res.json(boards);
   } catch (error) {
@@ -308,7 +311,7 @@ exports.isLike = async (req, res) => {
         id, bno
       }
     });
-    
+
     if (!findLike || findLike === null) {
       await like.create({
         bno,
@@ -319,7 +322,7 @@ exports.isLike = async (req, res) => {
     }
 
     await like.destroy({ where: { bno, id } });
-    
+
     return res.status(200).json({ myLike: false });
   } catch (error) {
     console.error(error);
@@ -332,20 +335,20 @@ exports.getLike = async (req, res) => {
   let getLike;
 
   try {
-      const Like = await like.findOne({
+    const Like = await like.findOne({
       where: {
         id, bno
-        }
-      });
-      
-      if (Like) {
-        getLike = true;
-      } else {
-        getLike = false;
       }
-      return res.status(200).json({ myLike: getLike });
+    });
+
+    if (Like) {
+      getLike = true;
+    } else {
+      getLike = false;
+    }
+    return res.status(200).json({ myLike: getLike });
   } catch (e) {
     console.error(e);
-    return res.status(400).json({ myLikeError: true  });
+    return res.status(400).json({ myLikeError: true });
   }
 }

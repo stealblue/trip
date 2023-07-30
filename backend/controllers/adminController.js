@@ -99,7 +99,14 @@ exports.getUserAction = async (req, res) => {
 
 exports.getBoardList = async (req, res) => {
 	try {
-		const boardList = await board.findAll({});
+		const boardList = await board.findAll({
+			order: [
+				['grade', 'DESC']
+			],
+			where: {
+				done: 1
+			}
+		});
 		const totalBoard = boardList.length;
 
 		return res.status(200).json({ boardList, totalBoard })
@@ -191,21 +198,35 @@ exports.deleteBoard = async (req, res) => {
 	}
 }
 
-exports.createNotice = async (req, res) => {
-	console.log('createNotice back!!')
+exports.createNotice = async (req, res) => { // 공지사항 생성 3개까지만 생성되도록 할 예정.
 	try {
 		const { title, content, id } = req.body;
-		console.log(`title : ${title} / content : ${content} / id : ${id}`);
-		const notice = await board.create({
-			title,
-			content,
-			id,
-			grade: 2
+		const noticeTotal = await board.findAndCountAll({
+			where: { grade: 2, done: 1 }
 		});
-		console.log('생성???????')
+		if (noticeTotal.count <= 2) {
+			const notice = await board.create({
+				title,
+				content,
+				id,
+				grade: 2
+			});
+			return res.json({ board: notice });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.json({ boardError: error });
+	}
+}
+
+exports.doneNotice = async (req, res) => {
+	try {
+		const { no } = req.body;
+		const notice = await board.update({ done: 0 }, { where: { no } });
+		console.log('성공!!')
 		return res.json({ board: notice });
 	} catch (error) {
-		console.log('error?????')
-		return res.json(error);
+		console.error(error);
+		return res.json({ boardError: error });
 	}
 }

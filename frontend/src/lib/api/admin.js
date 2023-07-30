@@ -33,6 +33,9 @@ export const getBoardAction = async () => {
 }
 
 export const createNotice = async ({ title, content, id }) => {
-  console.log(`createNotice ===> ${title} / ${content} / ${id}`)
   return await client.post('/admin/notice/createNotice', ({ title, content, id }));
+}
+
+export const doneNotice = async ({ no }) => {
+  return await client.post('/admin/notice/doneNotice', ({ no }));
 }

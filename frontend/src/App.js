@@ -32,7 +32,7 @@ import KoreaMap from "./components/area/KoreaMap";
 function App() {
   // const navigate = useNavigate();
   const { user } = useSelector(({ UserMod }) => ({
-    user: UserMod.user,
+    user: UserMod?.user,
   }));
 
   // const onSwal = () => {
@@ -73,19 +73,15 @@ function App() {
             <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
             <Route path="/auth/searchPwd/:id" element={user ? <Navigate to="/" /> : <SearchPwdPage />} />
           </Route>
-          {user.grade === 2 ? <Route element={<AdminLayoutCntr />}>
-            {/* <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
+          <Route element={<AdminLayoutCntr />}>
+            <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
             <Route path="/admin/board" element={user?.grade === 2 ? <AdminBoardPage /> : <Navigate to='/' />} />
             <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
-            <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} /> */}
-            <Route path="/admin/user" element={<AdminUserPage />} />
-            <Route path="/admin/board" element={<AdminBoardPage />} />
-            <Route path="/admin/theme" element={<AdminThemePage />} />
-            {/* <Route path="/admin/notice" element={<AdminNoticePage />} /> */}
-          </Route> : <Navigate to='/' />}
+            <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
+          </Route>
           <Route path="map" element={<KoreaMap />} />
         </Routes>
-      </AnimatePresence>
+      </AnimatePresence >
     </>
   );
 }

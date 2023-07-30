@@ -24,7 +24,12 @@ const ListContainer = styled.div`
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     position: relative;
+
+    &.notice{
+      background-color: steelblue;
+    }
   }
+
 
   .board-list:hover {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.22), 0 8px 8px rgba(0, 0, 0, 0.22);
@@ -160,13 +165,13 @@ const BoardListItem = ({ post, likeCount }) => {
     return <div>오류</div>;
   }
 
-  const { no, id, title, createAt, updateAt, like, cnt } = post;
+  const { no, id, title, createAt, updateAt, like, cnt, grade } = post;
 
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
-        <div className="board-list">
-          <BoardListImg src="/assets/mainslide.jpeg" />
+        <div className={grade === 2 ? 'board-list notice' : 'board-list'}>
+          {grade === 1 ? <BoardListImg src="/assets/mainslide.jpeg" /> : null}
           <div className="board-list-text">
             <div className="title">{title}</div>
             <div className="likeandcnt">

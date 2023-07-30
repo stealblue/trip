@@ -50,6 +50,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1
+    },
+    done: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
