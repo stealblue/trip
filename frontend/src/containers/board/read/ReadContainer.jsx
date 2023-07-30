@@ -22,8 +22,13 @@ const ReadContainer = () => {
       post: ReadMod?.post,
       error: ReadMod.error,
       user: UserMod?.user,
+
       myLike: ReadMod?.myLike,
       userId: UserMod?.user?.id,
+
+      // userId: UserMod?.user?.id,
+      // myLike: ReadMod?.myLike,
+
       id: ReadMod?.post?.id,
       no: ReadMod?.post?.no,
     })
@@ -46,15 +51,15 @@ const ReadContainer = () => {
   }, [readNo, user]);
 
   useEffect(() => {
-    console.log(id, no, myLike, "유즈이펙트");
-    dispatch(
-      getLike({
-        id,
-        bno: no,
-      })
-    );
+    if (id) {
+      dispatch(
+        getLike({
+          id,
+          bno: no,
+        })
+      );
+    }
   }, [id]);
-  console.log(id, no, myLike, "============");
 
   const onEdit = () => {
     dispatch(setOriginPost(post));
@@ -70,7 +75,7 @@ const ReadContainer = () => {
       console.log(error);
     }
   };
-
+  console.log(myLike, "==========");
   return (
     <ReadComp
       changeLike={changeLike}
