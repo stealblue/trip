@@ -1,5 +1,5 @@
 const express = require("express");
-const { deleteUser, getUserList,getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction } = require("../controllers/adminController");
+const { deleteUser, getUserList, getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction, createNotice } = require("../controllers/adminController");
 const app = express();
 const admin = express.Router();
 
@@ -12,7 +12,6 @@ admin.delete("/board/deleteBoard/:no", deleteBoard);
 admin.get("/board/getBoardList", getBoardList);
 admin.post("/board/getBoardDetail", getBoardDetail);
 admin.get("/user/getBoardAction", getBoardAction);
-
-
+admin.post('/notice/createNotice', createNotice);
 
 module.exports = admin;

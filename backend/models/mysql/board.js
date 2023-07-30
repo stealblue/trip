@@ -45,6 +45,11 @@ module.exports = function(sequelize, DataTypes) {
     updateAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

@@ -8,7 +8,7 @@ const AdminUserGraph = ({ loading, type }) => {
       boardAction: AdminBoardMod.boardAction,
     })
   );
-  console.log(loading, "======");
+  // console.log(loading, "======");
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth();

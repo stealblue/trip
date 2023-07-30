@@ -13,6 +13,7 @@ const [DELETE_BOARD, DELETE_BOARD_SUCCESS, DELETE_BOARD_FAILURE] =
   createRequestActionTypes("admin/DELETE_BOARD");
 const [GET_BOARD_ACTION, GET_BOARD_ACTION_SUCCESS, GET_BOARD_ACTION_FAILURE] =
   createRequestActionTypes("admin/GET_BOARD_ACTION");
+const [CREATE_NOTICE, CREATE_NOTICE_SUCESS, CREATE_NOTICE_FAILURE] = createRequestActionTypes('admin/CREATE_NOTICE');
 
 export const getBoardList = createAction(GET_BOARD_LIST);
 export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({
@@ -20,6 +21,7 @@ export const getBoardDetail = createAction(GET_BOARD_DETAIL, ({ no }) => ({
 }));
 export const deleteBoard = createAction(DELETE_BOARD, ({ no }) => ({ no }));
 export const getBoardAction = createAction(GET_BOARD_ACTION);
+export const createNotice = createAction(CREATE_NOTICE, ({ title, content, id }) => ({ title, content, id }));
 
 const getBoardListProcess = createRequestSaga(
   GET_BOARD_LIST,
@@ -37,12 +39,17 @@ const getBoardActionProcess = createRequestSaga(
   GET_BOARD_ACTION,
   adminAPI.getBoardAction
 );
+const createNoticeProcess = createRequestSaga(
+  CREATE_NOTICE,
+  adminAPI.createNotice
+)
 
 export function* adminBoardSaga() {
   yield takeLatest(GET_BOARD_LIST, getBoardListProcess);
   yield takeLatest(GET_BOARD_DETAIL, getBoardDetailProcess);
   yield takeLatest(DELETE_BOARD, deleteBoardProcess);
   yield takeLatest(GET_BOARD_ACTION, getBoardActionProcess);
+  yield takeLatest(CREATE_NOTICE, createNoticeProcess);
 }
 
 const initialState = {
@@ -101,6 +108,16 @@ const AdminBoardMod = handleActions(
       boardAction: null,
       boardActionError,
     }),
+    [CREATE_NOTICE_SUCESS]: (state, { payload: { board } }) => ({
+      ...state,
+      board,
+      boardError: null
+    }),
+    [CREATE_NOTICE_FAILURE]: (state, { payload: { boardError } }) => ({
+      ...state,
+      board: null,
+      boardError
+    })
   },
   initialState
 );

@@ -23,7 +23,7 @@ import AdminLayoutCntr from "./containers/admin/AdminLayoutCntr";
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import AdminThemePage from "./pages/admin/AdminThemePage";
-import AdminNoticePage from './pages/admin/AdminNoticePage';
+// import AdminNoticePage from './pages/admin/AdminNoticePage';
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
@@ -81,7 +81,7 @@ function App() {
             <Route path="/admin/user" element={<AdminUserPage />} />
             <Route path="/admin/board" element={<AdminBoardPage />} />
             <Route path="/admin/theme" element={<AdminThemePage />} />
-            <Route path="/admin/notice" element={<AdminNoticePage />} />
+            {/* <Route path="/admin/notice" element={<AdminNoticePage />} /> */}
           </Route> : <Navigate to='/' />}
           <Route path="map" element={<KoreaMap />} />
         </Routes>

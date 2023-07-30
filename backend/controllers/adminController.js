@@ -6,11 +6,11 @@ exports.getUserList = async (req, res) => {
 	try {
 		const userList = await user.findAll({
 			where: {
-			grade: 1,
+				grade: 1,
 			}
 		});
 		const totalUser = userList.length;
-		return res.status(200).json({ userList, totalUser});
+		return res.status(200).json({ userList, totalUser });
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ listError: true });
@@ -26,7 +26,7 @@ exports.getUserDetail = async (req, res) => {
 			}
 		})
 
-		return res.status(200).json({ user: User });		
+		return res.status(200).json({ user: User });
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ userError: true });
@@ -90,7 +90,7 @@ exports.getUserAction = async (req, res) => {
 			allUserCnt.push(userCnt.count);
 		}
 
-		res.status(200).json({ userAction: {dailyJoinCnt, allUserCnt} });
+		res.status(200).json({ userAction: { dailyJoinCnt, allUserCnt } });
 	} catch (e) {
 		console.error(e);
 		res.status(400).json({ userActionError: true });
@@ -102,7 +102,7 @@ exports.getBoardList = async (req, res) => {
 		const boardList = await board.findAll({});
 		const totalBoard = boardList.length;
 
-		return res.status(200).json({boardList, totalBoard})
+		return res.status(200).json({ boardList, totalBoard })
 	} catch (e) {
 		console.error(e);
 		res.status(400).json({ listError: true });
@@ -125,7 +125,7 @@ exports.getBoardDetail = async (req, res) => {
 	}
 }
 
-exports.getBoardAction = async (req, res) => { 
+exports.getBoardAction = async (req, res) => {
 	const date = new Date();
 	const Year = date.getFullYear();
 	const Month = date.getMonth();
@@ -161,7 +161,7 @@ exports.getBoardAction = async (req, res) => {
 			allWriteCnt.push(writeCnt.count);
 		}
 
-		res.status(200).json({ boardAction: {dailyWriteCnt, allWriteCnt} });
+		res.status(200).json({ boardAction: { dailyWriteCnt, allWriteCnt } });
 	} catch (e) {
 		console.error(e);
 		res.status(400).json({ boardActionError: true });
@@ -188,5 +188,24 @@ exports.deleteBoard = async (req, res) => {
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ deleteError: true });
+	}
+}
+
+exports.createNotice = async (req, res) => {
+	console.log('createNotice back!!')
+	try {
+		const { title, content, id } = req.body;
+		console.log(`title : ${title} / content : ${content} / id : ${id}`);
+		const notice = await board.create({
+			title,
+			content,
+			id,
+			grade: 2
+		});
+		console.log('생성???????')
+		return res.json({ board: notice });
+	} catch (error) {
+		console.log('error?????')
+		return res.json(error);
 	}
 }

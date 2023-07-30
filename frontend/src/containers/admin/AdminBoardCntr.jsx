@@ -6,19 +6,22 @@ import {
   getBoardDetail,
   deleteBoard,
   getBoardAction,
+  createNotice
 } from "../../modules/admin/AdminBoardMod";
 import Swal from 'sweetalert2';
+import axios from "axios";
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 
 const AdminBoardCnrt = () => {
   const dispatch = useDispatch();
-  const { boardList, totalBoard, board, deleteError } = useSelector(
-    ({ AdminBoardMod }) => ({
+  const { boardList, totalBoard, board, deleteError, user } = useSelector(
+    ({ AdminBoardMod, UserMod }) => ({
       boardList: AdminBoardMod.boardList,
       totalBoard: AdminBoardMod.totalBoard,
       board: AdminBoardMod.board,
       deleteError: AdminBoardMod.deleteError,
+      user: UserMod.user
     })
   );
   const [modal, setModal] = useState(false);
@@ -43,33 +46,10 @@ const AdminBoardCnrt = () => {
     return;
   };
 
-  const onNotice = () => {
-    // Swal.fire({
-
-    // })
-    // Swal.fire({
-    //   title: 'Quill Editor',
-    //   html: '<div id="quill-editor"></div>',
-    //   showCancelButton: true,
-    //   preConfirm: () => {
-    //     const content = document.querySelector('.ql-editor').innerHTML;
-    //     setText(content);
-    //   },
-    //   didOpen: () => {
-    //     // Initialize Quill Editor when the modal is opened
-    //     const quill = new ReactQuill('#quill-editor', {
-    //       theme: 'snow',
-    //       // Additional Quill configurations can be added here
-    //     });
-    //   },
-    // });
+  const onNotice = async () => {
     Swal.fire({
       title: '공지사항 제목',
       input: "text",
-      // html: `<p><input name='title' placeholder='공지사항 제목'/></p>
-      // <p><input name='content' placeholder='공지사항 내용'/></p>`,
-      // input: 'text',
-      // input: 'text',
       showCancelButton: true,
       showConfirmButton: true,
       cancelButtonText: "취소",
@@ -87,12 +67,20 @@ const AdminBoardCnrt = () => {
             confirmButtonText: "확인"
           })
             .then((contentRes) => {
+              console.log('공지사항 보내기전1');
               if (contentRes.isConfirmed) {
+                console.log('공지사항 보내기전2');
                 const content = contentRes.value;
-                Swal.fire({
-                  title: `${title}`,
-                  input: `${content}`
-                })
+                // Swal.fire({
+                //   title: `${title}`,
+                //   text: `${content}`
+                // })
+                // await axios.post('192.168.10.102:4000/')
+                const id = user.id;
+                console.log('공지사항 보내기전3');
+                console.log(`content : ${content} / title : ${title} / id : ${id}`)
+                dispatch(createNotice({ content, title, id }));
+                console.log('공지사항 보내기 후1');
               }
             })
         }
