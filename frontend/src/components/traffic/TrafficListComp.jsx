@@ -37,15 +37,16 @@ const TrafficHeader = styled.table`
   }
 `;
 
-const TrafficItem = ({ item }) => {
+const TrafficItem = ({ item, onTicketing }) => {
   const depPlandTime = (item.depplandtime || item.depPlandTime).toString();
   const arrPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
   const startTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
   const endTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
+  const jsonItem = JSON.stringify(item);
   return (
     <TrafficHeader>
       <tbody>
-        <tr>
+        <tr onClick={onTicketing} data-item={jsonItem}>
           <td>{item.depplacename || item.depPlaceNm}</td>
           <td>{startTime}</td>
           <td>{item.arrplacename || item.arrPlaceNm}</td>
@@ -57,7 +58,7 @@ const TrafficItem = ({ item }) => {
   );
 };
 
-const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
+const TrafficListComp = ({ resultTrains, resultBuses, loading, onTicketing }) => {
   const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
 
@@ -82,7 +83,7 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading }) => {
             </thead>
           </TrafficHeader>
         )}
-        {result && result.map((item, index) => <TrafficItem item={item} key={index} />)}
+        {result && result.map((item, index) => <TrafficItem item={item} key={index} onTicketing={onTicketing} />)}
         {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
       </TrafficContainer>
     </WrapperComp>

@@ -6,6 +6,17 @@ import { listBuses } from '../../modules/traffic/BusMod';
 import LoadingComp from '../../components/common/LoadingComp';
 
 const TrafficListCntr = () => {
+  const onTicketing = (e) => {
+    console.log('currentTarget : ', e.currentTarget);
+    console.log('Target : ', e.target);
+    console.log('data-item : ', e.currentTarget.dataset.item);
+    const item = (e.currentTarget.dataset.item);
+    console.log('item -------: ', item);
+    // for (let i in item) {
+    //   console.log('item : ', item[i]);
+    // }
+  }
+
   const dispatch = useDispatch();
   const { resultTrains, resultBuses, pageNoTrain, pageNoBus, dateTrain, dateBus, startStation, startTerminal, endStation, endTerminal, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
     resultTrains: TrainMod?.resultTrains,
@@ -47,7 +58,7 @@ const TrafficListCntr = () => {
 
   return (
     <div>
-      {pageNoTrain && startStation && endStation && dateTrain && <TrafficListComp resultTrains={resultTrains} loading={loading} />}
+      {pageNoTrain && startStation && endStation && dateTrain && <TrafficListComp resultTrains={resultTrains} loading={loading} onTicketing={onTicketing} />}
       {pageNoBus && startTerminal && endTerminal && dateBus && <TrafficListComp resultBuses={resultBuses} loading={loading} />}
     </div>
   );
