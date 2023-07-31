@@ -96,7 +96,8 @@ exports.boardListPage = async (req, res, next) => {
     const boards = await board.findAll({
       order: [['no', 'DESC']],
       where: {
-        done: 1
+        done: 1,
+        grade: 1
       }
     });
     return res.json(boards);
@@ -350,5 +351,20 @@ exports.getLike = async (req, res) => {
   } catch (e) {
     console.error(e);
     return res.status(400).json({ myLikeError: true });
+  }
+}
+
+exports.headerListNotices = async (req, res) => {
+  try {
+    const notices = await board.findAll({
+      where: {
+        done: 1,
+        grade: 2
+      }
+    });
+    return res.json({ notices });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json(error);
   }
 }

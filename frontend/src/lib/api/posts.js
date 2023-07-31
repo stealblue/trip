@@ -60,3 +60,6 @@ export const getLike = async ({ bno, id }) => {
   return await client.get(`/board/getLike/${bno}/${id}`);
 };
 
+export const headerListNotices = async () => {
+  return await client.get('/board/headerListNotices');
+}

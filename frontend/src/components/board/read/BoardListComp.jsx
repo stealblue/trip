@@ -205,10 +205,13 @@ const BoardListItem = ({ post, likeCount }) => {
   );
 };
 
-const BoardListComp = ({ posts, showWriteButton, error }) => {
+const BoardListComp = ({ posts, showWriteButton, error, notices }) => {
   const limit = 5;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+  if (error) {
+    return <div>에러</div>
+  }
   return (
     <>
       <WrapperComp>
@@ -217,6 +220,9 @@ const BoardListComp = ({ posts, showWriteButton, error }) => {
         {showWriteButton && (
           <WriteButton to={"/board/write"}>글쓰기</WriteButton>
         )}
+        {notices &&
+          notices.notices
+            .map((notice) => <BoardListItem key={notice.no} post={notice} />)}
         {posts &&
           posts
             .slice(offset, offset + limit)

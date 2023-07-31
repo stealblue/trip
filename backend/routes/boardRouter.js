@@ -11,7 +11,8 @@ const {
   replyModify,
   replyRemove,
   isLike,
-  getLike
+  getLike,
+  headerListNotices
 } = require("../controllers/boardController");
 
 const app = express();
@@ -30,5 +31,6 @@ board.post("/read/reply/modify", replyModify);
 board.post("/read/reply/remove", replyRemove);
 board.get('/like/:bno', isLike);
 board.get('/getLike/:bno/:id', getLike);
+board.get('/headerListNotices', headerListNotices);
 
 module.exports = board;
