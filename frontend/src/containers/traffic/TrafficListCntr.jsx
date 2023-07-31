@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TrafficListComp from '../../components/traffic/TrafficListComp'
 import { useDispatch, useSelector } from "react-redux";
 import { listTrains } from '../../modules/traffic/TrainMod';
@@ -8,14 +8,34 @@ import Swal from 'sweetalert2';
 
 const TrafficListCntr = () => {
 
+  const dispatch = useDispatch();
+
+  const seatData = [
+    ['A1', 'A2', 'A3', 'A4'], ['B1', 'B2', 'B3', 'B4'], ['C1', 'C2', 'C3', "C4"],
+    ['D1', 'D2', 'D3', 'D4'], ['E1', 'E2', 'E3', 'E4'], ['F1', 'F2', 'F3', "F4"],
+    ['G1', 'G2', 'G3', 'G4'], ['H1', 'H2', 'H3', 'H4'], ['I1', 'I2', 'I3', "I4"]
+  ];
+
+  const [selectedSeat, setSelectedSeat] = useState([]);
+  const [selectedCount, setSelectedCount] = useState(0);
+
+  const { resultTrains, resultBuses, pageNoTrain, pageNoBus, dateTrain, dateBus, startStation, startTerminal, endStation, endTerminal, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
+    resultTrains: TrainMod?.resultTrains,
+    resultBuses: BusMod?.resultBuses,
+    pageNoTrain: TrainMod?.pageNoTrain,
+    pageNoBus: BusMod?.pageNoBus,
+    dateTrain: TrainMod.dateTrain,
+    dateBus: BusMod.dateBus,
+    startStation: TrainMod.startStation,
+    startTerminal: BusMod.startTerminal,
+    endStation: TrainMod.endStation,
+    endTerminal: BusMod.endTerminal,
+    loading: LoadingMod
+  }));
+
   const onTicketing = (e) => {
-    // console.log('currentTarget : ', e.currentTarget);
-    // console.log('Target : ', e.target);
-    // console.log('data-item : ', e.currentTarget.dataset.item);
-    console.log('안들어오나')
-    const item = (e.currentTarget.dataset.item);
+    const item = e.currentTarget.dataset.item;
     const jsonItem = JSON.parse(item);
-    console.log('item : ', item);
     Swal.fire({
       title: '예매 진행할까요?',
       icon: 'question',
@@ -35,32 +55,31 @@ const TrafficListCntr = () => {
             cancelButtonText: 'CANCEL',
           })
             .then((result) => {
-              const seatData = [
-                ['A1', 'A2', 'A3', 'A4'], ['B1', 'B2', 'B3', 'B4'], ['C1', 'C2', 'C3', "C4"],
-                ['D1', 'D2', 'D3', 'D4'], ['E1', 'E2', 'E3', 'E4'], ['F1', 'F2', 'F3', "F4"],
-                ['G1', 'G2', 'G3', 'G4'], ['H1', 'H2', 'H3', 'H4'], ['I1', 'I2', 'I3', "I4"],
-                ["J1", 'J2', 'J3', 'J4']
-              ];
-              const checkBoxData = seatData.map((row) =>
-                row.map((item) => ({
-                  input: 'checkbox',
-                  title: item
-                }))
-              );
               if (result.isConfirmed) {
+                const checkBoxData = seatData.map((row) =>
+                  row.map((item) => ({
+                    input: 'checkbox',
+                    title: item
+                  }))
+                );
+
+                const selectedPersonCount = parseInt(result.value);
+                setSelectedCount(selectedPersonCount);
                 Swal.fire({
                   icon: 'warning',
                   title: '좌석 선택 방법 고민 중',
-                  html: generateTableHtml(checkBoxData)
-                })
+                  html: generateTableHtml(checkBoxData),
+                  showCancelButton: true,
+                  cancelButtonText: 'CANCEL'
+                });
               }
-            })
+            });
         }
       })
       .catch((err) => {
         console.error(err);
-      })
-  }
+      });
+  };
 
   function generateTableHtml(data) {
     let html = '<table>';
@@ -74,22 +93,6 @@ const TrafficListCntr = () => {
     html += '</table>';
     return html;
   }
-
-
-  const dispatch = useDispatch();
-  const { resultTrains, resultBuses, pageNoTrain, pageNoBus, dateTrain, dateBus, startStation, startTerminal, endStation, endTerminal, loading } = useSelector(({ BusMod, TrainMod, LoadingMod }) => ({
-    resultTrains: TrainMod?.resultTrains,
-    resultBuses: BusMod?.resultBuses,
-    pageNoTrain: TrainMod?.pageNoTrain,
-    pageNoBus: BusMod?.pageNoBus,
-    dateTrain: TrainMod.dateTrain,
-    dateBus: BusMod.dateBus,
-    startStation: TrainMod.startStation,
-    startTerminal: BusMod.startTerminal,
-    endStation: TrainMod.endStation,
-    endTerminal: BusMod.endTerminal,
-    loading: LoadingMod
-  }));
 
   useEffect(() => {
     if (startStation && endStation && (dateTrain !== '' && dateTrain)) {
