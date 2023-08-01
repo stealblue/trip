@@ -36,61 +36,6 @@ const TrafficListCntr = () => {
     loading: LoadingMod
   }));
 
-  // const onTicketing = (e) => {
-  //   const item = e.currentTarget.dataset.item;
-  //   const jsonItem = JSON.parse(item);
-  //   Swal.fire({
-  //     title: '예매 진행할까요?',
-  //     icon: 'question',
-  //     showCancelButton: true,
-  //     cancelButtonText: 'CANCEL',
-  //   })
-  //     .then((res) => {
-  //       if (res.isConfirmed) {
-  //         Swal.fire({
-  //           title: `${jsonItem.depplacename ? jsonItem.depplacename + "역" : jsonItem.depPlaceNm + "정류장"}에서 출발하는 인원을 선택해주세요.`,
-  //           input: 'range',
-  //           inputAttributes: {
-  //             min: 1,
-  //             max: 5
-  //           },
-  //           showCancelButton: true,
-  //           cancelButtonText: 'CANCEL',
-  //         })
-  //           .then((result) => {
-  //             if (result.isConfirmed) {
-  // const checkBoxData = seatData.map((row) =>row.map((item) => ({input: 'checkbox',title: item})));
-
-  //               const selectedPersonCount = parseInt(result.value);
-  //               setSelectedCount(selectedPersonCount);
-  //               console.log('count : ', selectedCount);
-  //               Swal.fire({
-  //                 icon: 'warning',
-  //                 title: `좌석 선택 방법 고민 중`,
-  //                 html: generateTableHtml(checkBoxData),
-  //                 showCancelButton: true,
-  //                 cancelButtonText: 'CANCEL',
-  //                 // preConfirm: () => {
-  //                 //   const checkBoxes = document.querySelectorAll('.seat-check');
-  //                 //   console.log('체크 박스 갯 수 : ', checkBoxes.length);
-  //                 // }
-  //                 // didRender: () => {
-  //                 //   const checkBoxes = document.querySelectorAll('.seat-check');
-  //                 //   console.log('체크 박스 갯 수 : ', checkBoxes.length);
-  //                 //   const checkedBoxes = Array.from(checkBoxes).filter(checkbox => checkbox.checked);
-  //                 //   console.log('체크된 박스 갯 수 : ', checkedBoxes.length);
-  //                 // },
-  //                 // sta
-  //               });
-  //             }
-  //           });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
   const generateTableHtml = (data) => {
     let html = '<table>';
     data.forEach((row, rowIndex) => {
@@ -114,14 +59,30 @@ const TrafficListCntr = () => {
     if (e.target.value !== '') {
       const cnt = parseInt(e.target.value);
       setSelectedCount(cnt);
+
     }
   }
   const onSelectedSeat = (e) => {
     console.log('target', e.target);
     if (e.target.className === 'items') {
-      e.target.className = 'items clicked';
+      if (selectedSeat.length < selectedCount) {
+        e.target.className = 'items clicked';
+        const seat = e.target.value;
+        setSelectedSeat((selectedSeat) => {
+          return [...selectedSeat, seat]
+        });
+      }
+      else if (selectedSeat.length >= selectedCount) {
+        Swal.fire({
+          title: '좌석을 다 선택했어요!',
+          icon: 'warning',
+          toast: true,
+          timer: 1500
+        });
+      }
     }
     else {
+      setSelectedSeat(selectedSeat.filter(seat => seat !== e.target.value))
       e.target.className = 'items';
     }
     console.log('target', e.target);
