@@ -73,11 +73,11 @@ const StyledP = styled.p`
   }
 `;
 
-const AreaItem = ({ area, itemKey, onClick, addWish }) => {
+const AreaItem = ({ area, onClick, addWish }) => {
   return (
-    <AreaItemBlock key={itemKey || area.contentid}>
+    <AreaItemBlock>
       <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />
-      <p className="room-text">
+      <div className="room-text">
         <p className="title">{area.title}</p>
         <StyledP className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-contentid={area.contentid} data-contenttypeid={area.contenttypeid}>
           {area.addr1}
@@ -85,7 +85,7 @@ const AreaItem = ({ area, itemKey, onClick, addWish }) => {
         <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
           + 추가
         </span>
-      </p>
+      </div>
     </AreaItemBlock>
   );
 };
@@ -99,7 +99,7 @@ const RoomListComp = ({ areas, error, onClick, loading, addWish }) => {
   }
   return (
     <RoomListContainer>
-      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} itemKey={area.contentid} addWish={addWish} />)}</RoomList>
+      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}</RoomList>
       <PageNavComp2 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />
     </RoomListContainer>
   );
