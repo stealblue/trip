@@ -59,7 +59,7 @@ const TrafficListCntr = () => {
     if (e.target.value !== '') {
       const cnt = parseInt(e.target.value);
       setSelectedCount(cnt);
-
+      setSelectedSeat([]);
     }
   }
   const onSelectedSeat = (e) => {

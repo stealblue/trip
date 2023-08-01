@@ -32,6 +32,14 @@ const ModalBlock = styled.div`
     &.clicked{
       background-color: steelblue;
     }
+    &.ticket-ok{
+      background-color: aquamarine;
+      width: 48.5%;
+    } 
+    &.ticket-close{
+      background-color: aquamarine;
+      width: 48.5%;
+    }
   }
 `;
 
@@ -61,6 +69,7 @@ const TicketComp = ({ selectedCount, setSelectedCount, seatData, generateTableHt
             ))}
           </div>
         ))}
+        <p><button className="ticket-ok">예약</button><button className="ticket-close">취소</button></p>
       </ModalBlock>
     </Fullscreen>
   );
