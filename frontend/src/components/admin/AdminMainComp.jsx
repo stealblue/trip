@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faList, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faList,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { Outlet } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -88,7 +92,11 @@ const AdminMainComp = () => {
           <AdminNav>
             <li>
               <Link to={"/admin/user"}>
-                <FontAwesomeIcon icon={faUser} className="icon" style={{ color: "white" }} />
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="icon"
+                  style={{ color: "white" }}
+                />
                 <span>회원관리</span>
               </Link>
             </li>
@@ -135,10 +143,10 @@ const AdminMainComp = () => {
               {/* </Link> */}
             </li>
             <li>
-              {/* <Link to={"/admin/theme"}> */}
-              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
-              <span>약관관리</span>
-              {/* </Link> */}
+              <Link to={"/admin/terms"}>
+                <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+                <span>약관관리</span>
+              </Link>
             </li>
             <li>
               {/* <Link to={"/admin/theme"}> */}
@@ -167,7 +175,11 @@ const AdminMainComp = () => {
           </AdminNav>
           <BackButton>
             <Link to="/">
-              <FontAwesomeIcon icon={faRightFromBracket} size="2xl" className="home-icon" />
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                size="2xl"
+                className="home-icon"
+              />
             </Link>
           </BackButton>
         </AdminSideBar>
