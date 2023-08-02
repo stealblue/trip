@@ -170,7 +170,7 @@ exports.boardModify = async (req, res) => {
   try {
     const { title, content, no } = req.body;
 
-    await board.update(
+    const updateBoard = await board.update(
       {
         title,
         content: req.body.content,
@@ -180,10 +180,10 @@ exports.boardModify = async (req, res) => {
         where: { no },
       }
     );
-    return res.send("내 꿈은 꼬마박사");
+    return res.json({ board: updateBoard });
   } catch (error) {
     console.error(error);
-    return res.status(400).send("대홍단 왕감자");
+    return res.status(400).json(error);
   }
 };
 
@@ -267,7 +267,7 @@ exports.replyModify = async (req, res, next) => {
   try {
     const { content, no } = req.body;
 
-    await reply.update(
+    const updateReply = await reply.update(
       {
         content,
         updateAt: Sequelize.Sequelize.literal("now()"),
@@ -277,7 +277,7 @@ exports.replyModify = async (req, res, next) => {
       }
     );
 
-    return res.send("내 꿈은 꼬마박사");
+    return res.json({ reply: updateReply })
   } catch (error) {
     return res.json(error);
   }

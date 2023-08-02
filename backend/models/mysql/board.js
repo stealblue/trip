@@ -55,6 +55,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 1
+    },
+    type: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      defaultValue: "여행후기"
     }
   }, {
     sequelize,

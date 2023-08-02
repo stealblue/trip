@@ -91,6 +91,11 @@ module.exports = function(sequelize, DataTypes) {
     theme: {
       type: DataTypes.STRING(20),
       allowNull: true
+    },
+    cnt: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,

@@ -5,6 +5,7 @@ var _busType = require("./busType");
 var _like = require("./like");
 var _reply = require("./reply");
 var _theme = require("./theme");
+var _ticket = require("./ticket");
 var _trainStation = require("./trainStation");
 var _trainType = require("./trainType");
 var _user = require("./user");
@@ -17,6 +18,7 @@ function initModels(sequelize) {
   var like = _like(sequelize, DataTypes);
   var reply = _reply(sequelize, DataTypes);
   var theme = _theme(sequelize, DataTypes);
+  var ticket = _ticket(sequelize, DataTypes);
   var trainStation = _trainStation(sequelize, DataTypes);
   var trainType = _trainType(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
@@ -32,6 +34,8 @@ function initModels(sequelize) {
   user.hasMany(like, { as: "likes", foreignKey: "id"});
   reply.belongsTo(user, { as: "uno_user", foreignKey: "uno"});
   user.hasMany(reply, { as: "replies", foreignKey: "uno"});
+  ticket.belongsTo(user, { as: "uno_user", foreignKey: "uno"});
+  user.hasMany(ticket, { as: "tickets", foreignKey: "uno"});
   wishList.belongsTo(user, { as: "id_user", foreignKey: "id"});
   user.hasMany(wishList, { as: "wishLists", foreignKey: "id"});
 
@@ -42,6 +46,7 @@ function initModels(sequelize) {
     like,
     reply,
     theme,
+    ticket,
     trainStation,
     trainType,
     user,

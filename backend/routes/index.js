@@ -11,6 +11,7 @@ const profile = require("./profileRouter");
 const like = require("./likeRouter");
 const schedule = require("./scheduleRouter");
 const theme = require("./themeRouter");
+const ticket = require('./ticketRouter');
 const { mainBoardList } = require("../controllers/mainController");
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.use("/traffic", traffic);
 router.use("/like", like);
 router.use("/schedule", schedule);
 router.use("/theme", theme);
+router.use('/ticket', ticket);
 
 module.exports = router;
