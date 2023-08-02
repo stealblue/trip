@@ -1,4 +1,4 @@
-import client from "./client"
+import client from "../client"
 
 export const changePhoto = async ({ id, formData }) => {
   //header 설정 해야함.

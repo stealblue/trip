@@ -230,3 +230,5 @@ exports.doneNotice = async (req, res) => {
 		return res.json({ boardError: error });
 	}
 }
+
+//adminTerms

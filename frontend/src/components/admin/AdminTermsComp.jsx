@@ -57,13 +57,24 @@ const BoardContent = styled.div`
   background: green;
 `;
 
-const Logo = styled.div``;
+const ImgInput = styled.input`
+  display: none;
+`;
+
+const ImageBox = styled.img`
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+  border-radius: 25px;
+  border: 1px solid black;
+`;
 
 const AdminTermsComp = ({
+  user,
   tableType,
   changeType,
   onChangeLogo,
-  onUploadPhoto,
+  onUploadLogo,
 }) => {
   return (
     <AdminBoardWrap>
@@ -72,21 +83,29 @@ const AdminTermsComp = ({
           <span>약관관리</span>
         </BoardName>
         <BoardTag>
-          <Button className="LOGO" onClick={changeType}>
+          <Button id="LOGO" onClick={changeType}>
             로고변경
           </Button>
-          <Button className="INFORM" onClick={changeType}>
+          <Button id="INFORM" onClick={changeType}>
             정보변경
           </Button>
-          <Button className="TERMS" onClick={changeType}>
+          <Button id="TERMS" onClick={changeType}>
             약관관리
           </Button>
         </BoardTag>
         {tableType === "LOGO" && (
           <BoardContent>
-            <Logo>사진</Logo>
-            <input type="file" />
-            <Button onClick={onChangeLogo}>로고변경</Button>
+            <form encType="multipart/form-data">
+              <label>
+                {user?.img ? (
+                  <ImageBox src={`/assets/${user.img}`} alt="img" />
+                ) : (
+                  <ImageBox src={"/assets/triplogo.png"} alt="img" />
+                )}
+                <ImgInput type="file" onChange={onUploadLogo} name="img" />
+                <Button onClick={onChangeLogo}>로고변경</Button>
+              </label>
+            </form>
           </BoardContent>
         )}
         {tableType === "INFORM" && (
