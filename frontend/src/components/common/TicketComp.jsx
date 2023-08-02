@@ -43,13 +43,11 @@ const ModalBlock = styled.div`
   }
 `;
 
-const TicketComp = ({ selectedCount, setSelectedCount, seatData, generateTableHtml, checkBoxData, onSelectedSeat, onCnt }) => {
-
+const TicketComp = ({ selectedCount, selectedSeat, onSelectedSeat, onCnt }) => {
   return (
     <Fullscreen>
       <ModalBlock>
         티켓 예매
-        {/* <p>인원 : <input type="range" min='1' max='5' value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} /></p> */}
         <p>
           인원 :
           <select onChange={onCnt} value={selectedCount}>
@@ -62,10 +60,10 @@ const TicketComp = ({ selectedCount, setSelectedCount, seatData, generateTableHt
           </select>
         </p>
         <p>좌석선택</p>
-        {seatData.map((row, rowIndex) => (
+        {selectedSeat.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`}>
             {row.map((item, colIndex) => (
-              <button key={`col-${colIndex}`} onClick={onSelectedSeat} className="items">{item}</button>
+              <button key={`col-${colIndex}`} onClick={onSelectedSeat} className="items">{item.name}</button>
             ))}
           </div>
         ))}

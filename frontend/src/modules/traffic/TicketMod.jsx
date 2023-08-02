@@ -7,8 +7,8 @@ import { takeLatest } from "redux-saga/effects";
 import { produce } from "immer";
 
 const INITIALIZE = createRequestActionTypes("ticket/INITIALIZE");
-const [FIND_VACANCY, FIND_VACANCY_SUCESS, FIND_VACANCY_FAILURE] = createRequestActionTypes("ticket/FIND_VACANCY");
-const [CREATE_TICKET, CREATE_TICKET_SUCESS, CREATE_TICKET_FAILURE] = createRequestActionTypes('ticket/CREATE_TICKET');
+const [FIND_VACANCY, FIND_VACANCY_SUCCESS, FIND_VACANCY_FAILURE] = createRequestActionTypes("ticket/FIND_VACANCY");
+const [CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE] = createRequestActionTypes('ticket/CREATE_TICKET');
 const UNLOAD_PAGE = "ticket/UNLOAD_PAGE";
 
 export const initialize = createAction(INITIALIZE);
@@ -39,14 +39,22 @@ const initialState = {
 const TicketMod = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    // [ADD_WISHLIST_SUCCESS]: (state, { payload: { wishList } }) =>
-    //   produce(state, (draft) => {
-    //     draft.wishList = wishList;
-    //   }),
-    // [ADD_WISHLIST_FAILURE]: (state, { payload: { error } }) =>
-    //   produce(state, (draft) => {
-    //     draft.error = error;
-    //   }),
+    [FIND_VACANCY_SUCCESS]: (state, { payload: { tickets } }) =>
+      produce(state, (draft) => {
+        draft.tickets = tickets;
+      }),
+    [FIND_VACANCY_FAILURE]: (state, { payload: { error } }) =>
+      produce(state, (draft) => {
+        draft.error = error;
+      }),
+    [CREATE_TICKET_SUCCESS]: (state, { payload: message }) =>
+      produce(state, (draft) => {
+        draft.message = message;
+      }),
+    [CREATE_TICKET_FAILURE]: (state, { payload: error }) =>
+      produce(state, (draft) => {
+        draft.error = error;
+      }),
     [UNLOAD_PAGE]: () => initialState,
   },
   initialState
