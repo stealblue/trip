@@ -90,12 +90,12 @@ const Footer = () => {
           <span>상호</span> TripperMaker <br />
           <span>주소</span> 서대구로 7길 2 영남안재교육원
           <br />
-          <span>개인정보관리책임자</span> ㅎㅎㅎㅎ
+          <span>개인정보관리책임자</span>
           <br />
         </div>
 
         <div className="copyright">
-          <i>Copyright 2023.YiTripperMaker.All rights reserved.</i>
+          <i>Copyright 2023.TripperMaker.All rights reserved.</i>
         </div>
       </div>
       <div className="tel">
