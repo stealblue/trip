@@ -70,6 +70,7 @@ const TrafficListCntr = () => {
     const startDate = jsonItem.depPlandTime ? jsonItem.depPlandTime : jsonItem.depplandtime;
     const endDate = jsonItem.arrPlandTime ? jsonItem.arrPlandTime : jsonItem.arrplandtime;
     dispatch(findVacancy({ category, type, startPlace, startDate, endPlace, endDate }))
+
     setModal(true);
   }
 
