@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('ticket', {
     no: {
       autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     type: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(20),
       allowNull: false
     },
     uno: {

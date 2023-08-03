@@ -15,6 +15,6 @@ admin.get("/user/getBoardAction", getBoardAction);
 admin.post('/notice/createNotice', createNotice);
 admin.post('/notice/doneNotice', doneNotice);
 
-admin.post("/terms/changePhoto/:id",changePhoto);
+// admin.post("/terms/changePhoto/:id",changePhoto);
 
 module.exports = admin;

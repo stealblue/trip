@@ -43,7 +43,7 @@ const ModalBlock = styled.div`
   }
 `;
 
-const TicketComp = ({ selectedCount, selectedSeat, onSelectedSeat, onCnt }) => {
+const TicketComp = ({ selectedCount, data, onSelectedSeat, onCnt, onSubmit, onCancel }) => {
   return (
     <Fullscreen>
       <ModalBlock>
@@ -60,14 +60,14 @@ const TicketComp = ({ selectedCount, selectedSeat, onSelectedSeat, onCnt }) => {
           </select>
         </p>
         <p>좌석선택</p>
-        {selectedSeat.map((row, rowIndex) => (
+        {data.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`}>
             {row.map((item, colIndex) => (
-              <button key={`col-${colIndex}`} onClick={onSelectedSeat} className="items">{item.name}</button>
+              <button key={`col-${colIndex}`} onClick={onSelectedSeat} className="items" data-name={item.name}>{item.name}</button>
             ))}
           </div>
         ))}
-        <p><button className="ticket-ok">예약</button><button className="ticket-close">취소</button></p>
+        <p><button className="ticket-ok" onClick={onSubmit}>예약</button><button className="ticket-close" onClick={onCancel}>취소</button></p>
       </ModalBlock>
     </Fullscreen>
   );
