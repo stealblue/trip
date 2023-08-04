@@ -232,3 +232,22 @@ exports.doneNotice = async (req, res) => {
 }
 
 //adminTerms
+exports.getAdmin = async (req, res) => {
+	const { id } = req.params;
+	
+	try {
+		const exAdmin = await user.findOne({
+			where: {
+				id,
+			}
+		});
+
+		if (exAdmin) {
+			return res.status(200).json({ admin: exAdmin });
+		}
+
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ adminError: true });
+	}
+}

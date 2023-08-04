@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminTermsComp from "../../components/admin/AdminTermsComp";
 import { useDispatch, useSelector } from "react-redux";
 import { changePhoto } from "../../lib/api/admin/terms";
 import {
   changePhotoFailure,
   changePhotoSuccess,
+  getAdmin,
 } from "../../modules/admin/AdminTermsMod";
 
 const AdminTermsCntr = () => {
   const dispatch = useDispatch();
-  const { id, user } = useSelector(({ UserMod }) => ({
+  const { id, admin } = useSelector(({ UserMod, AdminTermsMod }) => ({
     id: UserMod.user.id,
-    user: UserMod.user,
+    admin: AdminTermsMod.admin,
   }));
   const [tableType, setTableType] = useState("LOGO");
-  const [userImg, setUserImg] = useState();
+  const [logo, setLogo] = useState();
   const [content, setContent] = useState();
 
   const changeType = (e) => {
@@ -39,7 +40,7 @@ const AdminTermsCntr = () => {
     }).then((res) => {
       if (res.status === 200) {
         const { img } = res.data;
-        setUserImg(img);
+        setLogo(img);
         dispatch(
           changePhotoSuccess({
             img,
@@ -56,9 +57,18 @@ const AdminTermsCntr = () => {
     });
   };
 
+  useEffect(() => {
+    dispatch(
+      getAdmin({
+        id,
+      })
+    );
+  }, [dispatch, logo]);
+
   return (
     <AdminTermsComp
-      user={user}
+      admin={admin}
+      logo={logo}
       tableType={tableType}
       changeType={changeType}
       onChangeLogo={onChangeLogo}

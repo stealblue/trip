@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const { ticket, user } = require('../models/mysql');
+const { ticket, user, board } = require('../models/mysql');
 
 exports.findVacancy = async (req, res) => {
   try {
@@ -64,4 +64,5 @@ const dateFormatting = (originDate) => {
   const wantDate = new Date(year, month, day, hour, min, sec);
   return wantDate;
 }
+
 

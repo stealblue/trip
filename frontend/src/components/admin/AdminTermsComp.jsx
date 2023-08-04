@@ -70,7 +70,8 @@ const ImageBox = styled.img`
 `;
 
 const AdminTermsComp = ({
-  user,
+  admin,
+  logo,
   tableType,
   changeType,
   onChangeLogo,
@@ -97,8 +98,8 @@ const AdminTermsComp = ({
           <BoardContent>
             <form encType="multipart/form-data">
               <label>
-                {user?.img ? (
-                  <ImageBox src={`/assets/${user.img}`} alt="img" />
+                {admin?.img ? (
+                  <ImageBox src={`/assets/${admin.img}`} alt="img" />
                 ) : (
                   <ImageBox src={"/assets/triplogo.png"} alt="img" />
                 )}
