@@ -5,9 +5,12 @@ import createRequestSaga, {
 import { takeLatest } from "redux-saga/effects";
 import * as adminTermsAPI from "../../lib/api/admin/terms";
 
-const CHANGE_PHOTO_SUCCESS = "profile/CHANGE_PHOTO_SUCCESS";
-const CHANGE_PHOTO_FAILURE = "profile/CHANGE_PHOTO_FAILURE";
+const [GET_ADMIN, GET_ADMIN_SUCCESS, GET_ADMIN_FAILURE] =
+  createRequestActionTypes("admin/GET_ADMIN");
+const CHANGE_PHOTO_SUCCESS = "admin/CHANGE_PHOTO_SUCCESS";
+const CHANGE_PHOTO_FAILURE = "admin/CHANGE_PHOTO_FAILURE";
 
+export const getAdmin = createAction(GET_ADMIN, ({ id }) => ({ id }));
 export const changePhotoSuccess = createAction(
   CHANGE_PHOTO_SUCCESS,
   ({ img }) => ({
@@ -21,13 +24,31 @@ export const changePhotoFailure = createAction(
   })
 );
 
+const getAdminProcess = createRequestSaga(GET_ADMIN, adminTermsAPI.getAdmin);
+
+export function* adminTermsSaga() {
+  yield takeLatest(GET_ADMIN, getAdminProcess);
+}
+
 const initialState = {
+  admin: null,
+  adminError: null,
   img: null,
   imgError: null,
 };
 
 const AdminTermsMod = handleActions(
   {
+    [GET_ADMIN_SUCCESS]: (state, { payload: { admin } }) => ({
+      ...state,
+      admin,
+      adminError: null,
+    }),
+    [GET_ADMIN_FAILURE]: (state, { payload: { adminError } }) => ({
+      ...state,
+      admin: null,
+      adminError,
+    }),
     [CHANGE_PHOTO_SUCCESS]: (state, { payload: { img } }) => ({
       ...state,
       img,

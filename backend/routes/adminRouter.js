@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const { user } = require("../models/mysql");
-const { deleteUser, getUserList, getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction, createNotice, doneNotice, changePhoto } = require("../controllers/adminController");
+const { deleteUser, getUserList, getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction, createNotice, doneNotice, getAdmin } = require("../controllers/adminController");
 const app = express();
 const admin = express.Router();
 
@@ -44,12 +44,13 @@ admin.get("/user/getBoardAction", getBoardAction);
 admin.post('/notice/createNotice', createNotice);
 admin.post('/notice/doneNotice', doneNotice);
 
+admin.get("/terms/:id", getAdmin);
 admin.post("/terms/changePhoto/:id",upload.single("img"),async (req, res) => {
   const { id } = req.params;
   const img = req.file.filename;
 
   try {
-    await user.update({ img: img }, { where: { id } });
+    await user.update({ img: img }, { where: { id } }); 
 
     return res.status(200).json({ img });
   } catch (e) {
