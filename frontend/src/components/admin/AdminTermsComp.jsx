@@ -1,5 +1,46 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import ThemeComp from "../common/ThemeComp";
+import Modal from "styled-react-modal";
+import DaumPostcode from "react-daum-postcode";
+
+const StyledModal = Modal.styled`
+  background: white;
+  height: 450px;
+  width: 500px;
+
+  div{
+    display: flex;
+    padding: 5px;
+    justify-contents: space-between;
+  }
+`;
+
+const DivInModal = styled.div`
+  cursor: pointer;
+  color: ${ThemeComp.red};
+  margin-left: 400px;
+  background: none;
+  text-align: center;
+`;
+
+const SubIdInput = styled.input`
+  height: 27px;
+  margin-top: 10px;
+  padding: 7px 10px;
+  /* border-radius: 10px; */
+  border: 1px solid ${ThemeComp.lightblack};
+  background: ${ThemeComp.white};
+  color: ${ThemeComp.softblack};
+  margin-right: 5px;
+  width: 200px;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: gray;
+      disabled
+    `}
+`;
 
 const AdminBoardWrap = styled.div`
   width: 100%;
@@ -71,11 +112,24 @@ const ImageBox = styled.img`
 
 const AdminTermsComp = ({
   admin,
-  logo,
+  modal,
   tableType,
   changeType,
   onChangeLogo,
   onUploadLogo,
+  onChangeForm,
+  onChangeInform,
+  changeForm,
+  onChange,
+  businessNameRef,
+  masterNameRef,
+  phoneNumberRef,
+  addr1,
+  address1Ref,
+  address2Ref,
+  zipcodeRef,
+  openSearchAddress,
+  onCompletePost,
 }) => {
   return (
     <AdminBoardWrap>
@@ -111,23 +165,121 @@ const AdminTermsComp = ({
         )}
         {tableType === "INFORM" && (
           <BoardContent>
-            <span>
-              상호 <input type="text" />
-              <Button>수정</Button>
-            </span>
-            <span>
-              주소 <input type="text" />
-              <Button>수정</Button>
-            </span>
-            <span>
-              개인정보관리책임자 <input type="text" />
-              <Button>수정</Button>
-            </span>
-            <span>
-              전화번호
-              <input type="text" />
-              <Button>수정</Button>
-            </span>
+            {!changeForm ? (
+              <>
+                <span>
+                  상호
+                  <div>
+                    {admin?.id?.slice(
+                      admin?.id?.indexOf("@") + 1,
+                      admin?.id?.lastIndexOf(".")
+                    )}
+                  </div>
+                </span>
+                <span>
+                  주소 <div>{admin?.addr1 + admin?.addr2}</div>
+                </span>
+                <span>
+                  개인정보관리책임자 <div>{admin?.nick}</div>
+                </span>
+                <span>
+                  전화번호
+                  <div>{admin?.phone}</div>
+                </span>
+                <Button onClick={onChangeForm}>수정</Button>
+              </>
+            ) : (
+              <>
+                <span>
+                  상호
+                  <input
+                    name="new_id"
+                    type="text"
+                    ref={businessNameRef}
+                    onChange={onChange}
+                  />
+                </span>
+                <span>
+                  주소
+                  <button onClick={openSearchAddress}>주소찾기</button>
+                </span>
+                {addr1 ? (
+                  <span>
+                    <SubIdInput
+                      placeholder="우편번호"
+                      name="new_zipcode"
+                      ref={zipcodeRef}
+                      disabled={true}
+                    />
+                    <SubIdInput
+                      placeholder="주소"
+                      name="new_addr1"
+                      type="text"
+                      ref={address1Ref}
+                      disabled={true}
+                    />
+                  </span>
+                ) : (
+                  <span>
+                    <SubIdInput
+                      placeholder="우편번호"
+                      name="new_zipcode"
+                      ref={zipcodeRef}
+                      disabled={true}
+                    />
+                    <SubIdInput
+                      placeholder="주소"
+                      name="new_addr1"
+                      type="text"
+                      ref={address1Ref}
+                      disabled={true}
+                    />
+                  </span>
+                )}
+                <div>
+                  <span>상세주소</span>
+                  <input
+                    placeholder="상세주소"
+                    name="new_addr2"
+                    type="text"
+                    ref={address2Ref}
+                    onChange={onChange}
+                  />
+                </div>
+                <span>
+                  개인정보관리책임자
+                  <input
+                    name="new_nick"
+                    type="text"
+                    ref={masterNameRef}
+                    onChange={onChange}
+                  />
+                </span>
+                <span>
+                  전화번호
+                  <input
+                    name="new_phone"
+                    type="text"
+                    ref={phoneNumberRef}
+                    onChange={onChange}
+                  />
+                </span>
+                <Button onClick={onChangeInform}>수정완료</Button>
+                <Button onClick={onChangeForm}>취소</Button>
+              </>
+            )}
+            <StyledModal
+              isOpen={modal} //true = 열림 / false = 닫힘
+              ariahideapp={"false"} //에러 안뜨게하기
+              onEscapeKeydown={openSearchAddress} //esc키 눌렀을경우 함수 실행
+              onBackgroundClick={openSearchAddress} //esc키 or 오버레이부분 클릭시 함수 실행
+            >
+              <div>
+                <div>주소검색</div>
+                <DivInModal onClick={openSearchAddress}>X</DivInModal>
+              </div>
+              <DaumPostcode autoClose onComplete={onCompletePost} />
+            </StyledModal>
           </BoardContent>
         )}
         {tableType === "TERMS" && (
@@ -155,30 +307,3 @@ const AdminTermsComp = ({
 };
 
 export default AdminTermsComp;
-
-// <div className="logo">
-//         <img src="/assets/triplogo8.png" alt="img" />
-//       </div>
-//       <div>
-//         <ul className="footer-menu">
-//           <li>이용약관</li>
-//           <li>개인정보처리방침</li>
-//           <li>이용안내</li>
-//         </ul>
-
-//         <div className="info">
-//           <span>상호</span> TripperMaker <br />
-//           <span>주소</span> 서대구로 7길 2 영남안재교육원
-//           <br />
-//           <span>개인정보관리책임자</span> TR MANGER
-//           <br />
-//         </div>
-
-//         <div className="copyright">
-//           <i>Copyright 2023.TripperMaker.All rights reserved.</i>
-//         </div>
-//       </div>
-//       <div className="tel">
-//         전화번호
-//         <p>053-635-0505</p>
-//       </div>
