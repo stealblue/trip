@@ -228,7 +228,7 @@ const RegisterCntr = () => {
       dispatch(
         changeValue({
           form: "user",
-          value: value,
+          value,
           key: "domain",
         })
       );

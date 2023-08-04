@@ -234,7 +234,7 @@ exports.doneNotice = async (req, res) => {
 //adminTerms
 exports.getAdmin = async (req, res) => {
 	const { id } = req.params;
-	
+
 	try {
 		const exAdmin = await user.findOne({
 			where: {
@@ -249,5 +249,23 @@ exports.getAdmin = async (req, res) => {
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ adminError: true });
+	}
+}
+
+exports.changeInform = async (req, res) => {
+	const { id } = req.params;
+	const { businessName, nick, phone, addr1, addr2 } = req.body;
+	const newAdminId = `testAdmin@${businessName}.com`;
+
+	try {
+		await user.update({id: newAdminId, nick , phone, addr1, addr2 }, { where: { id } });
+		const updatedAdmin = await user.findOne({ where: { id: newAdminId } });
+
+		if (updatedAdmin) {
+			return res.status(200).json({ admin: updatedAdmin });
+		}
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ changeInformError: true });
 	}
 }

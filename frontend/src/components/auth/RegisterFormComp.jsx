@@ -381,17 +381,19 @@ const RegisterFormComp = ({
                   placeholder="우편번호"
                   name="zipcode"
                   ref={zipcode1}
+                  disabled={true}
                 />
                 <SubIdInput
                   placeholder="주소"
                   name="addr1"
                   type="text"
                   ref={address1}
+                  disabled={true}
                 />
               </span>
             )}
             <div>
-              <NameTag>상세주소</NameTag>{" "}
+              <NameTag>상세주소</NameTag>
               <RegisterInput
                 placeholder="상세주소"
                 name="addr2"

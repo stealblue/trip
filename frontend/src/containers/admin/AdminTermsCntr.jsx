@@ -1,26 +1,58 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AdminTermsComp from "../../components/admin/AdminTermsComp";
 import { useDispatch, useSelector } from "react-redux";
 import { changePhoto } from "../../lib/api/admin/terms";
 import {
+  changeInform,
   changePhotoFailure,
   changePhotoSuccess,
+  changeValue,
   getAdmin,
+  getNewAdmin,
+  initializeForm,
+  inputAddress,
 } from "../../modules/admin/AdminTermsMod";
 
 const AdminTermsCntr = () => {
   const dispatch = useDispatch();
-  const { id, admin } = useSelector(({ UserMod, AdminTermsMod }) => ({
+  const {
+    id,
+    admin,
+    newAdmin,
+    nick,
+    phone,
+    addr1,
+    addr2,
+    zipcode,
+    changeInformError,
+  } = useSelector(({ UserMod, AdminTermsMod }) => ({
     id: UserMod.user.id,
-    admin: AdminTermsMod.admin,
+    admin: AdminTermsMod?.admin,
+    newAdmin: AdminTermsMod?.newAdmin,
+    nick: AdminTermsMod?.admin?.nick,
+    phone: AdminTermsMod?.admin?.phone,
+    addr1: AdminTermsMod?.admin?.addr1,
+    addr2: AdminTermsMod?.admin?.addr2,
+    zipcode: AdminTermsMod?.admin?.zipcode,
+    changeInformError: AdminTermsMod.changeInformError,
   }));
   const [tableType, setTableType] = useState("LOGO");
   const [logo, setLogo] = useState();
   const [content, setContent] = useState();
+  const [changeForm, setChangeForm] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [address, setAddress] = useState({});
+  const businessNameRef = useRef(null);
+  const masterNameRef = useRef();
+  const phoneNumberRef = useRef();
+  const address1Ref = useRef();
+  const address2Ref = useRef();
+  const zipcodeRef = useRef();
 
   const changeType = (e) => {
     const type = e.target.id;
     setTableType(type);
+    setChangeForm(false);
   };
 
   const onUploadLogo = (e) => {
@@ -57,6 +89,87 @@ const AdminTermsCntr = () => {
     });
   };
 
+  const onChangeForm = () => {
+    setChangeForm(!changeForm);
+  };
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    dispatch(
+      changeValue({
+        form: "newAdmin",
+        value,
+        key: name,
+      })
+    );
+  };
+
+  const onChangeInform = () => {
+    const { new_id, new_nick, new_phone, new_addr1, new_addr2, new_zipcode } =
+      newAdmin;
+    dispatch(
+      changeInform({
+        id,
+        businessName: new_id,
+        nick: new_nick,
+        phone: new_phone,
+        addr1: new_addr1,
+        addr2: new_addr2,
+        zipcode: new_zipcode,
+      })
+    );
+  };
+
+  const openSearchAddress = (e) => {
+    e.preventDefault();
+    setModal(!modal);
+  };
+
+  const onCompletePost = (data) => {
+    const { roadAddress, zonecode } = data;
+    setAddress({ roadAddress, zonecode });
+    setModal(!modal);
+    dispatch(
+      inputAddress({
+        addr1: roadAddress,
+        zipcode: zonecode,
+      })
+    );
+    address1Ref.current.value = roadAddress;
+    zipcodeRef.current.value = zonecode;
+  };
+
+  useEffect(() => {
+    const BusinessName = admin?.id?.slice(
+      admin?.id.indexOf("@") + 1,
+      admin?.id.lastIndexOf(".")
+    );
+
+    if (changeForm) {
+      businessNameRef.current.value = BusinessName;
+      address1Ref.current.value = addr1;
+      address2Ref.current.value = addr2;
+      zipcodeRef.current.value = zipcode;
+      masterNameRef.current.value = nick;
+      phoneNumberRef.current.value = phone;
+
+      dispatch(
+        getNewAdmin({ id: BusinessName, nick, phone, zipcode, addr1, addr2 })
+      );
+    }
+
+    if (!changeForm) {
+      dispatch(initializeForm());
+    }
+  }, [changeForm]);
+
+  useEffect(() => {
+    if (changeInformError === false) {
+      alert("수정완료");
+      setChangeForm(false);
+    }
+  }, [changeInformError]);
+
   useEffect(() => {
     dispatch(
       getAdmin({
@@ -68,11 +181,24 @@ const AdminTermsCntr = () => {
   return (
     <AdminTermsComp
       admin={admin}
-      logo={logo}
+      modal={modal}
       tableType={tableType}
       changeType={changeType}
       onChangeLogo={onChangeLogo}
       onUploadLogo={onUploadLogo}
+      onChangeForm={onChangeForm}
+      onChangeInform={onChangeInform}
+      changeForm={changeForm}
+      onChange={onChange}
+      businessNameRef={businessNameRef}
+      masterNameRef={masterNameRef}
+      phoneNumberRef={phoneNumberRef}
+      addr1={addr1}
+      address1Ref={address1Ref}
+      address2Ref={address2Ref}
+      zipcodeRef={zipcodeRef}
+      openSearchAddress={openSearchAddress}
+      onCompletePost={onCompletePost}
     />
   );
 };
