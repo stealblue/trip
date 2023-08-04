@@ -40,6 +40,7 @@ const TrafficListCntr = () => {
     endStation,
     endTerminal,
     loading,
+    tickets,
     user
   } = useSelector(({ BusMod, TrainMod, LoadingMod, UserMod, TicketMod }) => ({
     resultTrains: TrainMod?.resultTrains,
@@ -53,7 +54,7 @@ const TrafficListCntr = () => {
     endStation: TrainMod.endStation,
     endTerminal: BusMod.endTerminal,
     user: UserMod.user,
-    tickets: TicketMod.tickets,
+    tickets: TicketMod?.tickets,
     loading: LoadingMod
   }));
 
@@ -61,16 +62,13 @@ const TrafficListCntr = () => {
     const item = e.currentTarget.dataset.item;
     const jsonItem = JSON.parse(item);
     setResultItem(jsonItem);
-    // console.log('item : ', jsonItem);
     const category = resultTrains ? '기차' : '버스';
     const type = jsonItem.gradeNm ? jsonItem.gradeNm : jsonItem.traingradename;
-    // const price = jsonItem.charge ? jsonItem.charge : 20000;
     const startPlace = jsonItem.depplacename ? jsonItem.depplacename : jsonItem.depPlaceNm;
     const endPlace = jsonItem.arrplacename ? jsonItem.arrplacename : jsonItem.arrPlaceNm;
     const startDate = jsonItem.depPlandTime ? jsonItem.depPlandTime : jsonItem.depplandtime;
     const endDate = jsonItem.arrPlandTime ? jsonItem.arrPlandTime : jsonItem.arrplandtime;
     dispatch(findVacancy({ category, type, startPlace, startDate, endPlace, endDate }))
-
     setModal(true);
   }
 
@@ -81,7 +79,7 @@ const TrafficListCntr = () => {
       setSelectedSeat([]);
       const items = document.querySelectorAll('.items');
       items.forEach((item) => {
-        if (item.className !== 'items') {
+        if (item.className !== 'items' && !item.disabled) {
           item.className = 'items';
         }
       });
@@ -108,8 +106,6 @@ const TrafficListCntr = () => {
   const onSubmit = async () => {
     const category = resultTrains ? '기차' : '버스';
     const uno = user.no;
-    // console.log('item.gradeNm : ', resultItem.gradeNm);
-    // console.log('item : ', resultItem);
     const type = resultItem.gradeNm ? resultItem.gradeNm : resultItem.traingradename;
     const price = resultItem.charge ? resultItem.charge : 20000;
     const startPlace = resultItem.depplacename ? resultItem.depplacename : resultItem.depPlaceNm;
@@ -127,9 +123,9 @@ const TrafficListCntr = () => {
     setSelectedSeat([]);
   }
 
-  const ticketData = () => {
+  // const ticketData = () => {
 
-  }
+  // }
 
   useEffect(() => {
     if (startStation && endStation && (dateTrain !== '' && dateTrain)) {
@@ -159,7 +155,7 @@ const TrafficListCntr = () => {
     <div>
       {pageNoTrain && startStation && endStation && dateTrain && <TrafficListComp resultTrains={resultTrains} loading={loading} onTicketing={onTicketing} />}
       {pageNoBus && startTerminal && endTerminal && dateBus && <TrafficListComp resultBuses={resultBuses} loading={loading} onTicketing={onTicketing} />}
-      {modal && <TicketComp selectedCount={selectedCount} data={data} onSelectedSeat={onSelectedSeat} onCnt={onCnt} onSubmit={onSubmit} onCancel={onCancel} />}
+      {modal && <TicketComp selectedCount={selectedCount} data={data} onSelectedSeat={onSelectedSeat} onCnt={onCnt} onSubmit={onSubmit} onCancel={onCancel} tickets={tickets} />}
     </div>
   );
 };

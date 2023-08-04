@@ -32,6 +32,9 @@ const ModalBlock = styled.div`
     &.clicked{
       background-color: steelblue;
     }
+    &.disabled{
+      background-color:cadetblue;
+    }
     &.ticket-ok{
       background-color: aquamarine;
       width: 48.5%;
@@ -43,7 +46,7 @@ const ModalBlock = styled.div`
   }
 `;
 
-const TicketComp = ({ selectedCount, data, onSelectedSeat, onCnt, onSubmit, onCancel }) => {
+const TicketComp = ({ selectedCount, data, onSelectedSeat, onCnt, onSubmit, onCancel, tickets }) => {
   return (
     <Fullscreen>
       <ModalBlock>
@@ -62,11 +65,16 @@ const TicketComp = ({ selectedCount, data, onSelectedSeat, onCnt, onSubmit, onCa
         <p>좌석선택</p>
         {data.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`}>
-            {row.map((item, colIndex) => (
-              <button key={`col-${colIndex}`} onClick={onSelectedSeat} className="items" data-name={item.name}>{item.name}</button>
-            ))}
+            {row.map((item, colIndex) => {
+              const ticket = tickets.find(ticket => ticket.seat === item.name);
+              const isClicked = ticket !== undefined;
+
+              return (<button key={`col-${colIndex}`} onClick={onSelectedSeat} className={`items ${isClicked ? 'disabled' : ''}`} data-name={item.name} disabled={isClicked}>{item.name}</button>)
+            }
+            )}
           </div>
         ))}
+        {/* ))} */}
         <p><button className="ticket-ok" onClick={onSubmit}>예약</button><button className="ticket-close" onClick={onCancel}>취소</button></p>
       </ModalBlock>
     </Fullscreen>
