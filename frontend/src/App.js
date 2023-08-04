@@ -24,6 +24,7 @@ import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import AdminThemePage from "./pages/admin/AdminThemePage";
 import AdminTermsPage from "./pages/admin/AdminTermsPage";
+import AdminTicketPage from './pages/admin/AdminTicketPage';
 // import AdminNoticePage from './pages/admin/AdminNoticePage';
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
@@ -80,6 +81,7 @@ function App() {
             <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
             <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
             <Route path="/admin/terms" element={user?.grade === 2 ? <AdminTermsPage /> : <Navigate to='/' />} />
+            <Route path="/admin/ticket" element={user?.grade === 2 ? <AdminTicketPage /> : <Navigate to='/' />} />
           </Route>
           <Route path="map" element={<KoreaMap />} />
         </Routes>

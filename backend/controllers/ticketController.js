@@ -24,7 +24,6 @@ exports.findVacancy = async (req, res) => {
 }
 
 exports.createTicket = async (req, res) => {
-  // console.log('ticket에 들어왔나.')
   try {
     const { category, uno, type, price, startPlace, startDate, endPlace, endDate, seats } = req.body;
     // console.log(`${category} / ${uno} / ${type} / ${price} / ${startPlace} / ${startDate} / ${endPlace} / ${endDate} / ${seats}`)
@@ -46,6 +45,20 @@ exports.createTicket = async (req, res) => {
       })
     }));
     return res.json({ message: 'SUCESS' });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json(error);
+  }
+};
+
+exports.listTickets = async (req, res) => {
+  try {
+    let { page } = req.query;
+    if (typeof page === 'undefined') page = 1;
+    const tickets = await ticket.findAndCountAll({
+      limit: 10,
+    });
+    return res.json(tickets);
   } catch (error) {
     console.error(error);
     return res.status(400).json(error);

@@ -5,6 +5,11 @@ export const findVacancy = async ({ category, type, startPlace, endPlace, startD
 };
 
 export const createTicket = async ({ category, uno, type, price, startPlace, startDate, endPlace, endDate, seats }) => {
-  console.log('createTicket 프론트 api');
+  // console.log('createTicket 프론트 api');
   return await client.post("/ticket/createTicket", { category, uno, type, price, startPlace, startDate, endPlace, endDate, seats });
+}
+
+// export const listTickets = async(  { no, category, uno, startPlace, startDate, endPlace, endDate, type, createAt,page })=>{
+export const listTickets = async ({ page }) => {
+  return await client.get(`/ticket/listTicket?page=${page}`);
 }

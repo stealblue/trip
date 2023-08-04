@@ -1,8 +1,9 @@
 const express = require("express");
-const { findVacancy, createTicket, test } = require('../controllers/ticketController');
+const { findVacancy, createTicket, listTickets } = require('../controllers/ticketController');
 
 const ticket = express.Router();
 
+ticket.get('/listTickets', listTickets);
 ticket.get("/findVacancy", findVacancy);
 ticket.post('/createTicket', createTicket);
 
