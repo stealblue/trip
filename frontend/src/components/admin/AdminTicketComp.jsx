@@ -8,6 +8,10 @@ border-collapse: collapse;
 th,td{
   border:1px solid whitesmoke;
   color: whitesmoke;
+  padding: 5px;
+}
+td{
+  text-align: right;
 }
 `;
 
@@ -19,9 +23,9 @@ const TicketItem = ({ ticket }) => {
       <td>{ticket.category}</td>
       <td>{ticket.uno}</td>
       <td>{ticket.startplace}</td>
-      <td>{ticket.startDate}</td>
+      <td>{makeCreatedAt(ticket.startDate)}</td>
       <td>{ticket.endplace}</td>
-      <td>{ticket.endDate}</td>
+      <td>{makeCreatedAt(ticket.endDate)}</td>
       <td>{ticket.seat}</td>
       <td>{ticket.type}</td>
       <td>{makeCreatedAt(ticket.createAt)}</td>
@@ -49,7 +53,7 @@ const AdminTicketComp = ({ tickets }) => {
         </thead>
         <tbody>
           {tickets.rows.map((ticket) => (
-            <TicketItem ticket={ticket} />
+            <TicketItem ticket={ticket} key={ticket.no} />
           ))}
         </tbody>
       </StyledTable>
