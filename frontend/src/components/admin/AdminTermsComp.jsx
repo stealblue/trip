@@ -5,14 +5,19 @@ import DaumPostcode from "react-daum-postcode";
 
 const StyledModal = Modal.styled`
   background: white;
-  height: 450px;
-  width: 500px;
+  height: 80%;
+  width: 80%;
+  padding: 10px;
 
   div{
     display: flex;
-    padding: 5px;
-    justify-contents: space-between;
+    justify-content: space-between;
   }
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  height: 600px;
 `;
 
 const DivInModal = styled.div`
@@ -128,8 +133,12 @@ const AdminTermsComp = ({
   address1Ref,
   address2Ref,
   zipcodeRef,
-  openSearchAddress,
+  openModal,
   onCompletePost,
+  onOpenTerms,
+  onEditTerms,
+  changeEditForm,
+  termsRef,
 }) => {
   return (
     <AdminBoardWrap>
@@ -201,7 +210,7 @@ const AdminTermsComp = ({
                 </span>
                 <span>
                   주소
-                  <button onClick={openSearchAddress}>주소찾기</button>
+                  <button onClick={openModal}>주소찾기</button>
                 </span>
                 {addr1 ? (
                   <span>
@@ -271,12 +280,12 @@ const AdminTermsComp = ({
             <StyledModal
               isOpen={modal} //true = 열림 / false = 닫힘
               ariahideapp={"false"} //에러 안뜨게하기
-              onEscapeKeydown={openSearchAddress} //esc키 눌렀을경우 함수 실행
-              onBackgroundClick={openSearchAddress} //esc키 or 오버레이부분 클릭시 함수 실행
+              onEscapeKeydown={openModal} //esc키 눌렀을경우 함수 실행
+              onBackgroundClick={openModal} //esc키 or 오버레이부분 클릭시 함수 실행
             >
               <div>
                 <div>주소검색</div>
-                <DivInModal onClick={openSearchAddress}>X</DivInModal>
+                <DivInModal onClick={openModal}>X</DivInModal>
               </div>
               <DaumPostcode autoClose onComplete={onCompletePost} />
             </StyledModal>
@@ -286,19 +295,32 @@ const AdminTermsComp = ({
           <BoardContent>
             <span>
               이용약관
-              <input type="text" />
-              <Button>수정</Button>
+              <Button onClick={() => onOpenTerms("이용약관")}>수정</Button>
             </span>
             <span>
               개인정보처리방침
-              <input type="text" />
-              <Button>수정</Button>
+              <Button onClick={() => onOpenTerms("개인정보처리방침")}>
+                수정
+              </Button>
             </span>
             <span>
               이용안내
-              <input type="text" />
-              <Button>수정</Button>
+              <Button onClick={() => onOpenTerms("이용안내")}>수정</Button>
             </span>
+            <StyledModal
+              isOpen={modal} //true = 열림 / false = 닫힘
+              ariahideapp={"false"} //에러 안뜨게하기
+              onEscapeKeydown={openModal} //esc키 눌렀을경우 함수 실행
+              onBackgroundClick={openModal} //esc키 or 오버레이부분 클릭시 함수 실행
+            >
+              <div>
+                <div>{changeEditForm}</div>
+                <DivInModal onClick={openModal}>X</DivInModal>
+              </div>
+              <StyledTextarea ref={termsRef} />
+              <Button onClick={onEditTerms}>수정</Button>
+              <Button onClick={openModal}>취소</Button>
+            </StyledModal>
           </BoardContent>
         )}
       </BoardContainer>

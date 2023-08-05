@@ -36,7 +36,14 @@ const EditorComp = ({ title, content, onChangeField }) => {
       theme: "snow",
       placeholder: "내용 입력",
       modules: {
-        toolbar: [[{ font: [] }], [{ align: [] }], [{ header: "1" }, { header: "2" }], ["bold", "italic", "underline", "strike"], [{ list: "oredered" }, { list: "bullet" }], ["blockquote", "code-block", "link", "image"]],
+        toolbar: [
+          [{ font: [] }],
+          [{ align: [] }],
+          [{ header: "1" }, { header: "2" }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "oredered" }, { list: "bullet" }],
+          ["blockquote", "code-block", "link", "image"],
+        ],
       },
     });
     const quill = quillInstance.current;
@@ -60,7 +67,11 @@ const EditorComp = ({ title, content, onChangeField }) => {
 
   return (
     <EditorBlock>
-      <TitleInput placeholder="제목입력" onChange={onChangeTitle} value={title} />
+      <TitleInput
+        placeholder="제목입력"
+        onChange={onChangeTitle}
+        value={title}
+      />
       <QuillWrapper>
         <div ref={quillElement} />
       </QuillWrapper>

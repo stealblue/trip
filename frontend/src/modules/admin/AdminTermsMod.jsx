@@ -16,6 +16,10 @@ const CHANGE_PHOTO_FAILURE = "admin/CHANGE_PHOTO_FAILURE";
 const [CHANGE_INFORM, CHANGE_INFORM_SUCCESS, CHANGE_INFORM_FAILURE] =
   createRequestActionTypes("admin/CHANGE_INFORM");
 const INPUT_ADDRESS = "admin/INPUT_ADDRESS";
+const [GET_ADMIN_TERMS, GET_ADMIN_TERMS_SUCCESS, GET_ADMIN_TERMS_FAILURE] =
+  createRequestActionTypes("admin/GET_ADMIN_TERMS");
+const [EDIT_ADMIN_TERMS, EDIT_ADMIN_TERMS_SUCCESS, EDIT_ADMIN_TERMS_FAILURE] =
+  createRequestActionTypes("admin/EDIT_ADMIN_TERMS");
 
 export const initializeForm = createAction(INITIALIZE_FORM);
 export const changeValue = createAction(
@@ -69,16 +73,38 @@ export const inputAddress = createAction(
     zipcode,
   })
 );
+export const getAdminTerms = createAction(GET_ADMIN_TERMS, ({ id, type }) => ({
+  id,
+  type,
+}));
+export const editAdminTerms = createAction(
+  EDIT_ADMIN_TERMS,
+  ({ id, type, content }) => ({
+    id,
+    type,
+    content,
+  })
+);
 
 const getAdminProcess = createRequestSaga(GET_ADMIN, adminTermsAPI.getAdmin);
 const changeInformProcess = createRequestSaga(
   CHANGE_INFORM,
   adminTermsAPI.changeInform
 );
+const getAdminTermsProcess = createRequestSaga(
+  GET_ADMIN_TERMS,
+  adminTermsAPI.getAdminTerms
+);
+const editAdminTermsProcess = createRequestSaga(
+  EDIT_ADMIN_TERMS,
+  adminTermsAPI.editAdminTerms
+);
 
 export function* adminTermsSaga() {
   yield takeLatest(GET_ADMIN, getAdminProcess);
   yield takeLatest(CHANGE_INFORM, changeInformProcess);
+  yield takeLatest(GET_ADMIN_TERMS, getAdminTermsProcess);
+  yield takeLatest(EDIT_ADMIN_TERMS, editAdminTermsProcess);
 }
 
 const initialState = {
@@ -95,6 +121,10 @@ const initialState = {
   img: null,
   imgError: null,
   changeInformError: null,
+  getTerms: null,
+  getTermsError: null,
+  editTerms: null,
+  editTermsError: null,
 };
 
 const AdminTermsMod = handleActions(
@@ -105,6 +135,7 @@ const AdminTermsMod = handleActions(
         new_id: null,
         new_nick: null,
         new_phone: null,
+        new_zipcode: null,
         new_addr1: null,
         new_addr2: null,
       },
@@ -163,6 +194,26 @@ const AdminTermsMod = handleActions(
         draft["newAdmin"]["addr1"] = addr1;
         draft["newAdmin"]["zipcode"] = zipcode;
       }),
+    [GET_ADMIN_TERMS_SUCCESS]: (state, { payload: { getTerms } }) => ({
+      ...state,
+      getTerms,
+      getTermsError: null,
+    }),
+    [GET_ADMIN_TERMS_FAILURE]: (state, { payload: { getTermsError } }) => ({
+      ...state,
+      getTerms: null,
+      getTermsError,
+    }),
+    [EDIT_ADMIN_TERMS_SUCCESS]: (state, { payload: { editTerms } }) => ({
+      ...state,
+      editTerms,
+      eidtTermsError: null,
+    }),
+    [EDIT_ADMIN_TERMS_FAILURE]: (state, { payload: { eidtTermsError } }) => ({
+      ...state,
+      editTerms: null,
+      eidtTermsError,
+    }),
   },
   initialState
 );
