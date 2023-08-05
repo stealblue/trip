@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const { user } = require("../models/mysql");
-const { deleteUser, getUserList, getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction, createNotice, doneNotice, getAdmin, changeInform } = require("../controllers/adminController");
+const { deleteUser, getUserList, getUserAction, getUserDetail, deleteBoard, getBoardList, getBoardDetail, getBoardAction, createNotice, doneNotice, getAdmin, changeInform, getAdminTerms, editAdminTerms } = require("../controllers/adminController");
 const app = express();
 const admin = express.Router();
 
@@ -60,5 +60,7 @@ admin.post("/terms/changePhoto/:id", upload.single("img"), async (req, res) => {
   }
 });
 admin.post("/terms/changeInform/:id", changeInform);
+admin.get("/terms/getAdminTerms/:id/:type", getAdminTerms);
+admin.post("/terms/editAdminTerms/:id/:type", editAdminTerms);
 
 module.exports = admin;

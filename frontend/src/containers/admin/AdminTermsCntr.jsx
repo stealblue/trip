@@ -7,8 +7,10 @@ import {
   changePhotoFailure,
   changePhotoSuccess,
   changeValue,
+  editAdminTerms,
   getAdmin,
   getNewAdmin,
+  getAdminTerms,
   initializeForm,
   inputAddress,
 } from "../../modules/admin/AdminTermsMod";
@@ -27,8 +29,10 @@ const AdminTermsCntr = () => {
     addr2,
     zipcode,
     changeInformError,
+    getTerms,
+    editTerms,
   } = useSelector(({ UserMod, AdminTermsMod }) => ({
-    id: UserMod.user.id,
+    id: UserMod?.user?.id,
     admin: AdminTermsMod?.admin,
     newAdmin: AdminTermsMod?.newAdmin,
     nick: AdminTermsMod?.admin?.nick,
@@ -36,12 +40,15 @@ const AdminTermsCntr = () => {
     addr1: AdminTermsMod?.admin?.addr1,
     addr2: AdminTermsMod?.admin?.addr2,
     zipcode: AdminTermsMod?.admin?.zipcode,
-    changeInformError: AdminTermsMod.changeInformError,
+    changeInformError: AdminTermsMod?.changeInformError,
+    getTerms: AdminTermsMod?.getTerms,
+    editTerms: AdminTermsMod?.editTerms,
   }));
   const [tableType, setTableType] = useState("LOGO");
   const [logo, setLogo] = useState();
   const [content, setContent] = useState();
   const [changeForm, setChangeForm] = useState(false);
+  const [changeEditForm, setChangeEditForm] = useState(null);
   const [modal, setModal] = useState(false);
   const [address, setAddress] = useState({});
   const businessNameRef = useRef(null);
@@ -50,6 +57,7 @@ const AdminTermsCntr = () => {
   const address1Ref = useRef();
   const address2Ref = useRef();
   const zipcodeRef = useRef();
+  const termsRef = useRef();
 
   const changeType = (e) => {
     const type = e.target.id;
@@ -122,7 +130,7 @@ const AdminTermsCntr = () => {
     );
   };
 
-  const openSearchAddress = (e) => {
+  const openModal = (e) => {
     e.preventDefault();
     setModal(!modal);
   };
@@ -139,6 +147,28 @@ const AdminTermsCntr = () => {
     );
     address1Ref.current.value = roadAddress;
     zipcodeRef.current.value = zonecode;
+  };
+
+  const onOpenTerms = (type) => {
+    setModal(!modal);
+    setChangeEditForm(type);
+    dispatch(
+      getAdminTerms({
+        id,
+        type,
+      })
+    );
+  };
+
+  const onEditTerms = () => {
+    const content = termsRef.current.value;
+    dispatch(
+      editAdminTerms({
+        id,
+        type: changeEditForm,
+        content,
+      })
+    );
   };
 
   useEffect(() => {
@@ -187,6 +217,23 @@ const AdminTermsCntr = () => {
     );
   }, [dispatch, logo]);
 
+  // useEffect(() => {
+  //   if (getTerms && modal) {
+  //     termsRef.current.value = getTerms.content; ///////작업중///////
+  //   }
+
+  //   if (getTerms && !modal) {
+  //     termsRef.current.value = "";
+  //   }
+  // }, [getTerms]);
+
+  useEffect(() => {
+    if (editTerms !== null && editTerms !== undefined) {
+      alert(`${changeEditForm}이/가 수정되었습니다.`);
+      setModal(!modal);
+    }
+  }, [editTerms]);
+
   return (
     <AdminTermsComp
       admin={admin}
@@ -206,8 +253,12 @@ const AdminTermsCntr = () => {
       address1Ref={address1Ref}
       address2Ref={address2Ref}
       zipcodeRef={zipcodeRef}
-      openSearchAddress={openSearchAddress}
+      openModal={openModal}
       onCompletePost={onCompletePost}
+      onEditTerms={onEditTerms}
+      onOpenTerms={onOpenTerms}
+      changeEditForm={changeEditForm}
+      termsRef={termsRef}
     />
   );
 };

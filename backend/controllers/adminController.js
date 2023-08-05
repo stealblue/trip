@@ -261,7 +261,7 @@ exports.changeInform = async (req, res) => {
 	try {
 		await user.update({id: newAdminId, nick , phone, addr1, addr2 }, { where: { id } });
 		const updatedAdmin = await user.findOne({ where: { id: newAdminId } });
-		console.log(updatedAdmin, "=======");
+
 		//토큰 재설정 안해주면 정보 수정후 localStorage 및 쿠키에는 상호 변경전 아이디의 정보가 들어가있음
 		const token = generateToken(newAdminId, updatedAdmin.nick, updatedAdmin.grade, updatedAdmin.no);
 		res.cookie("access_token", token, {
@@ -276,4 +276,79 @@ exports.changeInform = async (req, res) => {
 		console.error(e);
 		return res.status(400).json({ changeInformError: true });
 	}
+}
+
+exports.getAdminTerms = async (req, res) => {
+	const { id, type } = req.params;
+
+	try {
+		const exTerms = await board.findOne({
+			where: {
+				id,
+				type,
+			}
+		});
+		console.log
+		if (exTerms) {
+			return res.status(200).json({ getTerms: exTerms });
+		}
+
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ getTermsError: true });
+	}
+}
+
+exports.editAdminTerms = async (req, res) => {
+	const { id, type } = req.params;
+	const { content } = req.body;
+
+	try {
+		const exTerms = await board.findOne({
+			where: {
+				id,
+				title: type,
+				type,
+				grade: 2,
+			}
+		});
+
+		if (!exTerms) {
+			const newTerms = await board.create({
+				id,
+				title: type,
+				content,
+				type,
+				grade: 2,
+			}, {
+				where: {
+					id,
+					title: type,
+					type,
+					grade: 2,
+				}
+			})
+			return res.status(200).json({ editTerms: newTerms });
+		}
+
+		if (exTerms) {
+			const updatedTerms = await board.update({
+				content
+			}, {
+				where: {
+					id,
+					title: type,
+					type,
+					grade: 2,
+				}
+			});
+
+			return res.status(200).json({ editTerms: updatedTerms });
+		}
+
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({ editTermsError: true });
+	}
+
 }
