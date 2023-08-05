@@ -12,11 +12,13 @@ import {
   initializeForm,
   inputAddress,
 } from "../../modules/admin/AdminTermsMod";
+import { check } from "../../modules/auth/UserMod";
 
 const AdminTermsCntr = () => {
   const dispatch = useDispatch();
   const {
     id,
+    user,
     admin,
     newAdmin,
     nick,
@@ -105,7 +107,7 @@ const AdminTermsCntr = () => {
   };
 
   const onChangeInform = () => {
-    const { new_id, new_nick, new_phone, new_addr1, new_addr2, new_zipcode } =
+    const { new_id, new_nick, new_phone, new_zipcode, new_addr1, new_addr2 } =
       newAdmin;
     dispatch(
       changeInform({
@@ -113,9 +115,9 @@ const AdminTermsCntr = () => {
         businessName: new_id,
         nick: new_nick,
         phone: new_phone,
+        zipcode: new_zipcode,
         addr1: new_addr1,
         addr2: new_addr2,
-        zipcode: new_zipcode,
       })
     );
   };
@@ -147,11 +149,11 @@ const AdminTermsCntr = () => {
 
     if (changeForm) {
       businessNameRef.current.value = BusinessName;
-      address1Ref.current.value = addr1;
-      address2Ref.current.value = addr2;
-      zipcodeRef.current.value = zipcode;
       masterNameRef.current.value = nick;
       phoneNumberRef.current.value = phone;
+      zipcodeRef.current.value = zipcode;
+      address1Ref.current.value = addr1;
+      address2Ref.current.value = addr2;
 
       dispatch(
         getNewAdmin({ id: BusinessName, nick, phone, zipcode, addr1, addr2 })
@@ -162,6 +164,13 @@ const AdminTermsCntr = () => {
       dispatch(initializeForm());
     }
   }, [changeForm]);
+
+  //상호변경시 localStorage와 UserMod의 user를 갱신하여 로그아웃 없이 계속해서 정보 수정가능
+  useEffect(() => {
+    const USER_KEY = "USER";
+    localStorage.setItem(USER_KEY, JSON.stringify(admin));
+    dispatch(check());
+  }, [admin]);
 
   useEffect(() => {
     if (changeInformError === false) {

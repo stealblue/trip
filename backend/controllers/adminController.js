@@ -1,6 +1,7 @@
 
 const { user, board } = require("../models/mysql");
 const { Op } = require("sequelize");
+const { generateToken } = require("./authController");
 
 exports.getUserList = async (req, res) => {
 	try {
@@ -260,6 +261,13 @@ exports.changeInform = async (req, res) => {
 	try {
 		await user.update({id: newAdminId, nick , phone, addr1, addr2 }, { where: { id } });
 		const updatedAdmin = await user.findOne({ where: { id: newAdminId } });
+		console.log(updatedAdmin, "=======");
+		//토큰 재설정 안해주면 정보 수정후 localStorage 및 쿠키에는 상호 변경전 아이디의 정보가 들어가있음
+		const token = generateToken(newAdminId, updatedAdmin.nick, updatedAdmin.grade, updatedAdmin.no);
+		res.cookie("access_token", token, {
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+		httpOnly: true,
+		});
 
 		if (updatedAdmin) {
 			return res.status(200).json({ admin: updatedAdmin });

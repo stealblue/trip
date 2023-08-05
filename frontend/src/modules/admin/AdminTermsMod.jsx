@@ -105,6 +105,7 @@ const AdminTermsMod = handleActions(
         new_id: null,
         new_nick: null,
         new_phone: null,
+        new_zipcode: null,
         new_addr1: null,
         new_addr2: null,
       },
