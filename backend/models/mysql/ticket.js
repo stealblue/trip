@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ticket', {
     no: {
       autoIncrement: true,
@@ -51,6 +51,11 @@ module.exports = function (sequelize, DataTypes) {
     seat: {
       type: DataTypes.STRING(10),
       allowNull: false
+    },
+    ticketCode: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+      comment: "결제티켓"
     }
   }, {
     sequelize,
