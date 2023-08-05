@@ -11,5 +11,6 @@ export const createTicket = async ({ category, uno, type, price, startPlace, sta
 
 // export const listTickets = async(  { no, category, uno, startPlace, startDate, endPlace, endDate, type, createAt,page })=>{
 export const listTickets = async ({ page }) => {
-  return await client.get(`/ticket/listTicket?page=${page}`);
+  console.log('createTicket 프론트 api');
+  return await client.get(`/ticket/listTickets?page=${page}`);
 }

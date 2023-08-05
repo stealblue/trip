@@ -66,9 +66,8 @@ const TicketComp = ({ selectedCount, data, onSelectedSeat, onCnt, onSubmit, onCa
         {data.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`}>
             {row.map((item, colIndex) => {
-              const ticket = tickets.find(ticket => ticket.seat === item.name);
+              const ticket = (tickets && tickets.find(ticket => ticket.seat === item.name));
               const isClicked = ticket !== undefined;
-
               return (<button key={`col-${colIndex}`} onClick={onSelectedSeat} className={`items ${isClicked ? 'disabled' : ''}`} data-name={item.name} disabled={isClicked}>{item.name}</button>)
             }
             )}

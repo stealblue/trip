@@ -1,32 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AdminTicketComp from '../../components/admin/AdminTicketComp';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { listTickets } from '../../modules/traffic/TicketMod';
 const AdminTicketCntr = () => {
-  const {
-    id,
-    admin,
-    newAdmin,
-    nick,
-    phone,
-    addr1,
-    addr2,
-    zipcode,
-    changeInformError,
-  } = useSelector(({ UserMod, AdminTermsMod }) => ({
-    id: UserMod.user.id,
-    admin: AdminTermsMod?.admin,
-    newAdmin: AdminTermsMod?.newAdmin,
-    nick: AdminTermsMod?.admin?.nick,
-    phone: AdminTermsMod?.admin?.phone,
-    addr1: AdminTermsMod?.admin?.addr1,
-    addr2: AdminTermsMod?.admin?.addr2,
-    zipcode: AdminTermsMod?.admin?.zipcode,
-    changeInformError: AdminTermsMod.changeInformError,
+  const dispatch = useDispatch();
+  const { tickets, error, loading } = useSelector(({ TicketMod, LoadingMod }) => ({
+    tickets: TicketMod.tickets,
+    error: TicketMod.error,
+    loading: LoadingMod['ticket/LIST_TICKETS']
   }));
+
+  useEffect(() => {
+    dispatch(listTickets({ page: 1 }))
+  }, []);
   return (
     <div>
-      <AdminTicketComp />
+      {!loading && tickets ? <AdminTicketComp tickets={tickets} /> : '로딩 중'}
     </div>
   );
 };

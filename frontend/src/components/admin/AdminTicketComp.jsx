@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { makeCreatedAt } from '../../lib/makeCreatedAt';
 
 const StyledTable = styled.table`
 border-collapse: collapse;
@@ -10,7 +11,25 @@ th,td{
 }
 `;
 
-const AdminTicketComp = () => {
+const TicketItem = ({ ticket }) => {
+
+  return (
+    <tr>
+      <td>{ticket.no}</td>
+      <td>{ticket.category}</td>
+      <td>{ticket.uno}</td>
+      <td>{ticket.startplace}</td>
+      <td>{ticket.startDate}</td>
+      <td>{ticket.endplace}</td>
+      <td>{ticket.endDate}</td>
+      <td>{ticket.seat}</td>
+      <td>{ticket.type}</td>
+      <td>{makeCreatedAt(ticket.createAt)}</td>
+    </tr>
+  )
+}
+
+const AdminTicketComp = ({ tickets }) => {
   return (
     <div>
       <StyledTable>
@@ -29,7 +48,9 @@ const AdminTicketComp = () => {
           </tr>
         </thead>
         <tbody>
-
+          {tickets.rows.map((ticket) => (
+            <TicketItem ticket={ticket} />
+          ))}
         </tbody>
       </StyledTable>
     </div>

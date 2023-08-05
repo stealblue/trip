@@ -16,6 +16,10 @@ exports.findVacancy = async (req, res) => {
         endDate: formatEndDate
       }
     });
+
+    // if (tickets.length === 0) {
+    //   return res.json(null);
+    // }
     return res.json({ tickets });
   } catch (error) {
     console.error(error);
@@ -52,13 +56,25 @@ exports.createTicket = async (req, res) => {
 };
 
 exports.listTickets = async (req, res) => {
+  console.log('createTicket 백 api');
   try {
-    let { page } = req.query;
-    if (typeof page === 'undefined') page = 1;
+    // let { page } = req.query;
+    const limit = 10;
+    let offset = 0 + Number((req.query.page ? req.query.page : 1) - 1) * limit; // sql select 쿼리문의 order by offset 부분
+    let checkNum = (req.query.page ? req.query.page : 1); // 페이지 네비게이션 부분에 페이징을 위한 변수 초기화
+    checkNum = Math.floor(checkNum / 10) * 10; // 10자리에서 내림을 해서 10개씩 끊어주려고 위해 재할당
+    // if (typeof page === 'undefined') page = 1;
     const tickets = await ticket.findAndCountAll({
-      limit: 10,
+      limit,
+      offset: offset,
+      order: [['no', 'DESC']],
+      include: {
+        model: user,
+        as: 'uno_user'
+      }
     });
-    return res.json(tickets);
+
+    return res.json({ tickets });
   } catch (error) {
     console.error(error);
     return res.status(400).json(error);
