@@ -71,13 +71,19 @@ const FooterComp = styled.div`
       display: none;
     }
   }
+
+  > div{
+    >img{
+      height:200px;
+    }
+  }
 `;
 
 const Footer = () => {
   return (
     <FooterComp>
       <div className="logo">
-        <img src="/assets/triplogo8.png" alt="img" />
+        <img src="/assets/Logo.jpg" alt="img" />
       </div>
       <div>
         <ul className="footer-menu">

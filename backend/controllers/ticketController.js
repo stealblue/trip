@@ -56,7 +56,7 @@ exports.createTicket = async (req, res) => {
 };
 
 exports.listTickets = async (req, res) => {
-  console.log('createTicket 백 api');
+  // console.log('createTicket 백 api');
   try {
     // let { page } = req.query;
     const limit = 10;

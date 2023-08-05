@@ -27,5 +27,21 @@ exports.listTheme = async (req, res, next) => {
   }
 }
 
-
+exports.listThemes = async (req, res) => {
+  try {
+    const limit = 10;
+    let offset = 0 + Number((req.query.page ? req.query.page : 1) - 1) * limit;
+    let checkNum = (req.query.page ? req.query.page : 1);
+    checkNum = Math.floor(checkNum / 10) * 10;
+    const themes = await theme.findAndCountAll({
+      limit,
+      offset: offset,
+      order: [['no', 'DESC']],
+    });
+    return res.json({ themes });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json(error);
+  }
+}
 

@@ -1,12 +1,11 @@
 const express = require("express");
 const { areaSearch } = require("../controllers/areaController");
-const { listTheme } = require('../controllers/themeController');
+const { listTheme, listThemes } = require('../controllers/themeController');
 
 const app = express();
 const search = express.Router();
 
 search.get("/:keyword", listTheme, areaSearch);
-// search.get("/:keyword", listTheme);
-// search.get('/api', areaSearch)
+search.get('/listThemes/', listThemes);
 
 module.exports = search;

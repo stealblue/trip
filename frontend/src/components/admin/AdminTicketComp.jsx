@@ -12,16 +12,30 @@ th,td{
 }
 td{
   text-align: right;
+    /* &.modify{
+      padding: 0;
+      background-color: cadetblue;
+    }
+    &.delete{
+      padding: 0;
+      background-color: cornflowerblue;
+    }
+    button{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: none;
+    } */
 }
 `;
 
-const TicketItem = ({ ticket }) => {
+const TicketItem = ({ ticket, onTicketSwal }) => {
 
   return (
     <tr>
       <td>{ticket.no}</td>
       <td>{ticket.category}</td>
-      <td>{ticket.uno}</td>
+      <td>{ticket.uno_user.id}</td>
       <td>{ticket.startplace}</td>
       <td>{makeCreatedAt(ticket.startDate)}</td>
       <td>{ticket.endplace}</td>
@@ -29,11 +43,13 @@ const TicketItem = ({ ticket }) => {
       <td>{ticket.seat}</td>
       <td>{ticket.type}</td>
       <td>{makeCreatedAt(ticket.createAt)}</td>
+      {/* <td className='modify' onClick={onTicketSwal}>수정</td>
+      <td className='delete' onClick={onTicketSwal}><button>삭제</button></td> */}
     </tr>
   )
 }
 
-const AdminTicketComp = ({ tickets }) => {
+const AdminTicketComp = ({ tickets, onTicketSwal }) => {
   return (
     <div>
       <StyledTable>
@@ -49,11 +65,13 @@ const AdminTicketComp = ({ tickets }) => {
             <th>좌석</th>
             <th>종류</th>
             <th>구매시간</th>
+            {/* <th>수정</th>
+            <th>삭제</th> */}
           </tr>
         </thead>
         <tbody>
           {tickets.rows.map((ticket) => (
-            <TicketItem ticket={ticket} key={ticket.no} />
+            <TicketItem ticket={ticket} key={ticket.no} onTicketSwal={onTicketSwal} />
           ))}
         </tbody>
       </StyledTable>

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import { useState, useEffect } from "react";
 import ThemeComp from "../common/ThemeComp";
@@ -68,6 +69,7 @@ const Logo = styled.div`
   text-align: center;
   img {
     width: 200px;
+    height: 79px;
     margin-top: 20px;
   }
 
@@ -158,7 +160,11 @@ const Spacer = styled.div`
 const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [flagHamMenu, setFlagHamMenu] = useState(false);
+  const { img } = useSelector(({ AdminTermsMod }) => ({
+    img: AdminTermsMod.img
+  }))
 
+  console.log('이미지===========', img)
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -180,7 +186,7 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
       <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
         <Logo onClick={onClick}>
           <Link to="/">
-            <img src="/assets/triplogo8.png" alt="img" />
+            <img src="/assets/Logo.jpg" alt="img" />
           </Link>
         </Logo>
         <FontAwesomeIcon icon={faBars} className="ham-menu" onClick={onHamMenu} />

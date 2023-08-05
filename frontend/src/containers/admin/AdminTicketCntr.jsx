@@ -3,6 +3,7 @@ import AdminTicketComp from '../../components/admin/AdminTicketComp';
 import { useDispatch, useSelector } from 'react-redux';
 import { listTickets } from '../../modules/traffic/TicketMod';
 import OriginPageNavComp from '../../components/common/OriginPageNavComp';
+import Swal from 'sweetalert2';
 
 const AdminTicketCntr = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,15 @@ const AdminTicketCntr = () => {
     // dispatch(listTickets(page));
     setPage(changePage);
   };
+  const onTicketSwal = (e) => {
+    Swal.fire({
+      icon: 'question'
+    })
+  }
 
   return (
     <div>
-      {!loading && tickets ? <AdminTicketComp tickets={tickets} /> : '로딩 중'}
+      {!loading && !error && tickets ? <AdminTicketComp tickets={tickets} onTicketSwal={onTicketSwal} /> : '로딩 중'}
       {!loading && tickets ? <OriginPageNavComp totalCount={tickets.count} pageNo={page} onPage={onClickPage} /> : '로딩 중'}
     </div>
   );
