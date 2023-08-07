@@ -20,6 +20,7 @@ const [GET_ADMIN_TERMS, GET_ADMIN_TERMS_SUCCESS, GET_ADMIN_TERMS_FAILURE] =
   createRequestActionTypes("admin/GET_ADMIN_TERMS");
 const [EDIT_ADMIN_TERMS, EDIT_ADMIN_TERMS_SUCCESS, EDIT_ADMIN_TERMS_FAILURE] =
   createRequestActionTypes("admin/EDIT_ADMIN_TERMS");
+const CLEAR_TERMS = "admin/CLEAR_TERMS";
 
 export const initializeForm = createAction(INITIALIZE_FORM);
 export const changeValue = createAction(
@@ -85,6 +86,7 @@ export const editAdminTerms = createAction(
     content,
   })
 );
+export const clearTerms = createAction(CLEAR_TERMS);
 
 const getAdminProcess = createRequestSaga(GET_ADMIN, adminTermsAPI.getAdmin);
 const changeInformProcess = createRequestSaga(
@@ -207,12 +209,16 @@ const AdminTermsMod = handleActions(
     [EDIT_ADMIN_TERMS_SUCCESS]: (state, { payload: { editTerms } }) => ({
       ...state,
       editTerms,
-      eidtTermsError: null,
+      editTermsError: null,
     }),
-    [EDIT_ADMIN_TERMS_FAILURE]: (state, { payload: { eidtTermsError } }) => ({
+    [EDIT_ADMIN_TERMS_FAILURE]: (state, { payload: { editTermsError } }) => ({
       ...state,
       editTerms: null,
-      eidtTermsError,
+      editTermsError,
+    }),
+    [CLEAR_TERMS]: (state) => ({
+      ...state,
+      editTerms: null,
     }),
   },
   initialState

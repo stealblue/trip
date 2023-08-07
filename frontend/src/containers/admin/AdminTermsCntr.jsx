@@ -13,6 +13,7 @@ import {
   getAdminTerms,
   initializeForm,
   inputAddress,
+  clearTerms,
 } from "../../modules/admin/AdminTermsMod";
 import { check } from "../../modules/auth/UserMod";
 
@@ -235,8 +236,9 @@ const AdminTermsCntr = () => {
 
   useEffect(() => {
     if (editTerms !== null && editTerms !== undefined) {
-      alert(`${changeEditForm}이/가 수정되었습니다.`);
+      alert(`${changeEditForm} 이/가 수정되었습니다.`);
       setModal(!modal);
+      dispatch(clearTerms());
     }
   }, [editTerms]);
 

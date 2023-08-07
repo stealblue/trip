@@ -302,7 +302,7 @@ exports.getAdminTerms = async (req, res) => {
 exports.editAdminTerms = async (req, res) => {
 	const { id, type } = req.params;
 	const { content } = req.body;
-	
+
 	try {
 		const exTerms = await board.findOne({
 			where: {
@@ -342,10 +342,9 @@ exports.editAdminTerms = async (req, res) => {
 					grade: 2,
 				}
 			});
-
+			console.log(updatedTerms, "==========");
 			return res.status(200).json({ editTerms: updatedTerms });
 		}
-
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ editTermsError: true });
