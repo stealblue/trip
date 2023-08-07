@@ -166,25 +166,37 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   const onHamMenu = () => {
     if (!flagHamMenu) {
       setFlagHamMenu(true);
-    }
-    else {
+    } else {
       setFlagHamMenu(false);
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
   return (
     <>
-      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
+      <HeaderContainer
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+      >
         <Logo onClick={onClick}>
           <Link to="/">
             <img src="/assets/triplogo8.png" alt="img" />
           </Link>
         </Logo>
-        <FontAwesomeIcon icon={faBars} className="ham-menu" onClick={onHamMenu} />
-        <HamMenuComp flagHamMenu={flagHamMenu} onClick={onClick} onHamMenu={onHamMenu} nick={nick} onLogout={onLogout} grade={grade} />
+        <FontAwesomeIcon
+          icon={faBars}
+          className="ham-menu"
+          onClick={onHamMenu}
+        />
+        <HamMenuComp
+          flagHamMenu={flagHamMenu}
+          onClick={onClick}
+          onHamMenu={onHamMenu}
+          nick={nick}
+          onLogout={onLogout}
+          grade={grade}
+        />
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/search">
