@@ -139,6 +139,7 @@ const AdminTermsComp = ({
   onEditTerms,
   changeEditForm,
   termsRef,
+  onChangeTerms,
 }) => {
   return (
     <AdminBoardWrap>
@@ -317,7 +318,7 @@ const AdminTermsComp = ({
                 <div>{changeEditForm}</div>
                 <DivInModal onClick={openModal}>X</DivInModal>
               </div>
-              <StyledTextarea ref={termsRef} />
+              <StyledTextarea ref={termsRef} onChange={onChangeTerms} />
               <Button onClick={onEditTerms}>수정</Button>
               <Button onClick={openModal}>취소</Button>
             </StyledModal>

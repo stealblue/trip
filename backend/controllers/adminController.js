@@ -302,7 +302,7 @@ exports.getAdminTerms = async (req, res) => {
 exports.editAdminTerms = async (req, res) => {
 	const { id, type } = req.params;
 	const { content } = req.body;
-
+	
 	try {
 		const exTerms = await board.findOne({
 			where: {

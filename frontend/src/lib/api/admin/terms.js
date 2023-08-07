@@ -17,6 +17,6 @@ export const getAdminTerms = async ({id, type}) => {
   return await client.get(`/admin/terms/getAdminTerms/${id}/${type}` );
 }
 
-export const editAdminTerms = async ({id, type, content}) => {
+export const editAdminTerms = async ({ id, type, content }) => {
   return await client.post(`/admin/terms/editAdminTerms/${id}/${type}`, {content} );
 }
