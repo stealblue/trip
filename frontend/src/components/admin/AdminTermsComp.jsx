@@ -22,7 +22,6 @@ const StyledTextarea = styled.textarea`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  // color: ${ThemeComp.red};
   color: ${(props) => props.theme.red};
   margin-left: 400px;
   background: none;
@@ -34,9 +33,6 @@ const SubIdInput = styled.input`
   margin-top: 10px;
   padding: 7px 10px;
   /* border-radius: 10px; */
-  // border: 1px solid ${ThemeComp.lightblack};
-  // background: ${ThemeComp.white};
-  // color: ${ThemeComp.softblack};
   border: 1px solid ${(props) => props.theme.lightblack};
   background: ${(props) => props.theme.white};
   color: ${(props) => props.theme.softblack};
@@ -59,7 +55,6 @@ const AdminBoardWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  // background: ${ThemeComp.smoke};
   background: ${(props) => props.theme.smoke};
 
   &:first-child {
@@ -74,13 +69,11 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  // background: ${ThemeComp.dark};
   background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    // color: ${ThemeComp.smoke};
     color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
@@ -95,8 +88,6 @@ const BoardTag = styled.div`
 
 const Button = styled.button`
   border: none;
-  // background: ${ThemeComp.lightblack};
-  // color: ${ThemeComp.smoke};
   background: ${(props) => props.theme.lightblack};
   color: ${(props) => props.theme.smoke};
   cursor: pointer;
@@ -104,7 +95,6 @@ const Button = styled.button`
   margin: 10px;
 
   &:hover {
-    // background: ${ThemeComp.softblack};
     background: ${(props) => props.theme.softblack};
   }
 `;

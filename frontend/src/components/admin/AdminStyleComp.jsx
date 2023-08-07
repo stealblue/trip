@@ -9,7 +9,6 @@ const AdminBoardWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  // background: ${ThemeComp.smoke};
   background: ${(props) => props.theme.smoke};
 
   &:first-child {
@@ -24,13 +23,11 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  // background: ${ThemeComp.dark};
   background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    // color: ${ThemeComp.smoke};
     color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
@@ -49,8 +46,6 @@ const ButtonBox = styled.div`
 
 const Button = styled.button`
   border: none;
-  // background: ${ThemeComp.lightblack};
-  // color: ${ThemeComp.smoke};
   background: ${(props) => props.theme.lightblack};
   color: ${(props) => props.theme.smoke};
   cursor: pointer;
@@ -58,7 +53,6 @@ const Button = styled.button`
   margin: 10px;
 
   &:hover {
-    // background: ${ThemeComp.softblack};
     background: ${(props) => props.theme.softblack};
   }
 `;
