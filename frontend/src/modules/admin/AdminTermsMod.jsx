@@ -6,21 +6,21 @@ import { takeLatest } from "redux-saga/effects";
 import * as adminTermsAPI from "../../lib/api/admin/terms";
 import { produce } from "immer";
 
-const INITIALIZE_FORM = "admin/INITIALIZE_FORM";
-const CHANGE_VALUE = "admin/CHANGE_VALUE";
-const GET_NEWADMIN = "admin/GET_NEWADMIN";
+const INITIALIZE_FORM = "adminTerms/INITIALIZE_FORM";
+const CHANGE_VALUE = "adminTerms/CHANGE_VALUE";
+const GET_NEWADMIN = "adminTerms/GET_NEWADMIN";
 const [GET_ADMIN, GET_ADMIN_SUCCESS, GET_ADMIN_FAILURE] =
-  createRequestActionTypes("admin/GET_ADMIN");
-const CHANGE_PHOTO_SUCCESS = "admin/CHANGE_PHOTO_SUCCESS";
-const CHANGE_PHOTO_FAILURE = "admin/CHANGE_PHOTO_FAILURE";
+  createRequestActionTypes("adminTerms/GET_ADMIN");
+const CHANGE_PHOTO_SUCCESS = "adminTerms/CHANGE_PHOTO_SUCCESS";
+const CHANGE_PHOTO_FAILURE = "adminTerms/CHANGE_PHOTO_FAILURE";
 const [CHANGE_INFORM, CHANGE_INFORM_SUCCESS, CHANGE_INFORM_FAILURE] =
-  createRequestActionTypes("admin/CHANGE_INFORM");
-const INPUT_ADDRESS = "admin/INPUT_ADDRESS";
+  createRequestActionTypes("adminTerms/CHANGE_INFORM");
+const INPUT_ADDRESS = "adminTerms/INPUT_ADDRESS";
 const [GET_ADMIN_TERMS, GET_ADMIN_TERMS_SUCCESS, GET_ADMIN_TERMS_FAILURE] =
-  createRequestActionTypes("admin/GET_ADMIN_TERMS");
+  createRequestActionTypes("adminTerms/GET_ADMIN_TERMS");
 const [EDIT_ADMIN_TERMS, EDIT_ADMIN_TERMS_SUCCESS, EDIT_ADMIN_TERMS_FAILURE] =
-  createRequestActionTypes("admin/EDIT_ADMIN_TERMS");
-const CLEAR_TERMS = "admin/CLEAR_TERMS";
+  createRequestActionTypes("adminTerms/EDIT_ADMIN_TERMS");
+const CLEAR_TERMS = "adminTerms/CLEAR_TERMS";
 
 export const initializeForm = createAction(INITIALIZE_FORM);
 export const changeValue = createAction(

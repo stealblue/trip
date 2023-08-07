@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 
@@ -18,7 +18,8 @@ const AdminBoardWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
+  // background: ${ThemeComp.smoke};
 
   &:first-child {
     width: 35%;
@@ -32,12 +33,14 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  background: ${ThemeComp.dark};
+  // background: ${ThemeComp.dark};
+  background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    color: ${ThemeComp.smoke};
+    // color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
 `;
@@ -52,7 +55,8 @@ const Board = styled.div`
     text-align: center;
     padding: 14px 0;
     width: 100%;
-    background: ${ThemeComp.smoke};
+    background: ${(props) => props.theme.smoke};
+    // background: ${ThemeComp.smoke};
     border-bottom: 2px solid #333;
     li {
       text-align: center;
@@ -122,19 +126,23 @@ const Detail = styled.li`
 
 const ControlButton = styled.button`
   border: none;
-  background: ${ThemeComp.lightblack};
-  color: ${ThemeComp.smoke};
+  // background: ${ThemeComp.lightblack};
+  // color: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.lightblack};
+  color: ${(props) => props.theme.smoke};
   cursor: pointer;
   padding: 7px 12px;
   margin: 10px;
 
   &:hover {
-    background: ${ThemeComp.softblack};
+    background: ${(props) => theme.props.softblack};
+    // background: ${ThemeComp.softblack};
   }
 `;
 
 const StyledModal = Modal.styled`
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
+  // background: ${ThemeComp.smoke};
   height: 800px;
   width: 800px;
   margin: 0 auto;
@@ -178,7 +186,8 @@ const StyledModal = Modal.styled`
     width : 85%;
     overflow:auto;
     margin-top : 20px;
-    border : 1px solid ${ThemeComp.lightblack};
+    border : 1px solid ${(props) => props.theme.lightblack};
+    // border : 1px solid ${ThemeComp.lightblack};
     padding: 20px;
     line-height : 20px;
   }

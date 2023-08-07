@@ -1,5 +1,5 @@
 import { css, styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
 
@@ -22,7 +22,8 @@ const StyledTextarea = styled.textarea`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  color: ${ThemeComp.red};
+  // color: ${ThemeComp.red};
+  color: ${(props) => props.theme.red};
   margin-left: 400px;
   background: none;
   text-align: center;
@@ -33,9 +34,12 @@ const SubIdInput = styled.input`
   margin-top: 10px;
   padding: 7px 10px;
   /* border-radius: 10px; */
-  border: 1px solid ${ThemeComp.lightblack};
-  background: ${ThemeComp.white};
-  color: ${ThemeComp.softblack};
+  // border: 1px solid ${ThemeComp.lightblack};
+  // background: ${ThemeComp.white};
+  // color: ${ThemeComp.softblack};
+  border: 1px solid ${(props) => props.theme.lightblack};
+  background: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.softblack};
   margin-right: 5px;
   width: 200px;
 
@@ -55,7 +59,8 @@ const AdminBoardWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  background: ${ThemeComp.smoke};
+  // background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
 
   &:first-child {
     width: 35%;
@@ -69,12 +74,14 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  background: ${ThemeComp.dark};
+  // background: ${ThemeComp.dark};
+  background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    color: ${ThemeComp.smoke};
+    // color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
 `;
@@ -88,14 +95,17 @@ const BoardTag = styled.div`
 
 const Button = styled.button`
   border: none;
-  background: ${ThemeComp.lightblack};
-  color: ${ThemeComp.smoke};
+  // background: ${ThemeComp.lightblack};
+  // color: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.lightblack};
+  color: ${(props) => props.theme.smoke};
   cursor: pointer;
   padding: 7px 12px;
   margin: 10px;
 
   &:hover {
-    background: ${ThemeComp.softblack};
+    // background: ${ThemeComp.softblack};
+    background: ${(props) => props.theme.softblack};
   }
 `;
 

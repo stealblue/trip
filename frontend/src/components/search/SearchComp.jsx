@@ -1,7 +1,7 @@
 import React from "react";
 import KoreaMap from "../area/KoreaMap";
 import styled from "styled-components";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 
 const SearchWrapper = styled.div`
   position: relative;
@@ -15,7 +15,8 @@ const SelectContainer = styled.div`
 
   select {
     padding: 10px 20px;
-    background: ${ThemeComp.bgcolor};
+    // background: ${ThemeComp.bgcolor};
+    background: ${(props) => props.theme.bgcolor};
     margin-left: 30px;
   }
   input {
@@ -23,14 +24,23 @@ const SelectContainer = styled.div`
   }
   div {
     position: fixed;
-    background: ${ThemeComp.white};
+    // background: ${ThemeComp.white};
+    background: ${(props) => props.theme.white};
     width: 600px;
     padding: 34px 10px 20px 176px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 `;
 
-const SearchComp = ({ searchKeyword, areaCode, onClickArea, contentTypes, onSelectedContentType, onSearchArea, onChange }) => {
+const SearchComp = ({
+  searchKeyword,
+  areaCode,
+  onClickArea,
+  contentTypes,
+  onSelectedContentType,
+  onSearchArea,
+  onChange,
+}) => {
   return (
     <SearchWrapper>
       <SelectContainer>
@@ -44,10 +54,19 @@ const SearchComp = ({ searchKeyword, areaCode, onClickArea, contentTypes, onSele
                 </option>
               ))}
           </select>
-          <input placeholder="검색해주세요" onKeyUp={onSearchArea} value={searchKeyword} onChange={onChange} />
+          <input
+            placeholder="검색해주세요"
+            onKeyUp={onSearchArea}
+            value={searchKeyword}
+            onChange={onChange}
+          />
         </div>
       </SelectContainer>
-      <KoreaMap className="korea-map" onClick={onClickArea} areaCode={areaCode} />
+      <KoreaMap
+        className="korea-map"
+        onClick={onClickArea}
+        areaCode={areaCode}
+      />
     </SearchWrapper>
   );
 };

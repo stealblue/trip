@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import HamMenuComp from "./HamMenuComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +27,8 @@ const HeaderContainer = styled.div`
   }
 
   &.change_header {
-    background: ${ThemeComp.white};
+    // background: ${ThemeComp.white};
+    background: ${(props) => props.theme.white};
   }
 
   .welecome {
@@ -110,7 +111,8 @@ const NavList = styled.li`
   }
   span {
     &.click {
-      color: ${ThemeComp.subcolor};
+      // color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }
   }
@@ -132,7 +134,8 @@ const LoginCategory = styled.span`
   }
   span {
     &.click {
-      color: ${ThemeComp.subcolor};
+      // color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }
   }

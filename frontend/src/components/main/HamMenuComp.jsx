@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +14,7 @@ const HamMenuWrap = styled.div`
   right: 0;
   z-index: 9999;
   display: none;
-  &.flag{
+  &.flag {
     display: block;
   }
 `;
@@ -42,21 +42,28 @@ const NavList = styled.li`
   }
   span {
     &.click {
-      color: ${ThemeComp.subcolor};
+      // color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }
   }
 `;
 
-const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu, onClick }) => {
-
+const HamMenuComp = ({
+  nick,
+  onLogout,
+  grade,
+  flagHamMenu,
+  onHamMenu,
+  onClick,
+}) => {
   const onFlag = (e) => {
     onClick(e);
     onHamMenu();
-  }
+  };
 
   return (
-    <HamMenuWrap className={flagHamMenu ? 'flag' : null} >
+    <HamMenuWrap className={flagHamMenu ? "flag" : null}>
       <FontAwesomeIcon icon={faXmark} onClick={onFlag} />
       <LoginCategory>
         {nick ? (
@@ -91,32 +98,44 @@ const HamMenuComp = ({ nick, onLogout, grade, flagHamMenu, onHamMenu, onClick })
       <Nav>
         <NavList onClick={onFlag}>
           <Link to="/search">
-            <span className="nav-item" onClick={onHamMenu}>통합검색</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              통합검색
+            </span>
           </Link>
         </NavList>
         <NavList onClick={onFlag}>
           <Link to="/area">
-            <span className="nav-item" onClick={onHamMenu}>지역</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              지역
+            </span>
           </Link>
         </NavList>
         <NavList onClick={onFlag}>
           <Link to="/room">
-            <span className="nav-item" onClick={onHamMenu}>숙소</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              숙소
+            </span>
           </Link>
         </NavList>
         <NavList onClick={onFlag}>
           <Link to="/traffic">
-            <span className="nav-item" onClick={onHamMenu}>교통수단</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              교통수단
+            </span>
           </Link>
         </NavList>
         <NavList>
           <Link to="/chat">
-            <span className="nav-item" onClick={onHamMenu}>여행MATE</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              여행MATE
+            </span>
           </Link>
         </NavList>
         <NavList onClick={onFlag}>
           <Link to="/board">
-            <span className="nav-item" onClick={onHamMenu}>여행후기</span>
+            <span className="nav-item" onClick={onHamMenu}>
+              여행후기
+            </span>
           </Link>
         </NavList>
       </Nav>

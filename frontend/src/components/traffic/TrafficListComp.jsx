@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import PageNavComp3 from "../common/PageNavComp3";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import WrapperComp from "../common/WrapperComp";
 
 const TrafficContainer = styled.div`
@@ -32,7 +32,8 @@ const TrafficHeader = styled.table`
   }
 
   th {
-    background: ${ThemeComp.lightblack};
+    // background: ${ThemeComp.lightblack};
+    background: ${(props) => props.theme.lightblack};
     color: #fff;
   }
 `;
@@ -40,8 +41,14 @@ const TrafficHeader = styled.table`
 const TrafficItem = ({ item, onTicketing }) => {
   const depPlandTime = (item.depplandtime || item.depPlandTime).toString();
   const arrPlandTime = (item.arrplandtime || item.arrPlandTime).toString();
-  const startTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(10, 2)}분`;
-  const endTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(10, 2)}분`;
+  const startTime = `${depPlandTime.substr(8, 2)}시 ${depPlandTime.substr(
+    10,
+    2
+  )}분`;
+  const endTime = `${arrPlandTime.substr(8, 2)}시 ${arrPlandTime.substr(
+    10,
+    2
+  )}분`;
   const jsonItem = JSON.stringify(item);
   return (
     <TrafficHeader>
@@ -58,8 +65,15 @@ const TrafficItem = ({ item, onTicketing }) => {
   );
 };
 
-const TrafficListComp = ({ resultTrains, resultBuses, loading, onTicketing }) => {
-  const result = resultTrains?.response.body.items?.item || resultBuses?.response.body.items?.item;
+const TrafficListComp = ({
+  resultTrains,
+  resultBuses,
+  loading,
+  onTicketing,
+}) => {
+  const result =
+    resultTrains?.response.body.items?.item ||
+    resultBuses?.response.body.items?.item;
   const result2 = resultTrains?.response.body || resultBuses?.response.body;
 
   if (!resultTrains && !resultBuses) {
@@ -83,8 +97,17 @@ const TrafficListComp = ({ resultTrains, resultBuses, loading, onTicketing }) =>
             </thead>
           </TrafficHeader>
         )}
-        {result && result.map((item, index) => <TrafficItem item={item} key={index} onTicketing={onTicketing} />)}
-        {result && <PageNavComp3 pageNo={result2?.pageNo} totalCount={result2?.totalCount} numOfRows={result2?.numOfRows} />}
+        {result &&
+          result.map((item, index) => (
+            <TrafficItem item={item} key={index} onTicketing={onTicketing} />
+          ))}
+        {result && (
+          <PageNavComp3
+            pageNo={result2?.pageNo}
+            totalCount={result2?.totalCount}
+            numOfRows={result2?.numOfRows}
+          />
+        )}
       </TrafficContainer>
     </WrapperComp>
   );

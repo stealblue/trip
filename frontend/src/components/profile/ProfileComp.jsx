@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import Modal from "styled-react-modal";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -43,8 +43,10 @@ const StyledModal = Modal.styled`
     }
   }
   .modal-close{
-    background : ${ThemeComp.softblack};
-    color : ${ThemeComp.white};
+    // background : ${ThemeComp.softblack};
+    // color : ${ThemeComp.white};
+    background : ${(props) => props.theme.softblack};
+    color : ${(props) => props.theme.white};
     padding: 5px 10px;
     display:block;
     margin: 0 auto;
@@ -308,13 +310,15 @@ const Button = styled.button`
   display: inline-block;
   padding: 7px 15px;
   margin: 10px auto;
-  background: ${ThemeComp.bgcolor};
+  // background: ${ThemeComp.bgcolor};
+  background: ${(props) => props.theme.bgcolor};
   border: none;
   border-radius: 10px;
   transition: 0.3s;
 
   &:hover {
-    background: ${ThemeComp.subcolor};
+    // background: ${ThemeComp.subcolor};
+    background: ${(props) => props.theme.subcolor};
     color: #fff;
   }
 
@@ -335,18 +339,23 @@ const SelectButton = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
-  border: 1px solid ${ThemeComp.softblack};
+  // border: 1px solid ${ThemeComp.softblack};
+  border: 1px solid ${(props) => props.theme.softblack};
   padding: 10px 20px;
   transition: 0.3s;
 
   &:focus {
-    background: ${ThemeComp.softblack};
-    color: ${ThemeComp.white};
+    // background: ${ThemeComp.softblack};
+    // color: ${ThemeComp.white};
+    background: ${(props) => props.theme.softblack};
+    color: ${(props) => props.theme.white};
   }
 
   &:hover {
-    background: ${ThemeComp.softblack};
-    color: ${ThemeComp.white};
+    // background: ${ThemeComp.softblack};
+    // color: ${ThemeComp.white};
+    background: ${(props) => props.theme.softblack};
+    color: ${(props) => props.theme.white};
   }
 
   @media (max-width: 1200px) {
@@ -365,7 +374,8 @@ const ListBox = styled.div`
   margin: 0 auto;
   height: 600px;
   margin-top: 20px;
-  background: ${ThemeComp.smoke};
+  // background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
   padding: 50px;
 
   @media (max-width: 1200px) {
@@ -601,7 +611,11 @@ const ProfileComp = ({
       <ProfileBlock>
         <form encType="multipart/form-data">
           <label>
-            {user?.img ? <ImageBox src={`/assets/${user.img}`} alt="img" /> : <ImageBox src={"/assets/triplogo.png"} alt="img" />}
+            {user?.img ? (
+              <ImageBox src={`/assets/${user.img}`} alt="img" />
+            ) : (
+              <ImageBox src={"/assets/triplogo.png"} alt="img" />
+            )}
             <ImgInput type="file" onChange={onUploadPhoto} name="img" />
             <Button onClick={onChangePhoto} className="change-btn">
               사진변경
@@ -642,7 +656,15 @@ const ProfileComp = ({
                 <NameTag>닉네임</NameTag>
                 <InputBox placeholder={"닉네임"} onChange={onChange} />
                 <Button onClick={onNickCheck}>중복확인</Button>
-                <div>{nickError ? <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage> : nickAuth ? <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage> : ""}</div>
+                <div>
+                  {nickError ? (
+                    <ErrorMessage>이미 존재하는 닉네임입니다.</ErrorMessage>
+                  ) : nickAuth ? (
+                    <ErrorMessage>사용가능한 아이디 입니다.</ErrorMessage>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </UserInform>
 
               <UserInform>
@@ -667,7 +689,10 @@ const ProfileComp = ({
               회원탈퇴
             </Button>
             {changeInform && (
-              <Button style={{ marginLeft: "10px" }} onClick={onChangeProfileCancle}>
+              <Button
+                style={{ marginLeft: "10px" }}
+                onClick={onChangeProfileCancle}
+              >
                 수정취소
               </Button>
             )}
@@ -675,10 +700,18 @@ const ProfileComp = ({
         </UserInformBox>
       </ProfileBlock>
       <ButtonBox>
-        <SelectButton onClick={onGetBoardList}>게시물 ({totalBoard})</SelectButton>
-        <SelectButton onClick={onGetReplyList}>댓글 ({totalReply})</SelectButton>
-        <SelectButton onClick={onGetLikeList}>좋아요 ({totalLike})</SelectButton>
-        <SelectButton onClick={onGetWishList}>wishList ({totalWish})</SelectButton>
+        <SelectButton onClick={onGetBoardList}>
+          게시물 ({totalBoard})
+        </SelectButton>
+        <SelectButton onClick={onGetReplyList}>
+          댓글 ({totalReply})
+        </SelectButton>
+        <SelectButton onClick={onGetLikeList}>
+          좋아요 ({totalLike})
+        </SelectButton>
+        <SelectButton onClick={onGetWishList}>
+          wishList ({totalWish})
+        </SelectButton>
       </ButtonBox>
       <ListBox>
         {boardType === "BOARD" ? (
@@ -694,12 +727,15 @@ const ProfileComp = ({
             {boardList?.map((board) => (
               <Item key={board.no}>
                 <BoardInfo className="board-info">
-                  <li onClick={() => onGetBoardDetail(board.no)}>{board.title}</li>
+                  <li onClick={() => onGetBoardDetail(board.no)}>
+                    {board.title}
+                  </li>
                   <li
                     className="content"
                     dangerouslySetInnerHTML={{
                       __html: contentImgFilter(board.content),
-                    }}></li>
+                    }}
+                  ></li>
                   <li>{makeCreatedAt(board.createAt)}</li>
                   <li>
                     <FontAwesomeIcon className="icon" icon={faHeart} />
@@ -711,12 +747,23 @@ const ProfileComp = ({
                   </li>
 
                   <li>
-                    <Button onClick={() => onDeleteBoard(board.no)}>삭제</Button>
+                    <Button onClick={() => onDeleteBoard(board.no)}>
+                      삭제
+                    </Button>
                   </li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{boardList && <PaginationComp total={boardList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {boardList && (
+                <PaginationComp
+                  total={boardList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </BoardBox>
         ) : boardType === "REPLY" ? (
           <ReplyBox>
@@ -730,16 +777,29 @@ const ProfileComp = ({
               <Item key={reply.no}>
                 <BoardInfo className="reply-boardinfo">
                   {/* <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.nick}</li> */}
-                  <li onClick={() => onGetReplyDetail(reply.bno)}>{reply.uno_user.id}</li>
+                  <li onClick={() => onGetReplyDetail(reply.bno)}>
+                    {reply.uno_user.id}
+                  </li>
                   <li>{reply.content}</li>
                   <li>{makeCreatedAt(reply.createAt)}</li>
                   <li>
-                    <Button onClick={() => onDeleteReply(reply.no)}>삭제</Button>
+                    <Button onClick={() => onDeleteReply(reply.no)}>
+                      삭제
+                    </Button>
                   </li>
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{replyList && <PaginationComp total={replyList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {replyList && (
+                <PaginationComp
+                  total={replyList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </ReplyBox>
         ) : boardType === "LIKELIST" ? (
           <LikeBox>
@@ -750,7 +810,10 @@ const ProfileComp = ({
             </LikeListTitle>
             {likeList.slice(offset, offset + limit).map((like) => (
               <Item key={like.no}>
-                <BoardInfo className="like-boardinfo" onClick={() => onGetLikeDetail(like.bno)}>
+                <BoardInfo
+                  className="like-boardinfo"
+                  onClick={() => onGetLikeDetail(like.bno)}
+                >
                   <li>{like.bno_board.id}</li>
                   <li>{like.bno_board.title}</li>
                   <li>
@@ -761,14 +824,31 @@ const ProfileComp = ({
                 </BoardInfo>
               </Item>
             ))}
-            <div className="pagin">{likeList && <PaginationComp total={likeList.length} limit={limit} page={page} setPage={setPage} />}</div>
+            <div className="pagin">
+              {likeList && (
+                <PaginationComp
+                  total={likeList.length}
+                  limit={limit}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
           </LikeBox>
         ) : (
           <AllScheduleBox>
             <WishListBox>
               {wishList.map((Wish) => (
                 <Item key={Wish.no}>
-                  <SchedulerBox onClick={() => onGetWishDetail(Wish.title, Wish.contentId, Wish.contentTypeId)}>
+                  <SchedulerBox
+                    onClick={() =>
+                      onGetWishDetail(
+                        Wish.title,
+                        Wish.contentId,
+                        Wish.contentTypeId
+                      )
+                    }
+                  >
                     <ScheduleTitle key={Wish.no}>{Wish.title}</ScheduleTitle>
                   </SchedulerBox>
                   <ScheduleButton
@@ -779,10 +859,13 @@ const ProfileComp = ({
                         title: Wish.title,
                         contentTypeId: Wish.contentTypeId,
                       })
-                    }>
+                    }
+                  >
                     +
                   </ScheduleButton>
-                  <ScheduleButton onClick={() => onDeleteWish(Wish.no)}>x</ScheduleButton>
+                  <ScheduleButton onClick={() => onDeleteWish(Wish.no)}>
+                    x
+                  </ScheduleButton>
                 </Item>
               ))}
               <StyledModal
@@ -796,48 +879,93 @@ const ProfileComp = ({
                     <div className="title">{wish?.title}</div>
                     <div className="Modal-item">
                       <div className="sub-title">보유 룸 갯수</div>
-                      <div> {wish?.data?.roomcount ? wish.data.roomcount : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.roomcount ? wish.data.roomcount : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">룸 타입</div>
-                      <div> {wish?.data?.roomtype ? wish.data.roomtype : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.roomtype ? wish.data.roomtype : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">체크인</div>
-                      <div> {wish?.data?.checkintime ? wish.data.checkintime : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.checkintime ? wish.data.checkintime : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">체크아웃</div>
-                      <div> {wish?.data?.checkouttime ? wish.data.checkouttime : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.checkouttime
+                          ? wish.data.checkouttime
+                          : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">취사 가능여부</div>
-                      <div> {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.chkcooking ? wish.data.chkcooking : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">이용시설</div>
-                      <div> {wish?.data?.foodplace ? wish.data.foodplace : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.foodplace ? wish.data.foodplace : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div>전화번호</div>
-                      <div> {wish?.data?.infocenterlodging ? wish.data.infocenterlodging : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.infocenterlodging
+                          ? wish.data.infocenterlodging
+                          : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">주차 가능여부</div>
-                      <div> {wish?.data?.parkinglodging ? wish.data.parkinglodging : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.parkinglodging
+                          ? wish.data.parkinglodging
+                          : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">숙박 예약</div>
-                      <div> {wish?.data?.reservationlodging ? wish.data.reservationlodging : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.reservationlodging
+                          ? wish.data.reservationlodging
+                          : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">건물 이용 범위</div>
-                      <div> {wish?.data?.scalelodging ? wish.data.scalelodging : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.scalelodging
+                          ? wish.data.scalelodging
+                          : "-"}
+                      </div>
                     </div>
                     {wish?.data?.reservationurl ? (
                       <div className="Modal-item">
                         <div className="sub-title">홈페이지 링크</div>
-                        :<div dangerouslySetInnerHTML={{ __html: wish.data.reservationurl }} />
+                        :
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.reservationurl,
+                          }}
+                        />
                       </div>
                     ) : (
                       <div className="Modal-item">
@@ -851,20 +979,33 @@ const ProfileComp = ({
                     <div className="title">{wish?.title}</div>
                     <div className="Modal-item">
                       <div className="sub-title">전화번호</div>
-                      <div> {wish?.data?.infocenter ? wish.data.infocenter : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.infocenter ? wish.data.infocenter : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">휴일</div>
-                      <div> {wish?.data?.restdate ? wish.data.restdate : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.restdate ? wish.data.restdate : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">컨텐츠</div>
-                      <div> {wish?.data?.expguide ? wish.data.expguide : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.expguide ? wish.data.expguide : "-"}
+                      </div>
                     </div>
                     {wish?.data?.usetime ? (
                       <div className="Modal-item">
                         <div className="sub-title">이용시간</div>
-                        <div dangerouslySetInnerHTML={{ __html: wish.data.usetime }} />
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: wish.data.usetime,
+                          }}
+                        />
                       </div>
                     ) : (
                       <div className="Modal-item">
@@ -874,7 +1015,10 @@ const ProfileComp = ({
                     )}
                     <div className="Modal-item">
                       <div className="sub-title">주차 가능여부</div>
-                      <div> {wish?.data?.parking ? wish.data.parking : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.parking ? wish.data.parking : "-"}
+                      </div>
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">반려동물 동반여부</div>
@@ -882,7 +1026,12 @@ const ProfileComp = ({
                     </div>
                     <div className="Modal-item">
                       <div className="sub-title">신용카드 이용</div>
-                      <div> {wish?.data?.chkcreditcard ? wish.data.chkcreditcard : "-"}</div>
+                      <div>
+                        {" "}
+                        {wish?.data?.chkcreditcard
+                          ? wish.data.chkcreditcard
+                          : "-"}
+                      </div>
                     </div>
                   </>
                 )}
@@ -893,7 +1042,11 @@ const ProfileComp = ({
             </WishListBox>
             <BeforeBox>
               <BeforeInputBox>
-                <InputBox type="text" ref={subjectRef} placeholder="한글 2~10자" />
+                <InputBox
+                  type="text"
+                  ref={subjectRef}
+                  placeholder="한글 2~10자"
+                />
                 <Button onClick={onSaveScheduleList}>저장</Button>
               </BeforeInputBox>
               {cards ? <Container cards={cards} moveCard={moveCard} /> : null}
@@ -901,8 +1054,19 @@ const ProfileComp = ({
             <AfterBox>
               {savedList?.map((list) => (
                 <SavedListBox key={list._id}>
-                  <SavedList onClick={() => onGetSavedListDetail(list.name[0].id, list.name[0].subject)}>{list.name[0].subject}</SavedList>
-                  <SavedButton onClick={() => onSavedListDelete(list._id)}>x</SavedButton>
+                  <SavedList
+                    onClick={() =>
+                      onGetSavedListDetail(
+                        list.name[0].id,
+                        list.name[0].subject
+                      )
+                    }
+                  >
+                    {list.name[0].subject}
+                  </SavedList>
+                  <SavedButton onClick={() => onSavedListDelete(list._id)}>
+                    x
+                  </SavedButton>
                 </SavedListBox>
               ))}
               <StyledModal
@@ -911,10 +1075,14 @@ const ProfileComp = ({
                 onEscapeKeydown={onGetSavedListDetail} //esc키 눌렀을경우 함수 실행
                 onBackgroundClick={onGetSavedListDetail} //esc키 or 오버레이부분 클릭시 함수 실행
               >
-                <SheduleTitleBox>{savedListDetail?.name[0].subject}</SheduleTitleBox>
+                <SheduleTitleBox>
+                  {savedListDetail?.name[0].subject}
+                </SheduleTitleBox>
                 <SavedListDetailBox>
                   {savedListDetail?.name[0].scheduleList.map((detail) => (
-                    <ShceduleBox key={detail.items[0].contentId}>{detail.items[0].title}</ShceduleBox>
+                    <ShceduleBox key={detail.items[0].contentId}>
+                      {detail.items[0].title}
+                    </ShceduleBox>
                   ))}
                 </SavedListDetailBox>
                 <Button onClick={onGetSavedListDetail}>닫기</Button>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp2 from "../common/PageNavComp2";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 
 const RoomListContainer = styled.div`
   width: 800px;
@@ -25,7 +25,8 @@ const AreaItemBlock = styled.div`
     width: 300px;
     height: 240px;
     border-radius: 20px;
-    background: ${ThemeComp.smoke};
+    // background: ${ThemeComp.smoke};
+    background: ${(props) => props.theme.smoke};
   }
 
   .room-text {
@@ -44,10 +45,12 @@ const AreaItemBlock = styled.div`
 
   .add-btn {
     padding: 7px 9px;
-    background: ${ThemeComp.lightblack};
+    // background: ${ThemeComp.lightblack};
+    background: ${(props) => props.theme.lightblack};
     width: 50px;
     text-align: center;
-    color: ${ThemeComp.white};
+    // color: ${ThemeComp.white};
+    color: ${(props) => props.theme.white};
     border-radius: 15px;
     margin-top: 50px;
     margin-left: 260px;
@@ -56,7 +59,8 @@ const AreaItemBlock = styled.div`
     display: block;
 
     &:hover {
-      background: ${ThemeComp.subcolor};
+      // background: ${ThemeComp.subcolor};
+      background: ${(props) => props.theme.subcolor};
     }
   }
 `;
@@ -76,13 +80,37 @@ const StyledP = styled.p`
 const AreaItem = ({ area, onClick, addWish }) => {
   return (
     <AreaItemBlock>
-      <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />
+      <img
+        src={
+          area.firstimage !== ""
+            ? area.firstimage
+            : area.firstimge2
+            ? area.firstimge2
+            : "/assets/triplogo-noimage.png"
+        }
+        alt="이미지없음"
+        loading="lazy"
+      />
       <div className="room-text">
         <p className="title">{area.title}</p>
-        <StyledP className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title} data-contentid={area.contentid} data-contenttypeid={area.contenttypeid}>
+        <StyledP
+          className="addr"
+          onClick={onClick}
+          data-mapx={area.mapx}
+          data-mapy={area.mapy}
+          data-title={area.title}
+          data-contentid={area.contentid}
+          data-contenttypeid={area.contenttypeid}
+        >
           {area.addr1}
         </StyledP>
-        <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
+        <span
+          className="add-btn"
+          onClick={addWish}
+          data-contentid={area.contentid}
+          data-title={area.title}
+          data-contenttypeid={area.contenttypeid}
+        >
           + 추가
         </span>
       </div>
@@ -99,8 +127,24 @@ const RoomListComp = ({ areas, error, onClick, loading, addWish }) => {
   }
   return (
     <RoomListContainer>
-      <RoomList>{!loading && areas && target && target.map((area) => <AreaItem area={area} onClick={onClick} key={area.contentid} addWish={addWish} />)}</RoomList>
-      <PageNavComp2 pageNo={result?.pageNo} totalCount={result?.totalCount} numOfRows={result?.numOfRows} />
+      <RoomList>
+        {!loading &&
+          areas &&
+          target &&
+          target.map((area) => (
+            <AreaItem
+              area={area}
+              onClick={onClick}
+              key={area.contentid}
+              addWish={addWish}
+            />
+          ))}
+      </RoomList>
+      <PageNavComp2
+        pageNo={result?.pageNo}
+        totalCount={result?.totalCount}
+        numOfRows={result?.numOfRows}
+      />
     </RoomListContainer>
   );
 };

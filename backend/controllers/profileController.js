@@ -44,7 +44,7 @@ exports.changeProfile = async (req, res) => {
 		});
 
 		//토큰 재발행하여 layoutcntr의 닉네임도 갱신해야한다.
-		const token = generateToken(id, nick, exUser.grade, exUser.no); //jwt token 발행
+		const token = generateToken(id, nick, exUser.grade, exUser.style, exUser.no); //jwt token 발행
 		res.cookie("access_token", token, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			httpOnly: true,

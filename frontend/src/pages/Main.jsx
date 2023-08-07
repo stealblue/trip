@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { showKeyword } from "../modules/search/SearchMod";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from "swiper/modules";
 import { Reveal, Tween } from "react-gsap";
 
 import "swiper/css";
@@ -18,7 +24,7 @@ import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
-import ThemeComp from "../components/common/ThemeComp";
+// import ThemeComp from "../components/common/ThemeComp";
 import HamMenuComp from "../components/main/HamMenuComp";
 
 const SlideWarraper = styled.div`
@@ -44,13 +50,16 @@ const SlideWarraper = styled.div`
     font-size: 70px;
     font-family: "PyeongChangPeace-Bold";
     line-height: 74px;
-    color: ${ThemeComp.white};
-    -webkit-text-stroke: 1px ${ThemeComp.black};
+    // color: ${ThemeComp.white};
+    // -webkit-text-stroke: 1px ${ThemeComp.black};
+    color: ${(props) => props.theme.white};
+    -webkit-text-stroke: 1px ${(props) => props.theme.black};
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   }
   p {
     font-size: 20px;
-    background: ${ThemeComp.yellow};
+    // background: ${ThemeComp.yellow};
+    background: ${(props) => props.theme.yellow};
     padding: 10px 40px;
     border-radius: 50px;
     margin-top: 10px;
@@ -61,7 +70,8 @@ const SlideWarraper = styled.div`
 
     span {
       margin-right: 10px;
-      color: ${ThemeComp.black};
+      // color: ${ThemeComp.black};
+      color: ${(props) => props.theme.black};
     }
   }
   p:hover {
@@ -129,7 +139,10 @@ const MainBoardListContainer = styled.div`
 `;
 
 const FadeInLeft = ({ children }) => (
-  <Tween from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }} ease="back.out(1.4)">
+  <Tween
+    from={{ opacity: 0, transform: "translate3d(-100vw, 0, 0)" }}
+    ease="back.out(1.4)"
+  >
     {children}
   </Tween>
 );
@@ -152,13 +165,23 @@ const Main = () => {
   };
 
   const onHamMenu = (e) => {
-    console.log('dddddddddddddddddd');
+    console.log("dddddddddddddddddd");
   };
 
   return (
     <>
       <SlideWarraper>
-        <Swiper cssMode={true} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true} navigation={true} pagination={true} mousewheel={true} keyboard={true} modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]} className="mySwiper">
+        <Swiper
+          cssMode={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={true}
+          navigation={true}
+          pagination={true}
+          mousewheel={true}
+          keyboard={true}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+          className="mySwiper"
+        >
           <SwiperSlide>
             <img src="/assets/mainslide.jpeg" alt="슬라이드1" />
             <div className="slide-text">

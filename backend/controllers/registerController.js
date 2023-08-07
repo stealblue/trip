@@ -1,6 +1,5 @@
 const { user } = require("../models/mysql");
 const bcrypt = require("bcrypt");
-const { generateToken } = require("./authController");
 const temporary = require("../models/mongoDB/temporary");
 
 exports.register = async (req, res) => {

@@ -24,16 +24,20 @@ import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminBoardPage from "./pages/admin/AdminboardPage";
 import AdminThemePage from "./pages/admin/AdminThemePage";
 import AdminTermsPage from "./pages/admin/AdminTermsPage";
+import AdminStylePage from "./pages/admin/AdminStylePage";
 // import AdminNoticePage from './pages/admin/AdminNoticePage';
+import styled, { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
+import * as Theme from "./components/common/ThemeComp";
 // import Swal from 'sweetalert2';
 
 function App() {
   // const navigate = useNavigate();
-  const { user } = useSelector(({ UserMod }) => ({
+  const { user, style } = useSelector(({ UserMod }) => ({
     user: UserMod?.user,
+    style: UserMod?.user?.style,
   }));
 
   // const onSwal = () => {
@@ -48,9 +52,19 @@ function App() {
   //       }
   //     })
   // }
-
+  let theme;
+  if (style === "basic") {
+    theme = Theme.basicTheme;
+  }
+  if (style === "dark") {
+    theme = Theme.darkTheme;
+  }
+  if (style === "green") {
+    theme = Theme.greenTheme;
+  }
   return (
     <>
+      <ThemeProvider theme={theme}>
       <AnimatePresence>
         <Routes>
           <Route element={<LayoutCntr />}>
@@ -80,10 +94,12 @@ function App() {
             <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
             <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
             <Route path="/admin/terms" element={user?.grade === 2 ? <AdminTermsPage /> : <Navigate to='/' />} />
+            <Route path="/admin/style" element={user?.grade === 2 ? <AdminStylePage /> : <Navigate to='/' />} />
           </Route>
           <Route path="map" element={<KoreaMap />} />
         </Routes>
-      </AnimatePresence >
+        </AnimatePresence >
+        </ThemeProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,14 +23,16 @@ const SearchPwdWrraper = styled.div`
   height: 100vh;
   margin: 0 auto;
   text-align: center;
-  background: ${ThemeComp.bgcolor};
+  // background: ${ThemeComp.bgcolor};
+  background: ${(props) => props.theme.bgcolor};
   position: relative;
 
   .home {
     position: absolute;
     left: 30px;
     top: 20px;
-    color: ${ThemeComp.white};
+    // color: ${ThemeComp.white};
+    color: ${(props) => props.theme.white};
   }
 
   .logo {
@@ -44,8 +46,10 @@ const SearchPwdWrraper = styled.div`
   .change-pwd-text {
     margin: 24px 0;
     font-size: 20px;
-    color: ${ThemeComp.lightblack};
-    border-bottom: 2px solid ${ThemeComp.lightblack};
+    // color: ${ThemeComp.lightblack};
+    // border-bottom: 2px solid ${ThemeComp.lightblack};
+    color: ${(props) => props.theme.lightblack};
+    border-bottom: 2px solid ${(props) => props.theme.lightblack};
     padding: 6px 0;
     display: inline-block;
     text-align: center;
@@ -59,7 +63,8 @@ const SearchPwdWrraper = styled.div`
     label {
       width: 180px;
       text-align: right;
-      color: ${ThemeComp.softblack};
+      // color: ${ThemeComp.softblack};
+      color: ${(props) => props.theme.softblack};
     }
     input {
       border: none;
@@ -69,25 +74,30 @@ const SearchPwdWrraper = styled.div`
       /* border-radius: 40px; */
       margin-left: 20px;
       width: 100%;
-      background: ${ThemeComp.white};
-      border: 2px solid ${ThemeComp.white};
+      // background: ${ThemeComp.white};
+      // border: 2px solid ${ThemeComp.white};
+      background: ${(props) => props.theme.white};
+      border: 2px solid ${(props) => props.theme.white};
     }
   }
 
   button {
     width: 100%;
     padding: 17px 20px;
-    background: ${ThemeComp.lightblack};
+    // background: ${ThemeComp.lightblack};
+    background: ${(props) => props.theme.lightblack};
     cursor: pointer;
     border: none;
-    color: ${ThemeComp.white};
+    // color: ${ThemeComp.white};
+    color: ${(props) => props.theme.white};
     font-weight: 600;
     font-size: 18px;
     margin: 20px 0;
   }
 
   button:hover {
-    background: ${ThemeComp.softblack};
+    // background: ${ThemeComp.softblack};
+    background: ${(props) => props.theme.softblack};
   }
 `;
 
@@ -125,7 +135,9 @@ const SearchPwdComp = ({ onSubmit, onChange, onPwdChk }) => {
               <label>비밀번호 확인</label>
               <input name="pwdConfirm" type="password" onChange={onChange} />
             </div>
-            {onPwdChk === false && <div>비밀번호가 일치하지 않습니다. 다시 입력해주세요.</div>}
+            {onPwdChk === false && (
+              <div>비밀번호가 일치하지 않습니다. 다시 입력해주세요.</div>
+            )}
             <button onClick={onSubmit}>확인</button>
           </ChangePwdBox>
         </SearchPwdWrraper>

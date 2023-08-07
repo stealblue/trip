@@ -263,7 +263,7 @@ exports.changeInform = async (req, res) => {
 		const updatedAdmin = await user.findOne({ where: { id: newAdminId } });
 
 		//토큰 재설정 안해주면 정보 수정후 localStorage 및 쿠키에는 상호 변경전 아이디의 정보가 들어가있음
-		const token = generateToken(newAdminId, updatedAdmin.nick, updatedAdmin.grade, updatedAdmin.no);
+		const token = generateToken(newAdminId, updatedAdmin.nick, updatedAdmin.grade, updatedAdmin.style, updatedAdmin.no);
 		res.cookie("access_token", token, {
 		maxAge: 1000 * 60 * 60 * 24 * 7,
 		httpOnly: true,
@@ -342,12 +342,40 @@ exports.editAdminTerms = async (req, res) => {
 					grade: 2,
 				}
 			});
-			console.log(updatedTerms, "==========");
+
 			return res.status(200).json({ editTerms: updatedTerms });
 		}
 	} catch (e) {
 		console.error(e);
 		return res.status(400).json({ editTermsError: true });
 	}
+}
 
+exports.getStyle = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const admin = await user.findOne({raw:true, where: { id  }});
+		const adminStyle = admin.style;
+
+		return res.status(200).json({ adminStyle });	
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({amdinStyleError: true})
+	}
+}
+
+exports.changeStyle = async (req, res) => {
+	const { id, adminStyle } = req.params;
+
+	try {
+		await user.update({ style: adminStyle }, { where: { id } });
+		const admin = user.findOne({ raw: true, where: { id } });
+		const Style = admin.style;
+
+		return res.status(200).json({ adminStyle: Style });
+	} catch (e) {
+		console.error(e);
+		return res.status(400).json({adminStyleError: true})
+	}
 }

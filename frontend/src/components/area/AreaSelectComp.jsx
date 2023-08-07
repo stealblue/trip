@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ThemeComp from "../common/ThemeComp";
+// import ThemeComp from "../common/ThemeComp";
 import AreaListCntr from "../../containers/area/AreaListCntr";
 import KoreaMap from "./KoreaMap";
 
@@ -26,12 +26,14 @@ const ListContainer = styled.div`
   left: 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   flex-wrap: wrap;
-  background: ${ThemeComp.white};
+  // background: ${ThemeComp.white};
+  background: ${(props) => props.theme.white};
   overflow: auto;
   /* display: none; */
   .theme {
     /* position: fixed; */
-    background: ${ThemeComp.white};
+    // background: ${ThemeComp.white};
+    background: ${(props) => props.theme.white};
     margin-top: -2px;
   }
 
@@ -49,7 +51,8 @@ const ThemeList = styled.div`
   margin-left: 65px;
 `;
 const ThemeListItem = styled.button`
-  background: ${ThemeComp.bgcolor};
+  // background: ${ThemeComp.bgcolor};
+  background: ${(props) => props.theme.bgcolor};
   padding: 10px 20px;
   margin-left: 14px;
   margin-top: 14px;
@@ -59,13 +62,16 @@ const ThemeListItem = styled.button`
   transition: 0.3s;
   border: none;
   &:hover {
-    background: ${ThemeComp.subcolor};
-    color: ${ThemeComp.white};
+    // background: ${ThemeComp.subcolor};
+    // color: ${ThemeComp.white};
+    background: ${(props) => props.theme.subcolor};
+    color: ${(props) => props.theme.white};
   }
 
   &.selectItem {
     background-color: steelblue;
-    color: ${ThemeComp.smoke};
+    // color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     font-weight: 600;
   }
 `;
@@ -73,7 +79,11 @@ const ThemeListItem = styled.button`
 const SelectArea = ({ onClick, area, areaCode }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={area.code} className={areaCode === `${area.code}` ? "selectItem" : null}>
+      <ThemeListItem
+        onClick={onClick}
+        value={area.code}
+        className={areaCode === `${area.code}` ? "selectItem" : null}
+      >
         {area.name}
       </ThemeListItem>
     </>
@@ -83,14 +93,26 @@ const SelectArea = ({ onClick, area, areaCode }) => {
 const SelectType = ({ onClick, type, contentTypeId }) => {
   return (
     <>
-      <ThemeListItem onClick={onClick} value={type.code} className={contentTypeId === `${type.code}` ? "selectItem" : null}>
+      <ThemeListItem
+        onClick={onClick}
+        value={type.code}
+        className={contentTypeId === `${type.code}` ? "selectItem" : null}
+      >
         {type.name}
       </ThemeListItem>
     </>
   );
 };
 
-const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCode, contentTypeId, loading }) => {
+const AreaSelectComp = ({
+  onClickArea,
+  onClickType,
+  areas,
+  contentTypes,
+  areaCode,
+  contentTypeId,
+  loading,
+}) => {
   return (
     <>
       <AreaSelectWrapper>
@@ -103,7 +125,12 @@ const AreaSelectComp = ({ onClickArea, onClickType, areas, contentTypes, areaCod
           <ThemeList>
             <div className="theme">
               {contentTypes.map((type) => (
-                <SelectType type={type} key={type.code} onClick={onClickType} contentTypeId={contentTypeId} />
+                <SelectType
+                  type={type}
+                  key={type.code}
+                  onClick={onClickType}
+                  contentTypeId={contentTypeId}
+                />
               ))}
             </div>
             <div className="select-list">
