@@ -7,9 +7,9 @@ import {
   deleteBoard,
   getBoardAction,
   createNotice,
-  doneNotice
+  doneNotice,
 } from "../../modules/admin/AdminBoardMod";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
@@ -18,11 +18,11 @@ const AdminBoardCnrt = () => {
   const dispatch = useDispatch();
   const { boardList, totalBoard, board, deleteError, user } = useSelector(
     ({ AdminBoardMod, UserMod }) => ({
-      boardList: AdminBoardMod.boardList,
-      totalBoard: AdminBoardMod.totalBoard,
-      board: AdminBoardMod.board,
-      deleteError: AdminBoardMod.deleteError,
-      user: UserMod.user
+      boardList: AdminBoardMod?.boardList,
+      totalBoard: AdminBoardMod?.totalBoard,
+      board: AdminBoardMod?.board,
+      deleteError: AdminBoardMod?.deleteError,
+      user: UserMod?.user,
     })
   );
   const [modal, setModal] = useState(false);
@@ -47,42 +47,66 @@ const AdminBoardCnrt = () => {
   };
 
   const onNotice = async () => {
-    Swal.fire({ title: '공지사항 제목', input: "text", showCancelButton: true, showConfirmButton: true, cancelButtonText: "취소", confirmButtonText: "확인" })
+    Swal.fire({
+      title: "공지사항 제목",
+      input: "text",
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "확인",
+    })
       .then((titleRes) => {
         const title = titleRes.value;
         if (titleRes.isConfirmed && title.length > 0) {
-          Swal.fire({ title: `${title}`, input: "textarea", showCancelButton: true, showConfirmButton: true, cancelButtonText: "취소", confirmButtonText: "확인" })
-            .then((contentRes) => {
-              if (contentRes.isConfirmed) {
-                const content = contentRes.value;
-                const id = user.id;
-                dispatch(createNotice({ content, title, id }));
-              }
-            })
+          Swal.fire({
+            title: `${title}`,
+            input: "textarea",
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonText: "취소",
+            confirmButtonText: "확인",
+          }).then((contentRes) => {
+            if (contentRes.isConfirmed) {
+              const content = contentRes.value;
+              const id = user.id;
+              dispatch(createNotice({ content, title, id }));
+            }
+          });
         }
       })
-      .catch((error) => { Swal.fire({ title: `${error}` }) })
-  }
+      .catch((error) => {
+        Swal.fire({ title: `${error}` });
+      });
+  };
 
   const onDone = async (e) => {
-    Swal.fire({ icon: 'question', text: '이 공지사항을 비활성화 할까요?', showCancelButton: true, showConfirmButton: true, cancelButtonText: 'CANCEL', confirmButtonText: 'OK' })
+    Swal.fire({
+      icon: "question",
+      text: "이 공지사항을 비활성화 할까요?",
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonText: "CANCEL",
+      confirmButtonText: "OK",
+    })
       .then((result) => {
         if (result.isConfirmed) {
           const no = parseInt(e.target.dataset.no);
           dispatch(doneNotice({ no }));
-          Swal.fire({ icon: 'success', text: '비활성화 했습니다.' })
+          Swal.fire({ icon: "success", text: "비활성화 했습니다." });
         }
       })
-      .catch((error) => { Swal.fire({ icon: 'error', text: `${error}` }) })
-  }
+      .catch((error) => {
+        Swal.fire({ icon: "error", text: `${error}` });
+      });
+  };
 
   const onDisableNotice = async () => {
     Swal.fire({
-      icon: 'warning',
+      icon: "warning",
       title: "구현 할까말까 고민 중",
       timer: 1000,
-    })
-  }
+    });
+  };
 
   //정보 확인중 갱신되면 곤란할테니 유저 리스트는 실시간 갱신 안할것임, 회원 탈퇴는 바로 갱신
   useEffect(() => {
@@ -94,7 +118,6 @@ const AdminBoardCnrt = () => {
   }, [dispatch]);
 
   return (
-
     <AdminBoardComp
       getBoardInform={getBoardInform}
       deleteBoardInform={deleteBoardInform}
@@ -107,7 +130,6 @@ const AdminBoardCnrt = () => {
       onDone={onDone}
       onDisableNotice={onDisableNotice}
     />
-
   );
 };
 

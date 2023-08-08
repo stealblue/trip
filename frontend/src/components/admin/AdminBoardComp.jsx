@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 
 import PaginationComp from "../common/PaginationComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartSimple, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
 import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const AdminBoardWrap = styled.div`
@@ -202,14 +201,14 @@ const AdminBoardComp = ({
     <AdminBoardWrap>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />
           <span>게시물</span>
         </BoardName>
         <AdminUserGraph totalItem={totalBoard} type={"board"} />
       </BoardContainer>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />
           <span>게시물 / </span>
           <span>총 게시물 수({totalBoard})개</span>
         </BoardName>
@@ -224,30 +223,27 @@ const AdminBoardComp = ({
             <li></li>
           </ul>
           {boardList.slice(offset, offset + limit).map((board) => (
-            <>
-              <BoardInfoContainer
-                key={board.no}
-                className={board.grade === 2 ? "notice" : null}
-              >
-                <BoardInfo id={board.no} onClick={getBoardInform}>
-                  <Detail>{board.no}</Detail>
-                  <Detail>{board.id}</Detail>
-                  <Detail className="title">{board.title}</Detail>
-                  <Detail>{board.like}</Detail>
-                  <Detail>{board.cnt}</Detail>
-                  <Detail>{makeCreatedAt(board.createAt)}</Detail>
-                </BoardInfo>
-
-                {board.grade === 2 ? (
-                  <button onClick={onDone} data-no={board.no}>
-                    비활성화
-                  </button>
-                ) : null}
-                <ControlButton onClick={() => deleteBoardInform(board.no)}>
-                  삭제
-                </ControlButton>
-              </BoardInfoContainer>
-            </>
+            <BoardInfoContainer
+              key={board.no}
+              className={board.grade === 2 ? "notice" : null}
+            >
+              <BoardInfo onClick={getBoardInform}>
+                <Detail>{board.no}</Detail>
+                <Detail>{board.id}</Detail>
+                <Detail className="title">{board.title}</Detail>
+                <Detail>{board.like}</Detail>
+                <Detail>{board.cnt}</Detail>
+                <Detail>{makeCreatedAt(board.createAt)}</Detail>
+              </BoardInfo>
+              {board.grade === 2 ? (
+                <button onClick={onDone} data-no={board.no}>
+                  비활성화
+                </button>
+              ) : null}
+              <ControlButton onClick={() => deleteBoardInform(board.no)}>
+                삭제
+              </ControlButton>
+            </BoardInfoContainer>
           ))}
           <PaginationComp
             total={boardList.length}
@@ -266,14 +262,6 @@ const AdminBoardComp = ({
             >
               <h3>게시글 상세 정보</h3>
               <table>
-                {/* <thead>
-                  <tr>
-                    <th></th>
-                    <th>Ipsum</th>
-                    <th>Ipsum</th>
-                    <th>Ipsum</th>
-                  </tr>
-                </thead> */}
                 <tbody>
                   <tr>
                     <th>게시물번호</th>
@@ -285,13 +273,6 @@ const AdminBoardComp = ({
                     <th>제목</th>
                     <td colSpan="3">{board.title}</td>
                   </tr>
-                  {/* <tr>
-                    <th>내용</th>
-                    <td colSpan="3" className="content">
-                      {board.content}
-                    </td>
-                  </tr> */}
-
                   <tr>
                     <th>좋아요</th>
                     <td>{board.like}</td>
@@ -306,15 +287,6 @@ const AdminBoardComp = ({
               </table>
               <p className="content-title">내용</p>
               <div className="content">{board.content}</div>
-
-              {/* <div>게시물 번호 : {board.no}</div>
-              <div>작성자 : {board.id}</div>
-              <div>제목 : {board.title}</div>
-              <div>사진 : {board.img}</div>
-              <div>내용 : {board.content}</div>
-              <div>좋아요 : {board.like}</div>
-              <div>조회수 : {board.cnt}</div>
-              <div>작성일 : {board.createAt}</div> */}
               <ControlButton onClick={switchModal}>닫기</ControlButton>
             </StyledModal>
           )}

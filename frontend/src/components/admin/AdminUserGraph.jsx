@@ -36,7 +36,7 @@ const AdminUserGraph = ({ loading, type }) => {
 
   useEffect(() => {
     if (userAction) {
-      setBoardSeries([
+      setUserSeries([
         { name: "누적 가입자 수", data: TotalMembers },
         { name: "일일 가입자 수", data: dailyRegister },
       ]);
@@ -45,7 +45,7 @@ const AdminUserGraph = ({ loading, type }) => {
 
   useEffect(() => {
     if (boardAction) {
-      setUserSeries([
+      setBoardSeries([
         { name: "누적 게시물 수", data: Totalboards },
         { name: "일일 게시물 수", data: dailyTotalboards },
       ]);
