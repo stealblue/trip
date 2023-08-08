@@ -86,7 +86,7 @@ const AdminStyleComp = ({
                 value="basic"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
                 checked
               />
             ) : (
@@ -95,7 +95,7 @@ const AdminStyleComp = ({
                 value="basic"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
               />
             )}
           </Label>
@@ -107,7 +107,7 @@ const AdminStyleComp = ({
                 value="dark"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
                 checked
               />
             ) : (
@@ -116,7 +116,7 @@ const AdminStyleComp = ({
                 value="dark"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
               />
             )}
           </Label>
@@ -128,7 +128,7 @@ const AdminStyleComp = ({
                 value="green"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
                 checked
               />
             ) : (
@@ -137,7 +137,7 @@ const AdminStyleComp = ({
                 value="green"
                 role="switch"
                 type="radio"
-                onClick={onChangeStyleMode}
+                onChange={onChangeStyleMode}
               />
             )}
           </Label>
