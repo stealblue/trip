@@ -1,7 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
 import PageNavComp3 from "../common/PageNavComp3";
-// import ThemeComp from "../common/ThemeComp";
 import WrapperComp from "../common/WrapperComp";
 
 const TrafficContainer = styled.div`

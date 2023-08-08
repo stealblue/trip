@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   display: flex;

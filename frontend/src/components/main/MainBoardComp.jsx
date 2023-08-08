@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-// import ThemeComp from "../common/ThemeComp";
 import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const MainBoardWarraper = styled.div`

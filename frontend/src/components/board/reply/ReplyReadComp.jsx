@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-// import ThemeComp from "../../common/ThemeComp";
 import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 

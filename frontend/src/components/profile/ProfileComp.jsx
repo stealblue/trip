@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import Modal from "styled-react-modal";
-// import ThemeComp from "../common/ThemeComp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";

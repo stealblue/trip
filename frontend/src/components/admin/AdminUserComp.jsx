@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 import PaginationComp from "../common/PaginationComp";

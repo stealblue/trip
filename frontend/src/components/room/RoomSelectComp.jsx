@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 import KoreaMap from "../area/KoreaMap";
 
 const RoomListItem = styled.button`

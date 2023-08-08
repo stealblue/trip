@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { useState, useCallback } from "react";
 import AskRemoveModalComp from "../remove/AskRemoveModalComp";
-// import ThemeComp from "../../common/ThemeComp";
 
 const ListButtons = styled.div`
   display: flex;

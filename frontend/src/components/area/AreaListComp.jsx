@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import PageNavComp from "../common/PageNavComp";
 import LazyLoad from "react-lazyload";
-// import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
   /* background: #ff3f; */

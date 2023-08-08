@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import styles from "./ModalBasic.css";
 import KakaoMapComp from "./KakaoMapComp";
 import { styled } from "styled-components";
-// import ThemeComp from "./ThemeComp";
 
 const ModalBlock = styled.div`
   background-color: ${(props) => props.theme.smoke};

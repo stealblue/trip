@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp4 from "../common/PageNavComp4";
-// import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
   margin: 0 auto;

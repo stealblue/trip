@@ -1,7 +1,6 @@
 import { css, styled } from "styled-components";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
-// import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

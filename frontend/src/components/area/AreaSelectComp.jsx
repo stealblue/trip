@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 import AreaListCntr from "../../containers/area/AreaListCntr";
 import KoreaMap from "./KoreaMap";
 

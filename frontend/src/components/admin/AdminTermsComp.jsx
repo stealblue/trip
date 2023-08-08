@@ -1,5 +1,4 @@
 import { css, styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
 

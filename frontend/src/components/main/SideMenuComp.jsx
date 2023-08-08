@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

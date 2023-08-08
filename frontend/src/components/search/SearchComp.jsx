@@ -1,7 +1,6 @@
 import React from "react";
 import KoreaMap from "../area/KoreaMap";
 import styled from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 
 const SearchWrapper = styled.div`
   position: relative;

@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-// import ThemeComp from "./ThemeComp";
 import { Link } from "react-router-dom";
 
 const ButtonStyle = css`

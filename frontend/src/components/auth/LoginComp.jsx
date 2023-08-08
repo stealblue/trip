@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import Modal from "styled-react-modal";
-// import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

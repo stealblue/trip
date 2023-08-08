@@ -12,8 +12,7 @@ const upload = multer({
       done(null, "../frontend/public/assets"); //파일 저장경로, 없는 경로 입력할 경우 500 에러 발생
     },
     filename(req, file, done) {
-      const ext = path.extname(file.originalname);
-      done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      done(null, path.basename("logo.jpg")); //로고 파일명 logo.jpg로 저장되게하여 바로 적용, 기존의 logo 파일을 덮어씌움
     },
   }),
   fileFilter: (req, file, cb) => {

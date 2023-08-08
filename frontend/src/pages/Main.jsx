@@ -24,7 +24,6 @@ import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
-// import ThemeComp from "../components/common/ThemeComp";
 import HamMenuComp from "../components/main/HamMenuComp";
 
 const SlideWarraper = styled.div`

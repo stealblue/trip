@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 import { selectPageTrain } from "../../modules/traffic/TrainMod";
 import { selectPageBus } from "../../modules/traffic/BusMod";
-// import ThemeComp from "./ThemeComp";
 
 const LiBlock = styled.li`
   display: inline-block;

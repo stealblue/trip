@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-// import ThemeComp from "./ThemeComp";
 
 const KeywordBox = styled.div`
   border-radius: 25px;

@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 import { showPageNo } from "../../modules/room/LodgingMod";
-// import ThemeComp from "./ThemeComp";
 
 const LiBlock = styled.li`
   display: inline-block;

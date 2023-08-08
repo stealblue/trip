@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import ThemeComp from "./ThemeComp";
 
 const InputBoxCon = styled.input`
   padding: 10px 20px;

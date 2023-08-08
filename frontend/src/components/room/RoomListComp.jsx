@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp2 from "../common/PageNavComp2";
-// import ThemeComp from "../common/ThemeComp";
 
 const RoomListContainer = styled.div`
   width: 800px;

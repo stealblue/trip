@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import WrapperComp from "../common/WrapperComp";
-// import ThemeComp from "../common/ThemeComp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import {

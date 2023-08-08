@@ -1,5 +1,4 @@
 import { css, styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 
 const AdminBoardWrap = styled.div`
   width: 100%;

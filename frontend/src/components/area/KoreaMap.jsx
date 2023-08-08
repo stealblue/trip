@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
 
 const KoreaMapContainer = styled.div`
   width: 100%;

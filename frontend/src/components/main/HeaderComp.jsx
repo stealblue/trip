@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
-// import ThemeComp from "../common/ThemeComp";
 import HamMenuComp from "./HamMenuComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -174,6 +173,7 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
+  //기본 로고 triplogo8.png
   return (
     <>
       <HeaderContainer
@@ -181,7 +181,7 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
       >
         <Logo onClick={onClick}>
           <Link to="/">
-            <img src="/assets/triplogo8.png" alt="img" />
+            <img src="/assets/logo.jpg" alt="img" />
           </Link>
         </Logo>
         <FontAwesomeIcon

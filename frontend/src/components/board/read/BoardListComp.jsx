@@ -5,7 +5,6 @@ import { TitleComp, SubTitleComp } from "../../../components/common/TitleComp";
 import WrapperComp from "../../../components/common/WrapperComp";
 import ButtonComp from "../../../components/common/ButtonComp";
 import PaginationComp from "../../common/PaginationComp";
-// import ThemeComp from "../../common/ThemeComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

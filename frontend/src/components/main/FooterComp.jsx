@@ -1,6 +1,4 @@
 import { styled } from "styled-components";
-// import ThemeComp from "../common/ThemeComp";
-import { changePhotoFailure } from "../../modules/profile/ProfileMod";
 
 const FooterComp = styled.div`
   width: 100%;
@@ -73,11 +71,12 @@ const FooterComp = styled.div`
   }
 `;
 
+//기본 로고 triplogo8.png
 const Footer = () => {
   return (
     <FooterComp>
       <div className="logo">
-        <img src="/assets/triplogo8.png" alt="img" />
+        <img src="/assets/logo.jpg" alt="img" />
       </div>
       <div>
         <ul className="footer-menu">
