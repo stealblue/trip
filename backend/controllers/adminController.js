@@ -370,7 +370,7 @@ exports.changeStyle = async (req, res) => {
 
 	try {
 		await user.update({ style: adminStyle }, { where: { id } });
-		const admin = user.findOne({ raw: true, where: { id } });
+		const admin = await user.findOne({ raw: true, where: { id } });
 		const Style = admin.style;
 
 		return res.status(200).json({ adminStyle: Style });

@@ -50,15 +50,12 @@ const SlideWarraper = styled.div`
     font-size: 70px;
     font-family: "PyeongChangPeace-Bold";
     line-height: 74px;
-    // color: ${ThemeComp.white};
-    // -webkit-text-stroke: 1px ${ThemeComp.black};
     color: ${(props) => props.theme.white};
     -webkit-text-stroke: 1px ${(props) => props.theme.black};
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   }
   p {
     font-size: 20px;
-    // background: ${ThemeComp.yellow};
     background: ${(props) => props.theme.yellow};
     padding: 10px 40px;
     border-radius: 50px;
@@ -70,7 +67,6 @@ const SlideWarraper = styled.div`
 
     span {
       margin-right: 10px;
-      // color: ${ThemeComp.black};
       color: ${(props) => props.theme.black};
     }
   }

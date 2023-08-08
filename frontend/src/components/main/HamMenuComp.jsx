@@ -42,7 +42,6 @@ const NavList = styled.li`
   }
   span {
     &.click {
-      // color: ${ThemeComp.subcolor};
       color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }

@@ -26,13 +26,11 @@ const ListContainer = styled.div`
   left: 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   flex-wrap: wrap;
-  // background: ${ThemeComp.white};
   background: ${(props) => props.theme.white};
   overflow: auto;
   /* display: none; */
   .theme {
     /* position: fixed; */
-    // background: ${ThemeComp.white};
     background: ${(props) => props.theme.white};
     margin-top: -2px;
   }
@@ -51,7 +49,6 @@ const ThemeList = styled.div`
   margin-left: 65px;
 `;
 const ThemeListItem = styled.button`
-  // background: ${ThemeComp.bgcolor};
   background: ${(props) => props.theme.bgcolor};
   padding: 10px 20px;
   margin-left: 14px;
@@ -62,15 +59,12 @@ const ThemeListItem = styled.button`
   transition: 0.3s;
   border: none;
   &:hover {
-    // background: ${ThemeComp.subcolor};
-    // color: ${ThemeComp.white};
     background: ${(props) => props.theme.subcolor};
     color: ${(props) => props.theme.white};
   }
 
   &.selectItem {
     background-color: steelblue;
-    // color: ${ThemeComp.smoke};
     color: ${(props) => props.theme.smoke};
     font-weight: 600;
   }

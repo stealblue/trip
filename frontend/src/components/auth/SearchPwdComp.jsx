@@ -23,7 +23,6 @@ const SearchPwdWrraper = styled.div`
   height: 100vh;
   margin: 0 auto;
   text-align: center;
-  // background: ${ThemeComp.bgcolor};
   background: ${(props) => props.theme.bgcolor};
   position: relative;
 
@@ -31,7 +30,6 @@ const SearchPwdWrraper = styled.div`
     position: absolute;
     left: 30px;
     top: 20px;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
   }
 
@@ -46,8 +44,6 @@ const SearchPwdWrraper = styled.div`
   .change-pwd-text {
     margin: 24px 0;
     font-size: 20px;
-    // color: ${ThemeComp.lightblack};
-    // border-bottom: 2px solid ${ThemeComp.lightblack};
     color: ${(props) => props.theme.lightblack};
     border-bottom: 2px solid ${(props) => props.theme.lightblack};
     padding: 6px 0;
@@ -63,7 +59,6 @@ const SearchPwdWrraper = styled.div`
     label {
       width: 180px;
       text-align: right;
-      // color: ${ThemeComp.softblack};
       color: ${(props) => props.theme.softblack};
     }
     input {
@@ -74,8 +69,6 @@ const SearchPwdWrraper = styled.div`
       /* border-radius: 40px; */
       margin-left: 20px;
       width: 100%;
-      // background: ${ThemeComp.white};
-      // border: 2px solid ${ThemeComp.white};
       background: ${(props) => props.theme.white};
       border: 2px solid ${(props) => props.theme.white};
     }
@@ -84,11 +77,9 @@ const SearchPwdWrraper = styled.div`
   button {
     width: 100%;
     padding: 17px 20px;
-    // background: ${ThemeComp.lightblack};
     background: ${(props) => props.theme.lightblack};
     cursor: pointer;
     border: none;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
     font-weight: 600;
     font-size: 18px;
@@ -96,7 +87,6 @@ const SearchPwdWrraper = styled.div`
   }
 
   button:hover {
-    // background: ${ThemeComp.softblack};
     background: ${(props) => props.theme.softblack};
   }
 `;

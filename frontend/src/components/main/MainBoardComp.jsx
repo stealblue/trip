@@ -15,7 +15,6 @@ const MainBoardWarraper = styled.div`
     border-bottom: 2px solid #111;
     padding: 20px 0;
     span {
-      // color: ${ThemeComp.red};
       color: ${(props) => props.theme.red};
       font-weight: 600;
     }
@@ -43,7 +42,6 @@ const ListContainer = styled.div`
   margin-top: 20px;
   .board-list {
     display: flex;
-    // border-bottom: 1px solid ${ThemeComp.lightblack};
     border-bottom: 1px solid ${(props) => props.theme.lightblack};
     padding: 10px 10px 20px;
     &:hover {
@@ -64,7 +62,6 @@ const ListContainer = styled.div`
   .createat {
     font-size: 14px;
     margin-top: 10px;
-    // color: ${ThemeComp.lightblack};
     color: ${(props) => props.theme.lightblack};
   }
 `;

@@ -27,19 +27,37 @@ import AdminTermsPage from "./pages/admin/AdminTermsPage";
 import AdminStylePage from "./pages/admin/AdminStylePage";
 // import AdminNoticePage from './pages/admin/AdminNoticePage';
 import styled, { ThemeProvider } from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
 import * as Theme from "./components/common/ThemeComp";
+import { useEffect, useState } from "react";
+import { getStyle } from "./modules/admin/AdminStyleMod";
 // import Swal from 'sweetalert2';
 
 function App() {
   // const navigate = useNavigate();
-  const { user, style } = useSelector(({ UserMod }) => ({
+  const dispatch = useDispatch();
+  const { user, adminStyle } = useSelector(({ UserMod, AdminStyleMod }) => ({
     user: UserMod?.user,
-    style: UserMod?.user?.style,
+    adminStyle: AdminStyleMod?.adminStyle,
   }));
-
+  const [theme, setTheme] = useState({
+    bgcolor: "#99ccff",
+    subcolor: "#3875f0",
+    lightcolor: "#17bdff",
+    smoke: "#F5F5F5",
+    dark: "#1a2b3c",
+    black: "#000",
+    softblack: "#333",
+    lightblack: "#666",
+    white: "#fff",
+    //main Color
+    softblue: "#d6e4f292",
+    green: "#0055ff",
+    red: "#ff3300",
+    yellow: "#ebd258",
+  });
   // const onSwal = () => {
   //   Swal.fire({
   //     title: "구현 중",
@@ -52,16 +70,25 @@ function App() {
   //       }
   //     })
   // }
-  let theme;
-  if (style === "basic") {
-    theme = Theme.basicTheme;
-  }
-  if (style === "dark") {
-    theme = Theme.darkTheme;
-  }
-  if (style === "green") {
-    theme = Theme.greenTheme;
-  }
+  useEffect(() => {
+    if (!adminStyle) {
+      dispatch(
+        getStyle({
+          id: "testAdmin@trippermaker.com"
+        })
+      );
+    }
+    if (adminStyle === "basic") {
+      return setTheme(Theme.basicTheme);
+    }
+    if (adminStyle === "dark") {
+      return setTheme(Theme.darkTheme);
+    }
+    if (adminStyle === "green") {
+      return  setTheme(Theme.greenTheme);
+    }
+  }, [adminStyle]);
+
   return (
     <>
       <ThemeProvider theme={theme}>

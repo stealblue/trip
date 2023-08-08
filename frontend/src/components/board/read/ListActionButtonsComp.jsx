@@ -16,12 +16,10 @@ const Buttons = styled.button`
   cursor: pointer;
   border: none;
   &:first-child {
-    // background: ${ThemeComp.bgcolor};
     background: ${(props) => props.theme.bgcolor};
   }
   &:last-child {
     margin-left: 10px;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
   }
 `;

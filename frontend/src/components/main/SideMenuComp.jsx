@@ -39,7 +39,6 @@ const SideMenuBox = styled.div`
   div {
     height: 25%;
     width: 100%;
-    // border-bottom: 1px solid ${ThemeComp.white};
     border-bottom: 1px solid ${(props) => props.theme.white};
     display: flex;
     flex-direction: column;
@@ -51,7 +50,6 @@ const SideMenuBox = styled.div`
     border: none;
   }
   span {
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
     padding: 5px 0;
   }

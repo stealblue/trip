@@ -5,7 +5,6 @@ import { styled } from "styled-components";
 // import ThemeComp from "./ThemeComp";
 
 const ModalBlock = styled.div`
-  // background-color: ${ThemeComp.smoke};
   background-color: ${(props) => props.theme.smoke};
   position: absolute;
   top: 80px;
@@ -151,8 +150,7 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
             </div>
             {onGetDetail?.reservationurl ? (
               <div className="Modal-item">
-                <div className="Modal-left">예약링크</div>
-                :{" "}
+                <div className="Modal-left">예약링크</div>:{" "}
                 <div
                   className="Moda-right"
                   dangerouslySetInnerHTML={{
@@ -189,8 +187,7 @@ const ModalBasic = ({ setModalOpen, mapData, getDetail, onGetDetail }) => {
             </div>
             {onGetDetail?.usetime ? (
               <div className="Modal-item">
-                <div className="Modal-left">이용시간</div>
-                :{" "}
+                <div className="Modal-left">이용시간</div>:{" "}
                 <div
                   className="Modal-right"
                   dangerouslySetInnerHTML={{ __html: onGetDetail.usetime }}

@@ -39,12 +39,10 @@ const AreaItemBlock = styled.div`
 
     .add-btn {
       padding: 7px 9px;
-      // background: ${ThemeComp.lightblack};
       background: ${(props) => props.theme.lightblack};
       width: 50px;
       text-align: center;
       margin-top: 40px;
-      // color: ${ThemeComp.white};
       color: ${(props) => props.theme.white};
       border-radius: 15px;
       margin-left: 320px;
@@ -52,7 +50,6 @@ const AreaItemBlock = styled.div`
       transition: 0.3s;
 
       &:hover {
-        // background: ${ThemeComp.subcolor};
         background: ${(props) => props.theme.subcolor};
       }
     }

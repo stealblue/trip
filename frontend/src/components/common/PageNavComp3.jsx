@@ -14,12 +14,10 @@ const LiBlock = styled.li`
   text-align: center;
 
   &:hover {
-    // color: ${ThemeComp.subcolor};
     color: ${(props) => props.theme.subcolor};
     font-weight: 600;
   }
   &.checkPage {
-    // color: ${ThemeComp.subcolor};
     color: ${(props) => props.theme.subcolor};
     font-weight: 600;
   }

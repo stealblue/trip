@@ -25,7 +25,6 @@ const AreaItemBlock = styled.div`
     width: 300px;
     height: 240px;
     border-radius: 20px;
-    // background: ${ThemeComp.smoke};
     background: ${(props) => props.theme.smoke};
   }
 
@@ -45,11 +44,9 @@ const AreaItemBlock = styled.div`
 
   .add-btn {
     padding: 7px 9px;
-    // background: ${ThemeComp.lightblack};
     background: ${(props) => props.theme.lightblack};
     width: 50px;
     text-align: center;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
     border-radius: 15px;
     margin-top: 50px;
@@ -59,7 +56,6 @@ const AreaItemBlock = styled.div`
     display: block;
 
     &:hover {
-      // background: ${ThemeComp.subcolor};
       background: ${(props) => props.theme.subcolor};
     }
   }

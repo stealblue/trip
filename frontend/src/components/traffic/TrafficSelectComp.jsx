@@ -21,14 +21,11 @@ const TrafficContainer = styled.div`
     cursor: pointer;
     &.select-btn {
       border-radius: 30px;
-      // background: ${ThemeComp.softblack};
       background: ${(props) => props.theme.softblack};
       border: none;
-      // color: ${ThemeComp.smoke};
       color: ${(props) => props.theme.smoke};
     }
     &.traffic-category {
-      // background-color: ${ThemeComp.yellow};
       background-color: ${(props) => props.theme.yellow};
     }
   }
@@ -48,7 +45,6 @@ const TrafficContainer = styled.div`
       width: 200px;
       margin-right: 20px;
       padding: 15px 10px;
-      // background: ${ThemeComp.smoke};
       background: ${(props) => props.theme.smoke};
       border-radius: 30px;
       border: 1px solid #333;
@@ -69,14 +65,12 @@ const TrafficContainer = styled.div`
       input {
         border-radius: 30px;
         padding: 0 30px;
-        // background: ${ThemeComp.smoke};
         background: ${(props) => props.theme.smoke};
       }
 
       select {
         width: 100px;
         height: 40px;
-        // background: ${ThemeComp.smoke};
         background: ${(props) => props.theme.smoke};
         cursor: pointer;
       }
@@ -94,7 +88,6 @@ const TrafficContainer = styled.div`
         border-radius: 30px;
         width: 200px;
         padding: 13px;
-        // background: ${ThemeComp.smoke};
         background: ${(props) => props.theme.smoke};
       }
     }
@@ -127,8 +120,6 @@ const SelectListBlock = styled.div`
   margin-top: 50px;
   margin-left: 10px;
   .title {
-    // background: ${ThemeComp.lightblack};
-    // color: ${ThemeComp.white};
     background: ${(props) => props.theme.lightblack};
     color: ${(props) => props.theme.white};
     padding: 10px 0;
@@ -138,8 +129,6 @@ const SelectListBlock = styled.div`
     border-bottom: 1px solid #333;
     padding: 10px 0;
     &.clicked {
-      // background-color: ${ThemeComp.lightblack};
-      // color: ${ThemeComp.smoke};
       background-color: ${(props) => props.theme.lightblack};
       color: ${(props) => props.theme.smoke};
     }

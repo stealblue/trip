@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const MainContentWrapper = styled.div`
   width: 100%;
-  // background: ${ThemeComp.softblue};
   background: ${(props) => props.theme.softblue};
   display: block;
   padding: 50px 0 100px 0;
@@ -45,11 +44,9 @@ const TravelList = styled.div`
       bottom: 120px;
       left: 30px;
       font-size: 40px;
-      // color: ${ThemeComp.white};
       color: ${(props) => props.theme.white};
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
       padding: 10px 0;
-      // border-bottom: 5px solid ${ThemeComp.red};
       border-bottom: 5px solid ${(props) => props.theme.red};
       font-family: "SUITE-Regular";
       font-weight: 600;
@@ -60,7 +57,6 @@ const TravelList = styled.div`
       bottom: 66px;
       left: 30px;
       font-size: 30px;
-      // color: ${ThemeComp.white};
       color: ${(props) => props.theme.white};
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
       font-family: "SUITE-Regular";
@@ -109,7 +105,6 @@ const TravelListTitle = styled.div`
     font-size: 30px;
     font-family: "SUITE-Regular";
     span {
-      // color: ${ThemeComp.subcolor};
       color: ${(props) => props.theme.subcolor};
       font-size: 36px;
       font-family: "OAGothic-ExtraBold";

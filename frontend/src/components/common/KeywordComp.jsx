@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 const KeywordBox = styled.div`
   border-radius: 25px;
   padding: 12px 30px;
-  // background-color: ${ThemeComp.yellow};
   background-color: ${(props) => props.theme.yellow};
   cursor: pointer;
   outline: none;
@@ -20,7 +19,6 @@ const KeywordBox = styled.div`
     box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
     position: relative;
     top: 2px;
-    // background-color: ${ThemeComp.dark};
     background-color: ${(props) => props.theme.dark};
   }
 `;

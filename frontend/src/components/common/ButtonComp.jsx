@@ -9,8 +9,6 @@ const ButtonStyle = css`
   line-height: 40px;
   border: 1px ${(props) => props.theme.bgcolor} solid;
   background-color: ${(props) => props.theme.bgcolor};
-  // border: 1px ${ThemeComp.bgcolor} solid;
-  // background-color: ${ThemeComp.bgcolor};
   text-align: center;
   cursor: pointer;
   border-radius: 10px;

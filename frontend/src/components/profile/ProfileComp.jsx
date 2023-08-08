@@ -43,8 +43,6 @@ const StyledModal = Modal.styled`
     }
   }
   .modal-close{
-    // background : ${ThemeComp.softblack};
-    // color : ${ThemeComp.white};
     background : ${(props) => props.theme.softblack};
     color : ${(props) => props.theme.white};
     padding: 5px 10px;
@@ -293,12 +291,12 @@ const NameTag = styled.span`
   width: 70px;
   padding: 0px 10px;
   display: inline-block;
-  /* background : ${ThemeComp.bgcolor}; */
+  /* background : ${(props) => props.theme.bgcolor}; */
   font-weight: 600;
 `;
 
 const ErrorMessage = styled.span`
-  color: ${ThemeComp.red};
+  color: ${(props) => props.theme.red};
   margin-left: 100px;
 `;
 
@@ -310,14 +308,12 @@ const Button = styled.button`
   display: inline-block;
   padding: 7px 15px;
   margin: 10px auto;
-  // background: ${ThemeComp.bgcolor};
   background: ${(props) => props.theme.bgcolor};
   border: none;
   border-radius: 10px;
   transition: 0.3s;
 
   &:hover {
-    // background: ${ThemeComp.subcolor};
     background: ${(props) => props.theme.subcolor};
     color: #fff;
   }
@@ -339,21 +335,16 @@ const SelectButton = styled.button`
   font-size: 15px;
   padding: 5px;
   margin: 5px;
-  // border: 1px solid ${ThemeComp.softblack};
   border: 1px solid ${(props) => props.theme.softblack};
   padding: 10px 20px;
   transition: 0.3s;
 
   &:focus {
-    // background: ${ThemeComp.softblack};
-    // color: ${ThemeComp.white};
     background: ${(props) => props.theme.softblack};
     color: ${(props) => props.theme.white};
   }
 
   &:hover {
-    // background: ${ThemeComp.softblack};
-    // color: ${ThemeComp.white};
     background: ${(props) => props.theme.softblack};
     color: ${(props) => props.theme.white};
   }
@@ -374,7 +365,6 @@ const ListBox = styled.div`
   margin: 0 auto;
   height: 600px;
   margin-top: 20px;
-  // background: ${ThemeComp.smoke};
   background: ${(props) => props.theme.smoke};
   padding: 50px;
 

@@ -18,7 +18,6 @@ const ListContainer = styled.div`
     width: 80%;
     margin: 0 auto;
     display: flex;
-    // background: ${ThemeComp.smoke};
     background: ${(props) => props.theme.smoke};
     padding: 20px;
     transition: 0.3s;

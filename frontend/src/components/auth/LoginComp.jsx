@@ -40,7 +40,6 @@ const LoginWrapper = styled.div`
   height: 100vh;
   margin: 0 auto;
   text-align: center;
-  // background: ${ThemeComp.bgcolor};
   background: ${(props) => props.theme.bgcolor};
   position: relative;
 
@@ -48,7 +47,6 @@ const LoginWrapper = styled.div`
     position: absolute;
     left: 30px;
     top: 20px;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
   }
 
@@ -72,8 +70,6 @@ const LoginWrapper = styled.div`
   .logintext {
     margin: 24px 0;
     font-size: 20px;
-    // color: ${ThemeComp.lightblack};
-    // border-bottom: 2px solid ${ThemeComp.lightblack};
     color: ${(props) => props.theme.lightblack};
     border-bottom: 2px solid ${(props) => props.theme.lightblack};
     padding: 6px 0;
@@ -89,7 +85,6 @@ const LoginWrapper = styled.div`
     .label {
       width: 100px;
       text-align: right;
-      // color: ${ThemeComp.softblack};
       color: ${(props) => props.theme.softblack};
     }
   }
@@ -97,11 +92,9 @@ const LoginWrapper = styled.div`
   .login-btn {
     width: 400px;
     padding: 17px 20px;
-    // background: ${ThemeComp.lightblack};
     background: ${(props) => props.theme.lightblack};
     cursor: pointer;
     border: none;
-    // color: ${ThemeComp.white};
     color: ${(props) => props.theme.white};
     font-weight: 600;
     font-size: 18px;
@@ -109,12 +102,10 @@ const LoginWrapper = styled.div`
   }
 
   .login-btn:hover {
-    // background: ${ThemeComp.softblack};
     background: ${(props) => props.theme.softblack};
   }
 
   .find {
-    // color: ${ThemeComp.lightblack};
     color: ${(props) => props.theme.lightblack};
     margin-left: 10px;
     cursor: pointer;
@@ -126,7 +117,6 @@ const LoginWrapper = styled.div`
 
   .ragister {
     margin-left: 14px;
-    // color: ${ThemeComp.black};
     color: ${(props) => props.theme.black};
     font-weight: 600;
   }
@@ -140,19 +130,15 @@ const LoginInput = styled.input`
   /* border-radius: 40px; */
   margin-left: 20px;
   width: 100%;
-  // background: ${ThemeComp.white};
-  // border: 2px solid ${ThemeComp.white};
   background: ${(props) => props.theme.white};
   border: 2px solid ${(props) => props.theme.white};
 `;
 
 const ErrorText = styled.p`
-  // color: ${ThemeComp.red};
   color: ${(props) => props.theme.red};
 `;
 
 const StyledModal = Modal.styled`
-  // background: ${ThemeComp.smoke};
   background: ${(props) => props.theme.smoke};
   height: 300px;
   width: 500px;
@@ -186,7 +172,6 @@ const StyledModal = Modal.styled`
   button{
     padding:10px 17px;
     margin: 10px 8px;
-    // background: ${ThemeComp.bgcolor};
     background: ${(props) => props.theme.bgcolor};
     border:none;
     font-size:16px;
@@ -195,8 +180,6 @@ const StyledModal = Modal.styled`
     transition : .3s;
 
     &:hover{
-    // background: ${ThemeComp.subcolor};
-    // color : ${ThemeComp.white};
     background: ${(props) => props.theme.subcolor};
     color : ${(props) => props.theme.white};
     }

@@ -32,7 +32,6 @@ const TrafficHeader = styled.table`
   }
 
   th {
-    // background: ${ThemeComp.lightblack};
     background: ${(props) => props.theme.lightblack};
     color: #fff;
   }

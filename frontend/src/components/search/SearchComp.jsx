@@ -15,7 +15,6 @@ const SelectContainer = styled.div`
 
   select {
     padding: 10px 20px;
-    // background: ${ThemeComp.bgcolor};
     background: ${(props) => props.theme.bgcolor};
     margin-left: 30px;
   }
@@ -24,7 +23,6 @@ const SelectContainer = styled.div`
   }
   div {
     position: fixed;
-    // background: ${ThemeComp.white};
     background: ${(props) => props.theme.white};
     width: 600px;
     padding: 34px 10px 20px 176px;
