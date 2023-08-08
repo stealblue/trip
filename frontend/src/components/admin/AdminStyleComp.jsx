@@ -1,4 +1,6 @@
 import { css, styled } from "styled-components";
+import ButtonComp from "../../components/common/ButtonComp";
+import PaginationComp from "../common/PaginationComp";
 
 const AdminBoardWrap = styled.div`
   width: 100%;
@@ -56,12 +58,28 @@ const Button = styled.button`
   }
 `;
 
+const WriteButton = styled(ButtonComp)`
+  border: 1px solid black;
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  top: 30px;
+  transform: translate(-50%, 0);
+`;
+
 const Label = styled.label`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
   margin: 0 10px;
+`;
+
+const TestBox = styled.div`
+  width: 250px;
+  height: 250px;
+  background: ${(props) => props.theme.bgcolor};
 `;
 
 const AdminStyleComp = ({
@@ -86,7 +104,7 @@ const AdminStyleComp = ({
                 role="switch"
                 type="radio"
                 onChange={onChangeStyleMode}
-                checked
+                defaultChecked //일반 checked 쓰면 콘솔창에 undefined 에러발생.
               />
             ) : (
               <input
@@ -107,7 +125,7 @@ const AdminStyleComp = ({
                 role="switch"
                 type="radio"
                 onChange={onChangeStyleMode}
-                checked
+                defaultChecked //일반 checked 쓰면 콘솔창에 undefined 에러발생.
               />
             ) : (
               <input
@@ -128,7 +146,7 @@ const AdminStyleComp = ({
                 role="switch"
                 type="radio"
                 onChange={onChangeStyleMode}
-                checked
+                defaultChecked //일반 checked 쓰면 콘솔창에 undefined 에러발생.
               />
             ) : (
               <input
@@ -142,6 +160,10 @@ const AdminStyleComp = ({
           </Label>
         </ButtonBox>
         <Button onClick={onSubmitStyle}>적용</Button>
+        <TestBox>
+          <WriteButton>버튼</WriteButton>
+          <PaginationComp total={"20"} limit={"10"} page={"5"} setPage={""} />
+        </TestBox>
       </BoardContainer>
     </AdminBoardWrap>
   );

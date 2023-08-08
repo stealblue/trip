@@ -48,5 +48,3 @@ export const darkTheme = {
   red: "#ff3300",
   yellow: "#ebd258",
 };
-
-// export { basicTheme, darkTheme, greenTheme };

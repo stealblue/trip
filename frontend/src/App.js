@@ -33,14 +33,15 @@ import KoreaMap from "./components/area/KoreaMap";
 import * as Theme from "./components/common/ThemeComp";
 import { useEffect, useState } from "react";
 import { getStyle } from "./modules/admin/AdminStyleMod";
+import { getMainStyle } from "./modules/main/MainboardMod";
 // import Swal from 'sweetalert2';
 
 function App() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, adminStyle } = useSelector(({ UserMod, AdminStyleMod }) => ({
+  const { user, mainStyle } = useSelector(({ UserMod, MainboardMod }) => ({
     user: UserMod?.user,
-    adminStyle: AdminStyleMod?.adminStyle,
+    mainStyle: MainboardMod?.mainStyle,
   }));
   const [theme, setTheme] = useState({
     bgcolor: "#99ccff",
@@ -71,23 +72,27 @@ function App() {
   //     })
   // }
   useEffect(() => {
-    if (!adminStyle) {
+    dispatch(
+      getMainStyle()
+    );
+
+    if (!mainStyle) {
       dispatch(
         getStyle({
           id: "testAdmin@trippermaker.com"
         })
       );
     }
-    if (adminStyle === "basic") {
+    if (mainStyle === "basic") {
       return setTheme(Theme.basicTheme);
     }
-    if (adminStyle === "dark") {
+    if (mainStyle === "dark") {
       return setTheme(Theme.darkTheme);
     }
-    if (adminStyle === "green") {
+    if (mainStyle === "green") {
       return  setTheme(Theme.greenTheme);
     }
-  }, [adminStyle]);
+  }, [mainStyle]);
 
   return (
     <>

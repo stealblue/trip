@@ -6,6 +6,7 @@ import {
   changeValue,
   getStyle,
 } from "../../modules/admin/AdminStyleMod";
+import { getMainStyle } from "../../modules/main/MainboardMod";
 
 const AdminStyleCntr = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const AdminStyleCntr = () => {
         })
       );
     }
+    dispatch(getMainStyle());
   }, [adminStyle]);
 
   return (

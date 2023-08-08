@@ -4,3 +4,7 @@ import client from "./client";
 export const mainListPosts = (page) => {
   return client.get(`/boardlist`, { params: { page } });
 };
+
+export const getMainStyle = async () => {
+  return await client.get("/getMainStyle");
+};

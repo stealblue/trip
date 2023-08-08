@@ -24,7 +24,6 @@ import MaincontentComp from "../components/main/MainContentComp";
 import MainChatComp from "../components/main/MainChatComp";
 import { useDispatch } from "react-redux";
 import MainBoardCntr from "../containers/main/MainBoardCntr";
-import HamMenuComp from "../components/main/HamMenuComp";
 
 const SlideWarraper = styled.div`
   position: relative;
@@ -159,10 +158,6 @@ const Main = () => {
     }
   };
 
-  const onHamMenu = (e) => {
-    console.log("dddddddddddddddddd");
-  };
-
   return (
     <>
       <SlideWarraper>
@@ -254,7 +249,6 @@ const Main = () => {
         <MainChatComp />
         <MainBoardCntr />
       </MainBoardListContainer>
-      {/* <HamMenuComp onHamMenu={onHamMenu} /> */}
     </>
   );
 };

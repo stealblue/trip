@@ -1,4 +1,3 @@
-
 const { user, board } = require("../models/mysql");
 const { Op } = require("sequelize");
 const { generateToken } = require("./authController");
