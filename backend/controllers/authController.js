@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-exports.generateToken = (id, nick, grade, style, no) => {
+exports.generateToken = (id, nick, gender ,grade, style, no) => {
     const token = jwt.sign(
         //첫 번째 파라미터에는 토큰 안에 넣고 싶은 데이터 넣음. 
         {
             id: id,
             nick: nick,
+            gender: gender,
             grade: grade,
             style: style,
             no

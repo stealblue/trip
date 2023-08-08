@@ -632,7 +632,7 @@ const ProfileComp = ({
               </UserInform>
               <UserInform>
                 <NameTag>성별</NameTag>
-                <Detail>{user.gender === "0" ? "남자" : "여자"}</Detail>
+                <Detail>{user.gender === false ? "남자" : "여자"}</Detail>
               </UserInform>
             </>
           ) : user && changeInform ? (
@@ -674,9 +674,13 @@ const ProfileComp = ({
           )}
           <div className="buttons">
             <Button onClick={onChangeProfile}>정보수정</Button>
-            <Button className="delete-user-btn" onClick={onWithdraw}>
-              회원탈퇴
-            </Button>
+            {changeInform ? (
+              ""
+            ) : (
+              <Button className="delete-user-btn" onClick={onWithdraw}>
+                회원탈퇴
+              </Button>
+            )}
             {changeInform && (
               <Button
                 style={{ marginLeft: "10px" }}

@@ -25,3 +25,16 @@ exports.getMainStyle = async (req, res) => {
     return res.status(400).json({styleError: true});
   }
 };
+
+exports.getMainTerms = async (req, res) => {
+  const {type} = req.params;
+
+  try {
+    const mainTerms = await board.findOne({ raw: true, where: { type } });
+    console.log(mainTerms);
+    return res.status(200).json({mainTerms});
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({mainTermsError: true});
+  }
+}

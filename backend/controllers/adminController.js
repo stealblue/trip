@@ -173,9 +173,7 @@ exports.getBoardAction = async (req, res) => {
 		console.error(e);
 		res.status(400).json({ boardActionError: true });
 	}
-
 }
-
 
 exports.deleteBoard = async (req, res) => {
 	const { no } = req.params;
@@ -262,7 +260,7 @@ exports.changeInform = async (req, res) => {
 		const updatedAdmin = await user.findOne({ where: { id: newAdminId } });
 
 		//토큰 재설정 안해주면 정보 수정후 localStorage 및 쿠키에는 상호 변경전 아이디의 정보가 들어가있음
-		const token = generateToken(newAdminId, updatedAdmin.nick, updatedAdmin.grade, updatedAdmin.style, updatedAdmin.no);
+		const token = generateToken(newAdminId, updatedAdmin.nick,updatedAdmin.gender, updatedAdmin.grade, updatedAdmin.style, updatedAdmin.no);
 		res.cookie("access_token", token, {
 		maxAge: 1000 * 60 * 60 * 24 * 7,
 		httpOnly: true,
@@ -287,7 +285,7 @@ exports.getAdminTerms = async (req, res) => {
 				type,
 			}
 		});
-		console.log
+
 		if (exTerms) {
 			return res.status(200).json({ getTerms: exTerms });
 		}

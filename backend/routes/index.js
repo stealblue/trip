@@ -12,7 +12,7 @@ const like = require("./likeRouter");
 const schedule = require("./scheduleRouter");
 const theme = require("./themeRouter");
 const ticket = require('./ticketRouter');
-const { mainBoardList, getMainStyle } = require("../controllers/mainController");
+const { mainBoardList, getMainStyle, getMainTerms } = require("../controllers/mainController");
 const router = express.Router();
 
 router.get("/", function (req, res) {
@@ -20,6 +20,7 @@ router.get("/", function (req, res) {
 });
 router.get("/boardlist", mainBoardList);
 router.get("/getMainStyle", getMainStyle);
+router.get("/getMainTerms/:type", getMainTerms);
 router.use("/board", board);
 router.use("/auth", auth);
 router.use("/admin", admin);

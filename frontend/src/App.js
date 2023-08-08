@@ -26,22 +26,21 @@ import AdminThemePage from "./pages/admin/AdminThemePage";
 import AdminTermsPage from "./pages/admin/AdminTermsPage";
 import AdminStylePage from "./pages/admin/AdminStylePage";
 // import AdminNoticePage from './pages/admin/AdminNoticePage';
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
 import * as Theme from "./components/common/ThemeComp";
 import { useEffect, useState } from "react";
-import { getStyle } from "./modules/admin/AdminStyleMod";
-import { getMainStyle } from "./modules/main/MainboardMod";
+import { getMainStyle } from "./modules/main/MainMod";
 // import Swal from 'sweetalert2';
 
 function App() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, mainStyle } = useSelector(({ UserMod, MainboardMod }) => ({
+  const { user, mainStyle } = useSelector(({ UserMod, MainMod }) => ({
     user: UserMod?.user,
-    mainStyle: MainboardMod?.mainStyle,
+    mainStyle: MainMod?.mainStyle,
   }));
   const [theme, setTheme] = useState({
     bgcolor: "#99ccff",
@@ -76,14 +75,7 @@ function App() {
       getMainStyle()
     );
 
-    if (!mainStyle) {
-      dispatch(
-        getStyle({
-          id: "testAdmin@trippermaker.com"
-        })
-      );
-    }
-    if (mainStyle === "basic") {
+    if (mainStyle === null || mainStyle === undefined || mainStyle === "basic") {
       return setTheme(Theme.basicTheme);
     }
     if (mainStyle === "dark") {

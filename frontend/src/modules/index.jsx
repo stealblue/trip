@@ -25,7 +25,7 @@ import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
 import XmppMod, { XmppSaga } from "./chat/XmppMod";
 import SearchMod, { searchSaga } from "./search/SearchMod";
 import LoadingMod from "./loadingMod";
-import MainboardMod, { mainPostsSaga } from "./main/MainboardMod";
+import MainMod, { mainSaga } from "./main/MainMod";
 import TicketMod, { ticketSaga } from "./traffic/TicketMod";
 
 const rootReducer = combineReducers({
@@ -51,7 +51,7 @@ const rootReducer = combineReducers({
   ScheduleMod,
   XmppMod,
   SearchMod,
-  MainboardMod,
+  MainMod,
   AreaListMod,
   TicketMod,
   AdminTermsMod,
@@ -83,7 +83,7 @@ export function* rootSaga() {
     scheduleSaga(),
     XmppSaga(),
     searchSaga(),
-    mainPostsSaga(),
+    mainSaga(),
     areaListSaga(),
     ticketSaga(),
   ]);

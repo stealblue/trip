@@ -6,7 +6,7 @@ import {
   changeValue,
   getStyle,
 } from "../../modules/admin/AdminStyleMod";
-import { getMainStyle } from "../../modules/main/MainboardMod";
+import { getMainStyle } from "../../modules/main/MainMod";
 
 const AdminStyleCntr = () => {
   const dispatch = useDispatch();

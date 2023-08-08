@@ -8,3 +8,7 @@ export const mainListPosts = (page) => {
 export const getMainStyle = async () => {
   return await client.get("/getMainStyle");
 };
+
+export const getMainTerms = async ({type}) => {
+  return await client.get(`/getMainTerms/${type}`);
+};
