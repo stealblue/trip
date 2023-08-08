@@ -124,6 +124,7 @@ CREATE TABLE `user` (
   `grade` int NOT NULL DEFAULT '1',
   `reg` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `img` varchar(255) DEFAULT NULL,
+  `type` varchar(20) DEFAULT "basic",
   PRIMARY KEY (`no`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `nick` (`nick`),
