@@ -2,7 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../../lib/createRequestSaga";
-import * as postsAPI from "../../lib/api/main";
+// import * as postsAPI from "../../lib/api/main";
+import * as postsAPI from '../../lib/api/main';
 import { takeLatest } from "redux-saga/effects";
 
 const [MAIN_LIST_POSTS, MAIN_LIST_POSTS_SUCCESS, MAIN_LIST_POSTS_FAILURE] =
