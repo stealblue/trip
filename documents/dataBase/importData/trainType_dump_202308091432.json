@@ -1,0 +1,63 @@
+{
+"trainType": [
+	{
+		"no" : 1,
+		"trainCode" : "00",
+		"trainName" : "KTX"
+	},
+	{
+		"no" : 2,
+		"trainCode" : "01",
+		"trainName" : "새마을호"
+	},
+	{
+		"no" : 3,
+		"trainCode" : "02",
+		"trainName" : "무궁화호"
+	},
+	{
+		"no" : 4,
+		"trainCode" : "03",
+		"trainName" : "통근열차"
+	},
+	{
+		"no" : 5,
+		"trainCode" : "04",
+		"trainName" : "누리로"
+	},
+	{
+		"no" : 6,
+		"trainCode" : "06",
+		"trainName" : "AREX직통"
+	},
+	{
+		"no" : 7,
+		"trainCode" : "07",
+		"trainName" : "KTX-산천(A-type)"
+	},
+	{
+		"no" : 8,
+		"trainCode" : "08",
+		"trainName" : "ITX-새마을"
+	},
+	{
+		"no" : 9,
+		"trainCode" : "09",
+		"trainName" : "ITX-청춘"
+	},
+	{
+		"no" : 10,
+		"trainCode" : "10",
+		"trainName" : "KTX-산천(B-type)"
+	},
+	{
+		"no" : 11,
+		"trainCode" : "16",
+		"trainName" : "KTX-이음"
+	},
+	{
+		"no" : 12,
+		"trainCode" : "17",
+		"trainName" : "SRT"
+	}
+]}

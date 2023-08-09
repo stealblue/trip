@@ -1,0 +1,88 @@
+{
+"like": [
+	{
+		"no" : 10,
+		"id" : "testAdmin3",
+		"bno" : 76
+	},
+	{
+		"no" : 27,
+		"id" : "testAdmin2",
+		"bno" : 76
+	},
+	{
+		"no" : 30,
+		"id" : "testAdmin2",
+		"bno" : 77
+	},
+	{
+		"no" : 38,
+		"id" : "testAdmin",
+		"bno" : 79
+	},
+	{
+		"no" : 86,
+		"id" : "ku0788@gmail.com",
+		"bno" : 77
+	},
+	{
+		"no" : 115,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 76
+	},
+	{
+		"no" : 116,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 131
+	},
+	{
+		"no" : 118,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 128
+	},
+	{
+		"no" : 119,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 129
+	},
+	{
+		"no" : 121,
+		"id" : "ku0788@gmail.com",
+		"bno" : 78
+	},
+	{
+		"no" : 230,
+		"id" : "ku0788@gmail.com",
+		"bno" : 134
+	},
+	{
+		"no" : 239,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 141
+	},
+	{
+		"no" : 243,
+		"id" : "ku0788@gmail.com",
+		"bno" : 136
+	},
+	{
+		"no" : 557,
+		"id" : "testAdmin@trippermaker.com",
+		"bno" : 155
+	},
+	{
+		"no" : 564,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 155
+	},
+	{
+		"no" : 565,
+		"id" : "jaeho614a@gmail.com",
+		"bno" : 158
+	},
+	{
+		"no" : 566,
+		"id" : "alxo9974@naver.com",
+		"bno" : 159
+	}
+]}

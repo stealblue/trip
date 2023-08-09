@@ -1,0 +1,43 @@
+{
+"busType": [
+	{
+		"no" : 1,
+		"busCode" : "IDB",
+		"busName" : "프리미엄"
+	},
+	{
+		"no" : 2,
+		"busCode" : "IDG",
+		"busName" : "일반"
+	},
+	{
+		"no" : 3,
+		"busCode" : "IDP",
+		"busName" : "우등"
+	},
+	{
+		"no" : 4,
+		"busCode" : "IDW",
+		"busName" : "주말프리"
+	},
+	{
+		"no" : 5,
+		"busCode" : "INB",
+		"busName" : "심야프리"
+	},
+	{
+		"no" : 6,
+		"busCode" : "ING",
+		"busName" : "심야일반"
+	},
+	{
+		"no" : 7,
+		"busCode" : "INP",
+		"busName" : "심야우등"
+	},
+	{
+		"no" : 8,
+		"busCode" : "INW",
+		"busName" : "주말심프"
+	}
+]}
