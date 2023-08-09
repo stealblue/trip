@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import ThemeComp from "../common/ThemeComp";
 import KoreaMap from "../area/KoreaMap";
 
 const RoomListItem = styled.button`
   display: flex;
   justify-content: space-around;
-  background: ${ThemeComp.bgcolor};
+  background: ${(props) => props.theme.bgcolor};
   padding: 10px 20px;
   margin-top: 14px;
   font-size: 16px;
@@ -16,12 +15,12 @@ const RoomListItem = styled.button`
   margin-left: 10px;
   border: none;
   &:hover {
-    background: ${ThemeComp.subcolor};
-    color: ${ThemeComp.white};
+    background: ${(props) => props.theme.subcolor};
+    color: ${(props) => props.theme.white};
   }
   &.selectItem {
     background-color: steelblue;
-    color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     font-weight: 600;
   }
 `;

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import Responsive from "../common/ResponsiceComp";
 import KeywordComp from "../common/KeywordComp";
-import ThemeComp from "../common/ThemeComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -58,8 +56,15 @@ const MainSearchComp = ({ onSearchArea }) => {
       <SearchForm>
         <div className="searchform">
           <span>검색</span>
-          <input placeholder="장소,지역,테마 등을 입력하세요" onKeyUp={onSearchArea} />
-          <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" className="search-icon" />
+          <input
+            placeholder="장소,지역,테마 등을 입력하세요"
+            onKeyUp={onSearchArea}
+          />
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            size="2xl"
+            className="search-icon"
+          />
         </div>
 
         <div className="search-keyword">

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PageNavComp4 from "../common/PageNavComp4";
-import ThemeComp from "../common/ThemeComp";
 
 const AreaItemBlock = styled.div`
   margin: 0 auto;
@@ -37,18 +36,18 @@ const AreaItemBlock = styled.div`
 
     .add-btn {
       padding: 7px 9px;
-      background: ${ThemeComp.lightblack};
+      background: ${(props) => props.theme.lightblack};
       width: 50px;
       text-align: center;
       margin-top: 40px;
-      color: ${ThemeComp.white};
+      color: ${(props) => props.theme.white};
       border-radius: 15px;
       margin-left: 320px;
       cursor: pointer;
       transition: 0.3s;
 
       &:hover {
-        background: ${ThemeComp.subcolor};
+        background: ${(props) => props.theme.subcolor};
       }
     }
   }
@@ -79,13 +78,35 @@ const AreaItem = ({ area, onClick, addWish }) => {
   return (
     <AreaItemBlock>
       <div>
-        <img src={area.firstimage !== "" ? area.firstimage : area.firstimge2 ? area.firstimge2 : "/assets/triplogo-noimage.png"} alt="이미지없음" loading="lazy" />
+        <img
+          src={
+            area.firstimage !== ""
+              ? area.firstimage
+              : area.firstimge2
+              ? area.firstimge2
+              : "/assets/triplogo-noimage.png"
+          }
+          alt="이미지없음"
+          loading="lazy"
+        />
         <div className="des">
           <p className="title">{area.title}</p>
-          <p className="addr" onClick={onClick} data-mapx={area.mapx} data-mapy={area.mapy} data-title={area.title}>
+          <p
+            className="addr"
+            onClick={onClick}
+            data-mapx={area.mapx}
+            data-mapy={area.mapy}
+            data-title={area.title}
+          >
             {area.addr1}
           </p>
-          <span className="add-btn" onClick={addWish} data-contentid={area.contentid} data-title={area.title} data-contenttypeid={area.contenttypeid}>
+          <span
+            className="add-btn"
+            onClick={addWish}
+            data-contentid={area.contentid}
+            data-title={area.title}
+            data-contenttypeid={area.contenttypeid}
+          >
             + 추가
           </span>
         </div>
@@ -94,7 +115,14 @@ const AreaItem = ({ area, onClick, addWish }) => {
   );
 };
 
-const SearchResultComp = ({ areas, error, loading, addWish, searchType, onClick }) => {
+const SearchResultComp = ({
+  areas,
+  error,
+  loading,
+  addWish,
+  searchType,
+  onClick,
+}) => {
   if (!error) {
     let result;
     let target;
@@ -112,9 +140,27 @@ const SearchResultComp = ({ areas, error, loading, addWish, searchType, onClick 
       <div>
         <RoomListContainer>
           <RoomList>
-            {searchType === "API" && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-            {searchType === "DB" && !loading && areas && target && target.map((area) => <AreaItem area={area} key={area.contentid} addWish={addWish} />)}
-            {searchType === "API" ? <PageNavComp4 pageNo={result.pageNo} totalCount={result.totalCount} numOfRows={result.numOfRows} /> : null}
+            {searchType === "API" &&
+              !loading &&
+              areas &&
+              target &&
+              target.map((area) => (
+                <AreaItem area={area} key={area.contentid} addWish={addWish} />
+              ))}
+            {searchType === "DB" &&
+              !loading &&
+              areas &&
+              target &&
+              target.map((area) => (
+                <AreaItem area={area} key={area.contentid} addWish={addWish} />
+              ))}
+            {searchType === "API" ? (
+              <PageNavComp4
+                pageNo={result.pageNo}
+                totalCount={result.totalCount}
+                numOfRows={result.numOfRows}
+              />
+            ) : null}
           </RoomList>
         </RoomListContainer>
       </div>

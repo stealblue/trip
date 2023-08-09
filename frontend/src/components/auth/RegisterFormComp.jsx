@@ -1,7 +1,6 @@
 import { css, styled } from "styled-components";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
-import ThemeComp from "../common/ThemeComp";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,14 +22,14 @@ const StyledModal = Modal.styled`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  color: ${ThemeComp.red};
+  color: ${(props) => props.theme.red};
   margin-left: 400px;
   background: none;
   text-align: center;
 `;
 
 const RegisterContainer = styled.div`
-  background: ${ThemeComp.bgcolor};
+  background: ${(props) => props.theme.bgcolor};
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -44,9 +43,9 @@ const RegisterContainer = styled.div`
   }
 
   .join-text {
-    font-size: 20px;
-    color: ${ThemeComp.softblack};
-    border-bottom: 2px solid ${ThemeComp.softblack};
+    // font-size: 20px;
+    color: ${(props) => props.theme.softblack};
+    border-bottom: 2px solid ${(props) => props.theme.softblack};
     padding: 6px 0;
     display: inline-block;
     text-align: center;
@@ -54,7 +53,7 @@ const RegisterContainer = styled.div`
   }
 
   .logo {
-    color: ${ThemeComp.white};
+    color: ${(props) => props.theme.white};
     text-align: center;
     font-size: 30px;
   }
@@ -62,17 +61,17 @@ const RegisterContainer = styled.div`
   button {
     padding: 10px;
     margin: 5px 10px;
-    background: ${ThemeComp.lightblack};
-    color: ${ThemeComp.white};
+    background: ${(props) => props.theme.lightblack};
+    color: ${(props) => props.theme.white};
     border: none;
     cursor: pointer;
     transition: 0.3s;
-    /* color: ${ThemeComp.softblack}; */
+    /* color: ${(props) => props.theme.softblack}; */
     &:hover {
-      background: ${ThemeComp.softblack};
+      background: ${(props) => props.theme.softblack};
     }
     &.join-btn {
-      background: ${ThemeComp.bgcolor};
+      background: ${(props) => props.theme.bgcolor};
       border: none;
       margin: 0 auto;
       margin-top: 30px;
@@ -80,11 +79,11 @@ const RegisterContainer = styled.div`
       font-size: 16px;
       text-align: center;
       display: block;
-      background: ${ThemeComp.softblack};
+      background: ${(props) => props.theme.softblack};
       box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.3);
     }
     &.join-btn:hover {
-      background: ${ThemeComp.subcolor};
+      background: ${(props) => props.theme.subcolor};
     }
     &.addr-btn {
       display: inline-block;
@@ -94,7 +93,7 @@ const RegisterContainer = styled.div`
 
   .gender {
     margin-top: 20px;
-    color: ${ThemeComp.softblack};
+    color: ${(props) => props.theme.softblack};
     input[type="radio"] {
       margin-left: 10px;
       width: 30px;
@@ -106,14 +105,14 @@ const RegisterFormBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-color: ${ThemeComp.white};
+  border-color: ${(props) => props.theme.white};
   margin-top: 30px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
   padding: 50px;
   .emailat {
-    color: ${ThemeComp.softblack};
+    color: ${(props) => props.theme.softblack};
     margin-right: 5px;
   }
 `;
@@ -123,9 +122,9 @@ const RegisterInput = styled.input`
   margin-top: 10px;
   padding: 7px 10px;
   /* border-radius: 10px; */
-  border: 1px solid ${ThemeComp.lightblack};
-  background: ${ThemeComp.white};
-  color: ${ThemeComp.softblack};
+  border: 1px solid ${(props) => props.theme.lightblack};
+  background: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.softblack};
   margin-right: 5px;
   width: 200px;
 `;
@@ -135,9 +134,9 @@ const SubIdInput = styled.input`
   margin-top: 10px;
   padding: 7px 10px;
   /* border-radius: 10px; */
-  border: 1px solid ${ThemeComp.lightblack};
-  background: ${ThemeComp.white};
-  color: ${ThemeComp.softblack};
+  border: 1px solid ${(props) => props.theme.lightblack};
+  background: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.softblack};
   margin-right: 5px;
   width: 200px;
 
@@ -150,16 +149,16 @@ const SubIdInput = styled.input`
 `;
 
 const SelectDomain = styled.select`
-  border: 1px solid ${ThemeComp.softblack};
   padding: 10px 20px;
-  background: ${ThemeComp.white};
+  border: 1px solid ${(props) => props.theme.softblack};
+  background: ${(props) => props.theme.white};
 `;
 
 const NameTag = styled.span`
   width: 100px;
   text-align: right;
   display: inline-block;
-  color: ${ThemeComp.softblack};
+  color: ${(props) => props.theme.softblack};
   font-weight: 500;
   margin-right: 10px;
   /* background: #232345; */
@@ -175,12 +174,12 @@ const ConfirmMessage = styled.div`
   ${(props) =>
     props.authok &&
     css`
-      color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
     `}
   ${(props) =>
     props.autherror &&
     css`
-      color: ${ThemeComp.red};
+      color: ${(props) => props.theme.red};
     `}
 
     &:nth-child(1) {

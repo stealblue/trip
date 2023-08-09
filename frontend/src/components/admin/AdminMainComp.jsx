@@ -125,10 +125,10 @@ const AdminMainComp = () => {
               {/* </Link> */}
             </li>
             <li>
-              {/* <Link to={"/admin/theme"}> */}
-              <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
-              <span>스타일관리</span>
-              {/* </Link> */}
+              <Link to={"/admin/style"}>
+                <FontAwesomeIcon icon={faList} style={{ color: "#fff" }} />
+                <span>스타일관리</span>
+              </Link>
             </li>
             <li>
               {/* <Link to={"/admin/theme"}> */}

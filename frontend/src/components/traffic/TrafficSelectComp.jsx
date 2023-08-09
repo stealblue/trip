@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ThemeComp from "../common/ThemeComp";
 
 const TrafficContainer = styled.div`
   display: flex;
@@ -21,12 +20,12 @@ const TrafficContainer = styled.div`
     cursor: pointer;
     &.select-btn {
       border-radius: 30px;
-      background: ${ThemeComp.softblack};
+      background: ${(props) => props.theme.softblack};
       border: none;
-      color: ${ThemeComp.smoke};
+      color: ${(props) => props.theme.smoke};
     }
     &.traffic-category {
-      background-color: ${ThemeComp.yellow};
+      background-color: ${(props) => props.theme.yellow};
     }
   }
   .icon {
@@ -45,7 +44,7 @@ const TrafficContainer = styled.div`
       width: 200px;
       margin-right: 20px;
       padding: 15px 10px;
-      background: ${ThemeComp.smoke};
+      background: ${(props) => props.theme.smoke};
       border-radius: 30px;
       border: 1px solid #333;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -65,13 +64,13 @@ const TrafficContainer = styled.div`
       input {
         border-radius: 30px;
         padding: 0 30px;
-        background: ${ThemeComp.smoke};
+        background: ${(props) => props.theme.smoke};
       }
 
       select {
         width: 100px;
         height: 40px;
-        background: ${ThemeComp.smoke};
+        background: ${(props) => props.theme.smoke};
         cursor: pointer;
       }
     }
@@ -88,7 +87,7 @@ const TrafficContainer = styled.div`
         border-radius: 30px;
         width: 200px;
         padding: 13px;
-        background: ${ThemeComp.smoke};
+        background: ${(props) => props.theme.smoke};
       }
     }
   }
@@ -120,8 +119,8 @@ const SelectListBlock = styled.div`
   margin-top: 50px;
   margin-left: 10px;
   .title {
-    background: ${ThemeComp.lightblack};
-    color: ${ThemeComp.white};
+    background: ${(props) => props.theme.lightblack};
+    color: ${(props) => props.theme.white};
     padding: 10px 0;
   }
 
@@ -129,8 +128,8 @@ const SelectListBlock = styled.div`
     border-bottom: 1px solid #333;
     padding: 10px 0;
     &.clicked {
-      background-color: ${ThemeComp.lightblack};
-      color: ${ThemeComp.smoke};
+      background-color: ${(props) => props.theme.lightblack};
+      color: ${(props) => props.theme.smoke};
     }
   }
   li:hover {
@@ -140,7 +139,12 @@ const SelectListBlock = styled.div`
 
 const StartItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="start" className="start-area">
+    <li
+      value={item.cityCode}
+      onClick={onClick}
+      data-type="start"
+      className="start-area"
+    >
       {item.cityName}
     </li>
   );
@@ -148,27 +152,61 @@ const StartItem = ({ item, onClick }) => {
 
 const StartDetailItem = ({ item, onClick }) => {
   return (
-    <li onClick={onClick} data-type="start" data-value={item.stationId || item.terminalId} data-name={item.stationName || item.terminalName} className="start-detail">
+    <li
+      onClick={onClick}
+      data-type="start"
+      data-value={item.stationId || item.terminalId}
+      data-name={item.stationName || item.terminalName}
+      className="start-detail"
+    >
       {item.stationName || item.terminalName}
     </li>
   );
 };
 const EndItem = ({ item, onClick }) => {
   return (
-    <li value={item.cityCode} onClick={onClick} data-type="end" className="end-area">
+    <li
+      value={item.cityCode}
+      onClick={onClick}
+      data-type="end"
+      className="end-area"
+    >
       {item.cityName}
     </li>
   );
 };
 const EndDetailItem = ({ item, onClick }) => {
   return (
-    <li onClick={onClick} data-type="end" data-value={item.stationId || item.terminalId} data-name={item.stationName || item.terminalName} className="end-detail">
+    <li
+      onClick={onClick}
+      data-type="end"
+      data-value={item.stationId || item.terminalId}
+      data-name={item.stationName || item.terminalName}
+      className="end-detail"
+    >
       {item.stationName || item.terminalName}
     </li>
   );
 };
 
-const TrafficSelectComp = ({ target, stations, terminals, stationStartDetails, terminalStartDetails, stationEndDetails, terminalEndDetails, onClickArea, onClickPlace, onClickCategory, onChangeDate, onToggle, start, end, date, loading }) => {
+const TrafficSelectComp = ({
+  target,
+  stations,
+  terminals,
+  stationStartDetails,
+  terminalStartDetails,
+  stationEndDetails,
+  terminalEndDetails,
+  onClickArea,
+  onClickPlace,
+  onClickCategory,
+  onChangeDate,
+  onToggle,
+  start,
+  end,
+  date,
+  loading,
+}) => {
   return (
     <div>
       <TrafficContainer>
@@ -191,32 +229,97 @@ const TrafficSelectComp = ({ target, stations, terminals, stationStartDetails, t
             <span>도착지</span>
             <span>{end}</span>
           </div>
-          <input type="date" onChange={onChangeDate} value={date} className="date" />
+          <input
+            type="date"
+            onChange={onChangeDate}
+            value={date}
+            className="date"
+          />
           {/* <button>검색</button> */}
         </div>
       </TrafficContainer>
       <SelectListContainer>
         <div className="list flag" id="start-container">
-          {target ? <SelectListBlock>
-            <p className="title">출발지</p>
-            {stations && stations.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-            {terminals && terminals.map((item) => <StartItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-          </SelectListBlock> : null}
+          {target ? (
+            <SelectListBlock>
+              <p className="title">출발지</p>
+              {stations &&
+                stations.map((item) => (
+                  <StartItem
+                    item={item}
+                    key={item.cityCode}
+                    onClick={onClickArea}
+                  />
+                ))}
+              {terminals &&
+                terminals.map((item) => (
+                  <StartItem
+                    item={item}
+                    key={item.cityCode}
+                    onClick={onClickArea}
+                  />
+                ))}
+            </SelectListBlock>
+          ) : null}
           <SelectListBlock>
-            {stationStartDetails && stationStartDetails.map((station) => <StartDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
-            {terminalStartDetails && terminalStartDetails.map((terminal) => <StartDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}
+            {stationStartDetails &&
+              stationStartDetails.map((station) => (
+                <StartDetailItem
+                  item={station}
+                  onClick={onClickPlace}
+                  key={station.stationId}
+                />
+              ))}
+            {terminalStartDetails &&
+              terminalStartDetails.map((terminal) => (
+                <StartDetailItem
+                  item={terminal}
+                  onClick={onClickPlace}
+                  key={terminal.terminalId}
+                />
+              ))}
           </SelectListBlock>
         </div>
 
         <div className="list flag" id="end-container">
-          {target ? <SelectListBlock>
-            <p className="title">도착지</p>
-            {stations && stations.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-            {terminals && terminals.map((item) => <EndItem item={item} key={item.cityCode} onClick={onClickArea} />)}
-          </SelectListBlock> : null}
+          {target ? (
+            <SelectListBlock>
+              <p className="title">도착지</p>
+              {stations &&
+                stations.map((item) => (
+                  <EndItem
+                    item={item}
+                    key={item.cityCode}
+                    onClick={onClickArea}
+                  />
+                ))}
+              {terminals &&
+                terminals.map((item) => (
+                  <EndItem
+                    item={item}
+                    key={item.cityCode}
+                    onClick={onClickArea}
+                  />
+                ))}
+            </SelectListBlock>
+          ) : null}
           <SelectListBlock>
-            {stationEndDetails && stationEndDetails.map((station) => <EndDetailItem item={station} onClick={onClickPlace} key={station.stationId} />)}
-            {terminalEndDetails && terminalEndDetails.map((terminal) => <EndDetailItem item={terminal} onClick={onClickPlace} key={terminal.terminalId} />)}
+            {stationEndDetails &&
+              stationEndDetails.map((station) => (
+                <EndDetailItem
+                  item={station}
+                  onClick={onClickPlace}
+                  key={station.stationId}
+                />
+              ))}
+            {terminalEndDetails &&
+              terminalEndDetails.map((terminal) => (
+                <EndDetailItem
+                  item={terminal}
+                  onClick={onClickPlace}
+                  key={terminal.terminalId}
+                />
+              ))}
           </SelectListBlock>
         </div>
       </SelectListContainer>

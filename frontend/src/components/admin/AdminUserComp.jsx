@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import AdminUserGraph from "./AdminUserGraph";
 import PaginationComp from "../common/PaginationComp";
@@ -17,7 +16,7 @@ const AdminUserWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
   /* width: 100%; */
   margin-right: 10px;
   &:first-child {
@@ -32,12 +31,12 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  background: ${ThemeComp.dark};
+  background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
 `;
@@ -52,7 +51,7 @@ const Board = styled.div`
     text-align: center;
     padding: 14px 0;
     width: 100%;
-    background: ${ThemeComp.smoke};
+    background: ${(props) => props.theme.smoke};
     border-bottom: 2px solid #333;
     padding-left: 5px;
 
@@ -71,8 +70,8 @@ const UserInfo = styled.ul`
   display: flex;
   justify-content: space-around;
   width: 100%;
-  /* background: ${ThemeComp.smoke}; */
-  // border-bottom: 1px solid ${ThemeComp.lightblack};
+  /* background: ${(props) => props.theme.smoke}; */
+  // border-bottom: 1px solid ${(props) => props.theme.lightblack};
   cursor: pointer;
   line-height: 60px;
   padding-left: 10px;
@@ -94,18 +93,18 @@ const Detail = styled.li`
 
 const ControlButton = styled.button`
   border: none;
-  background: ${ThemeComp.lightblack};
-  color: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.lightblack};
+  color: ${(props) => props.theme.smoke};
   cursor: pointer;
   padding: 7px 12px;
   margin: 13px 0;
   &:hover {
-    background: ${ThemeComp.softblack};
+    background: ${(props) => props.theme.softblack};
   }
 `;
 
 const StyledModal = Modal.styled`
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
   height: 400px;
   width: 600px;
   margin: 0 auto;
@@ -137,7 +136,15 @@ const StyledModal = Modal.styled`
   }
 `;
 
-const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, user, modal, switchModal }) => {
+const AdminUserComp = ({
+  getUserInform,
+  deleteUserInform,
+  userList,
+  totalUser,
+  user,
+  modal,
+  switchModal,
+}) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -145,14 +152,16 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
     <AdminUserWrap>
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} /> <span>가입자수</span>
+          <FontAwesomeIcon icon={faChartSimple} style={{ color: "#000000" }} />{" "}
+          <span>가입자수</span>
         </BoardName>
         <AdminUserGraph totalItem={totalUser} type={"user"} />
       </BoardContainer>
 
       <BoardContainer>
         <BoardName>
-          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} /> <span>회원관리</span>
+          <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />{" "}
+          <span>회원관리</span>
           <span> / 총 가입자 수({totalUser}명)</span>
         </BoardName>
         <Board>
@@ -171,13 +180,21 @@ const AdminUserComp = ({ getUserInform, deleteUserInform, userList, totalUser, u
                 <Detail> {user.phone}</Detail>
               </UserInfo>
               <Detail>
-                <ControlButton className="remove-user" onClick={() => deleteUserInform(user.id)}>
+                <ControlButton
+                  className="remove-user"
+                  onClick={() => deleteUserInform(user.id)}
+                >
                   탈퇴
                 </ControlButton>
               </Detail>
             </UserInfoContainer>
           ))}
-          <PaginationComp total={userList.length} limit={limit} page={page} setPage={setPage} />
+          <PaginationComp
+            total={userList.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
 
           {modal && user && (
             <StyledModal

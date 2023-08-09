@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import ThemeComp from "../common/ThemeComp";
 import { makeCreatedAt } from "../../lib/makeCreatedAt";
 
 const MainBoardWarraper = styled.div`
@@ -15,7 +14,7 @@ const MainBoardWarraper = styled.div`
     border-bottom: 2px solid #111;
     padding: 20px 0;
     span {
-      color: ${ThemeComp.red};
+      color: ${(props) => props.theme.red};
       font-weight: 600;
     }
   }
@@ -42,7 +41,7 @@ const ListContainer = styled.div`
   margin-top: 20px;
   .board-list {
     display: flex;
-    border-bottom: 1px solid ${ThemeComp.lightblack};
+    border-bottom: 1px solid ${(props) => props.theme.lightblack};
     padding: 10px 10px 20px;
     &:hover {
       opacity: 0.8;
@@ -62,7 +61,7 @@ const ListContainer = styled.div`
   .createat {
     font-size: 14px;
     margin-top: 10px;
-    color: ${ThemeComp.lightblack};
+    color: ${(props) => props.theme.lightblack};
   }
 `;
 
@@ -99,7 +98,10 @@ const MainBoardComp = ({ posts, error }) => {
         <h2>
           <span>Hot!</span> 여행후기
         </h2>
-        {posts && posts.map((post, index) => <BoardListItem key={post.no} post={post} />)}
+        {posts &&
+          posts.map((post, index) => (
+            <BoardListItem key={post.no} post={post} />
+          ))}
         <Link to="/board">
           <span className="add-list"> + 더보기</span>
         </Link>

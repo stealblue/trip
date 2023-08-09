@@ -2,9 +2,10 @@ import { Outlet } from "react-router-dom";
 import Footer from "../components/main/FooterComp";
 import HeaderComp from "../components/main/HeaderComp";
 import { useDispatch, useSelector } from "react-redux";
-import { check, logout } from "../modules/auth/UserMod";
+import { logout } from "../modules/auth/UserMod";
 import { initializeLoginForm } from "../modules/auth/LoginMod";
-import { useEffect } from "react";
+import { getMainTerms } from "../modules/main/MainMod";
+import { useEffect, useState } from "react";
 import SideMenuComp from "../components/main/SideMenuComp";
 
 const LayoutCntr = () => {
@@ -14,6 +15,7 @@ const LayoutCntr = () => {
     nick: UserMod.user?.nick,
     grade: UserMod.user?.grade,
   }));
+  const [modal, setModal] = useState(false);
 
   const onLogout = () => {
     dispatch(logout());
@@ -25,13 +27,20 @@ const LayoutCntr = () => {
     navItems.forEach((item) => {
       if (item === e.target) {
         item.classList.add("click");
-        // }
       } else {
         item.classList.remove("click");
       }
     });
   };
 
+  const onGetMainTerms = (type) => {
+    setModal(!modal);
+    dispatch(
+      getMainTerms({
+        type,
+      })
+    );
+  };
 
   //마이페이지에서 닉네임 수정시 localstorage 저장된 값 변경해줌.
   useEffect(() => {
@@ -41,10 +50,15 @@ const LayoutCntr = () => {
 
   return (
     <>
-      <HeaderComp nick={nick} grade={grade} onLogout={onLogout} onClick={onClick} />
+      <HeaderComp
+        nick={nick}
+        grade={grade}
+        onLogout={onLogout}
+        onClick={onClick}
+      />
       {/* <SideMenuComp /> */}
       <Outlet />
-      <Footer />
+      <Footer onGetMainTerms={onGetMainTerms} modal={modal} />
     </>
   );
 };

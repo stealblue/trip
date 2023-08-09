@@ -19,12 +19,13 @@ import TrainMod, { trainSaga } from "./traffic/TrainMod";
 import AdminUserMod, { adminUserSaga } from "./admin/AdminUserMod";
 import AdminBoardMod, { adminBoardSaga } from "./admin/AdminBoardMod";
 import AdminTermsMod, { adminTermsSaga } from "./admin/AdminTermsMod";
+import AdminStyleMod, { adminStyleSaga } from "./admin/AdminStyleMod";
 import ProfileMod, { ProfileSaga } from "./profile/ProfileMod";
 import ScheduleMod, { scheduleSaga } from "./schedule/ScheduleMod";
 import XmppMod, { XmppSaga } from "./chat/XmppMod";
 import SearchMod, { searchSaga } from "./search/SearchMod";
 import LoadingMod from "./loadingMod";
-import MainboardMod, { mainPostsSaga } from "./main/MainboardMod";
+import MainMod, { mainSaga } from "./main/MainMod";
 import TicketMod, { ticketSaga } from "./traffic/TicketMod";
 
 const rootReducer = combineReducers({
@@ -50,10 +51,11 @@ const rootReducer = combineReducers({
   ScheduleMod,
   XmppMod,
   SearchMod,
-  MainboardMod,
+  MainMod,
   AreaListMod,
   TicketMod,
   AdminTermsMod,
+  AdminStyleMod,
 });
 
 export function* rootSaga() {
@@ -61,6 +63,7 @@ export function* rootSaga() {
     adminUserSaga(),
     adminBoardSaga(),
     adminTermsSaga(),
+    adminStyleSaga(),
     writeSaga(),
     loginSaga(),
     registerSaga(),
@@ -80,9 +83,9 @@ export function* rootSaga() {
     scheduleSaga(),
     XmppSaga(),
     searchSaga(),
-    mainPostsSaga(),
+    mainSaga(),
     areaListSaga(),
-    ticketSaga()
+    ticketSaga(),
   ]);
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import AdminTermsComp from "../../components/admin/AdminTermsComp";
 import { useDispatch, useSelector } from "react-redux";
 import { changePhoto } from "../../lib/api/admin/terms";
@@ -13,6 +13,7 @@ import {
   getAdminTerms,
   initializeForm,
   inputAddress,
+  clearTerms,
 } from "../../modules/admin/AdminTermsMod";
 import { check } from "../../modules/auth/UserMod";
 
@@ -49,6 +50,7 @@ const AdminTermsCntr = () => {
   const [content, setContent] = useState();
   const [changeForm, setChangeForm] = useState(false);
   const [changeEditForm, setChangeEditForm] = useState(null);
+  const [changeTerms, getChangeTerms] = useState(null);
   const [modal, setModal] = useState(false);
   const [address, setAddress] = useState({});
   const businessNameRef = useRef(null);
@@ -57,7 +59,18 @@ const AdminTermsCntr = () => {
   const address1Ref = useRef();
   const address2Ref = useRef();
   const zipcodeRef = useRef();
-  const termsRef = useRef();
+
+  //ref는 modal안에서 작동하지 않는다. 그래서 useCallback을 사용하여 리렌더링을 발생시켜 ref값이 바뀌었다는 것을 알려줘야함.
+  const termsRef = useCallback(
+    (ref) => {
+      if (ref !== null) {
+        if (getTerms && modal) {
+          ref.value = getTerms.content;
+        }
+      }
+    },
+    [getTerms]
+  );
 
   const changeType = (e) => {
     const type = e.target.id;
@@ -161,14 +174,18 @@ const AdminTermsCntr = () => {
   };
 
   const onEditTerms = () => {
-    const content = termsRef.current.value;
     dispatch(
       editAdminTerms({
         id,
         type: changeEditForm,
-        content,
+        content: changeTerms,
       })
     );
+  };
+
+  const onChangeTerms = (e) => {
+    const { value } = e.target;
+    getChangeTerms(value);
   };
 
   useEffect(() => {
@@ -217,20 +234,11 @@ const AdminTermsCntr = () => {
     );
   }, [dispatch, logo]);
 
-  // useEffect(() => {
-  //   if (getTerms && modal) {
-  //     termsRef.current.value = getTerms.content; ///////작업중///////
-  //   }
-
-  //   if (getTerms && !modal) {
-  //     termsRef.current.value = "";
-  //   }
-  // }, [getTerms]);
-
   useEffect(() => {
     if (editTerms !== null && editTerms !== undefined) {
-      alert(`${changeEditForm}이/가 수정되었습니다.`);
+      alert(`${changeEditForm} 이/가 수정되었습니다.`);
       setModal(!modal);
+      dispatch(clearTerms());
     }
   }, [editTerms]);
 
@@ -259,6 +267,7 @@ const AdminTermsCntr = () => {
       onOpenTerms={onOpenTerms}
       changeEditForm={changeEditForm}
       termsRef={termsRef}
+      onChangeTerms={onChangeTerms}
     />
   );
 };

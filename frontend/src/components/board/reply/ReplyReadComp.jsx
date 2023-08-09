@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
-import ThemeComp from "../../common/ThemeComp";
 import ReplyActionButtonsComp from "./ReplyActionButtonsComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 
 const ReplyItemWarrap = styled.div`
   width: 50%;
   margin: 0 auto;
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px;
@@ -27,7 +26,7 @@ const ReplyItemWarrap = styled.div`
     right: 3%;
     bottom: 7%;
     font-size: 13px;
-    color: ${ThemeComp.lightblack};
+    color: ${(props) => props.theme.lightblack};
   }
 `;
 

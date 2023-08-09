@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-import { showPageNo } from "../../modules/area/AreaMod";
-import ThemeComp from "./ThemeComp";
+// import { showPageNo } from "../../modules/area/AreaMod";
+// import ThemeComp from "./ThemeComp";
+import { basicTheme } from "./ThemeComp";
 
 const LiBlock = styled.li`
   display: inline-block;
@@ -13,11 +14,11 @@ const LiBlock = styled.li`
   text-align: center;
 
   &:hover {
-    color: ${ThemeComp.subcolor};
+    color: ${basicTheme.subcolor};
     font-weight: 600;
   }
   &.checkPage {
-    color: ${ThemeComp.subcolor};
+    color: ${basicTheme.subcolor};
     font-weight: 600;
   }
 `;

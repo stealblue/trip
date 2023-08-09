@@ -173,6 +173,61 @@ CREATE TABLE `theme` (
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- trip.trainStation definition
+CREATE TABLE `trainStation` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `cityName` varchar(5) NOT NULL,
+  `cityCode` int NOT NULL,
+  `stationId` varchar(15) NOT NULL,
+  `stationName` varchar(10) NOT NULL,
+  PRIMARY KEY (`no`),
+  UNIQUE KEY `stationId` (`stationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- trip.trainType definition
+CREATE TABLE `trainType` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `trainCode` char(2) NOT NULL,
+  `trainName` varchar(15) NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- trip.`user` definition
+CREATE TABLE `user` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(35) NOT NULL,
+  `pwd` varchar(255) NOT NULL,
+  `nick` varchar(10) NOT NULL,
+  `phone` varchar(14) NOT NULL,
+  `addr1` varchar(100) NOT NULL,
+  `addr2` varchar(100) DEFAULT NULL,
+  `zipcode` char(5) NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT '1',
+  `grade` int NOT NULL DEFAULT '1',
+  `reg` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `img` varchar(255) DEFAULT NULL,
+  `type` varchar(20) DEFAULT "basic",
+  PRIMARY KEY (`no`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `nick` (`nick`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- trip.wishList definition
+CREATE TABLE `wishList` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `contentId` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `createAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `routeId` varchar(100) DEFAULT NULL,
+  `contentTypeId` int NOT NULL,
+  PRIMARY KEY (`no`),
+  KEY `wishList_ibfk_1` (`id`),
+  CONSTRAINT `wishList_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=672 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 8171339a71fe4339356599bd6bf8fe269a6a61d9
+
 -- create trigger
 
 -- like.postLikeCnt2

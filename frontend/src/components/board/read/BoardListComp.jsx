@@ -5,7 +5,6 @@ import { TitleComp, SubTitleComp } from "../../../components/common/TitleComp";
 import WrapperComp from "../../../components/common/WrapperComp";
 import ButtonComp from "../../../components/common/ButtonComp";
 import PaginationComp from "../../common/PaginationComp";
-import ThemeComp from "../../common/ThemeComp";
 import { makeCreatedAt } from "../../../lib/makeCreatedAt";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,18 +17,17 @@ const ListContainer = styled.div`
     width: 80%;
     margin: 0 auto;
     display: flex;
-    background: ${ThemeComp.smoke};
+    background: ${(props) => props.theme.smoke};
     padding: 20px;
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     position: relative;
 
-    &.notice{
+    &.notice {
       background-color: steelblue;
     }
   }
-
 
   .board-list:hover {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.22), 0 8px 8px rgba(0, 0, 0, 0.22);
@@ -170,7 +168,7 @@ const BoardListItem = ({ post, likeCount }) => {
   return (
     <ListContainer>
       <Link to={`/board/read/${no}`}>
-        <div className={grade === 2 ? 'board-list notice' : 'board-list'}>
+        <div className={grade === 2 ? "board-list notice" : "board-list"}>
           {grade === 1 ? <BoardListImg src="/assets/mainslide.jpeg" /> : null}
           <div className="board-list-text">
             <div className="title">{title}</div>
@@ -210,7 +208,7 @@ const BoardListComp = ({ posts, showWriteButton, error, notices }) => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   if (error) {
-    return <div>에러</div>
+    return <div>에러</div>;
   }
   return (
     <>
@@ -221,8 +219,9 @@ const BoardListComp = ({ posts, showWriteButton, error, notices }) => {
           <WriteButton to={"/board/write"}>글쓰기</WriteButton>
         )}
         {notices &&
-          notices.notices
-            .map((notice) => <BoardListItem key={notice.no} post={notice} />)}
+          notices.notices.map((notice) => (
+            <BoardListItem key={notice.no} post={notice} />
+          ))}
         {posts &&
           posts
             .slice(offset, offset + limit)

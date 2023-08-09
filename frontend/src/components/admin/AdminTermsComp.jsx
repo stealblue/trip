@@ -1,5 +1,4 @@
 import { css, styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
 import Modal from "styled-react-modal";
 import DaumPostcode from "react-daum-postcode";
 
@@ -22,7 +21,7 @@ const StyledTextarea = styled.textarea`
 
 const DivInModal = styled.div`
   cursor: pointer;
-  color: ${ThemeComp.red};
+  color: ${(props) => props.theme.red};
   margin-left: 400px;
   background: none;
   text-align: center;
@@ -33,9 +32,9 @@ const SubIdInput = styled.input`
   margin-top: 10px;
   padding: 7px 10px;
   /* border-radius: 10px; */
-  border: 1px solid ${ThemeComp.lightblack};
-  background: ${ThemeComp.white};
-  color: ${ThemeComp.softblack};
+  border: 1px solid ${(props) => props.theme.lightblack};
+  background: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.softblack};
   margin-right: 5px;
   width: 200px;
 
@@ -55,7 +54,7 @@ const AdminBoardWrap = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  background: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.smoke};
 
   &:first-child {
     width: 35%;
@@ -69,12 +68,12 @@ const BoardContainer = styled.div`
 `;
 
 const BoardName = styled.div`
-  background: ${ThemeComp.dark};
+  background: ${(props) => props.theme.dark};
 
   font-size: 20px;
   padding: 10px 20px;
   span {
-    color: ${ThemeComp.smoke};
+    color: ${(props) => props.theme.smoke};
     margin-left: 10px;
   }
 `;
@@ -88,14 +87,14 @@ const BoardTag = styled.div`
 
 const Button = styled.button`
   border: none;
-  background: ${ThemeComp.lightblack};
-  color: ${ThemeComp.smoke};
+  background: ${(props) => props.theme.lightblack};
+  color: ${(props) => props.theme.smoke};
   cursor: pointer;
   padding: 7px 12px;
   margin: 10px;
 
   &:hover {
-    background: ${ThemeComp.softblack};
+    background: ${(props) => props.theme.softblack};
   }
 `;
 
@@ -139,6 +138,7 @@ const AdminTermsComp = ({
   onEditTerms,
   changeEditForm,
   termsRef,
+  onChangeTerms,
 }) => {
   return (
     <AdminBoardWrap>
@@ -176,77 +176,79 @@ const AdminTermsComp = ({
           <BoardContent>
             {!changeForm ? (
               <>
-                <span>
-                  상호
-                  <div>
+                <div>
+                  <span>상호 : </span>
+                  <span>
                     {admin?.id?.slice(
                       admin?.id?.indexOf("@") + 1,
                       admin?.id?.lastIndexOf(".")
                     )}
-                  </div>
-                </span>
-                <span>
-                  주소 <div>{admin?.addr1 + admin?.addr2}</div>
-                </span>
-                <span>
-                  개인정보관리책임자 <div>{admin?.nick}</div>
-                </span>
-                <span>
-                  전화번호
-                  <div>{admin?.phone}</div>
-                </span>
+                  </span>
+                </div>
+                <div>
+                  <span>주소 : </span>
+                  <span>{admin?.addr1 + admin?.addr2}</span>
+                </div>
+                <div>
+                  <span>개인정보관리책임자 : </span>
+                  <span>{admin?.nick}</span>
+                </div>
+                <div>
+                  <span>전화번호 : </span>
+                  <span>{admin?.phone}</span>
+                </div>
                 <Button onClick={onChangeForm}>수정</Button>
               </>
             ) : (
               <>
-                <span>
-                  상호
+                <div>
+                  <span>상호 : </span>
                   <input
                     name="new_id"
                     type="text"
                     ref={businessNameRef}
                     onChange={onChange}
                   />
-                </span>
-                <span>
-                  주소
-                  <button onClick={openModal}>주소찾기</button>
-                </span>
-                {addr1 ? (
-                  <span>
-                    <SubIdInput
-                      placeholder="우편번호"
-                      name="new_zipcode"
-                      ref={zipcodeRef}
-                      disabled={true}
-                    />
-                    <SubIdInput
-                      placeholder="주소"
-                      name="new_addr1"
-                      type="text"
-                      ref={address1Ref}
-                      disabled={true}
-                    />
-                  </span>
-                ) : (
-                  <span>
-                    <SubIdInput
-                      placeholder="우편번호"
-                      name="new_zipcode"
-                      ref={zipcodeRef}
-                      disabled={true}
-                    />
-                    <SubIdInput
-                      placeholder="주소"
-                      name="new_addr1"
-                      type="text"
-                      ref={address1Ref}
-                      disabled={true}
-                    />
-                  </span>
-                )}
+                </div>
                 <div>
-                  <span>상세주소</span>
+                  <span>주소 : </span>
+                  {addr1 ? (
+                    <span>
+                      <SubIdInput
+                        placeholder="우편번호"
+                        name="new_zipcode"
+                        ref={zipcodeRef}
+                        disabled={true}
+                      />
+                      <SubIdInput
+                        placeholder="주소"
+                        name="new_addr1"
+                        type="text"
+                        ref={address1Ref}
+                        disabled={true}
+                      />
+                    </span>
+                  ) : (
+                    <span>
+                      <SubIdInput
+                        placeholder="우편번호"
+                        name="new_zipcode"
+                        ref={zipcodeRef}
+                        disabled={true}
+                      />
+                      <SubIdInput
+                        placeholder="주소"
+                        name="new_addr1"
+                        type="text"
+                        ref={address1Ref}
+                        disabled={true}
+                      />
+                    </span>
+                  )}
+                  <button onClick={openModal}>주소찾기</button>
+                </div>
+                <div>
+                  <span>상세주소 : </span>
                   <input
                     placeholder="상세주소"
                     name="new_addr2"
@@ -255,24 +257,24 @@ const AdminTermsComp = ({
                     onChange={onChange}
                   />
                 </div>
-                <span>
-                  개인정보관리책임자
+                <div>
+                  <span>개인정보관리책임자 : </span>
                   <input
                     name="new_nick"
                     type="text"
                     ref={masterNameRef}
                     onChange={onChange}
                   />
-                </span>
-                <span>
-                  전화번호
+                </div>
+                <div>
+                  <span>전화번호 : </span>
                   <input
                     name="new_phone"
                     type="text"
                     ref={phoneNumberRef}
                     onChange={onChange}
                   />
-                </span>
+                </div>
                 <Button onClick={onChangeInform}>수정완료</Button>
                 <Button onClick={onChangeForm}>취소</Button>
               </>
@@ -293,20 +295,20 @@ const AdminTermsComp = ({
         )}
         {tableType === "TERMS" && (
           <BoardContent>
-            <span>
-              이용약관
+            <div>
+              <span>이용약관</span>
               <Button onClick={() => onOpenTerms("이용약관")}>수정</Button>
-            </span>
-            <span>
-              개인정보처리방침
+            </div>
+            <div>
+              <span>개인정보처리방침</span>
               <Button onClick={() => onOpenTerms("개인정보처리방침")}>
                 수정
               </Button>
-            </span>
-            <span>
-              이용안내
+            </div>
+            <div>
+              <span>이용안내</span>
               <Button onClick={() => onOpenTerms("이용안내")}>수정</Button>
-            </span>
+            </div>
             <StyledModal
               isOpen={modal} //true = 열림 / false = 닫힘
               ariahideapp={"false"} //에러 안뜨게하기
@@ -317,7 +319,7 @@ const AdminTermsComp = ({
                 <div>{changeEditForm}</div>
                 <DivInModal onClick={openModal}>X</DivInModal>
               </div>
-              <StyledTextarea ref={termsRef} />
+              <StyledTextarea ref={termsRef} onChange={onChangeTerms} />
               <Button onClick={onEditTerms}>수정</Button>
               <Button onClick={openModal}>취소</Button>
             </StyledModal>

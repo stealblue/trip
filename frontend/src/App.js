@@ -25,18 +25,41 @@ import AdminBoardPage from "./pages/admin/AdminboardPage";
 import AdminThemePage from "./pages/admin/AdminThemePage";
 import AdminTermsPage from "./pages/admin/AdminTermsPage";
 import AdminTicketPage from './pages/admin/AdminTicketPage';
+import AdminStylePage from "./pages/admin/AdminStylePage";
+
 // import AdminNoticePage from './pages/admin/AdminNoticePage';
-import { useSelector } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import KoreaMap from "./components/area/KoreaMap";
+import * as Theme from "./components/common/ThemeComp";
+import { useEffect, useState } from "react";
+import { getMainStyle } from "./modules/main/MainMod";
 // import Swal from 'sweetalert2';
 
 function App() {
   // const navigate = useNavigate();
-  const { user } = useSelector(({ UserMod }) => ({
+  const dispatch = useDispatch();
+  const { user, mainStyle } = useSelector(({ UserMod, MainMod }) => ({
     user: UserMod?.user,
+    mainStyle: MainMod?.mainStyle,
   }));
-
+  const [theme, setTheme] = useState({
+    bgcolor: "#99ccff",
+    subcolor: "#3875f0",
+    lightcolor: "#17bdff",
+    smoke: "#F5F5F5",
+    dark: "#1a2b3c",
+    black: "#000",
+    softblack: "#333",
+    lightblack: "#666",
+    white: "#fff",
+    //main Color
+    softblue: "#d6e4f292",
+    green: "#0055ff",
+    red: "#ff3300",
+    yellow: "#ebd258",
+  });
   // const onSwal = () => {
   //   Swal.fire({
   //     title: "구현 중",
@@ -49,43 +72,61 @@ function App() {
   //       }
   //     })
   // }
+  useEffect(() => {
+    dispatch(
+      getMainStyle()
+    );
+
+    if (mainStyle === null || mainStyle === undefined || mainStyle === "basic") {
+      return setTheme(Theme.basicTheme);
+    }
+    if (mainStyle === "dark") {
+      return setTheme(Theme.darkTheme);
+    }
+    if (mainStyle === "green") {
+      return setTheme(Theme.greenTheme);
+    }
+  }, [mainStyle]);
 
   return (
     <>
-      <AnimatePresence>
-        <Routes>
-          <Route element={<LayoutCntr />}>
-            <Route path="/" element={<Main />} />
-            <Route path="/chat" element={<Navigate to='/' />} />
-            {/* <Route path="/chat" element={onSwal} /> */}
-            {/* <Route path="/chat" element={<RoomListPage />} />
+      <ThemeProvider theme={theme}>
+        <AnimatePresence>
+          <Routes>
+            <Route element={<LayoutCntr />}>
+              <Route path="/" element={<Main />} />
+              <Route path="/chat" element={<Navigate to='/' />} />
+              {/* <Route path="/chat" element={onSwal} /> */}
+              {/* <Route path="/chat" element={<RoomListPage />} />
             <Route path="/chat/room" element={<RoomCreatePage />} />
             <Route path="/chat/room/:roomId" element={<RoomReadPage />} /> */}
-            <Route path="/board" element={<BoardListPage />} />
-            <Route path="/area" element={<AreaListPage />} />
-            <Route path="/board/write" element={<WritePage />} />
-            <Route path="/board/read/:readNo" element={<ReadPage />} />
-            <Route path="/profile/:nick" element={user ? <ProfilePage /> : <Navigate to="/" />} />
-            <Route path="/traffic" element={<TrafficListPage />} />
-            <Route path="/room" element={<Roompage />} />
-            <Route path="/search" element={<SearchPage />} />
-          </Route>
-          <Route>
-            <Route path="/auth/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
-            <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
-            <Route path="/auth/searchPwd/:id" element={user ? <Navigate to="/" /> : <SearchPwdPage />} />
-          </Route>
-          <Route element={<AdminLayoutCntr />}>
-            <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
-            <Route path="/admin/board" element={user?.grade === 2 ? <AdminBoardPage /> : <Navigate to='/' />} />
-            <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
-            <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
-            <Route path="/admin/terms" element={user?.grade === 2 ? <AdminTermsPage /> : <Navigate to='/' />} />
-            <Route path="/admin/ticket" element={user?.grade === 2 ? <AdminTicketPage /> : <Navigate to='/' />} />
-          </Route>
-          <Route path="map" element={<KoreaMap />} />
-        </Routes>
-      </AnimatePresence >
+              <Route path="/board" element={<BoardListPage />} />
+              <Route path="/area" element={<AreaListPage />} />
+              <Route path="/board/write" element={<WritePage />} />
+              <Route path="/board/read/:readNo" element={<ReadPage />} />
+              <Route path="/profile/:nick" element={user ? <ProfilePage /> : <Navigate to="/" />} />
+              <Route path="/traffic" element={<TrafficListPage />} />
+              <Route path="/room" element={<Roompage />} />
+              <Route path="/search" element={<SearchPage />} />
+            </Route>
+            <Route>
+              <Route path="/auth/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
+              <Route path="/auth/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
+              <Route path="/auth/searchPwd/:id" element={user ? <Navigate to="/" /> : <SearchPwdPage />} />
+            </Route>
+            <Route element={<AdminLayoutCntr />}>
+              <Route path="/admin/user" element={user?.grade === 2 ? <AdminUserPage /> : <Navigate to="/" />} />
+              <Route path="/admin/board" element={user?.grade === 2 ? <AdminBoardPage /> : <Navigate to='/' />} />
+              <Route path="/admin/theme" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
+              <Route path="/admin/notice" element={user?.grade === 2 ? <AdminThemePage /> : <Navigate to='/' />} />
+              <Route path="/admin/terms" element={user?.grade === 2 ? <AdminTermsPage /> : <Navigate to='/' />} />
+              <Route path="/admin/ticket" element={user?.grade === 2 ? <AdminTicketPage /> : <Navigate to='/' />} />
+              <Route path="/admin/style" element={user?.grade === 2 ? <AdminStylePage /> : <Navigate to='/' />} />
+            </Route >
+            <Route path="map" element={<KoreaMap />} />
+          </Routes >
+        </AnimatePresence >
+      </ThemeProvider >
     </>
   );
 }

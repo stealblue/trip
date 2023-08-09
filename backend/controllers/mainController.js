@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
-const { board, like, reply } = require("../models/mysql");
+const { user, board } = require("../models/mysql");
+const { Op } = require("sequelize");
 
 exports.mainBoardList = async (req, res) => {
   try {
@@ -12,3 +13,28 @@ exports.mainBoardList = async (req, res) => {
     return res.json(error);
   }
 };
+
+exports.getMainStyle = async (req, res) => {
+  try {
+    const adminStyle = await user.findOne({raw: true, where: { id: { [Op.like]: "testAdmin@" + "%"}, grade: 2 } });
+    const mainStyle = adminStyle.style;
+
+    return res.status(200).json({ mainStyle });
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({styleError: true});
+  }
+};
+
+exports.getMainTerms = async (req, res) => {
+  const {type} = req.params;
+
+  try {
+    const mainTerms = await board.findOne({ raw: true, where: { type } });
+    console.log(mainTerms);
+    return res.status(200).json({mainTerms});
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({mainTermsError: true});
+  }
+}

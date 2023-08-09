@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 import { showPageNo } from "../../modules/room/LodgingMod";
-import ThemeComp from "./ThemeComp";
 
 const LiBlock = styled.li`
   display: inline-block;
@@ -13,11 +12,11 @@ const LiBlock = styled.li`
   text-align: center;
 
   &:hover {
-    color: ${ThemeComp.subcolor};
+    color: ${(props) => props.theme.subcolor};
     font-weight: 600;
   }
   &.checkPage {
-    color: ${ThemeComp.subcolor};
+    color: ${(props) => props.theme.subcolor};
     font-weight: 600;
   }
 `;
@@ -36,22 +35,38 @@ const PageNavComp2 = ({ totalCount, pageNo, numOfRows }) => {
     const page = e.target.value || e.target.dataset.page;
     dispatch(showPageNo(page));
   };
-  const resArray = Array.from({ length: pageNavEndNum - pageNavStartNum + 1 }, (_, index) => index + pageNavStartNum);
+  const resArray = Array.from(
+    { length: pageNavEndNum - pageNavStartNum + 1 },
+    (_, index) => index + pageNavStartNum
+  );
   return (
     <div>
       <p>
         {pageNavStartNum !== 1 && pageNavStartNum > 10 ? (
-          <LiBlock onClick={onClickPage} value={pageNavStartNum - 1} data-page={pageNavStartNum - 1}>
+          <LiBlock
+            onClick={onClickPage}
+            value={pageNavStartNum - 1}
+            data-page={pageNavStartNum - 1}
+          >
             prev
           </LiBlock>
         ) : null}
         {resArray.map((r) => (
-          <LiBlock onClick={onClickPage} key={r} value={r} className={page === r ? "checkPage" : null}>
+          <LiBlock
+            onClick={onClickPage}
+            key={r}
+            value={r}
+            className={page === r ? "checkPage" : null}
+          >
             {r}
           </LiBlock>
         ))}
         {pageNavEndNum < res ? (
-          <LiBlock onClick={onClickPage} value={pageNavEndNum + 1} data-page={pageNavEndNum + 1}>
+          <LiBlock
+            onClick={onClickPage}
+            value={pageNavEndNum + 1}
+            data-page={pageNavEndNum + 1}
+          >
             next
           </LiBlock>
         ) : null}

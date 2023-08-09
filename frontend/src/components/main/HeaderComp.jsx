@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import { useState, useEffect } from "react";
-import ThemeComp from "../common/ThemeComp";
 import HamMenuComp from "./HamMenuComp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,7 +27,7 @@ const HeaderContainer = styled.div`
   }
 
   &.change_header {
-    background: ${ThemeComp.white};
+    background: ${(props) => props.theme.white};
   }
 
   .welecome {
@@ -112,7 +111,7 @@ const NavList = styled.li`
   }
   span {
     &.click {
-      color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }
   }
@@ -125,7 +124,7 @@ const NavList = styled.li`
 
 const LoginCategory = styled.span`
   margin-left: 20px;
-  /* background: ${ThemeComp.lightblack}; */
+  /* background: ${(props) => props.theme.lightblack}; */
   padding: 5px 15px;
   border-radius: 20px;
   .logout {
@@ -134,7 +133,7 @@ const LoginCategory = styled.span`
   }
   span {
     &.click {
-      color: ${ThemeComp.subcolor};
+      color: ${(props) => props.theme.subcolor};
       font-weight: 600;
     }
   }
@@ -172,25 +171,38 @@ const HeaderComp = ({ nick, onLogout, grade, onClick }) => {
   const onHamMenu = () => {
     if (!flagHamMenu) {
       setFlagHamMenu(true);
-    }
-    else {
+    } else {
       setFlagHamMenu(false);
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
+  //기본 로고 triplogo8.png
   return (
     <>
-      <HeaderContainer className={scrollPosition < 100 ? "original_header" : "change_header"}>
+      <HeaderContainer
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+      >
         <Logo onClick={onClick}>
           <Link to="/">
             <img src="/assets/Logo.jpg" alt="img" />
           </Link>
         </Logo>
-        <FontAwesomeIcon icon={faBars} className="ham-menu" onClick={onHamMenu} />
-        <HamMenuComp flagHamMenu={flagHamMenu} onClick={onClick} onHamMenu={onHamMenu} nick={nick} onLogout={onLogout} grade={grade} />
+        <FontAwesomeIcon
+          icon={faBars}
+          className="ham-menu"
+          onClick={onHamMenu}
+        />
+        <HamMenuComp
+          flagHamMenu={flagHamMenu}
+          onClick={onClick}
+          onHamMenu={onHamMenu}
+          nick={nick}
+          onLogout={onLogout}
+          grade={grade}
+        />
         <Nav>
           <NavList onClick={onClick}>
             <Link to="/search">

@@ -56,6 +56,6 @@ ReactDOM.createRoot(rootNode).render(
           <App />
         </DndProvider>
       </ModalProvider>
-    </BrowserRouter>
+      </BrowserRouter>
   </Provider>
 );

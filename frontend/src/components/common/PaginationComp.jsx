@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ThemeComp from "./ThemeComp";
 
 const Nav = styled.nav`
   display: flex;
@@ -20,7 +19,7 @@ const Button = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background: ${ThemeComp.bgcolor};
+    background: ${(props) => props.theme.bgcolor};
     cursor: pointer;
     transform: translateY(-2px);
   }
@@ -32,7 +31,7 @@ const Button = styled.button`
   }
 
   &[aria-current] {
-    background: ${ThemeComp.subcolor};
+    background: ${(props) => props.theme.subcolor};
     font-weight: bold;
     cursor: revert;
     transform: revert;
@@ -51,7 +50,11 @@ function PaginationComp({ total, limit, page, setPage }) {
         {Array(numPages)
           .fill()
           .map((_, i) => (
-            <Button key={i + 1} onClick={() => setPage(i + 1)} aria-current={page === i + 1 ? "page" : null}>
+            <Button
+              key={i + 1}
+              onClick={() => setPage(i + 1)}
+              aria-current={page === i + 1 ? "page" : null}
+            >
               {i + 1}
             </Button>
           ))}

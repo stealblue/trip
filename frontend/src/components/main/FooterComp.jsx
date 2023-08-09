@@ -1,12 +1,31 @@
 import { styled } from "styled-components";
-import ThemeComp from "../common/ThemeComp";
-import { changePhotoFailure } from "../../modules/profile/ProfileMod";
+import Modal from "styled-react-modal";
+
+const StyledModal = Modal.styled`
+  background: white;
+  height: 50%;
+  width: 50%;
+  padding: 10px;
+
+  div{
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const DivInModal = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.theme.red};
+  margin-left: 400px;
+  background: ;
+  text-align: center;
+`;
 
 const FooterComp = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${ThemeComp.smoke};
-  border-top: 2px solid ${ThemeComp.lightblack};
+  background-color: ${(props) => props.theme.smoke};
+  border-top: 2px solid ${(props) => props.theme.lightblack};
   text-align: center;
   padding: 50px 0;
   display: flex;
@@ -19,7 +38,7 @@ const FooterComp = styled.div`
     justify-content: center;
     li {
       margin-left: 20px;
-      color: ${ThemeComp.black};
+      color: ${(props) => props.theme.black};
       cursor: pointer;
       transition: 0.3s;
     }
@@ -30,7 +49,7 @@ const FooterComp = styled.div`
   .copyright {
     margin-top: 20px;
     i {
-      color: ${ThemeComp.black};
+      color: ${(props) => props.theme.black};
       font-size: 18px;
     }
   }
@@ -43,20 +62,20 @@ const FooterComp = styled.div`
   }
 
   .info {
-    color: ${ThemeComp.black};
+    color: ${(props) => props.theme.black};
     margin-top: 20px;
     span {
-      color: ${ThemeComp.black};
+      color: ${(props) => props.theme.black};
       font-weight: 600;
     }
   }
 
   .tel {
-    color: ${ThemeComp.black};
+    color: ${(props) => props.theme.black};
     font-weight: 600;
     font-size: 24px;
     p {
-      color: ${ThemeComp.black};
+      color: ${(props) => props.theme.black};
       font-size: 20px;
       margin-top: 20px;
     }
@@ -79,7 +98,8 @@ const FooterComp = styled.div`
   }
 `;
 
-const Footer = () => {
+//기본 로고 triplogo8.png
+const Footer = ({ onGetMainTerms, modal }) => {
   return (
     <FooterComp>
       <div className="logo">
@@ -87,10 +107,24 @@ const Footer = () => {
       </div>
       <div>
         <ul className="footer-menu">
-          <li>이용약관</li>
-          <li>개인정보처리방침</li>
-          <li>이용안내</li>
+          <li onClick={() => onGetMainTerms("이용약관")}>이용약관</li>
+          <li onClick={() => onGetMainTerms("개인정보처리방침")}>
+            개인정보처리방침
+          </li>
+          <li onClick={() => onGetMainTerms("이용안내")}>이용안내</li>
         </ul>
+        <StyledModal
+          isOpen={modal} //true = 열림 / false = 닫힘
+          ariahideapp={"false"} //에러 안뜨게하기
+          onEscapeKeydown={onGetMainTerms} //esc키 눌렀을경우 함수 실행
+          onBackgroundClick={onGetMainTerms} //esc키 or 오버레이부분 클릭시 함수 실행
+        >
+          <div>
+            <div>약관안내</div>
+            <DivInModal onClick={onGetMainTerms}>X</DivInModal>
+          </div>
+          <div>내용</div>
+        </StyledModal>
 
         <div className="info">
           <span>상호</span> TripperMaker <br />
